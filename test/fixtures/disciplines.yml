@@ -1,0 +1,62 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+civ: 
+  name: civil
+  long_name: Civil Engineering
+  
+mech:
+  name: mecheng
+  long_name: Mechanical Engineering
+
+mat:
+  name: materials
+  long_name: Materials Science and Engineering
+
+pde:
+  name: pde
+  long_name: Product Design Engineering
+
+pdt:
+  name: pdt
+  long_name: Product Design Technology
+
+chem:
+  name: chem
+  long_name: Chemical and Biochemical Process Engineering
+
+med:
+  name: medical
+  long_name: Medical Engineering
+
+aero:
+  name: aerospace
+  long_name: Aerospace Engineering
+
+icct:
+  name: icct
+  long_name: Information, Communication and Computing Technology
+
+eee:
+  name: eee
+  long_name: Electronic and Electrical Engineering
+  
+telecoms:
+  name: telecoms
+  long_name: Telecommunication Engineering
+  
+ecs:
+  name: ecs
+  long_name: Electronics with Computer Science
+
+nano:
+  name: nano
+  long_name: Nanoelectronics
+
+env:
+  name: environmental
+  long_name: Environmental Engineering
+  
+sport:
+  name: sports
+  long_name: Sports Materials
+  

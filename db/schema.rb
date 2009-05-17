@@ -9,7 +9,42 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090517125459) do
+ActiveRecord::Schema.define(:version => 20090517144804) do
+
+  create_table "disciplines", :force => true do |t|
+    t.string "name"
+    t.string "long_name"
+  end
+
+  create_table "disciplines_projects", :id => false, :force => true do |t|
+    t.integer "discipline_id"
+    t.integer "project_id"
+  end
+
+  add_index "disciplines_projects", ["discipline_id"], :name => "index_disciplines_projects_on_discipline_id"
+  add_index "disciplines_projects", ["project_id"], :name => "index_disciplines_projects_on_project_id"
+
+  create_table "projects", :force => true do |t|
+    t.integer  "created_by"
+    t.string   "title"
+    t.text     "description"
+    t.text     "resources"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "carbon_critical", :default => false
+  end
+
+  create_table "roles", :force => true do |t|
+    t.string "name"
+  end
+
+  create_table "roles_users", :id => false, :force => true do |t|
+    t.integer "role_id"
+    t.integer "user_id"
+  end
+
+  add_index "roles_users", ["role_id"], :name => "index_roles_users_on_role_id"
+  add_index "roles_users", ["user_id"], :name => "index_roles_users_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "login",                     :limit => 40

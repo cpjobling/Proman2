@@ -1,0 +1,31 @@
+admin_is_admin:
+  user_id: 10 # admin
+  role_id: 1 # Admin role
+
+student_is_student:
+  user_id: 12
+  role_id: 3
+
+academic_is_staff:
+  user_id: 13
+  role_id: 2
+
+coordinator_is_staff:
+  user_id: 14
+  role_id: 2
+
+coordinator_is_coordinator:
+  user_id: 14
+  role_id: 4
+
+cpj_is_staff:
+  user_id: 15
+  role_id: 2
+
+cpj_is_admin:
+  user_id: 15
+  role_id: 1
+  
+cpj_is_coordinator:
+  user_id: 15
+  role_id: 4

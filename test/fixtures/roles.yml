@@ -1,0 +1,12 @@
+admin_role:
+  id: 1
+  name: admin
+staff_role:
+  id: 2
+  name: staff
+student_role:
+  id: 3
+  name: student
+coordinator_role:
+  id: 4
+  name: coordinator

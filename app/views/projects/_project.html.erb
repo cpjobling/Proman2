@@ -1,0 +1,22 @@
+<p><label for="project_carbon_critical">Carbon critical:</label>
+  <%= f.check_box :carbon_critical %>
+     	
+     	   <p><label for="project_title">Title:</label>
+    <%= f.text_field :title %></p>
+  
+   <p><label for="project_description">Description:</label><br />
+  <%= f.text_area  :description %></p>
+  
+     <p><label for="project_resources">Resources:</label><br />
+  <%= f.text_area  :resources %></p>
+  
+
+  
+  <p>Suitable for:<br />
+    <select id='discipline_ids' name="discipline_ids[]" multiple="multiple">
+        <%= options_for_select(disciplines.sort, 
+           project.disciplines.collect {|d| d.id }) %>
+      </select>
+  </p>
+  
+

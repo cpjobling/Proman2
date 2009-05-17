@@ -1,4 +1,4 @@
-
+# For authenticated tests....
 quentin:
   id:                        1
   login:                     quentin
@@ -28,4 +28,58 @@ old_password_holder:
   crypted_password:          00742970dc9e6319f8019fd54864d3ea740f04b1 # test
   created_at:                <%= 1.days.ago.to_s :db %>
 
+# Real users for everything else
+# An admin, student, coordinator and real member of staff
 
+admin:
+    id: 10
+    login: admin
+    email: EEE.Webmaster@Swansea.ac.uk
+    salt:                      356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
+    crypted_password:          63d8fefa835d181f7c2705227e0452045141b380 # 'monkey'
+    # activation_code: adminscode # only if you're activating new signups
+    created_at: <%= 1.days.ago.to_s :db %>
+  
+       
+# A dummy student
+student:
+    id: 12
+    login: 111111
+    email: 111111@Swansea.ac.uk
+    salt:                      356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
+    crypted_password:          63d8fefa835d181f7c2705227e0452045141b380 # 'monkey'
+    created_at: <%= 5.days.ago.to_s :db %>
+          
+# A dummy staff member
+academic:
+    id: 13
+    login: A.N.Academic
+    salt:                      356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
+    crypted_password:          63d8fefa835d181f7c2705227e0452045141b380 # 'monkey'
+    email: A.N.Academic@Swansea.ac.uk
+    created_at: <%= 5.days.ago.to_s :db %>
+
+# A dummy coordinator
+coordinator:
+    id: 14
+    login: A.Coordinator
+    salt:                      356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
+    crypted_password:          63d8fefa835d181f7c2705227e0452045141b380 # 'monkey'
+    email: A.Coordinator@Swansea.ac.uk
+    created_at: <%= 5.days.ago.to_s :db %>    
+
+# A real staff member (Dr Jobling is Module Coordinator)!
+# Obviously this is not the password that is in production!
+cpj:
+    id: 15
+    login: C.P.Jobling
+    email: C.P.Jobling@swansea.ac.uk
+    salt:                      356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
+    crypted_password:          63d8fefa835d181f7c2705227e0452045141b380 # 'monkey'
+    created_at: <%= 100.days.ago.to_s :db %>
+    
+new_user:
+    login: nobody
+    email: nobody@nowhere.com 
+    salt:                      356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
+    crypted_password:          63d8fefa835d181f7c2705227e0452045141b380 # 'monkey'
