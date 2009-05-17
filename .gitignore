@@ -1,0 +1,12 @@
+.svn
+.svn/**/*
+log/*.log
+tmp/**/*
+db/*.sqlite3
+*.*~
+*~
+.project
+.loadpath
+nbproject
+
+
