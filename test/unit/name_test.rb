@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-require File.dirname(__FILE__) + '/../../app/models/name'
+require File.dirname(__FILE__) + '/../../app/models/user'
 
 class NameTest < Test::Unit::TestCase
 

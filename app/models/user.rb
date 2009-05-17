@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   has_many :roles
 
   composed_of :name,
-    :class_name => Name,
+    :class_name => "Name",
     :mapping => [
       # database  ruby
       %w[ title title ],
@@ -90,3 +90,5 @@ class User < ActiveRecord::Base
 
 
 end
+
+
