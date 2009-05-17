@@ -25,6 +25,7 @@ class ProjectsController < ApplicationController
   # GET /projects/new.xml
   def new
     @project = Project.new
+    @disciplines = collect_disciplines
 
     respond_to do |format|
       format.html # new.html.erb
@@ -82,4 +83,11 @@ class ProjectsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  private
+  
+    def collect_disciplines   
+      @disciplines = {}
+      Discipline.find(:all).collect {|r| @disciplines[r.long_name] = r.id }
+    end
 end

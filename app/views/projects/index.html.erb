@@ -1,16 +1,27 @@
 <h1>Listing projects</h1>
 
 <table>
-  <tr>
-  </tr>
+  <thead><td>Number</td><td>Title</td><td>Supervisor</td><td>Email</td><td colspan="2">Action</td></thead>
+  <tbody>
 
-<% @projects.each do |project| %>
-  <tr>
-    <td><%= link_to 'Show', project %></td>
-    <td><%= link_to 'Edit', edit_project_path(project) %></td>
-    <td><%= link_to 'Destroy', project, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
+  <% @projects.each do |project| %>
+    <% creator = User.find(project.created_by) %>
+    <tr>
+      <td>
+        <%= project.id -%>
+      </td>
+      <td>
+        <%= link_to project.title, project %>
+      </td>
+      <td><%= creator.login %>
+      </td>
+      <td><a href="mailto:<%= creator.email %>">
+        <%= creator.email -%></a>
+      </td>
+      <td><%= link_to 'Edit', edit_project_path(project) %></td>
+      <td><%= link_to 'Destroy', project, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
 </table>
 
 <br />

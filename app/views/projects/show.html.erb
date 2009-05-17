@@ -1,3 +1,29 @@
+<h1><%= @project.title %></h1>
 
+<% supervisor = User.find(@project.created_by) %>
+<p><strong>Supervisor</strong>:
+  <%= supervisor.title %>
+  <%= supervisor.first_name %>
+  <%= supervisor.last_name %>
+  (<a href="mailto:<%= supervisor.email %>"><%= supervisor.email %></a>)
+</p>
+<p>
+  <strong>Research Centre</strong>: placeholder
+</p>
+
+<p><strong>Description</strong>: <%= @project.description %></p>
+
+<p><strong>Resources</strong>: <%= @project.resources %></p>
+
+<% if @project.carbon_critical %>
+  <p>This project may be suitable for the Atkins Carbon Critical award.</p>
+<% end %>
+<p><strong>Suitable for</strong>:
+  <ul>
+    <% @project.disciplines.each do |d| %>
+      <li><%= d.long_name %></li>
+    <% end %>
+  </ul>
+</p>
 <%= link_to 'Edit', edit_project_path(@project) %> |
 <%= link_to 'Back', projects_path %>

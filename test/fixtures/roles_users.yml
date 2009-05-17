@@ -1,6 +1,6 @@
 admin_is_admin:
   user_id: 10 # admin
-  role_id: 1 # Admin role
+  role_id: 1 # admin role
 
 student_is_student:
   user_id: 12
