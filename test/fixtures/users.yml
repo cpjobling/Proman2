@@ -47,7 +47,7 @@ old_password_holder:
 admin:
     id: 10
     login: admin
-    email: EEE.Webmaster@Swansea.ac.uk
+    email: eee.webmaster@swansea.ac.uk
     salt:                      356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
     crypted_password:          63d8fefa835d181f7c2705227e0452045141b380 # 'monkey'
     # activation_code: adminscode # only if you're activating new signups
@@ -62,7 +62,7 @@ admin:
 student:
     id: 12
     login: 111111
-    email: 111111@Swansea.ac.uk
+    email: 111111@swansea.ac.uk
     salt:                      356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
     crypted_password:          63d8fefa835d181f7c2705227e0452045141b380 # 'monkey'
     created_at: <%= 5.days.ago.to_s :db %>
@@ -75,10 +75,10 @@ student:
 # A dummy staff member
 academic:
     id: 13
-    login: A.N.Academic
+    login: a.n.academic
     salt:                      356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
     crypted_password:          63d8fefa835d181f7c2705227e0452045141b380 # 'monkey'
-    email: A.N.Academic@Swansea.ac.uk
+    email: a.n.academic@swansea.ac.uk
     created_at: <%= 5.days.ago.to_s :db %>
     title: Dr
     first_name: Atomic
@@ -91,10 +91,10 @@ academic:
 # A dummy coordinator
 coordinator:
     id: 14
-    login: A.Coordinator
+    login: a.coordinator
     salt:                      356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
     crypted_password:          63d8fefa835d181f7c2705227e0452045141b380 # 'monkey'
-    email: A.Coordinator@Swansea.ac.uk
+    email: a.coordinator@swansea.ac.uk
     created_at: <%= 5.days.ago.to_s :db %>
     title: Prof
     first_name: C.
@@ -107,8 +107,8 @@ coordinator:
 # Obviously this is not the password that is in production!
 cpj:
     id: 15
-    login: C.P.Jobling
-    email: C.P.Jobling@swansea.ac.uk
+    login: c.p.jobling
+    email: c.p.jobling@swansea.ac.uk
     salt:                      356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
     crypted_password:          63d8fefa835d181f7c2705227e0452045141b380 # 'monkey'
     created_at: <%= 100.days.ago.to_s :db %>

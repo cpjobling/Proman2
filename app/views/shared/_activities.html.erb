@@ -1,4 +1,18 @@
-<h2>Activities</h2>
+<h2>Messages</h2>
+<p class="notice"><%= flash[:login_message] %></p>
+<% if logged_in? %>
+  <p><strong>You are logged in as <%=h current_user.login %></strong></p>
+  <p><%= link_to 'Logout', logout_path %></p>
+<% else %>
+  <p><strong>You are currently not logged in.</strong></p>
+  <p>
+    <%= link_to 'Login', login_path %> or
+    <%= link_to 'Register', signup_path %>
+  </p>
+<% end %>
+<h3>News headlines</h3>
+<h3>System Status</h3>
+<p>Collecting project descriptions from staff.</p>
 <ul>
-	<li><%= link_to 'Projects', projects_path %></li>
+  <li><%= link_to 'View projects', projects_path %></li>
 </ul>

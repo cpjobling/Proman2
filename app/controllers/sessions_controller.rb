@@ -19,6 +19,7 @@ class SessionsController < ApplicationController
       redirect_back_or_default('/')
       flash[:notice] = "Logged in successfully"
     else
+      flash[:notice] = "Login or password not recognized. Your login attempt has been logged."
       note_failed_signin
       @login       = params[:login]
       @remember_me = params[:remember_me]
