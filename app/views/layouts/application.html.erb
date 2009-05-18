@@ -19,7 +19,7 @@
 
 <div id="header">
 	<h1><span class="logo">Proman<sup>&beta;</sup></span> </h1>
-	<h2><%= @title %></h2>
+	<h2></h2>
     <%= render :partial => "shared/tabs" %>
 	<%= render :partial => "shared/navigation" %>
 </div>
@@ -28,6 +28,7 @@
 		<div class="colleft">
 			<div class="col1">
 				<!-- Column 1 start -->
+                <h1><%=h @title %></h1>
                 <p style="color: green"><%= flash[:notice] %></p>
 				<%= yield :layout %>
 				<!-- Column 1 end -->
