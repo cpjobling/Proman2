@@ -1,0 +1,38 @@
+#project_title {
+   width: 60%
+}
+
+#project_description {
+    vertical-align: top;
+    width: 92%;
+    padding: 2px;
+    margin: 1em;
+    height: 60ex;
+}
+
+#project_resources {
+    width: 96%;
+    padding: 2px;
+    margin: 1em;
+    height: 10ex;
+}
+.multiple_select {
+  vertical-align: top;
+  width: 92%;
+  border: 1px solid #aaa;
+  padding: 2px;
+  margin: 1em;
+  overflow: auto;
+}
+
+.multiple_select, .multiple_select ul {
+  list-style-type: none;
+}
+
+.multiple_select_checkbox {
+  background: #fff;
+}
+
+.alt {
+  background: #eef;
+}
