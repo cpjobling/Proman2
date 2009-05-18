@@ -4,9 +4,11 @@ module ProjectsHelper
   # as value.
   def collect_disciplines
     disciplines = {}
-    Discipline.find(:all, :order => "long_name").collect do |r|
+    Discipline.find(:all).collect do |r|
       disciplines[r.long_name] = r.id
     end
+    puts disciplines.class
+    puts disciplines.to_yaml
     return disciplines
   end
 

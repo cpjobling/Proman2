@@ -25,8 +25,7 @@ class ProjectsController < ApplicationController
   # GET /projects/new.xml
   def new
     @project = Project.new
-    @disciplines = collect_disciplines
-
+    @project.discipline_ids = []
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @project }
@@ -42,6 +41,7 @@ class ProjectsController < ApplicationController
   # POST /projects.xml
   def create
     @project = Project.new(params[:project])
+    @project.discipline_ids = params[:project[discipline_ids]]
 
     respond_to do |format|
       if @project.save
@@ -83,9 +83,5 @@ class ProjectsController < ApplicationController
       format.xml  { head :ok }
     end
   end
-  
-  def collect_disciplines
-    @disciplines = {}
-    Discipline.find(:all).collect {|r| @disciplines[r.long_name] = r.id }
-  end
+
 end
