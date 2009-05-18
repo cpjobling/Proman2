@@ -3,7 +3,7 @@ require 'test_helper'
 include ProjectsHelper
 
 class ProjectsControllerHelpersTest < ActionController::TestCase
-  # Test ProjectsController helspers
+  # Test ProjectsController helpers
 
   test "collect_disciplines works properly" do
     disciplines = Discipline.find(:all)

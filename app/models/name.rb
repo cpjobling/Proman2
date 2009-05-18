@@ -23,4 +23,9 @@ class Name
     end
     return @known_as
   end
+
+  # Apparently needed to satisfy assert_difference when testing composed objects?
+  def size
+    return 1
+  end
 end
