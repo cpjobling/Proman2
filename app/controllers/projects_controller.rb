@@ -84,10 +84,8 @@ class ProjectsController < ApplicationController
     end
   end
   
-  private
-  
-    def collect_disciplines   
-      @disciplines = {}
-      Discipline.find(:all).collect {|r| @disciplines[r.long_name] = r.id }
-    end
+  def collect_disciplines
+    @disciplines = {}
+    Discipline.find(:all).collect {|r| @disciplines[r.long_name] = r.id }
+  end
 end

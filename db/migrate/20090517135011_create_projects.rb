@@ -5,7 +5,6 @@ class CreateProjects < ActiveRecord::Migration
       t.string :title
       t.text :description
       t.text :resources
-
       t.timestamps
     end
   end

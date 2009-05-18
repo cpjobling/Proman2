@@ -1,0 +1,9 @@
+<%#
+# List the disciplines for a project.
+%>
+
+<ul>
+  <% project.disciplines.each do |d| %>
+    <li><%= d.long_name %></li>
+  <% end %>
+</ul>

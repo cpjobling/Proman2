@@ -51,8 +51,6 @@ ActiveRecord::Schema.define(:version => 20090517180128) do
     t.string   "email",                     :limit => 100
     t.string   "crypted_password",          :limit => 40
     t.string   "salt",                      :limit => 40
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.string   "remember_token",            :limit => 40
     t.datetime "remember_token_expires_at"
     t.string   "title",                     :limit => 10,  :default => ""
@@ -60,6 +58,8 @@ ActiveRecord::Schema.define(:version => 20090517180128) do
     t.string   "initials",                  :limit => 10,  :default => ""
     t.string   "last_name",                 :limit => 100, :default => ""
     t.string   "known_as",                  :limit => 25,  :default => ""
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "users", ["login"], :name => "index_users_on_login", :unique => true
