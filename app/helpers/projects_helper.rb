@@ -7,8 +7,6 @@ module ProjectsHelper
     Discipline.find(:all).collect do |r|
       disciplines[r.long_name] = r.id
     end
-    puts disciplines.class
-    puts disciplines.to_yaml
     return disciplines
   end
 
