@@ -41,8 +41,6 @@ class ProjectsController < ApplicationController
   # POST /projects.xml
   def create
     @project = Project.new(params[:project])
-    # TODO: fix this next. See http://railsforum.com/viewtopic.php?id=871&p=1 for discussion.
-    #@project.disciplines = params[:project[:discipline_ids]]
 
     respond_to do |format|
       if @project.save

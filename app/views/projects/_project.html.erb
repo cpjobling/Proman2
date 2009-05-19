@@ -16,7 +16,7 @@
           Suitable for:<br />
           <%= collection_multiple_select('project', 'discipline_ids',
                 Discipline.find(:all, :order => "long_name"),
-                :name, :long_name,
+                :id, :long_name,
                 :outer_class => "multiple_select", :inner_class => "multiple_select_checkbox", :alternate => true ) %>
         </td>
       </tr>
