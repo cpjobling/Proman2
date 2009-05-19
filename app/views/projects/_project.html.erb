@@ -1,50 +1,38 @@
 
-<p><label for="project_title">Title:</label>
+  <p><label for="project_title">Title:</label>
   <%= f.text_field :title, :size => 80, :class => "project_title"%>
   <label for="project_carbon_critical">Carbon critical:</label>
   <%= f.check_box :carbon_critical %></p>
 
-<fieldset title="Description of this project">
-  <legend>Project description</legend>
-  <table border="0" summary="Table used to layout form.">
-    <tr>
-      <td>
-        <label for="project_description">Description:</label><br />
-        <%= f.text_area  :description, :rows => 25, :cols => 60 %>
-      </td>
-      <td valign="top">
-        Suitable for:<br />
-        <ul class="multiple_select">
-          <% disciplines = Discipline.all %>
-          <% disciplines.each do |discipline| %>
-            <li class="multiple_select_checkbox">
-
-              <input id="project_discipline_id_<%=  discipline.id %>"
-                     name="project[discipline_names][]"
-                     type="checkbox" value="<%=  discipline.name %>"
-                     <% if @project.suitable_for?(discipline.name) -%>
-                       checked="checked"
-                     <% end %>
-                     >
-              <label for="project_discipline_id_<%=  discipline.name %>"><%= discipline.long_name %></label>
-            </li>
-          <% end %>
-        </ul>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">
-        <label for="project_resources">Resources required:</label><br />
-        <%= f.text_area  :resources, :rows => 5, :cols => 80 %>
-      </td>
-    </tr>
-  </table>
+  <fieldset title="Description of this project">
+    <legend>Project description</legend>
+    <table border="0" summary="Table used to layout form.">
+      <tr>
+        <td>
+          <label for="project_description">Description:</label><br />
+          <%= f.text_area  :description, :rows => 25, :cols => 60 %>
+        </td>
+        <td valign="top">
+          Suitable for:<br />
+          <%= collection_multiple_select('project', 'discipline_ids',
+                Discipline.find(:all, :order => "long_name"),
+                :name, :long_name,
+                :outer_class => "multiple_select", :inner_class => "multiple_select_checkbox", :alternate => true ) %>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <label for="project_resources">Resources required:</label><br />
+          <%= f.text_area  :resources, :rows => 5, :cols => 80 %>
+        </td>
+      </tr>
+    </table>
 
 
 
 
 
-</fieldset>
+  </fieldset>
 </p>
 
 

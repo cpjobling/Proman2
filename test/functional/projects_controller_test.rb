@@ -18,7 +18,6 @@ class ProjectsControllerTest < ActionController::TestCase
     assert_difference('Project.count') do
       post :create, :project => { :title=> "test", :description=>"test", :created_by=>users(:admin).id }
     end
-    puts project.errors.full_messages
 
     assert_redirected_to project_path(assigns(:project))
   end
