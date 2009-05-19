@@ -5,12 +5,15 @@ class Project < ActiveRecord::Base
   validates_uniqueness_of :title
   validates_presence_of :description
   validates_presence_of :created_by
+  # TODO: validator should check that at least one discipline has been specified
 	  
    # Helper methods
   
    # Test that project is suitable for a discipline
    def suitable_for?(discipline)
-     return self.disciplines.find_by_name(discipline)
+     name = name_discipline(discipline)
+     count = self.disciplines.count(:conditions => ['name = ?', name])
+     return count > 0
    end
   
    # Convenience method to test if a project is suitable for all disciplines
@@ -33,8 +36,10 @@ class Project < ActiveRecord::Base
   
   # Convenience method to add make a project suitable for a named discipline
   def suitable_for(discipline)
-  	if ! self.suitable_for?(discipline)
-  		if the_discipline = Discipline.find_by_name(discipline)
+    discipline_by_name = name_discipline(discipline)
+    return unless discipline_by_name
+  	unless  self.suitable_for?(discipline_by_name)
+  		if the_discipline = Discipline.find_by_name(discipline_by_name)
   		  self.disciplines << the_discipline
   		end
   	end
@@ -50,5 +55,14 @@ class Project < ActiveRecord::Base
   # disciplines in an update method
   def suitable_for_none
   	self.disciplines.delete_all
+  end
+
+  private
+
+  def name_discipline(discipline)
+     return discipline.name if discipline.class == Discipline
+     return Discipline.find(discipline).name if discipline.class == Fixnum
+     return discipline if discipline.class == String
+     return ""
   end
 end

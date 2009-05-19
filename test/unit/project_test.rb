@@ -61,10 +61,49 @@ class ProjectTest < ActiveSupport::TestCase
   	end
   end
 
-  def test_project_assigned_to_discipline
+  test "we can add a discipline by name" do
+    discipline = @icct
+    assert ! @project.suitable_for?(@icct.name), "Before: should be not suitable for @icct.name"
+    @project.suitable_for(discipline.name)
+    assert @project.suitable_for?(@icct.name), "After should now be suitable for @icct.name"
+  end
+
+  test "we can add a discipline by id" do
+    discipline = @icct
+    assert ! @project.suitable_for?(@icct.id), "Before: should be not suitable for @icct.id"
+    @project.suitable_for(discipline.id)
+    assert @project.suitable_for?(@icct.id), "After should now be suitable for @icct.id"
+  end
+
+  test "we can add a discipline by object" do
+    discipline = @icct
+    assert ! @project.suitable_for?(@icct), "Before: should be not suitable for @icct"
+    @project.suitable_for(discipline)
+    assert @project.suitable_for?(@icct), "After should now be suitable for @icct"
+  end
+
+  test "test that we can recognize a discipline by name" do
   	discipline = @icct
   	@project.disciplines << discipline
   	assert @project.suitable_for?(discipline.name)
+  end
+
+  test "test that we can recognize a discipline by object" do
+    discipline = @icct
+    @project.disciplines << discipline
+    assert @project.suitable_for?(discipline)
+  end
+
+  test "test that we can recognize a discipline by object id" do
+    discipline = @icct
+    @project.disciplines << discipline
+    assert @project.suitable_for?(discipline.id)
+  end
+
+  test "test that we can't recognize a discipline by arbitrary type" do
+    discipline = @icct
+    @project.disciplines << discipline
+    assert ! @project.suitable_for?(users(:admin))
   end
 
   def test_project_suitable_for_all
