@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class ProjectsControllerTest < ActionController::TestCase
+  fixtures :users, :projects, :disciplines
+
   test "should get index" do
     get :index
     assert_response :success
@@ -14,8 +16,9 @@ class ProjectsControllerTest < ActionController::TestCase
 
   test "should create project" do
     assert_difference('Project.count') do
-      post :create, :project => { }
+      post :create, :project => { :title=> "test", :description=>"test", :created_by=>users(:admin).id }
     end
+    puts project.errors.full_messages
 
     assert_redirected_to project_path(assigns(:project))
   end

@@ -14,6 +14,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1.xml
   def show
     @project = Project.find(params[:id])
+    #@disciplines = Project.disciplines.build
 
     respond_to do |format|
       format.html # show.html.erb
@@ -26,6 +27,7 @@ class ProjectsController < ApplicationController
   def new
     @project = Project.new
     @project.disciplines = []
+
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @project }
@@ -40,8 +42,8 @@ class ProjectsController < ApplicationController
   # POST /projects
   # POST /projects.xml
   def create
-    @project = Project.new(params[:project])
-    @project.disciplines = params[:project[:discipline_ids]]
+    @project = Project.new(params[:id])
+    #assiqn_disciplines(params[:project][:discipline_names])
 
     respond_to do |format|
       if @project.save
@@ -59,6 +61,7 @@ class ProjectsController < ApplicationController
   # PUT /projects/1.xml
   def update
     @project = Project.find(params[:id])
+    assiqn_disciplines(params[:project][:discipline_names])
 
     respond_to do |format|
       if @project.update_attributes(params[:project])
@@ -84,4 +87,13 @@ class ProjectsController < ApplicationController
     end
   end
 
+  private
+
+    def assiqn_disciplines(suitable_disciplines)
+      suitable_disciplines ||= []
+      @project.disciplines.clear
+      suitable_disciplines.each do |d|
+        @project.suitable_for(d)
+      end
+    end
 end
