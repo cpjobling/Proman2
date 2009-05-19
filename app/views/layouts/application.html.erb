@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-GB">
 <head>
-	<title>Proman(beta) &ndash; <%= yield (:title) || "EG-353 Project Management Evolved" %></title>
+	<title>Proman(beta) &ndash; <%= yield(:title) || "EG-353 Project Management Evolved" %></title>
 	<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
 	<meta name="description" content="Management tool for University Undergraduate Dissertation Projects, Developed in the School of Engineering, Swansea University." />
 	<meta name="keywords" content="Swansea, University, EG-353, Projects, School of Engineering, Open Source, Ruby on Rails" />
@@ -51,7 +51,7 @@
 </div>
 <div id="footer">
     <p>
-    <em><%= yield (:slogan) || "Managing EG-353 Research Projects since 2009!"  %></em>
+    <em><%= yield(:slogan) || "Managing EG-353 Research Projects since 2009!"  %></em>
     </p>
     <%= render(:partial => "shared/footer") %>
 

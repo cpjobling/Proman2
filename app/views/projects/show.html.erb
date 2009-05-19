@@ -1,4 +1,4 @@
-<h1><%= @project.title %></h1>
+<% title @project.title %>
 
 <% supervisor = User.find(@project.created_by) %>
 <p><strong>Supervisor</strong>:
@@ -20,5 +20,6 @@
 <p><strong>Suitable for</strong>:</p>
 <%= render( :partial => "shared/list_disciplines", :object => @project) %>
 
+<%# TODO edit link should only be available to owner %>
 <%= link_to 'Edit', edit_project_path(@project) %> |
 <%= link_to 'Back', projects_path %>

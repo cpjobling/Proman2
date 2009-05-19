@@ -1,7 +1,26 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :projects
 
-  map.resources :projects
+ 
+
+  map.connect 'projects/by_supervisor',
+    :conditions => { :method => :get },
+    :controller => "projects",
+    :action => "by_supervisor"
+
+  map.connect 'projects/by_discipline',
+    :conditions => { :method => :get },
+    :controller => "projects",
+    :action => "by_discipline"
+
+  map.connect 'projects/by_centre',
+    :conditions => { :method => :get },
+    :controller => "projects",
+    :action => "by_centre"
+
+  map.connect 'my_projects',
+    :conditions => { :method => :get },
+    :controller => "projects",
+    :action => "my_projects"
 
   map.resources :projects
 

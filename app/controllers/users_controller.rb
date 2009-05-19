@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
   
-
+  skip_before_filter :login_required, :only => ["new", "create"]
+  # TODO: handle other methods?
+  # 
   # render new.rhtml
   def new
     @user = User.new

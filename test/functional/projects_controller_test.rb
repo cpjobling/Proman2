@@ -1,7 +1,12 @@
-require 'test_helper'
+
+# require 'test_helper'
 
 class ProjectsControllerTest < ActionController::TestCase
   fixtures :users, :projects, :disciplines
+
+  def setup
+    login_as users(:admin)
+  end
 
   test "should get index" do
     get :index

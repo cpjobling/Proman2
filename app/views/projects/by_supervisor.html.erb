@@ -1,0 +1,35 @@
+<% title "Projects by Supervisor" %>
+<p><%= render(:partial => "navigation") %></p>
+
+<%
+ curr_staff = '';
+%>
+<p>
+<% if @projects.blank? %>
+    <p>no projects to display</p>
+<%else%>
+  <ul id="projects">
+    <% @projects.each do |is| %>
+        <%
+          if curr_staff == ''
+            curr_staff = is.last_name
+        %>
+      <p><u><%= 'Projects by ' + is.last_name %><br></u></p>
+        <%
+          else
+            if curr_staff != is.last_name
+        %>
+        <p><u><%= 'Projects by ' + is.last_name %><br></u></p>
+        <%
+              curr_staff = is.last_name
+            end
+          end
+        %>
+      <li>
+
+        <%= link_to is.title,
+          {:action => 'show', :id => is.id} -%>
+      </li>
+      <%end%>
+  </ul>
+<%end%>

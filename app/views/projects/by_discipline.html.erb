@@ -1,0 +1,43 @@
+<% title "Projects by Discipline" %>
+<p><%= render(:partial => "navigation") %></p>
+
+<p> <%= link_to "View all", {:action => 'index'} %> | <%= link_to "View by discipline", {:action => 'by_supervisor'} %></p>
+<%
+ curr_disc = '';
+%>
+<p>
+<% if @disciplines_projects.blank? %>
+    <p>No projects to display</p>
+<%else%>
+  <ul id="projects">
+    <% @disciplines_projects.each do |is| %>
+ <%
+          if curr_disc == ''
+            curr_disc = Discipline.find(is.discipline_id).name
+        %>
+      <p><u><%= 'Projects suitable for ' + Discipline.find(is.discipline_id).name %><br></u></p>
+      <%
+          else
+            if curr_disc != Discipline.find(is.discipline_id).name
+        %>
+    <p><u><%= 'Projects suitable for ' + Discipline.find(is.discipline_id).name %><br></u></p>
+    <%
+              curr_disc = Discipline.find(is.discipline_id).name
+            end
+          end
+        %>
+      <li>
+  <%= link_to  Project.find(is.project_id).title, project_url( :id => is.project_id) -%>
+      <%end%>
+  </ul>
+<%end%>
+
+<p>To view projects sorted by supervisor that created them <%= link_to "Click Here", {:action => 'by_supervisor'} %></p>
+<p><%= link_to 'Back', {:action => 'index'} %></p>
+
+
+
+
+
+
+
