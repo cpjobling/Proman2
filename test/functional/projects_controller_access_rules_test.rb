@@ -99,8 +99,8 @@ class ProjectsControllerAccessRulesTest < ActionController::TestCase
   	login_as :academic
     assert_difference('Project.count') do
       post :create, :project => {:title => "A test project",
-      :description => "A dummy project",
-      :created_by => users(:academic).id}
+        :description => "A dummy project",
+        :created_by => users(:academic).id}
     end
 
     assert_redirected_to project_path(assigns(:project))
@@ -127,15 +127,110 @@ class ProjectsControllerAccessRulesTest < ActionController::TestCase
     assert_redirected_to projects_path
   end
 
-  test "staff can only destroy own project" do
-    assert true # TODO write this test
+  test "staff can destroy own project" do
+    login_as :academic
+    assert_difference('Project.count', -1) do
+      delete :destroy, :id => projects(:project1).id
+    end
   end
 
-  test "staff can only update own project" do
-    assert true # TODO write this test
+  test "staff can update own project" do
+    login_as :academic
+    put :update, :id => projects(:project1).id, :project => { :title => "Project x",
+      :description => "Blah, blah, blah"}
+    assert_response :redirect
   end
 
-  test "staff can only edit own project" do
-    assert true # TODO write this test
+  test "staff can edit own project" do
+    login_as :academic
+    get :edit, :id => projects(:project1).id
+    assert_response :success
+  end
+
+  test "staff cannot destroy someone else's project" do
+    login_as :new_user
+    users(:new_user).add_role(roles(:staff_role))
+    delete :destroy, :id => projects(:project1).id
+    assert_response :unauthorized
+    # TODO: make this test pass
+  end
+
+  test "staff cannot update someone else's project" do
+    login_as :new_user
+    users(:new_user).add_role(roles(:staff_role))
+    put :update, :id => projects(:project1).id, :project => { :title => "Project x",
+      :description => "Blah, blah, blah"}
+    assert_response :unauthorized
+    # TODO: make this test pass
+  end
+
+  test "staff cannot edit someone else's project" do
+    login_as :new_user
+    users(:new_user).add_role(roles(:staff_role))
+    get :edit, :id => projects(:project1).id
+    assert_response :unauthorized
+    # TODO: make this test pass
+  end
+
+  # Admin users
+  test "admin user can destroy any project" do
+    login_as :admin
+    the_projects = Project.all
+    the_projects.each do |p|
+      assert_difference('Project.count', -1) do
+        delete :destroy, :id => p.id
+      end
+    end
+  end
+
+  test "admin user can update any project" do
+    login_as :admin
+    the_projects = Project.all
+    the_projects.each do |p|
+      put :update, :id => p.id, :project => { :title => "Project #{p.id}",
+        :description => "Blah, blah, blah"}
+      assert_response :redirect
+    end
+      
+  end
+
+  test "admin user can edit any project" do
+    login_as :admin
+    the_projects = Project.all
+    the_projects.each do |p|
+      get :edit, :id => p.id
+      assert_response :success
+    end
+  end
+
+  # Coordinator users
+  test "coordinatot user can destroy any project" do
+    login_as :coordinator
+    the_projects = Project.all
+    the_projects.each do |p|
+      assert_difference('Project.count', -1) do
+        delete :destroy, :id => p.id
+      end
+    end
+  end
+
+  test "coordinator user can update any project" do
+    login_as :coordinator
+    the_projects = Project.all
+    the_projects.each do |p|
+      put :update, :id => p.id, :project => { :title => "Project #{p.id}",
+        :description => "Blah, blah, blah"}
+      assert_response :redirect
+    end
+
+  end
+
+  test "coordinator user can edit any project" do
+    login_as :coordinator
+    the_projects = Project.all
+    the_projects.each do |p|
+      get :edit, :id => p.id
+      assert_response :success
+    end
   end
 end

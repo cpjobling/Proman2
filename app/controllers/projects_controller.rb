@@ -1,8 +1,9 @@
 class ProjectsController < ApplicationController
 
+
   skip_before_filter :login_required, :only => ["index","by_discipline","by_centre","by_supervisor"]
   require_role ["admin", "coordinator", "staff"], :for => ["new", "create", "edit", "update", "destroy"]
-  before_filter :can_edit, :only => ["create", "edit", "update", "destroy"]
+
 
   # GET /projects
   # GET /projects.xml
@@ -161,20 +162,6 @@ class ProjectsController < ApplicationController
 
   def by_centre
     @projects = Project.find(:all)
-  end
-
-  protected
-  
-  def can_edit
-    # TODO write and test this method!
-    # current user can edit this resource if:
-    #   * he/she has the admin role, or
-    #   * he/she has the coordinator role, or
-    #   * he/she created the resource
-    unless true
-      flash[:error] = 'You are not authorized to alter this project'
-      redirect_to back_or_default('/')
-    end
   end
     
   private
