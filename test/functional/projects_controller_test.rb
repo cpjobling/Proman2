@@ -46,7 +46,6 @@ class ProjectsControllerTest < ActionController::TestCase
     assert_difference('Project.count', -1) do
       delete :destroy, :id => projects(:project1).to_param
     end
-    assert_equal flash[:notice], "Project was successfully destroyed."
     assert_redirected_to projects_url
   end
 end
