@@ -1,5 +1,5 @@
 
-# require 'test_helper'
+require 'test_helper'
 
 class ProjectsControllerTest < ActionController::TestCase
   fixtures :users, :projects, :disciplines
@@ -46,7 +46,7 @@ class ProjectsControllerTest < ActionController::TestCase
     assert_difference('Project.count', -1) do
       delete :destroy, :id => projects(:project1).to_param
     end
-
-    assert_redirected_to projects_path
+    assert_equal flash[:notice], "Project was successfully destroyed."
+    assert_redirected_to projects_url
   end
 end
