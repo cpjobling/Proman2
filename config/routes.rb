@@ -32,6 +32,17 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users
 
   map.resource :session
+  
+  map.admin 'admin', :conditions => { :method => :get }, :controller => 'admin', :action => 'index'
+  
+  map.with_options :controller => "admin/bulk_uploader" do |abu|
+  	abu.import_staff 'admin/bulk_uploader/import_staff', 
+  			:conditions => { :method => :get }, :action => 'import_staff'
+  	abu.csv_import_staff 'admin/bulk_uploader/csv_import_staff', 
+  			:conditions => { :method => :post }, :action => "csv_import_staff"
+  end
+     
+  
 
   # The priority is based upon order of creation: first created -> highest priority.
 

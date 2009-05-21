@@ -19,13 +19,13 @@ coordinator_is_coordinator:
   role_id: 4
 
 cpj_is_staff:
-  user_id: 39934
+  user_id: 39934000000
   role_id: 2
 
 cpj_is_admin:
-  user_id: 39934
+  user_id: 39934000000
   role_id: 1
   
 cpj_is_coordinator:
-  user_id: 39934
+  user_id: 39934000000
   role_id: 4

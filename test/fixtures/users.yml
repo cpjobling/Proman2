@@ -106,7 +106,7 @@ coordinator:
 # A real staff member (Dr Jobling is Module Coordinator)!
 # Obviously this is not the password that is in production!
 cpj:
-    id: 39934
+    id: 39934000000
     login: c.p.jobling
     email: c.p.jobling@swansea.ac.uk
     salt:                      356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
