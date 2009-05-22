@@ -9,11 +9,11 @@ class CreateUsers < ActiveRecord::Migration
       t.datetime :remember_token_expires_at
 
       # Name value object poulates these fields
-      t.string :title,                     :limit => 10,  :default => '', :null => true
-      t.string :first_name,                :limit => 100, :default => '', :null => true
-      t.string :initials,                  :limit => 10,  :default => '', :null => true
-      t.string :last_name,                 :limit => 100, :default => '', :null => true
-      t.string :known_as,                  :limit => 25,  :default => '', :null => true
+      t.string :title,                     :limit => 10,  :null => true
+      t.string :first_name,                :limit => 100, :null => true
+      t.string :initials,                  :limit => 10,  :null => true
+      t.string :last_name,                 :limit => 100, :null => true
+      t.string :known_as,                  :limit => 25,  :null => true
 
       t.timestamps
     end

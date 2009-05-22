@@ -6,10 +6,10 @@ class User < ActiveRecord::Base
     :class_name => "Name",
     :mapping => [
       # database  ruby
-      %w[ title title ],
       %w[ first_name first ],
-      %w[ initials initials ],
       %w[ last_name last ],
+      %w[ title title ],
+      %w[ initials initials ],
       %w[ known_as known_as ]
     ]
 

@@ -20,21 +20,24 @@ class Admin::BulkUploaderController < ApplicationController
        @parsed_file.each  do |row|
            user = User.new
            logger.info "Read: #{row}"
-           user.id = row[0].to_i
-           user.login = row[6] # same as email
-           user_name = Name.new(row[1], row[2], row[3], row[4], "")
+           user.id = row[4].to_i * 1000000 # staff number shifted 6 digits to left
+                                           # to avoid clash with 6 digit student number
+           user.login = row[5]
+           user_name = Name.new(row[1], row[2], row[0], row[3], "")
            user.name = user_name
-           user.password = 'swansea' + row[5]
-           user.password_confirmation = 'swansea' + row[5]
-           user.email = row[6]
+           user.password = 'swansea' + row[4]
+           user.password_confirmation = 'swansea' + row[4]
+           user.email = row[5] + '@swansea.ac.uk' # login@swansea.ac.uk
            user.add_role(staff_role)
            if user.save
-           	result = result + "#{n}: Added #{user_name} as #{user.id}\n"
+           	 result = result + "#{n}: Added #{user_name} as #{user.id}<br />\n"
              n = n+1
              GC.start if n % 50 == 0
-           end
+           else
+              flash.now[:error] = "Couldn't save record for #{user.name}"
+            end
            flash[:notice] = "#{result}\nCSV Staff Import Successful,  #{n} new records added to data base."
       end
-      redirect_to '/'
+      redirect_to admin_users_path
    end
 end

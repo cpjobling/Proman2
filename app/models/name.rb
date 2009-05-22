@@ -1,7 +1,7 @@
 class Name
   attr_reader :title, :first, :initials, :last, :known_as
   
-  def initialize(title, first, initials, last, known_as = "")
+  def initialize(first, last, title = "", initials = "", known_as = "")
     @title = title
     @first = first
     @initials = initials

@@ -53,11 +53,11 @@ ActiveRecord::Schema.define(:version => 20090517163927) do
     t.string   "salt",                      :limit => 40
     t.string   "remember_token",            :limit => 40
     t.datetime "remember_token_expires_at"
-    t.string   "title",                     :limit => 10,  :default => ""
-    t.string   "first_name",                :limit => 100, :default => ""
-    t.string   "initials",                  :limit => 10,  :default => ""
-    t.string   "last_name",                 :limit => 100, :default => ""
-    t.string   "known_as",                  :limit => 25,  :default => ""
+    t.string   "title",                     :limit => 10
+    t.string   "first_name",                :limit => 100
+    t.string   "initials",                  :limit => 10
+    t.string   "last_name",                 :limit => 100
+    t.string   "known_as",                  :limit => 25
     t.datetime "created_at"
     t.datetime "updated_at"
   end
