@@ -1,0 +1,12 @@
+<% title "Editing user details" %>
+
+<% form_for :user, :url => admin_user_path(@user), :html => { :method => :put } do |f| %>
+  <%= f.error_messages %>
+  <%= render(:partial => "user", :locals => { :user => @user, :f => f})%>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', admin_user_path(@user) %> |
+<%= link_to 'Back', admin_users_path %>

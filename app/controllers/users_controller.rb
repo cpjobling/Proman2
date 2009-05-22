@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   
   skip_before_filter :login_required, :only => ["new", "create"]
+  require_role ["admin"], :for => ["index", "edit", "update", "destroy"]
   # TODO: handle other methods?
   # 
   # render new.rhtml
@@ -24,5 +25,14 @@ class UsersController < ApplicationController
       flash[:error]  = "We couldn't set up that account, sorry.  Please try again, or contact an admin (link is above)."
       render :action => 'new'
     end
+  end
+  
+  # GET /users/1/edit
+  def edit
+    @user = User.find(params[:id])
+  end
+  
+  def update
+  	
   end
 end
