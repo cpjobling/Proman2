@@ -1,0 +1,15 @@
+<% title "Editing project" %>
+
+<% form_for(@project) do |f| %>
+  <%= f.error_messages %>
+  <%= f.hidden_field :created_by %>
+
+  <%= render :partial => "project", :object => @project, :locals => { :f => f } %>
+
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @project %> |
+<%= link_to 'Back', projects_path %>

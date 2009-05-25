@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090517163927) do
+ActiveRecord::Schema.define(:version => 20090523105615) do
 
   create_table "disciplines", :force => true do |t|
     t.string "name"
@@ -23,6 +23,21 @@ ActiveRecord::Schema.define(:version => 20090517163927) do
 
   add_index "disciplines_projects", ["discipline_id"], :name => "index_disciplines_projects_on_discipline_id"
   add_index "disciplines_projects", ["project_id"], :name => "index_disciplines_projects_on_project_id"
+
+  create_table "project_allocations", :force => true do |t|
+    t.integer  "project_id"
+    t.integer  "student_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "project_selections", :force => true do |t|
+    t.integer  "project_id"
+    t.integer  "student_id"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "projects", :force => true do |t|
     t.integer  "created_by"
@@ -45,6 +60,16 @@ ActiveRecord::Schema.define(:version => 20090517163927) do
 
   add_index "roles_users", ["role_id"], :name => "index_roles_users_on_role_id"
   add_index "roles_users", ["user_id"], :name => "index_roles_users_on_user_id"
+
+  create_table "students", :force => true do |t|
+    t.integer  "user_id"
+    t.decimal  "grade",                 :precision => 10, :scale => 2
+    t.integer  "project_selection_id"
+    t.integer  "project_allocation_id"
+    t.integer  "discipline_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "login",                     :limit => 40

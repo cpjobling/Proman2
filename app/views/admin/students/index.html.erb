@@ -1,0 +1,28 @@
+<% title "Manage students" %>
+
+<table border="1">
+  <thead>
+    <td>User id</td><td>Name</td><td>Discipline</td><td>Grade</td><td>Show</td><td>Edit</td><td>Delete</td>
+  </thead
+  <tbody>
+
+<% @students.each do |student| %>
+  <% user = User.find(student.user_id) %>
+
+  <tr>
+    <td><%= user.id  %></td>
+    <td><%= user.name.last %>, <%= user.name.title %> <%= user.name.first %></td>
+    <td><%= student.discipline.long_name %></td>
+    <td><%= student.grade %>
+    <td><%= link_to 'Show', admin_student_path(student) %></td>
+    <%#= link_to project.title, project %>
+    <td><%= link_to 'Edit', edit_admin_student_path(student) %></td>
+    <td><%= link_to 'Delete', admin_student_path(student), :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</tbody>
+</table>
+
+<br />
+
+<%= link_to 'New student', new_admin_student_path %>

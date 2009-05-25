@@ -11,8 +11,8 @@ class Admin::UsersController < ApplicationController
     end
   end
 
-  # GET /admin/User/1
-  # GET /admin/User/1.xml
+  # GET /admin/user/1
+  # GET /admin/user/1.xml
   def show
     @user = User.find(params[:id])
 
@@ -41,7 +41,7 @@ class Admin::UsersController < ApplicationController
   # POST /admin/users
   # POST /admin/users.xml
   def create
-    @user = User.new(params[:User])
+    @user = User.new(params[:user])
 
     respond_to do |format|
       if @user.save
@@ -83,4 +83,5 @@ class Admin::UsersController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
 end

@@ -1,7 +1,6 @@
 class CreateStudentsAndProjectAllocations < ActiveRecord::Migration
   def self.up
     create_table :students do |t|
-      down
       
       t.integer :user_id
       t.decimal :grade, :precision=>10, :scale=>2

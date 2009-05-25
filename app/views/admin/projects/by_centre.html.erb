@@ -1,0 +1,37 @@
+<% title "Projects by Research Centre" %>
+<p><%= render(:partial => "navigation") %></p>
+
+<p><strong>This functionality has not been added yet! This page presents same results as order by discipline!</strong>
+<p> <%= link_to "View all", {:action => 'index'} %> | <%= link_to "View by discipline", {:action => 'by_discipline'} %></p>
+<%
+ curr_disc = '';
+%>
+<p>
+<% if @disciplines_proj.blank? %>
+    <p>no projects to display</p>
+<%else%>
+  <ul id="projects">
+    <% @disciplines_proj.each do |is| %>
+ <%
+          if curr_disc == ''
+            curr_disc = Discipline.find(is.discipline_id).name
+        %>
+      <p><u><%= 'Projects suitable for ' + Discipline.find(is.discipline_id).name %><br></u></p>
+      <%
+          else
+            if curr_disc != Discipline.find(is.discipline_id).name
+        %>
+    <p><u><%= 'Projects suitable for ' + Discipline.find(is.discipline_id).name %><br></u></p>
+    <%
+              curr_disc = Discipline.find(is.discipline_id).name
+            end
+          end
+        %>
+      <li>
+  <%= link_to  Project.find(is.project_id).title, {:action => 'show', :id => is.id} -%>
+      <%end%>
+  </ul>
+<%end%>
+
+<p>To view projects sorted by creator <%= link_to "Click Here", {:action => 'by_supervisor'} %></p>
+<p><%= link_to 'Back', {:action => 'index'} %></p>
