@@ -19,7 +19,7 @@ class Admin::BulkUploaderController < ApplicationController
     @parsed_file.each  do |row|
       user = User.new
       logger.info "Read: #{row}"
-      # 0: title, 1: first, 2: initials, 3: last, 4: staff_id, 5: login
+      # 0: title, 1: first, 2: initials, 3: last, 4: staff_id, 5: login, 6: centre
       user.id = row[4].to_i * 1000000 # staff number shifted 6 digits to left
       # to avoid clash with 6 digit student number
       user.login = row[5]
@@ -35,8 +35,11 @@ class Admin::BulkUploaderController < ApplicationController
       user.password_confirmation = 'swansea' + row[4]
       user.email = row[5] + '@swansea.ac.uk' # login@swansea.ac.uk
       user.add_role(staff_role)
+      # TODO: create supervisor record
       if user.save
         logger.info "#{n}: Added #{user_name} as #{user.id}<br />\n"
+        supervisor = Supervisor.new(:user_id => user.id)
+        supervisor.research_centre = ResearchCentre.find_by_abbrev(row[6])
         n = n+1
         GC.start if n % 50 == 0
       else
