@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090523105615) do
+ActiveRecord::Schema.define(:version => 20090526232833) do
 
   create_table "disciplines", :force => true do |t|
     t.string "name"
@@ -49,6 +49,14 @@ ActiveRecord::Schema.define(:version => 20090523105615) do
     t.boolean  "carbon_critical", :default => false
   end
 
+  create_table "research_centres", :force => true do |t|
+    t.string   "abbrev"
+    t.string   "title"
+    t.integer  "coordinator"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "roles", :force => true do |t|
     t.string "name"
   end
@@ -70,6 +78,21 @@ ActiveRecord::Schema.define(:version => 20090523105615) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "supervisors", :force => true do |t|
+    t.integer  "research_centre_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "supervisors_projects", :force => true do |t|
+    t.integer "supervisor_id"
+    t.integer "project_id"
+  end
+
+  add_index "supervisors_projects", ["project_id"], :name => "index_supervisors_projects_on_project_id"
+  add_index "supervisors_projects", ["supervisor_id"], :name => "index_supervisors_projects_on_supervisor_id"
 
   create_table "users", :force => true do |t|
     t.string   "login",                     :limit => 40
