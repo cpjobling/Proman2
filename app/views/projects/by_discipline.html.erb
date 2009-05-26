@@ -1,7 +1,9 @@
+<% content_for :tabs do %>
+  <%= render(:partial => "shared/tabs", :locals => {:active_tab => :projects}) %>
+<%  end %>
+
 <% title "Projects by Discipline" %>
 <p><%= render(:partial => "navigation") %></p>
-
-<p> <%= link_to "View all", {:action => 'index'} %> | <%= link_to "View by discipline", {:action => 'by_supervisor'} %></p>
 <%
  curr_disc = '';
 %>

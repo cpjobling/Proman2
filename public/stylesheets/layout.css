@@ -89,8 +89,8 @@ img {
 #header ul li a span {
 	display:block;
 }
-/* 'widths' sub menu */
-#layoutdims {
+/* 'navigation' sub menu */
+#navigation {
 	clear:both;
 	background:#eee;
 	border-top:4px solid #000;

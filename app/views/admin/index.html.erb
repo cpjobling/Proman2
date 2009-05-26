@@ -1,3 +1,7 @@
+<% content_for :tabs do %>
+<%= render (:partial => "shared/tabs", :locals => {:active => "admin"}) %>
+<% end %>
+
 <% title "Proman administration" %>
 
 Stuff that you can do from here.
@@ -16,5 +20,11 @@ Stuff that you can do from here.
 <ul>
 	<li>
 		<%= link_to "Manage users", admin_users_path %>
+    </li>
+    <li>
+		<%= link_to "Manage students", admin_students_path %>
+    </li>
+    <li>
+		<%= link_to "Manage projects", admin_projects_path %>
     </li>
 </ul>

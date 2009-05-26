@@ -1,3 +1,7 @@
+<% content_for :tabs do %>
+  <%= render(:partial => "shared/tabs", :locals => {:active_tab => :projects}) %>
+<%  end %>
+
 <% title "Projects by Research Centre" %>
 <p><%= render(:partial => "navigation") %></p>
 

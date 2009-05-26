@@ -1,1 +1,5 @@
-<%= render(:partial => "shared/about", :locals => {:title => @title}) %>
+<% content_for :tabs do %>
+  <%= render(:partial => "shared/tabs", :locals => {:active_tab => :about}) %>
+<% end %>
+
+<%= render(:partial => "shared/about", :locals => {:page_title => @title}) %>

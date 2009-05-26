@@ -1,3 +1,7 @@
+<% content_for :tabs do %>
+<%= render(:partial => "shared/tabs", :local => {:active => "admin_tab"}) %>
+<% end %>
+
 
   <p><label for="project_title">Title:</label>
   <%= f.text_field :title, :size => 80, :class => "project_title"%>

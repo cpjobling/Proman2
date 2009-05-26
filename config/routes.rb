@@ -55,7 +55,17 @@ ActionController::Routing::Routes.draw do |map|
     ap.by_centre 'ap/projects/by_centre',
       :conditions => { :method => :get }, :action => "by_centre"
   end
+  
+  map.coordinate 'coordinate', :conditions => { :method => :get },
+  :controller => 'coordinate_projects', :action => 'index'
+  
+  map.account 'account', :conditions => { :method => :get },
+  :controller => 'account', :action => 'index'
 
+  map.select_projects 'select_projects', :conditions => { :method => :get },
+  :controller => 'select_projects', :action => 'index'
+  
+  map.welcome 'welcome', :conditions => { :method => :get}, :controller => 'welcome', :action => 'index'
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:

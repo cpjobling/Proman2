@@ -1,11 +1,19 @@
 <!-- Navigation Panel (default tabs) -->
+<% active_tab ||= :home %>
 <ul>
-	<li><a href="/">&nbsp; <span>Home</span></a><li>
-	<li><a href="/admin">Administer <span>ProMan</span></a></li>
-	<li><a href="/coordinate">Coordinate <span>Projects</sman></a></li>
-	<li><a href="/projects" class="active">View <span>Projects</span></a></li>
-	<li><a href="/my_projects" >My <span>Projects</span></a></li>
-
-	<li><a href="/select">Select <span>Projects</span></a></li>
-
+  <li><%= tab_helper(:home, active_tab) %></li>
+  <% if current_user && current_user.has_role?('admin') %>
+    <li><%= tab_helper(:admin, active_tab) %></li>
+  <% end %>
+  <% if current_user && current_user.has_role?('coordinator') %>
+    <li><%= tab_helper(:coordinate, active_tab) %></li>
+  <% end %>
+  <% if logged_in? %>
+    <li><%= tab_helper(:my_account, active_tab) %></li>
+  <% end %>
+  <li><%= tab_helper(:projects, active_tab) %></li>
+  <% if current_user && current_user.has_role?('student') %>
+    <li><%= tab_helper(:select_projects, active_tab) %></li>
+  <% end %>
+  <li><%= tab_helper(:about, active_tab) %></li>
 </ul>
