@@ -40,6 +40,7 @@ class Admin::BulkUploaderController < ApplicationController
         logger.info "#{n}: Added #{user_name} as #{user.id}<br />\n"
         supervisor = Supervisor.new(:user_id => user.id)
         supervisor.research_centre = ResearchCentre.find_by_abbrev(row[6])
+        supervisor.save
         n = n+1
         GC.start if n % 50 == 0
       else
