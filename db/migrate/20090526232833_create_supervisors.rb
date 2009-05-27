@@ -7,16 +7,16 @@ class CreateSupervisors < ActiveRecord::Migration
       t.timestamps
     end
 
-    create_table :supervisors_projects do |t|
+    create_table :projects_supervisors, :id => false do |t|
       t.integer :supervisor_id
       t.integer :project_id
     end
-    add_index "supervisors_projects", "supervisor_id"
-    add_index "supervisors_projects", "project_id"
+    add_index "projects_supervisors", "supervisor_id"
+    add_index "projects_supervisors", "project_id"
   end
 
   def self.down
-    drop_table :supervisors_projects
+    drop_table :projects_supervisors
     drop_table :supervisors
   end
 end

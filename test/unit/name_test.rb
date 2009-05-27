@@ -5,7 +5,7 @@ require File.dirname(__FILE__) + '/../../app/models/user'
 class NameTest < Test::Unit::TestCase
 
   def setup
-    @my_name = Name.new("Dr", "Christopher", "P.", "Jobling", "Chris")
+    @my_name = Name.new("Dr", "Christopher", "Jobling", "P.", "Chris")
   end
 
   def test_can_access_all_parts_of_a_name
@@ -31,7 +31,7 @@ class NameTest < Test::Unit::TestCase
   end
 
     def test_should_default_to_first_name_when_no_informal_name_given
-    javier = Name.new("Prof", "Javier", "", "Bonet") # No known_as field
+    javier = Name.new("Prof.", "Javier", "Bonet") # No known_as field
     expected = "Javier"
     assert_equal expected, javier.informally, "name.informally isn't #{expected} as expected"
   end

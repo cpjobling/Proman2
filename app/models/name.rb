@@ -1,12 +1,13 @@
 class Name
-  attr_reader :title, :first, :initials, :last, :known_as
-  
-  def initialize(first, last, title = "", initials = "", known_as = "")
+  attr_reader :title, :first, :last, :initials, :known_as
+
+  def initialize(title, first, last, initials = "", known_as = "")
     @title = title
     @first = first
     @initials = initials
     @last = last
     @known_as = known_as
+    @errors = ActiveRecord::Errors.new self
   end
 
   def to_s
@@ -28,4 +29,5 @@ class Name
   def size
     return 1
   end
+
 end

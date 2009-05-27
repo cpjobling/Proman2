@@ -49,6 +49,14 @@ ActiveRecord::Schema.define(:version => 20090526232833) do
     t.boolean  "carbon_critical", :default => false
   end
 
+  create_table "projects_supervisors", :id => false, :force => true do |t|
+    t.integer "supervisor_id"
+    t.integer "project_id"
+  end
+
+  add_index "projects_supervisors", ["project_id"], :name => "index_projects_supervisors_on_project_id"
+  add_index "projects_supervisors", ["supervisor_id"], :name => "index_projects_supervisors_on_supervisor_id"
+
   create_table "research_centres", :force => true do |t|
     t.string   "abbrev"
     t.string   "title"
@@ -86,14 +94,6 @@ ActiveRecord::Schema.define(:version => 20090526232833) do
     t.datetime "updated_at"
   end
 
-  create_table "supervisors_projects", :force => true do |t|
-    t.integer "supervisor_id"
-    t.integer "project_id"
-  end
-
-  add_index "supervisors_projects", ["project_id"], :name => "index_supervisors_projects_on_project_id"
-  add_index "supervisors_projects", ["supervisor_id"], :name => "index_supervisors_projects_on_supervisor_id"
-
   create_table "users", :force => true do |t|
     t.string   "login",                     :limit => 40
     t.string   "email",                     :limit => 100
@@ -101,11 +101,11 @@ ActiveRecord::Schema.define(:version => 20090526232833) do
     t.string   "salt",                      :limit => 40
     t.string   "remember_token",            :limit => 40
     t.datetime "remember_token_expires_at"
-    t.string   "title",                     :limit => 10
-    t.string   "first_name",                :limit => 100
-    t.string   "initials",                  :limit => 10
-    t.string   "last_name",                 :limit => 100
-    t.string   "known_as",                  :limit => 25
+    t.string   "first_name",                :limit => 100, :default => ""
+    t.string   "last_name",                 :limit => 100, :default => ""
+    t.string   "title",                     :limit => 10,  :default => ""
+    t.string   "initials",                  :limit => 10,  :default => ""
+    t.string   "known_as",                  :limit => 25,  :default => ""
     t.datetime "created_at"
     t.datetime "updated_at"
   end

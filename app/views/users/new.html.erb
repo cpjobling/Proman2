@@ -1,41 +1,49 @@
 <% title "Request an Account" %>
 <p>To use this service you must be a member of staff or a student of the School of Engineering at Swansea University. You may request an account by completing the following form. Your status will be subject to confirmation by one of the project coordinators and there may be a delay of one or two working days before your account is activated.</p>
 
-<% form_for :user, :url => users_path do |f| -%>
+<% form_for @user, :url => users_path do |f| -%>
 
 
-<fieldset><legend>Login information</legend>
-<%= error_messages_for :user %>
+  <fieldset><legend>Login information</legend>
+    <%= error_messages_for :user %>
 
-	<p><label for="login">Your Choice of Login</label><br/>
-<%= f.text_field 'login' %></p>
+    <p>
+      <%=  label :user, :login, "Your Choice of Login" %><br/>
+      <%= f.text_field 'login' %>
+    </p>
 
-<p><label for="password">Password</label><br/>
-<%= f.password_field 'password' %></p>
+    <p>
+      <%=  label :user, :password, "Password" %><br/>
+      <%= f.password_field 'password' %>
+    </p>
 
-<p><label for="password_confirmation">Confirm Password</label><br/>
-<%= f.password_field 'password_confirmation' %></p>
+    <p>
+      <%=  label :user, :password_confirmation, "Confirm Password" %><br/>
+      <%= f.password_field 'password_confirmation' %>
+    </p>
 
-<p><label for="email">What is your email address?</label><br />
-<%= f.text_field 'email' %></p>
+    <p>
+      <%=  label :user, :email, "What is your email address?" %><br />
+      <%= f.text_field 'email' %>
+    </p>
 
-</fieldset>
-<fieldset><legend>About you</legend>
-<p>Please give us some extra information to help us to identify you and to allow us to personalize the application for you.</p>
-<p><label for="title">Title</label>
-<%= f.select(:title, %w{ Mr Mrs Ms Dr Prof. } )%>
-<label for="first_name">First Name</label>
-<%= f.text_field 'first_name', :size=>"20" %>
-<label for="initials">Initials</label>
-<%= f.text_field 'initials',  :size=>"5" %>
-<label for="last_name">Last Name</label>
-<%= f.text_field 'last_name', :size=>"20" %></p>
-<p><label for="known_as">What should Proman call you? </label>
-<%= f.text_field 'known_as', :size=>"20" %></p>
+  </fieldset>
+  <fieldset><legend>About you</legend>
+    <p>Please give us some extra information to help us to identify you and to allow us to personalize the application for you.</p>
+    <% fields_for @user.name do |name| %>
+      <p>
+        <%=  label :name, :title, "Title" %>       <%= name.select(:title, %w{ Mr Mrs Ms Dr Prof. } )%>
+        <%=  label :name, :first, "First Name" %>  <%= name.text_field 'first', :size=>"20" %>
+        <%=  label :name, :initials, "Initials" %> <%= name.text_field 'initials',  :size=>"5" %>
+        <%=  label :name, :last, "Last Name" %>    <%= name.text_field 'last', :size=>"20" %>
+      </p>
+      <p>
+        <%= label :name, :known_as, "What should Proman call you?" %> <%= name.text_field 'known_as', :size=>"20" %>
+      </p>
+    <% end %>
 
+    <!-- <label for="staff_or_student">Or you a student <%# f.radio_button :staff_or_student, "student", :checked => "checked" %> or staff  <%# f.radio_button :staff_or_student, "staff" %>?</label>-->
+  </fieldset>
 
-<!-- <label for="staff_or_student">Or you a student <%# f.radio_button :staff_or_student, "student", :checked => "checked" %> or staff  <%# f.radio_button :staff_or_student, "staff" %>?</label>-->
-</fieldset>
-
-<p><%= submit_tag 'Request account' %></p>
+  <p><%= submit_tag 'Request account' %></p>
 <% end -%>

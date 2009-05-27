@@ -5,6 +5,9 @@ class UserDetailsTest < ActiveSupport::TestCase
   # see user_test.rb for tests of restful authentication functionality
   fixtures :users, :roles
 
+  def setup()
+    @name = Name.new("Jools", "Holland", "Mr", "H.", "Jack")
+  end
   # Replace this with your real tests.
   def test_truth
     assert true
@@ -20,8 +23,7 @@ class UserDetailsTest < ActiveSupport::TestCase
   def test_unique_login
   	user = User.new(:login => users(:academic).login,
   		:email => "academic@xyz.com",
-  		:first_name => "Jools",
-  		:last_name => "Holland",
+  		:name => @name,
   		#:staff_or_student_number => "777777",
   		:password => "test",
   		:password_confirmation => "test")
@@ -32,11 +34,8 @@ class UserDetailsTest < ActiveSupport::TestCase
   test "test invalid password has less than 6 characters" do
     ["a", "ab", "abc", "abcd", "abcde", "abcdef"].each do |password|
       user = User.new(:login => "newuser" + password,
-        :email => "academic@xyz.com",
-        :title => "Mr",
-        :first_name => "Jools",
-        :last_name => "Holland",
-        :known_as => "Jack",
+        :email => "academic#{password}@xyz.com",
+        :name => @name,
         #:staff_or_student_number => "777777",
         :password => "test",
         :password_confirmation => "test")
@@ -48,10 +47,7 @@ class UserDetailsTest < ActiveSupport::TestCase
   test "test valid password must be longer than 6 characters" do
     user = User.new(:login => "newuser",
       :email => "academic@xyz.com",
-      :title => "Mr",
-      :first_name => "Jools",
-      :last_name => "Holland",
-      :known_as => "Jack",
+      :name => @name,
       #:staff_or_student_number => "777777",
       :password => "test123",
       :password_confirmation => "test123")
@@ -61,35 +57,28 @@ class UserDetailsTest < ActiveSupport::TestCase
 
   test "test password must be no longer than 40 characters" do
     user = User.new(:login => "newuser1",
-      :email => "academic@xyz.com",
-      :title => "Mr",
-      :first_name => "Jools",
-      :last_name => "Holland",
-      :known_as => "Jack",
+      :email => "academic1@xyz.com",
+      :name => @name,
       #:staff_or_student_number => "777777",
       :password => "0123456789112345678921234567893123456789",
       :password_confirmation => "0123456789112345678921234567893123456789")
 
-    assert user.save
+    assert user.save, "Password has 40 characters"
 
     user = User.new(:login => "newuser2",
-      :email => "academic@xyz.com",
-      :title => "Mr",
-      :first_name => "Jools",
-      :last_name => "Holland",
-      :known_as => "Jack",
+      :email => "academic2@xyz.com",
+
       #:staff_or_student_number => "777777",
       :password => "01234567891123456789212345678931234567894",
       :password_confirmation => "01234567891123456789212345678931234567894")
 
-    assert !user.save
+    assert !user.save, "Password has more than 40 characters"
   end
 
   def test_unique_email
     user = User.new(:login => "newuser",
       :email => users(:student).email,
-      :first_name => "Herman",
-      :last_name => "Munster",
+      :name => @name,
       :staff_or_student_number => "777777",
       :password => "testing123",
       :password_confirmation => "testing123")
@@ -153,8 +142,7 @@ class UserDetailsTest < ActiveSupport::TestCase
   def test_add_role
     user = User.create(:login => "newuser",
       :email => "newuser@xyz.com",
-      :first_name => "Bernard",
-      :last_name => "Manning",
+      :name => @name,
       #:staff_or_student_number => "777777",
       :password => "testing123",
       :password_confirmation => "testing123")

@@ -48,6 +48,7 @@ class UserTest < ActiveSupport::TestCase
 
   def test_should_not_rehash_password
     users(:quentin).update_attributes(:login => 'quentin2')
+    puts users(:quentin)
     assert_equal users(:quentin), User.authenticate('quentin2', 'monkey')
   end
 
@@ -96,9 +97,12 @@ class UserTest < ActiveSupport::TestCase
 
 protected
   def create_user(options = {})
-    record = User.new({ :login => 'quire', :email => 'quire@example.com', :password => 'quire69', :password_confirmation => 'quire69' }.merge(options))
-    name = Name.new("Dr", "Theodora", "G.", "Testmeister", "Theo")
-    record.name = name
+    record = User.new({
+        :login => 'quire',
+        :email => 'quire@example.com',
+        :password => 'quire69',
+        :password_confirmation => 'quire69',
+        :name => Name.new("Dr", "Theodora", "Testmeister", "G.", "Theo")}.merge(options))
     record.save
     record
   end

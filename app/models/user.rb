@@ -6,12 +6,13 @@ class User < ActiveRecord::Base
     :class_name => "Name",
     :mapping => [
       # database  ruby
+      %w[ title title ],
       %w[ first_name first ],
       %w[ last_name last ],
-      %w[ title title ],
       %w[ initials initials ],
       %w[ known_as known_as ]
-    ]
+    ],
+    :allow_nil => true
 
 
   
@@ -30,7 +31,7 @@ class User < ActiveRecord::Base
   
   # Assign a role
   def add_role(role)
-    return if self.has_role?(role.name)
+    return if self.has_role?(role)
     self.roles << role
   end    
   
@@ -44,25 +45,20 @@ class User < ActiveRecord::Base
   validates_uniqueness_of   :login
   validates_format_of       :login,    :with => Authentication.login_regex, :message => Authentication.bad_login_message
 
-  validates_format_of       :first_name,     :with => Authentication.name_regex,  :message => Authentication.bad_name_message, :allow_nil => true
-  validates_length_of       :first_name,     :maximum => 100
-  validates_format_of       :last_name,     :with => Authentication.name_regex,  :message => Authentication.bad_name_message, :allow_nil => true
-  validates_length_of       :first_name,     :maximum => 100
-  validates_format_of       :initials,  :with => Authentication.name_regex,  :message => Authentication.bad_name_message, :allow_nil => true
-  validates_length_of       :initials,  :maximum => 10
+
 
   validates_presence_of     :email
   validates_length_of       :email,    :within => 6..100 #r@a.wk
   validates_uniqueness_of   :email
   validates_format_of       :email,    :with => Authentication.email_regex, :message => Authentication.bad_email_message
 
+  #validates_associated :name
   
 
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :login, :email, :name, :password, :password_confirmation,
-    :title, :first_name, :initials, :last_name, :known_as
+  attr_accessible :login, :email, :name, :password, :password_confirmation
 
 
 
