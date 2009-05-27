@@ -28,7 +28,7 @@ class Admin::BulkUploaderController < ApplicationController
       first_name = row[1] || ""
       initials = row[2] || ""
       last_name = row[3] || ""
-      user_name = Name.new(first_name, last_name, title, initials, "")
+      user_name = Name.new(title, first_name, last_name, initials, "")
            
       user.name = user_name
       user.password = 'swansea' + row[4]
@@ -70,7 +70,7 @@ class Admin::BulkUploaderController < ApplicationController
       first_name = row[4] || ""
       initials = row[5] || ""
       last_name = row[3] || ""
-      user_name = Name.new(first_name, last_name, title, initials, "")
+      user_name = Name.new(title, first_name, last_name, initials, "")
 
       user.name = user_name
       user.password = row[6]
