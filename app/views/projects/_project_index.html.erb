@@ -13,17 +13,17 @@ See the License for the specific language governing permissions and
 limitations under the License.
 %>
 
-  <% creator = User.find(project_index.created_by) %>
-  <tr class="<%=  cycle('odd', 'even') %>">
-    <td>
-      <%= project_index.id -%>
-    </td>
-    <td>
-      <%= link_to project_index.title, project_index %>
-    </td>
-    <td><%= creator.name %>
-    </td>
-    <td><a href="mailto:<%= creator.email %>">
-      <%= creator.email -%></a>
-    </td>
-  </tr>
+<% creator = User.find(project_index.created_by) %>
+<tr class="<%=  cycle('odd', 'even') %>">
+  <td>
+    <%= project_index.id -%>
+  </td>
+  <td>
+    <%= link_to project_index.title, project_index %>
+  </td>
+  <td><%= creator.name %>
+  </td>
+  <td><a href="mailto:<%= creator.email %>">
+    <%= creator.email -%></a>
+  </td>
+</tr>

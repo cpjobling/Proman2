@@ -13,17 +13,19 @@ See the License for the specific language governing permissions and
 limitations under the License.
 %>
 
-<% title "All Projects" %>
-<%# TODO move navigation into :navigation slot %>
-<p><%= render(:partial => "navigation") %></p>
-
-<table>
-  <thead><td>Number</td><td>Title</td><td>Supervisor</td><td>Email</td><td colspan="2">Action</td></thead>
-  <tbody>
-    <%= render(:partial => "project_index", :collection => @projects ) %>
-  </tbody>
-</table>
-
-<br />
-
-<%= link_to 'New project', new_project_path %>
+<% creator = User.find(project_index.created_by) %>
+<tr class="<%=  cycle('odd', 'even') %>">
+  <td>
+    <%= project_index.id -%>
+  </td>
+  <td>
+    <%= link_to project_index.title, project_index %>
+  </td>
+  <td><%= creator.name %>
+  </td>
+  <td><a href="mailto:<%= creator.email %>">
+    <%= creator.email -%></a>
+  </td>
+  <td><%= link_to 'Edit', edit_project_path(project_index) %></td>
+  <td><%= link_to 'Destroy', project_index, :confirm => 'Are you sure?', :method => :delete %></td>
+</tr>
