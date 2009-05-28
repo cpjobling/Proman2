@@ -18,9 +18,7 @@
 
 <% headline "Setting up Proman" %>
 
-<% content_for :tabs do %>
-  <%= render(:partial => "shared/tabs", :locals => {:active_tab => :admin}) %>
-<% end %>
+<% active_tab(:admin) %>
 
 <% slogan "An apple a day keeps the Doctor away!" %>
 

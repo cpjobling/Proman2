@@ -13,7 +13,9 @@
 #   limitations under the License.
 #
 class Admin::SupervisorsController < ApplicationController
-  # GET /admin/supervisors
+
+  #
+  ## GET /admin/supervisors
   # GET /admin/supervisors.xml
   def index
     @supervisors = Supervisor.find(:all, :order => "user_id")

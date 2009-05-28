@@ -68,4 +68,10 @@ module TabHelper
   def tab_order
     return [:home, :admin, :coordinate, :my_account, :projects, :select_projects]
   end
+
+  def active_tab(tab)
+    content_for(:tabs) do
+      render(:partial => "shared/tabs", :locals => {:active_tab => tab})
+    end
+  end
 end

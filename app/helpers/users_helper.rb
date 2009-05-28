@@ -104,4 +104,19 @@ module UsersHelper
     end
   end
 
+  # Staff or student?
+  def staff_or_student(user)
+    return "Student" if Student.find_by_user_id(user.id)
+    return "Staff" if Supervisor.find_by_user_id(user.id)
+    "Undefined"
+  end
+
+  def supervisor?(user)
+    Supervisor.find_by_user_id(user.id)
+  end
+
+  def student?(user)
+    Student.find_by_user_id(user.id)
+  end
+
 end
