@@ -22,23 +22,8 @@
 <table>
   <thead><td>Number</td><td>Title</td><td>Supervisor</td><td>Email</td></thead>
   <tbody>
-
-  <% @projects.each do |project| %>
-    <% creator = User.find(project.created_by) %>
-    <tr>
-      <td>
-        <%= project.id -%>
-      </td>
-      <td>
-        <%= link_to project.title, project %>
-      </td>
-      <td><%= creator.name %>
-      </td>
-      <td><a href="mailto:<%= creator.email %>">
-        <%= creator.email -%></a>
-      </td>
-    </tr>
-  <% end %>
+    <%= render(:partial => "project_index", :collection => @projects) %>
+  </tbody>
 </table>
 
 <br />
