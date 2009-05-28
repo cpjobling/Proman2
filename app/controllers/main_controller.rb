@@ -12,10 +12,10 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
-class WelcomeController < ApplicationController
+class MainController < ApplicationController
   skip_before_filter :login_required
   def index
-    @title = "About Proman"
+    @title = "Welcome to Proman"
   end
 
 end

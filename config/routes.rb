@@ -42,8 +42,9 @@ ActionController::Routing::Routes.draw do |map|
 
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
   map.login '/login', :controller => 'sessions', :action => 'new'
-  map.register '/register', :controller => 'users', :action => 'create'
-  map.signup '/signup', :controller => 'users', :action => 'new'
+  # don't allow registration or signup
+  # map.register '/register', :controller => 'users', :action => 'create'
+  # map.signup '/signup', :controller => 'users', :action => 'new'
   
   map.resources :users
 
@@ -51,15 +52,22 @@ ActionController::Routing::Routes.draw do |map|
   
   map.admin 'admin', :conditions => { :method => :get }, :controller => 'admin', :action => 'index'
   
-  map.with_options :controller => "admin/bulk_uploader" do |abu|
-  	abu.import_staff 'admin/bulk_uploader/import_staff', 
+  # Setup controller
+  map.admin_setup 'admin/setup', :controller => 'admin/setup', :conditions => { :method => :get }, :action => 'index'
+  
+  map.with_options :controller => "admin/setup" do |setup|
+  	setup.import_staff 'admin/setup/import_staff',
   			:conditions => { :method => :get }, :action => 'import_staff'
-  	abu.csv_import_staff 'admin/bulk_uploader/csv_import_staff', 
+  	setup.csv_import_staff 'admin/setup/csv_import_staff',
   			:conditions => { :method => :post }, :action => "csv_import_staff"
-  	abu.import_students 'admin/bulk_uploader/import_students',
+  	setup.import_students 'admin/setup/import_students',
   			:conditions => { :method => :get }, :action => 'import_students'
-  	abu.csv_import_students 'admin/bulk_uploader/csv_import_students',
+  	setup.csv_import_students 'admin/setup/csv_import_students',
   			:conditions => { :method => :post }, :action => "csv_import_students"
+    setup.import_projects 'admin/setup/import_projects',
+  			:conditions => { :method => :get }, :action => 'import_projects'
+  	setup.csv_import_projects 'admin/setup/csv_import_projects',
+  			:conditions => { :method => :post }, :action => "csv_import_projects"
   end
      
   map.with_options :controller => "admin/projects" do |ap|
@@ -80,7 +88,7 @@ ActionController::Routing::Routes.draw do |map|
   map.select_projects 'select_projects', :conditions => { :method => :get },
   :controller => 'select_projects', :action => 'index'
   
-  map.welcome 'welcome', :conditions => { :method => :get}, :controller => 'welcome', :action => 'index'
+  map.about 'about', :conditions => { :method => :get}, :controller => 'about', :action => 'index'
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:
@@ -115,7 +123,7 @@ ActionController::Routing::Routes.draw do |map|
    end
 
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
-  map.root :controller => "welcome"
+  map.root :controller => "main"
 
   # See how all your routes lay out with "rake routes"
 

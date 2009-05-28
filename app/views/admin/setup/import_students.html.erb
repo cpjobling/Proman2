@@ -15,8 +15,16 @@
 
 <% title "Bulk upload student data" %>
 
+<% headline "Upload student registration data" %>
+
+<% content_for :tabs do %>
+  <%= render(:partial => "shared/tabs", :locals => {:active_tab => :admin}) %>
+<% end %>
+
+<% slogan "An apple a day keeps the Doctor away!" %>
+
 <% form_for :import_students,
-            :url=>{:controller=>"admin/bulk_uploader",
+            :url=>{:controller=>"admin/setup",
             :action=>"csv_import_students"},
             :html => { :multipart => true } do |f| -%>
  <table>

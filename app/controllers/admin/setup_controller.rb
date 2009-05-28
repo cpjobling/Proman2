@@ -12,7 +12,7 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
-class Admin::BulkUploaderController < ApplicationController
+class Admin::SetupController < ApplicationController
 
 	# a controller for bulk uploading of staff, students and projects
 	# Based on "How to import CSV file in rails", http://satishonrails.wordpress.com/2007/07/18/how-to-import-csv-file-in-rails/
@@ -20,7 +20,11 @@ class Admin::BulkUploaderController < ApplicationController
 	
   require 'csv'
   require 'logger'
-   
+
+  def index
+    
+  end
+  
   def import_staff
    	
   end

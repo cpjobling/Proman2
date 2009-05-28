@@ -15,6 +15,11 @@
 
 <% title "Manage users" %>
 
+<% content_for :tabs do %>
+  <%= render(:partial => "shared/tabs", :locals => {:active_tab => :admin}) %>
+<% end %>
+
+
 <table border="1">
   <thead>
   	<td>id</td><td>Name</td><td>Login</td><td>Show</td><td>Edit</td><td>Delete</td>

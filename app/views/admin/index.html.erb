@@ -14,22 +14,14 @@
 %>
 
 <% content_for :tabs do %>
-<%= render(:partial => "shared/tabs", :locals => {:active_tab => :admin}) %>
+  <%= render(:partial => "shared/tabs", :locals => {:active_tab => :admin}) %>
 <% end %>
+
 
 <% title "Proman administration" %>
 
-Stuff that you can do from here.
+This is the main administration page for proman. Form here you can <%= link_to "Setup Proman", admin_setup_path %> and perform various management functions.
 
-<h2>Bulk uploaders</h2>
-<ul>
-	<li>
-		<%= link_to "Upload staff details", '/admin/bulk_uploader/import_staff' %>
-	</li>
-	<li>
-		<%= link_to "Upload student details", '/admin/bulk_uploader/import_students' %>
-	</li>
-</ul>
 
 <h2>Management tools</h2>
 <ul>

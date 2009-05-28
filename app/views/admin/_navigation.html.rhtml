@@ -1,4 +1,5 @@
-<%# Copyright 2009 Swansea University
+<%#
+ Copyright 2009 Swansea University
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -13,8 +14,8 @@
    limitations under the License.
 %>
 
-<!-- Site Navigation -->
-<p id="layoutdims">Put some other stuff here: 
-	<a href="/controller/action">Other page 1</a> | 
-	<a href="/controller/action">Other page 2</a> | 
-	<strong>This Page</strong></p>
+<%= link_to "Setup",              admin_setup_path %> |
+<%= link_to "Manage users",       admin_users_path %> |
+<%= link_to "Manage supervisors", admin_supervisors_path %> |
+<%= link_to "Manage students",    admin_students_path %> |
+<%= link_to "Manage projects",    admin_projects_path %>

@@ -1,4 +1,5 @@
-<%# Copyright 2009 Swansea University
+<%#
+ Copyright 2009 Swansea University
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -12,27 +13,9 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 %>
-<% title "Bulk upload staff data" %>
 
-<% form_for :import_staff, 
-            :url=>{:controller=>"admin/bulk_uploader", 
-            :action=>"csv_import_staff"}, 
-            :html => { :multipart => true } do |f| -%>
- <table>
-   <tr>
-     <td>
-      <label for="staff_file">
-        Select a CSV File :
-      </label>
-     </td>
-     <td >
-       <%= f.file_field :staff_file -%>
-     </td>
-   </tr>
-   <tr>
-     <td colspan='2'>
-       <%= submit_tag 'Submit' -%>
-     </td>
-   </tr>
- </table>
-<% end -%>
+<%= link_to "Setup",              admin_setup_path %> |
+<%= link_to "Manage users",       admin_users_path %> |
+<%= link_to "Manage supervisors", admin_supervisors_path %> |
+<%= link_to "Manage students",    admin_students_path %> |
+<%= link_to "Manage projects",    admin_projects_path %>
