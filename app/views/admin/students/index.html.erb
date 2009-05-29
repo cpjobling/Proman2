@@ -29,7 +29,7 @@ limitations under the License.
     $(document).ready(function() {
       $("table")
       .tablesorter({sortList: [[1, 0]], widthFixed: true, widgets: ['zebra']})
-      .tablesorterPager({container: $("#pager")});
+      .tablesorterPager({container: $("#pager"), positionFixed: false});
     });
   </script>
 <% end %>

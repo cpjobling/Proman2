@@ -17,9 +17,7 @@
 
 <% title "index.html" %>
 
-<% content_for :tabs do %>
-  <%= render(:partial => "shared/tabs", :locals => {:active_tab => :home}) %>
-<% end %>
+<% active_tab(:home) %>
 
 <% slogan "An apple a day keeps the Doctor away!" %>
 

@@ -59,7 +59,7 @@ module TabHelper
       else
         active_class = ""
       end
-      return "<li #{active_class}><a href='#{link}'>#{content}</a></li>"
+      return "<li><a href='#{link}' #{active_class}>#{content}</a></li>"
     else
       return ""
     end
