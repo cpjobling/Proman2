@@ -16,19 +16,19 @@
 <!-- Navigation Panel (default tabs) -->
 <% active_tab ||= :home %>
 <ul>
-  <li><%= tab_helper(:home, active_tab) %></li>
+  <%= tab_helper(:home, active_tab) %>
   <% if current_user && current_user.has_role?('admin') %>
-    <li><%= tab_helper(:admin, active_tab) %></li>
+    <%= tab_helper(:admin, active_tab) %>
   <% end %>
   <% if current_user && current_user.has_role?('coordinator') %>
-    <li><%= tab_helper(:coordinate, active_tab) %></li>
+    <%= tab_helper(:coordinate, active_tab) %>
   <% end %>
   <% if logged_in? %>
-    <li><%= tab_helper(:my_account, active_tab) %></li>
+    <%= tab_helper(:my_account, active_tab) %>
   <% end %>
-  <li><%= tab_helper(:projects, active_tab) %></li>
+  <%= tab_helper(:projects, active_tab) %>
   <% if current_user && current_user.has_role?('student') %>
-    <li><%= tab_helper(:select_projects, active_tab) %></li>
+    <%= tab_helper(:select_projects, active_tab) %>
   <% end %>
-  <li><%= tab_helper(:about, active_tab) %></li>
+  <%= tab_helper(:about, active_tab) %>
 </ul>
