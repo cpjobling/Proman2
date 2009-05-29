@@ -1,0 +1,10 @@
+Manifest
+generators/easy_navigation/templates/stylesheets/sass/easy_navigation.sass
+generators/easy_navigation/templates/javascripts/easy_navigation.js
+generators/easy_navigation/templates/images/arrow.png
+generators/easy_navigation/templates/images/arrow.svg
+generators/easy_navigation/easy_navigation_generator.rb
+README.rdoc
+Rakefile
+init.rb
+lib/easy_navigation.rb
