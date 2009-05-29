@@ -18,13 +18,6 @@ limitations under the License.
 <% active_tab :admin %>
 
 <% content_for :head do %>
-  <%= stylesheet_link_tag 'themes/blue/style.css' %>
-  <%= stylesheet_link_tag 'jquery.tablesorter.pager.css' %>
-  <%= javascript_include_tag "jquery-1.3.2.min.js" %>
-  <%= javascript_include_tag "jquery.metadata.js" %>
-  <%= javascript_include_tag "jquery.dimensions.js" %>
-  <%= javascript_include_tag "jquery.tablesorter.min.js" %>
-  <%= javascript_include_tag "jquery.tablesorter.pager.js" %>
   <script type="text/javascript">
     $(document).ready(function() {
       $("table")
@@ -45,18 +38,4 @@ limitations under the License.
     <%= render(:partial => "student_index", :collection => @students) %>
   </tbody>
 </table>
-<div id="pager" class="pager">
-  <form>
-    <img src="/icons/first.png" class="first"/>
-    <img src="/icons/prev.png" class="prev"/>
-    <input type="text" class="pagedisplay"/>
-    <img src="/icons/next.png" class="next"/>
-    <img src="/icons/last.png" class="last"/>
-    <select class="pagesize">
-      <option selected="selected"  value="10">10</option>
-      <option value="20">20</option>
-      <option value="30">30</option>
-      <option  value="40">40</option>
-    </select>
-  </form>
-</div>
+<%= render(:partial => "shared/tablesorter_pager")%>
