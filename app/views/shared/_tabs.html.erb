@@ -14,21 +14,6 @@
 %>
 
 <!-- Navigation Panel (default tabs) -->
-<% active_tab ||= :home %>
-<ul>
-  <%= tab_helper(:home, active_tab) %>
-  <% if current_user && current_user.has_role?('admin') %>
-    <%= tab_helper(:admin, active_tab) %>
-  <% end %>
-  <% if current_user && current_user.has_role?('coordinator') %>
-    <%= tab_helper(:coordinate, active_tab) %>
-  <% end %>
-  <% if logged_in? %>
-    <%= tab_helper(:my_account, active_tab) %>
-  <% end %>
-  <%= tab_helper(:projects, active_tab) %>
-  <% if current_user && current_user.has_role?('student') %>
-    <%= tab_helper(:select_projects, active_tab) %>
-  <% end %>
-  <%= tab_helper(:about, active_tab) %>
-</ul>
+<% content_for :tabs do %>
+
+<% end %>

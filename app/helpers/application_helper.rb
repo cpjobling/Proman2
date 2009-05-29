@@ -31,5 +31,8 @@ module ApplicationHelper
     content_for(:headline) { page_headline }
   end
 
+  def proman
+    return "<em>Proman<sup>&beta;</sup></em>"
+  end
 
 end

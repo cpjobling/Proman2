@@ -12,18 +12,10 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 %>
-<% content_for :tabs do %>
-  <%= render(:partial => "shared/tabs", :locals => {:active_tab => :projects}) %>
-<%  end %>
 
-<% title "All Projects" %>
-<p><%= render(:partial => "navigation") %></p>
-<% slogan "&ldquo;Vorsprung durch Technik&rdquo; (Progress through technology) &ndash; Audi avertising slogan." %>
-<table>
-  <thead><td>Number</td><td>Title</td><td>Supervisor</td><td>Email</td></thead>
-  <tbody>
-    <%= render(:partial => "project_index", :collection => @projects) %>
-  </tbody>
-</table>
 
-<br />
+<% title @title %>
+
+<% slogan "&ldquo;The Postman Always Rings Twice&rdquo; &ndash; James M. Cain (1892&mdash;1977)" %>
+
+<%= render(:partial => "shared/contact") %>

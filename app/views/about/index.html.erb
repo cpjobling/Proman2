@@ -13,8 +13,8 @@
    limitations under the License.
 %>
 
-<% content_for :tabs do %>
-  <%= render(:partial => "shared/tabs", :locals => {:active_tab => :about}) %>
-<% end %>
+<% title @title %>
+
+<% slogan "&ldquo;You and I ought not to die before we have explained ourselves to each other&rdquo; &ndash; John Adams (1735&mdash;1826)" %>
 
 <%= render(:partial => "shared/about", :locals => {:page_title => @title}) %>

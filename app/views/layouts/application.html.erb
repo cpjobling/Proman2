@@ -15,42 +15,49 @@
    limitations under the License.
 -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-GB">
-<head>
+  <head>
     <%= render(:partial => "shared/html_header") %>
     <%= yield :head %>
-</head>
-<body>
+  </head>
+  <body>
+    <div id="header">
+      <h1><span class="logo"><%= proman %></span> </h1>
+      <h2><%= yield(:headline) || "EG-353: Research Projects 2009-2010" %></h2>
+      <%= navigation [:home, :admin, :coordinate, :my_account, :projects, :select_projects, :about, :contact] %>
+      <p class="menu">
+      blah | blah | blah
+      </p>
+    </div>
 
-<%= render(:partial => "shared/header") %>
-
-<div class="colmask threecol">
-	<div class="colmid">
-		<div class="colleft">
-			<div class="col1">
-				<!-- Column 1 start -->
-				<p style="color: green"><%= flash[:notice] %></p>
-				<%= yield :layout %>
-				<!-- Column 1 end -->
-			</div>
-			<div class="col2">
-				<!-- Column 2 start -->
-				<% if flash[:login_message] %>
-					 <p class="notice"><%= flash[:login_message] %></p>
-				<% end %>
-				<%= yield :left_sidebar %>
-				<!-- Column 2 end -->
-			</div>
-			<div class="col3">
-				<!-- Column 3 start -->
-				<%= render :partial => "shared/activities" %>
-				<%= yield :right_sidebar %>
-				<!-- Column 3 end -->
-			</div>
-		</div>
-	</div>
-</div>
-<div id="footer">
-	<%= render(:partial => "shared/footer") %>
-</div>
-</body>
+    <div class="colmask threecol">
+      <div class="colmid">
+        <div class="colleft">
+          <div class="col1">
+            <!-- Column 1 start -->
+            <h2><%= yield :title %></h2>
+            <p style="color: green"><%= flash[:notice] %></p>
+            <%= yield :layout %>
+            <!-- Column 1 end -->
+          </div>
+          <div class="col2">
+            <!-- Column 2 start -->
+            <% if flash[:login_message] %>
+              <p class="notice"><%= flash[:login_message] %></p>
+            <% end %>
+            <%= yield :left_sidebar %>
+            <!-- Column 2 end -->
+          </div>
+          <div class="col3">
+            <!-- Column 3 start -->
+            <%= render :partial => "shared/activities" %>
+            <%= yield :right_sidebar %>
+            <!-- Column 3 end -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="footer">
+      <%= render(:partial => "shared/footer") %>
+    </div>
+  </body>
 </html>
