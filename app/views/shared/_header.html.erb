@@ -16,6 +16,5 @@ limitations under the License.
 <div id="header">
   <h1><span class="logo">Proman<sup>&beta;</sup></span> </h1>
   <h2><%= yield(:headline) || "EG-353: Research Projects 2009-2010" %></h2>
-      <%= yield :tabs %>
-      <p id="navigation"><%= render(:partial => "navigation") %></p>
+  <%= easy_navigation :default, options = {} %>
 </div>
