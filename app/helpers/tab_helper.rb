@@ -26,6 +26,13 @@ module TabHelper
     return navigation order_tabs(the_tabs), hover_text => true
   end
 
+  # Return authorized tabs for a page
+  def authorized_page_tabs(role)
+    return navigation authorized_tabs(role), hover_text => true
+  end
+
+  protected
+
   def authorized_tabs(role = "")
     return all_tabs if role == "admin"
     return order_tabs([:coordinate,:my_account]) if role == "coordinator"
@@ -33,8 +40,6 @@ module TabHelper
     return order_tabs([:my_account,:select_projects]) if role == "student"
     return public_tabs
   end
-
-  protected
 
   def tab_order
     [:home, :admin, :coordinate, :my_account, :projects, :select_projects, :contact, :about]
