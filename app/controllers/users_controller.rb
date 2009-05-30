@@ -26,6 +26,8 @@ class UsersController < ApplicationController
   def create
     logout_keeping_session!
     @user = User.new(params[:user])
+    @name = params[:name]
+    @user.name = Name.new(@name[:title], @name[:first], @name[:last], @name[:initials], @name[:known_as])
     success = @user && @user.save
     if success && @user.errors.empty?
       logger.info "Added new user #{@user.id} as #{params["staff_or_student"]}."
