@@ -14,7 +14,12 @@
 #  under the License.
 
 module ResearchCentreHelper
-    def select_research_centre(label = "Select research centre")
-      "<label for=\"research_centre\">#{label}: TODO: selector for research centre</label>"
+  def select_research_centre(label = "Select research centre")
+    @research_centres = ResearchCentre.find(:all, :order => "title")
+    options = ''
+    @research_centres.each do |research_centre|
+      options += "<option value=\"#{research_centre.id}\">#{research_centre.title}</option>"
     end
+    return "<label for=\"research_centre\">#{label}: #{select_tag("research_centre", options)}</label>"
+  end
 end

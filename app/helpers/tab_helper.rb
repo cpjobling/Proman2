@@ -17,18 +17,18 @@ module TabHelper
 
 
   def default_tabs
-    return navigation public_tabs, :hover_text => true
+    return navigation(public_tabs, :hover_text => true)
   end
 
   # return page navigation tabs
   def page_tabs(tabs)
     the_tabs = default_tabs + tabs
-    return navigation order_tabs(the_tabs), hover_text => true
+    return navigation(order_tabs(the_tabs), hover_text => true)
   end
 
   # Return authorized tabs for a page
   def authorized_page_tabs(role)
-    return navigation authorized_tabs(role), hover_text => true
+    return navigation(authorized_tabs(role), hover_text => true)
   end
 
   protected

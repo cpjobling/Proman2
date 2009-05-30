@@ -26,21 +26,24 @@ class UsersController < ApplicationController
   def create
     logout_keeping_session!
     @user = User.new(params[:user])
-    if params[:staff_or_student] == "staff"
-      supervisor = Supervisor.new(:user_id => @user.id, :research_centre_id => ResearchCenter.find_by_abbrev(params[:research_centre]))
-      supervisor.save
-      logger.info "User #{@user.id} added as supervisor #{supervisor.id}"
-    elsif params[:staff_or_student] == "student"
-      student = Student.new(:user_id => @user.id, :discipline => Disciplines.find_by_name(params[:discipline]))
-      student.save
-      logger.info "User #{@user.id} added as student #{student.id}"
-    end
     success = @user && @user.save
     if success && @user.errors.empty?
+      logger.info "Added new user #{@user.id} as #{params["staff_or_student"]}."
       # Protects against session fixation attacks, causes request forgery
       # protection if visitor resubmits an earlier form using back
       # button. Uncomment if you understand the tradeoffs.
       # reset session
+      if params["staff_or_student"] == "staff"
+        supervisor = Supervisor.new(:user_id => @user.id, :research_centre_id => params['research_centre'])
+        supervisor.id ||= params['staff_number'].to_i
+        supervisor.save
+        logger.info "User #{@user.id} added as supervisor #{supervisor.id}"
+      elsif params["staff_or_student"] == "student"
+        student = Student.new(:user_id => @user.id, :discipline_id => params['discipline'])
+        student.id ||= params['student_number'].to_i
+        student.save
+        logger.info "User #{@user.id} added as student #{student.id}"
+      end
       self.current_user = @user # !! now logged in
       redirect_back_or_default('/')
       flash[:notice] = "Thanks for signing up!  We need to confim your status and will be in touch shortly."
@@ -49,13 +52,5 @@ class UsersController < ApplicationController
       render :action => 'new'
     end
   end
-  
-  # GET /users/1/edit
-  def edit
-    @user = User.find(params[:id])
-  end
-  
-  def update
-  	
-  end
+
 end

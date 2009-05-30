@@ -80,11 +80,18 @@ coordinators and there may be a delay of one or two working days before your acc
     <label for="student">Are you a student <input id="student_selected" type="radio" name="staff_or_student" value="student" checked="checked "/>
     or <label for="student"> or a member of staff <input id="staff_selected" type="radio" name="staff_or_student" value="staff" /></label>?
     <div id="staff_research_centre">
-      <%= select_research_centre("Select your research centre: ") %>
+      <label for="staff_number">Input your staff number:
+      <input type="text" id="staff_number" name="staff_number"
+             title="Your staff number is the 6 digit number to be found on your staff card."/></label><br />
+      <%= select_research_centre("Select your research centre") %>
     </div>
     <div id="student_discipline">
+      <label for="student_number">Input your student number:
+      <input type="text" id="student_number" name="student_number"
+             title="Your student number is the 6 digit number to be found on your student card."/></label><br />
       <%= select_discipline("Select your discipline: ") %>
     </div>
+    
   </fieldset>
 
   <p><%= submit_tag 'Request account' %></p>

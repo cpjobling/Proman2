@@ -38,7 +38,6 @@ class Admin::SetupController < ApplicationController
       user = User.new
       logger.info "Read: #{row}"
       # 0: title, 1: first, 2: initials, 3: last, 4: staff_id, 5: login, 6: centre
-      user.id = row[4].to_i * 1000000 # staff number shifted 6 digits to left
       # to avoid clash with 6 digit student number
       user.login = row[5]
 
@@ -56,7 +55,7 @@ class Admin::SetupController < ApplicationController
       # TODO: create supervisor record
       if user.save
         logger.info "#{n}: Added #{user_name} as #{user.id}<br />\n"
-        supervisor = Supervisor.new(:user_id => user.id)
+        supervisor = Supervisor.new(:id => row[4].to_i, :user_id => user.id)
         supervisor.research_centre = ResearchCentre.find_by_abbrev(row[6])
         supervisor.save
         logger.info "User #{@user.id} added as supervisor #{supervisor.id}"
@@ -82,7 +81,7 @@ class Admin::SetupController < ApplicationController
       user = User.new
       logger.info "Read: #{row}"
       # 0: Discipline; 1: Number; 2: Title; 3: Surname; 4: First name; 5: Initials: 6; DOB; 7: Email
-      user.id = row[1].to_i # student number
+      # user.id = row[1].to_i # student number
       # to avoid clash with 6 digit student number
       user.login = row[1]
 
@@ -100,7 +99,7 @@ class Admin::SetupController < ApplicationController
       if user.save
         logger.info "#{n}: Added #{user_name} as #{user.id}<br />\n"
         n = n+1
-        student = Student.new(:user_id => user.id)
+        student = Student.new(:id => row[1].to_i, :user_id => user.id)
         student.discipline = Discipline.find_by_name(row[0])
         student.save
         logger.info "User #{@user.id} added as student #{student.id}"
