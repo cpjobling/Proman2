@@ -121,6 +121,6 @@ module UsersHelper
 
   def can_register?
     # TODO: make this system status dependent
-    true
+    false
   end
 end
