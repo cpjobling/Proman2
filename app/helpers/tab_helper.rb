@@ -14,64 +14,63 @@
 #  under the License.
 
 module TabHelper
-  # tab_helper: returns formatted link for tab menu.
-  # useage: tab_helper(:home, :home)
-  def tab_helper(tab, active_tab)
-    @tabs = {
-      :home => {
-        :content => "&nbsp; <span>Home</span>",
-        :link => root_path
-      },
-      :admin => {
-        :content => "Administer <span>ProMan</span>",
-        :link => admin_path,
-        :role => "admin"
-      },
-      :coordinate => {
-        :content => "Coordinate <span>Projects</span>",
-        :link => coordinate_path,
-        :role => "coordinator"
-      },
-      :my_account => {
-        :content => "My <span>Account</account>",
-        :link => account_path,
-        :role => "user"
-      },
-      :projects => {
-        :content => "View <span>Projects</span>",
-        :link => projects_path
-      },
-      :select_projects => {
-        :content => "Select <span>Projects</span>",
-        :link => select_projects_path,
-        :role => "student"
-      },
-      :about => {
-        :content => "About <span>Proman</span>",
-        :link => about_path
-      }
-    }
-    if @tabs[tab]
-      link = @tabs[tab][:link]
-      content = @tabs[tab][:content]
-      if active_tab == tab
-        active_class = 'class = "active"'
-      else
-        active_class = ""
-      end
-      return "<li><a href='#{link}' #{active_class}>#{content}</a></li>"
-    else
-      return ""
-    end
+
+
+  def default_tabs
+    return navigation public_tabs, :hover_text => true
   end
+
+  # return page navigation tabs
+  def page_tabs(tabs)
+    the_tabs = default_tabs + tabs
+    return navigation order_tabs(the_tabs), hover_text => true
+  end
+
+  def authorized_tabs(role = "")
+    return all_tabs if role == "admin"
+    return order_tabs([:coordinate,:my_account]) if role == "coordinator"
+    return order_tabs([:my_account]) if role == "staff"
+    return order_tabs([:my_account,:select_projects]) if role == "student"
+    return public_tabs
+  end
+
+  protected
 
   def tab_order
-    return [:home, :admin, :coordinate, :my_account, :projects, :select_projects]
+    [:home, :admin, :coordinate, :my_account, :projects, :select_projects, :contact, :about]
   end
 
-  def active_tab(tab)
-    content_for(:tabs) do
-      render(:partial => "shared/tabs", :locals => {:active_tab => tab})
+  # Tabs accessible by visitors
+  def public_tabs
+    [:home, :projects, :contact, :about]
+  end
+    
+  def order_tabs(additional_tabs)
+    all_tabs = public_tabs + additional_tabs
+    the_tabs = []
+    tab_order.each do |tab|
+      the_tabs << tab if all_tabs.include?(tab)
     end
+    return the_tabs
+  end
+
+  def get_tabs
+    return {
+      :home => [:home, "Start here."],
+      :about => [:about, "About Proman(beta)."],
+      :contact => [:contact, "Contact us."],
+      :projects => [:projects, "View projects."],
+      :admin => [:admin, "Administration tools."],
+      :my_account => [:my_account, "Access your account."],
+      :select_projects => [:select_projects, "Select your projects."]
+      }
+  end
+
+  def get_tab(tab)
+    return get_tabs[tab]
+  end
+
+  def all_tabs
+    return tab_order
   end
 end

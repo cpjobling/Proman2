@@ -21,9 +21,9 @@
   </head>
   <body>
     <div id="header">
-      <h1><span class="logo"><%= proman %></span> </h1>
+      <h1><span class="logo"><%= proman %></span></h1>
       <h2><%= yield(:headline) || "EG-353: Research Projects 2009-2010" %></h2>
-      <%= navigation [:home, :admin, :coordinate, :my_account, :projects, :select_projects, :about, :contact] %>
+      <%= yield(:tabs) || default_tabs %>
       <p class="menu">
       blah | blah | blah
       </p>
