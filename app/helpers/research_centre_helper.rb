@@ -1,4 +1,3 @@
-<%#
 #  Copyright 2009 Swansea University.
 # 
 #  Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,13 +12,9 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 #  under the License.
-%>
 
-<% if logged_in? %>
-  <%=h current_user.name %></strong> <%=  yield :menu %> | <%= link_to 'Logout', logout_path %>
-<% else %>
-  <%= link_to 'Login', login_path %>
-  <% if can_register? %>
-    | <%=  link_to 'Register', signup_path %>
-  <% end %>
-<% end %>
+module ResearchCentreHelper
+    def select_research_centre(label = "Select research centre")
+      "<label for=\"research_centre\">#{label}: TODO: selector for research centre</label>"
+    end
+end

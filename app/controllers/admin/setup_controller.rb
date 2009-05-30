@@ -59,6 +59,7 @@ class Admin::SetupController < ApplicationController
         supervisor = Supervisor.new(:user_id => user.id)
         supervisor.research_centre = ResearchCentre.find_by_abbrev(row[6])
         supervisor.save
+        logger.info "User #{@user.id} added as supervisor #{supervisor.id}"
         n = n+1
         GC.start if n % 50 == 0
       else
@@ -102,6 +103,7 @@ class Admin::SetupController < ApplicationController
         student = Student.new(:user_id => user.id)
         student.discipline = Discipline.find_by_name(row[0])
         student.save
+        logger.info "User #{@user.id} added as student #{student.id}"
         GC.start if n % 50 == 0
       else
         logger.error "Couldn't save record for #{user.name}"

@@ -26,6 +26,15 @@ class UsersController < ApplicationController
   def create
     logout_keeping_session!
     @user = User.new(params[:user])
+    if params[:staff_or_student] == "staff"
+      supervisor = Supervisor.new(:user_id => @user.id, :research_centre_id => ResearchCenter.find_by_abbrev(params[:research_centre]))
+      supervisor.save
+      logger.info "User #{@user.id} added as supervisor #{supervisor.id}"
+    elsif params[:staff_or_student] == "student"
+      student = Student.new(:user_id => @user.id, :discipline => Disciplines.find_by_name(params[:discipline]))
+      student.save
+      logger.info "User #{@user.id} added as student #{student.id}"
+    end
     success = @user && @user.save
     if success && @user.errors.empty?
       # Protects against session fixation attacks, causes request forgery
