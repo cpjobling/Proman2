@@ -119,4 +119,8 @@ module UsersHelper
     Student.find_by_user_id(user.id)
   end
 
+  def can_register?
+    # TODO: make this system status dependent
+    false
+  end
 end

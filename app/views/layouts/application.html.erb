@@ -25,7 +25,7 @@
       <h2><%= yield(:headline) || "EG-353: Research Projects 2009-2010" %></h2>
       <%= yield(:tabs) || default_tabs %>
       <p class="menu">
-      blah | blah | blah
+      <%= render(:partial => "shared/logged_in") %> 
       </p>
     </div>
 
