@@ -51,7 +51,7 @@ limitations under the License.
 
   <fieldset><legend>Assign roles to this user</legend>
 
-    <%= collection_multiple_select('role', 'role_ids',
+    <%= collection_multiple_select('role', 'roles_ids',
       Role.find(:all, :order => "name"),
       :id, :name,
       :outer_class => "multiple_select", :inner_class => "multiple_select_checkbox", :alternate => true ) %>
@@ -61,7 +61,7 @@ limitations under the License.
           <%= staff.label :staff_id, "Input staff number if staff" %>:
           <%= staff.text_field :staff_id, :size => "7", :title=>"Your staff number is the 6 digit number to be found on your staff card." %>
           <br />
-          Assign staff member to a research centre: <%= staff.select( :research_center, research_centres_for_select ) %>
+          Assign staff member to a research centre: <%= staff.select( :research_centre, research_centres_for_select ) %>
         <% end %>
       </fieldset>
     </div>

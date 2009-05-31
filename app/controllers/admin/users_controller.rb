@@ -52,6 +52,11 @@ class Admin::UsersController < ApplicationController
   # GET /admin/users/1/edit
   def edit
     @user = User.find(params[:id])
+    if @user.has_role?("student")
+      @student = Student.find_by_user_id(@user.id)
+    elsif @user.has_role?("staff")
+      @supervisor = Supervisor.find_by_user_id(@user.id)
+    end
   end
 
   # POST /admin/users
@@ -75,6 +80,12 @@ class Admin::UsersController < ApplicationController
   # PUT /admin/users/1.xml
   def update
     @user = User.find(params[:id])
+    #@roles = @user.roles
+    #if @user.has_role?("student")
+    #  @student = Student.find_by_user_id(@user.id)
+    #else
+    #  @staff = Staff.find_by_user_id(@user.id)
+    #end
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
