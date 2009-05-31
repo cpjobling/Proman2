@@ -18,16 +18,16 @@ c2ec:
   id: 1
   abbrev: c2ec
   title: Civil and Computational Engineering Centre
-  coordinator: 93149000000 # Prof. Michael Edwards
+  coordinator: 103 # Prof. Michael Edwards
 
 mnc:
   id: 2
   abbrev: mnc
   title: Multidisciplinary Nanotechnology Centre
-  coordinator: 77293000000 # Dr Paul Williams
+  coordinator: 101 # Dr Paul Williams
 
 mrc:
   id: 3
   abbrev: mrc
   title: Materials Research Centre
-  coordinator: 28521000000 # Dr David Isaac
+  coordinator: 102 # Dr David Isaac

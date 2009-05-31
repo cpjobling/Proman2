@@ -1,0 +1,21 @@
+## YAML Template.
+
+mgedwards:
+  user_id: 103
+  staff_id: 093149
+  research_centre_id: 1
+
+pmwilliams:
+  user_id: 101
+  staff_id: 077293
+  research_centre_id: 2
+
+dhisaac:
+  user_id: 102
+  staff_id: 028521
+  research_centre_id: 3
+
+cpjobling:
+  user_id: 100
+  staff_id: 039934
+  research_centre_id: 2

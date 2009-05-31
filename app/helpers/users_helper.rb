@@ -111,6 +111,21 @@ module UsersHelper
     "Undefined"
   end
 
+  # Show roles
+  def show_roles(user)
+    if user.roles.count > 0
+      roles = []
+      user.roles.each do |role|
+        roles << role.name
+      end
+      return roles.join(', ')
+    else
+      return "<span style=\"color:red;\">None defined</span>"
+    end
+
+
+  end
+
   def supervisor?(user)
     Supervisor.find_by_user_id(user.id)
   end
@@ -121,6 +136,6 @@ module UsersHelper
 
   def can_register?
     # TODO: make this system status dependent
-    false
+   true
   end
 end

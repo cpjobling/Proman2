@@ -26,8 +26,6 @@ class UsersController < ApplicationController
   def create
     logout_keeping_session!
     @user = User.new(params[:user])
-    @name = params[:name]
-    @user.name = Name.new(@name[:title], @name[:first], @name[:last], @name[:initials], @name[:known_as])
     success = @user && @user.save
     if success && @user.errors.empty?
       logger.info "Added new user #{@user.id} as #{params["staff_or_student"]}."
@@ -36,13 +34,13 @@ class UsersController < ApplicationController
       # button. Uncomment if you understand the tradeoffs.
       # reset session
       if params["staff_or_student"] == "staff"
-        supervisor = Supervisor.new(:user_id => @user.id, :research_centre_id => params['research_centre'])
-        supervisor.id ||= params['staff_number'].to_i
+        supervisor = Supervisor.new(params[:staff])
+        supervisor.user_id = @user.id
         supervisor.save
         logger.info "User #{@user.id} added as supervisor #{supervisor.id}"
       elsif params["staff_or_student"] == "student"
-        student = Student.new(:user_id => @user.id, :discipline_id => params['discipline'])
-        student.id ||= params['student_number'].to_i
+        student = Student.new(params[:student])
+        student.user_id = @user.id
         student.save
         logger.info "User #{@user.id} added as student #{student.id}"
       end

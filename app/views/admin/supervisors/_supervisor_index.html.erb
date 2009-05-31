@@ -16,7 +16,7 @@
 %>
 
 
-<% user = User.find(supervisor_index.user_id) %>
+<% user = supervisor_index.user %>
 
 <tr class="<%= cycle('even','odd') %>">
   <td><%= user.id  %></td>

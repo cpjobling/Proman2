@@ -13,7 +13,9 @@
 #   limitations under the License.
 #
 class Admin::StudentsController < ApplicationController
-	
+
+  current_tab :admin
+  
   # GET /admin/students
   # GET /admin/students.xml
   def index

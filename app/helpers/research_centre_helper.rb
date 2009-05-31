@@ -14,12 +14,7 @@
 #  under the License.
 
 module ResearchCentreHelper
-  def select_research_centre(label = "Select research centre")
-    @research_centres = ResearchCentre.find(:all, :order => "title")
-    options = ''
-    @research_centres.each do |research_centre|
-      options += "<option value=\"#{research_centre.id}\">#{research_centre.title}</option>"
-    end
-    return "<label for=\"research_centre\">#{label}: #{select_tag("research_centre", options)}</label>"
+  def research_centres_for_select
+    return ResearchCentre.find(:all, :order => "title").map { |rc| [rc.title, rc.id] }
   end
 end

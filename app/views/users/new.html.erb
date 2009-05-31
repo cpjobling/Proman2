@@ -58,41 +58,44 @@ coordinators and there may be a delay of one or two working days before your acc
     </p>
 
     <p>
-      <%=  label :user, :email, "What is your email address?" %><br />
+      <%= f.label :email, "What is your email address?" %><br />
       <%= f.text_field 'email' %>
     </p>
 
   </fieldset>
   <fieldset><legend>About you</legend>
     <p>Please give us some extra information to help us to identify you and to allow us to personalize the application for you.</p>
-    <% fields_for @user.name do |name| %>
-      <p>
-        <%=  label :name, :title, "Title" %>       <%= name.select(:title, %w{ Mr Mrs Ms Dr Prof. } )%>
-        <%=  label :name, :first, "First Name" %>  <%= name.text_field 'first', :size=>"20" %>
-        <%=  label :name, :initials, "Initials" %> <%= name.text_field 'initials',  :size=>"5" %>
-        <%=  label :name, :last, "Last Name" %>    <%= name.text_field 'last', :size=>"20" %>
-      </p>
-      <p>
-        <%= label :name, :known_as, "What should Proman call you?" %> <%= name.text_field 'known_as', :size=>"20" %>
-      </p>
+    <p>
+      <%=  f.label :title, "Title" %>            <%= f.select( :title, %w{ Mr Mrs Ms Dr Prof. } )%>
+      <%=  f.label :first_name, "First Name" %>  <%= f.text_field :first_name, :size=>"20" %>
+      <%=  f.label :initials, "Initials" %>      <%= f.text_field :initials,  :size=>"5" %>
+      <%=  f.label :last_name, "Last Name" %>    <%= f.text_field :last_name, :size=>"20" %>
+    </p>
+    <p>
+      <%= f.label :known_as, "What should Proman call you?" %>
+      <%= f.text_field :known_as, :size=>"20" %>
+    </p>
+
+  <label for="student_selected">Are you a student <input id="student_selected" type="radio" name="staff_or_student" value="student" checked="checked "/>
+  or <label for="staff_selected"> or a member of staff <input id="staff_selected" type="radio" name="staff_or_student" value="staff" /></label>?
+  <div id="staff_research_centre">
+    <% fields_for :supervisor do |staff| %>
+      <%= staff.label :staff_id, "Input your staff number" %>:
+      <%= staff.text_field :staff_id, :size => "7", :title=>"Your staff number is the 6 digit number to be found on your staff card." %>
+      <br />
+      Select your research centre: <%= staff.select( :research_center, research_centres_for_select ) %>
     <% end %>
+  </div>
+  <div id="student_discipline">
+    <% fields_for :student do |student| %>
+      <%= student.label :student_id, "Input your student number" %>:
+      <%= student.text_field :student_id, :size => "7", :title=>"Your student number is the 6 digit number to be found on your student card." %>
+      <br />
+      Select your discipline: <%= student.select(:discipline_id, disciplines_for_select) %>
+    <% end %>
+  </div>
 
-    <label for="student">Are you a student <input id="student_selected" type="radio" name="staff_or_student" value="student" checked="checked "/>
-    or <label for="student"> or a member of staff <input id="staff_selected" type="radio" name="staff_or_student" value="staff" /></label>?
-    <div id="staff_research_centre">
-      <label for="staff_number">Input your staff number:
-      <input type="text" id="staff_number" name="staff_number"
-             title="Your staff number is the 6 digit number to be found on your staff card."/></label><br />
-      <%= select_research_centre("Select your research centre") %>
-    </div>
-    <div id="student_discipline">
-      <label for="student_number">Input your student number:
-      <input type="text" id="student_number" name="student_number"
-             title="Your student number is the 6 digit number to be found on your student card."/></label><br />
-      <%= select_discipline("Select your discipline: ") %>
-    </div>
-    
-  </fieldset>
+</fieldset>
 
-  <p><%= submit_tag 'Request account' %></p>
+<p><%= submit_tag 'Request account' %></p>
 <% end -%>

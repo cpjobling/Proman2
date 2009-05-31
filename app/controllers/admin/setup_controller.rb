@@ -21,6 +21,8 @@ class Admin::SetupController < ApplicationController
   require 'csv'
   require 'logger'
 
+  current_tab :admin
+
   def index
     
   end
@@ -52,13 +54,14 @@ class Admin::SetupController < ApplicationController
       user.password_confirmation = 'swansea' + row[4]
       user.email = row[5] + '@swansea.ac.uk' # login@swansea.ac.uk
       user.add_role(staff_role)
-      # TODO: create supervisor record
       if user.save
         logger.info "#{n}: Added #{user_name} as #{user.id}<br />\n"
-        supervisor = Supervisor.new(:id => row[4].to_i, :user_id => user.id)
+        supervisor = Supervisor.new(:staff_id => row[4])
         supervisor.research_centre = ResearchCentre.find_by_abbrev(row[6])
+        supervisor.user = user
         supervisor.save
-        logger.info "User #{@user.id} added as supervisor #{supervisor.id}"
+        logger.info "User #{user.id} with staff id #{supervisor.staff_id} added as supervisor #{supervisor.id}"
+        logger.info "Staff member #{supervisor.staff_id} has been assigned to #{supervisor.research_centre.title}"
         n = n+1
         GC.start if n % 50 == 0
       else
@@ -99,10 +102,11 @@ class Admin::SetupController < ApplicationController
       if user.save
         logger.info "#{n}: Added #{user_name} as #{user.id}<br />\n"
         n = n+1
-        student = Student.new(:id => row[1].to_i, :user_id => user.id)
+        student = Student.new(:student_id => row[1])
         student.discipline = Discipline.find_by_name(row[0])
+        student.user = user
         student.save
-        logger.info "User #{@user.id} added as student #{student.id}"
+        logger.info "User #{user.id} added as student #{student.student_id} with discipline #{student.discipline.long_name}"
         GC.start if n % 50 == 0
       else
         logger.error "Couldn't save record for #{user.name}"

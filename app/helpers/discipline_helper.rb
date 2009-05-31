@@ -15,12 +15,8 @@
 
 module DisciplineHelper
 
-    def select_discipline(label = "Select discipline")
-      @disciplines = Discipline.find(:all, :order => "long_name")
-      options = ''
-      @disciplines.each do |discipline|
-        options += "<option value=\"#{discipline.id}\">#{discipline.long_name}</option>"
-      end
-      return "<label for=\"discipline\">#{label}: #{select_tag("discipline", options)}</label>"
-    end
+  def disciplines_for_select
+    return Discipline.find(:all, :order => "long_name").map { |d| [d.long_name, d.id] }
+  end
+
 end

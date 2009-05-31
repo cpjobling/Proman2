@@ -120,8 +120,8 @@ coordinator:
 # A real staff member (Dr Jobling is Module Coordinator)!
 # Obviously this is not the password that is in production!
 cpj:
-    id: 39934000000
-    login: c.p.jobling
+    id: 100
+    login: cpjobling
     email: c.p.jobling@swansea.ac.uk
     salt:                      356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
     crypted_password:          63d8fefa835d181f7c2705227e0452045141b380 # 'monkey'
@@ -132,6 +132,38 @@ cpj:
     last_name: Jobling
     known_as: Chris
 
+mnc_coordinator:
+    id: 101
+    login: paul.melvyn.willams
+    email: paul.melvyn.williams@swansea.ac.uk
+    salt: 3ea07d6413efa2ccd3d691eee5b5156588134cec
+    crypted_password: 6aeaba1189703954cc1ef00b03013409d2d41a7b
+    title: Dr
+    first_name: Paul
+    initials: M.
+    last_name: Williams
+
+mrc_coordinator:
+   id: 102
+   login: d.h.isaac
+   email: d.h.isaac@swansea.ac.uk
+   crypted_password: 7a18543ec17f9f7c56ed3d5a48fd0a10fcc4216d
+   salt: 223992717eab0e4faf96426874197fa60f73d066
+   first_name: David
+   last_name: Isaac
+   title: Dr
+   initials: H.
+
+c2ec_coordinator:
+    id: 103
+    login: m.g.edwards
+    email: m.g.edwards@swansea.ac.uk
+    crypted_password: 0d19366f6e5ca5c8a9d778b0d13932468c63f5fd
+    salt: 04881f8ed45f540d36767549e2bb11edd0cdc507
+    first_name: Michael
+    last_name: Edwards
+    title: Prof
+    initials: G.
 
 new_user:
     login: nobody

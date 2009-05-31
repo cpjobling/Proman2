@@ -15,8 +15,7 @@
 #  under the License.
 %>
 
-
-<% user = User.find(student_index.user_id) %>
+<% user = User.find_by_id(student_index.user_id) %>
 
 <tr class="<%= cycle 'even', 'odd' %>">
   <td><%= user.id  %></td>

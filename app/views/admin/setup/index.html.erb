@@ -18,11 +18,11 @@
 
 <% headline "Setting up Proman" %>
 
-<% active_tab(:admin) %>
+<p><%= render(:partial=>"admin/navigation") %></p>
 
 <% slogan "An apple a day keeps the Doctor away!" %>
 
-<h2>Bulk uploaders</h2>
+<h3>Bulk uploaders</h3>
 <ul>
 	<li>
 		<%= link_to "Upload staff details", import_staff_path %>

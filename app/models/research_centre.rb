@@ -13,6 +13,5 @@
 #   limitations under the License.
 
 class ResearchCentre < ActiveRecord::Base
-  has_and_belongs_to_many :supervisors
-  has_one :coordinator
+  has_many :supervisors, :dependent => :nullify # put supervisors in limbo when research group deleted
 end

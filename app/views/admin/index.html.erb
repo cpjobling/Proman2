@@ -13,13 +13,9 @@
    limitations under the License.
 %>
 
-<% content_for :tabs do %>
-  <%= render(:partial => "shared/tabs", :locals => {:active_tab => :admin}) %>
-<% end %>
-
 
 <% title "Proman administration" %>
-
+<p><%= render(:partial=>"admin/navigation") %></p>
 This is the main administration page for proman. Form here you can <%= link_to "Setup Proman", admin_setup_path %> and perform various management functions.
 
 

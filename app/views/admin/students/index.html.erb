@@ -15,7 +15,8 @@ limitations under the License.
 
 <% title "Manage students" %>
 
-<% active_tab :admin %>
+<%= render(:partial=>"admin/navigation") %>
+
 
 <% content_for :head do %>
   <%= render(:partial => "shared/import_tablesorter") %>

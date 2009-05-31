@@ -14,7 +14,8 @@
 #
 class Admin::ProjectsController < ApplicationController
 
-
+  current_tab :admin
+  
   # GET /projects
   # GET /projects.xml
   def index

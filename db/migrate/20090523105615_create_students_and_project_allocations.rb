@@ -7,8 +7,10 @@ class CreateStudentsAndProjectAllocations < ActiveRecord::Migration
       t.integer :project_selection_id
       t.integer :project_allocation_id
       t.integer :discipline_id
+      t.string  :student_id
       t.timestamps
     end
+    add_index "students", "student_id", :unique => true
 
     create_table :project_allocations do |t|
       t.integer :project_id
@@ -29,6 +31,7 @@ class CreateStudentsAndProjectAllocations < ActiveRecord::Migration
   end
 
   def self.down
+    remove_index "students", "student_id"
     drop_table :students
     drop_table :project_selections
     drop_table :project_allocations

@@ -14,7 +14,7 @@
 #
 class Admin::UsersController < ApplicationController
 
-
+  current_tab :admin
 
   # GET /admin/users
   # GET /admin/users.xml

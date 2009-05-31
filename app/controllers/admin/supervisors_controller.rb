@@ -13,7 +13,8 @@
 #   limitations under the License.
 #
 class Admin::SupervisorsController < ApplicationController
-
+  current_tab :admin
+  
   #
   ## GET /admin/supervisors
   # GET /admin/supervisors.xml

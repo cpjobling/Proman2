@@ -17,9 +17,7 @@
 
 <% headline "Upload student registration data" %>
 
-<% content_for :tabs do %>
-  <%= render(:partial => "shared/tabs", :locals => {:active_tab => :admin}) %>
-<% end %>
+<p><%= render(:partial=>"admin/navigation") %></p>
 
 <% slogan "An apple a day keeps the Doctor away!" %>
 
@@ -40,7 +38,7 @@
    </tr>
    <tr>
      <td colspan='2'>
-       <%= submit_tag 'Submit' -%>
+       <%= submit_tag 'Submit' -%> <%=  link_to "Back", admin_setup_path %>
      </td>
    </tr>
  </table>

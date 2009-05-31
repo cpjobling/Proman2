@@ -23,22 +23,23 @@ module TabHelper
   # return page navigation tabs
   def page_tabs(tabs)
     the_tabs = default_tabs + tabs
-    return navigation(order_tabs(the_tabs), hover_text => true)
+    return navigation(order_tabs(the_tabs), :hover_text => true)
   end
 
   # Return authorized tabs for a page
-  def authorized_page_tabs(role)
-    return navigation(authorized_tabs(role), hover_text => true)
+  def authorized_page_tabs
+    return navigation(authorized_tabs, :hover_text => true)
   end
 
   protected
 
-  def authorized_tabs(role = "")
-    return all_tabs if role == "admin"
-    return order_tabs([:coordinate,:my_account]) if role == "coordinator"
-    return order_tabs([:my_account]) if role == "staff"
-    return order_tabs([:my_account,:select_projects]) if role == "student"
-    return public_tabs
+  def authorized_tabs
+    return public_tabs unless current_user
+    return all_tabs if current_user.has_role?("admin")
+    return order_tabs([:coordinate,:my_account]) if current_user.has_role?("coordinator")
+    return order_tabs([:my_account]) if current_user.has_role?("staff")
+    return order_tabs([:my_account,:select_projects]) if current_user.has_role?("student")
+    return public_tabs # when user has no roles yet!
   end
 
   def tab_order

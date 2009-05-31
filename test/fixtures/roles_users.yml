@@ -33,13 +33,37 @@ coordinator_is_coordinator:
   role_id: 4
 
 cpj_is_staff:
-  user_id: 39934000000
+  user_id: 100
   role_id: 2
 
 cpj_is_admin:
-  user_id: 39934000000
+  user_id: 100
   role_id: 1
   
 cpj_is_coordinator:
-  user_id: 39934000000
+  user_id: 100
+  role_id: 4
+
+mnc_coordinator_is_staff:
+  user_id: 101
+  role_id: 2
+
+mnc_coordinator:
+  user_id: 101
+  role_id: 4
+
+mrc_coordinator_is_staff:
+  user_id: 102
+  role_id: 2
+
+mrc_coordinator:
+  user_id: 102
+  role_id: 4
+
+c2ec_coordinator_is_staff:
+  user_id: 103
+  role_id: 2
+
+c2ec_coordinator:
+  user_id: 103
   role_id: 4
