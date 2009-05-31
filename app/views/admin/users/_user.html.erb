@@ -50,11 +50,10 @@ limitations under the License.
   </p>
 
   <fieldset><legend>Assign roles to this user</legend>
-
-    <%= collection_multiple_select('role', 'roles_ids',
-      Role.find(:all, :order => "name"),
-      :id, :name,
-      :outer_class => "multiple_select", :inner_class => "multiple_select_checkbox", :alternate => true ) %>
+    <%= collection_multiple_select('user', 'role_ids',
+                Role.find(:all, :order => "name"),
+                :id, :name,
+                :outer_class => "multiple_select", :inner_class => "multiple_select_checkbox", :alternate => true ) %>
     <div id="staff_research_centre">
       <fieldset><legend>Staff details</legend>
         <% fields_for :supervisor do |staff| %>
