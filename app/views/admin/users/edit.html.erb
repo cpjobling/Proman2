@@ -15,10 +15,9 @@
 
 <% title "Editing user details" %>
 
-<% active_tab(:admin) %>
 
 
-<% form_for :user, :url => admin_user_path(@user), :html => { :method => :put } do |f| %>
+<% form_for @user, :url => admin_user_path(@user), :html => { :method => :put } do |f| %>
   <%= f.error_messages %>
   <%= render(:partial => "user", :locals => { :user => @user, :f => f})%>
   <p>
