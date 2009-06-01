@@ -14,6 +14,9 @@
 %>
 <% title "Editing project" %>
 
+<% if can_edit?(@project) %>
+
+
 <% form_for(@project) do |f| %>
   <%= f.error_messages %>
   <%= f.hidden_field :created_by %>
@@ -21,8 +24,14 @@
   <%= render :partial => "project", :object => @project, :locals => { :f => f } %>
 
   <p>
-    <%= f.submit 'Update' %>
+    <%= f.submit 'Update' %> <%= link_to 'Delete',project_path(@project), :confirm => 'Note this action cannot be undone! Are you sure?', :method => :delete %>
   </p>
+<% end %>
+
+<% else %>
+
+<p>You are not authorized to edit this project.</p>
+
 <% end %>
 
 <%= link_to 'Show', @project %> |
