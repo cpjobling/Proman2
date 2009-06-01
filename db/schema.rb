@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090601131415) do
+ActiveRecord::Schema.define(:version => 20090601155225) do
 
   create_table "disciplines", :force => true do |t|
     t.string "name"
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(:version => 20090601131415) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "carbon_critical", :default => false
+    t.boolean  "sure",            :default => false
   end
 
   create_table "projects_supervisors", :id => false, :force => true do |t|
