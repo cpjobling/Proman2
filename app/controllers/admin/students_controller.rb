@@ -82,7 +82,7 @@ class Admin::StudentsController < ApplicationController
     respond_to do |format|
       if @student.update_attributes(params[:user])
         flash[:notice] = 'Student was successfully updated.'
-        format.html { redirect_to(admin_user_path(@student)) }
+        format.html { redirect_to(admin_student_path(@student)) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

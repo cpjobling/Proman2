@@ -16,7 +16,7 @@
 <% title "New user" %>
 
 
-<% form_for([:admin, @user]) do |f| %>
+<% form_for(:admin, @user) do |f| %>
   <%= f.error_messages %>
 
   <%= render(:partial => "user", :locals => { :user => @user, :f => f})%>

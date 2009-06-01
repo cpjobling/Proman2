@@ -82,7 +82,7 @@ class Admin::SupervisorsController < ApplicationController
     respond_to do |format|
       if @supervisor.update_attributes(params[:user])
         flash[:notice] = 'supervisor was successfully updated.'
-        format.html { redirect_to(admin_user_path(@supervisor)) }
+        format.html { redirect_to(admin_supervisor_path(@supervisor)) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

@@ -17,7 +17,8 @@
 
 
 
-<% form_for(:admin, @user) do |f| %>
+<% form_for :user, :url => admin_user_url(@user),
+							:html => { :method => :put } do |f| %>
   <%= f.error_messages %>
   <%= render(:partial => "user", :locals => { :user => @user, :f => f})%>
   <p>

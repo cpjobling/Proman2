@@ -17,7 +17,8 @@
 
 
 
-<% form_for(:admin, @supervisor) do |f| %>
+<% form_for :supervisor, :url => admin_supervisor_url(@supervisor),
+									 :html => { :method => :put } do |f| %>
   <%= f.error_messages %>
   <%= render(:partial => "supervisor", :locals => { :staff => @supervisor, :f => f})%>
   <p>

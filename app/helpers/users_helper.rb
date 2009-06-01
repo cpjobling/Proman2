@@ -133,14 +133,5 @@ module UsersHelper
     false
   end
 
-  def change_password!(old_password, new_password, new_confirmation)
-    errors.add_to_base("New password does not match the password confirmation.") and
-      return false if (new_password != new_confirmation)
-    errors.add_to_base("New password cannot be blank.") and
-      return false if new_password.blank?
-    errors.add_to_base("You password was not changed, your old password is incorrect.") and
-      return false unless self.authenticated?(old_password)
-    self.password, self.password_confirmation = new_password, new_confirmation
-    save
-  end
+
 end

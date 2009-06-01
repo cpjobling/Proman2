@@ -87,6 +87,7 @@ class Admin::UsersController < ApplicationController
       end
     end
   end
+  
   # PUT /admin/users/1
   # PUT /admin/users/1.xml
   def update

@@ -64,7 +64,7 @@ limitations under the License.
     <div id="student_discipline">
       <fieldset><legend>Student details</legend>
         <% fields_for :student do |student| %>
-          <%= render(:partial => "admin/students/supervisor", :locals => {:f => student, :student => :student}) %>
+          <%= render(:partial => "admin/students/student", :locals => {:f => student, :student => :student}) %>
         <% end %>
       </fieldset>
     </div>
