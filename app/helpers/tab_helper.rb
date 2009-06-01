@@ -74,7 +74,7 @@ module TabHelper
       :contact => [:contact, "Contact us."],
       :projects => [:projects, "View projects."],
       :admin => [:admin, "Administration tools."],
-      :my_account => [:my_account, "Access your account."],
+      :my_account => [:account, "Access your account."],
       :select_projects => [:select_projects, "Select your projects."]
       }
   end
