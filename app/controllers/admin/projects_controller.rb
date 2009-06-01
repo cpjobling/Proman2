@@ -14,6 +14,7 @@
 #
 class Admin::ProjectsController < ApplicationController
 
+  require_role "admin"
   current_tab :admin
   
   # GET /projects

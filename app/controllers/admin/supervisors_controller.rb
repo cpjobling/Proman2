@@ -14,6 +14,7 @@
 #
 class Admin::SupervisorsController < ApplicationController
   current_tab :admin
+  require_role "admin"
   
   #
   ## GET /admin/supervisors

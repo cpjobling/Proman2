@@ -79,7 +79,7 @@ ActionController::Routing::Routes.draw do |map|
   end
   
   map.coordinate 'coordinate', :conditions => { :method => :get },
-  :controller => 'coordinate_projects', :action => 'index'
+  :controller => 'coordinator', :action => 'index'
   
   map.account 'account', :conditions => { :method => :get },
   :controller => 'account', :action => 'index'

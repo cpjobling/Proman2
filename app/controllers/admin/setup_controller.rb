@@ -22,7 +22,8 @@ class Admin::SetupController < ApplicationController
   require 'logger'
 
   current_tab :admin
-
+	require_role "admin"
+  
   def index
     
   end

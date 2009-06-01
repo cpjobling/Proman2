@@ -15,6 +15,7 @@
 class Admin::StudentsController < ApplicationController
 
   current_tab :admin
+	require_role "admin"
   
   # GET /admin/students
   # GET /admin/students.xml
