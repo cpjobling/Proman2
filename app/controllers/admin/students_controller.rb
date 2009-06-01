@@ -42,6 +42,7 @@ class Admin::StudentsController < ApplicationController
   # GET /admin/students/new.xml
   def new
     @student = Student.new
+    @users = User.find(:all, :order => "last_name, first_name")
 
     respond_to do |format|
       format.html # new.html.erb
@@ -58,6 +59,7 @@ class Admin::StudentsController < ApplicationController
   # POST /admin/students.xml
   def create
     @student = Student.new(params[:student])
+    @student.user.add_role(Role.find_by_name("student"))
 
     respond_to do |format|
       if @student.save
@@ -92,6 +94,7 @@ class Admin::StudentsController < ApplicationController
   # DELETE /admin/students/1.xml
   def destroy
     @student = Student.find(params[:id])
+    @student.user.delete_role(Role.find_by_name("student"))
     @student.destroy
 
     respond_to do |format|

@@ -64,11 +64,7 @@ limitations under the License.
     <div id="student_discipline">
       <fieldset><legend>Student details</legend>
         <% fields_for :student do |student| %>
-          <%= student.label :student_id, "Input student number if student" %>:
-          <%= student.text_field :student_id, :size => "7", :title=>"Your student number is the 6 digit number to be found on your student card." %>
-          <br />
-          Assign student to a discipline: <%= student.select(:discipline_id, disciplines_for_select, {:prompt => "Select discipline"}) %>.<br />
-          Assign/update level 2 grade: <%= student.text_field :grade, :size=> "6" %>.
+          <%= render(:partial => "admin/students/supervisor", :locals => {:f => student, :student => :student}) %>
         <% end %>
       </fieldset>
     </div>

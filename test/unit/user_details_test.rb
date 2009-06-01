@@ -173,6 +173,27 @@ class UserDetailsTest < ActiveSupport::TestCase
     end
   end
 
+  def test_delete_role
+    user = User.create(:login => "newuser2",
+      :email => "newuser2@xyz.com",
+      :name => @name,
+      #:staff_or_student_number => "999999",
+      :password => "testing123",
+      :password_confirmation => "testing123")
+
+    roles = Role.find(:all)
+    roles.each do |role|
+      unless role.name == "admin" # admin user has all roles
+        user.add_role(role)
+        assert user.has_role?(role.name),
+          "Has been given role #{role.name}"
+        user.delete_role(role)
+        assert ! user.has_role?(role.name),
+          "Should now have lost role #{role.name}"
+      end
+    end
+  end
+
   test "Admin user has all roles" do
     user = users(:admin)
     roles = Role.find(:all)

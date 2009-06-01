@@ -25,5 +25,5 @@
   <td><%= link_to 'Show', admin_student_path(student_index) %></td>
   <%#= link_to project.title, project %>
   <td><%= link_to 'Edit', edit_admin_student_path(student_index) %></td>
-  <td><%= link_to 'Delete', admin_student_path(student_index), :confirm => 'Are you sure?', :method => :delete %></td>
+  <td><%= link_to 'Delete', admin_student_path(student_index), :confirm => 'Note, this operation will not delete the associated user. Do you want to continue?', :method => :delete %></td>
 </tr>

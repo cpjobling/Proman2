@@ -15,8 +15,12 @@
 
 require File.dirname(__FILE__) + '/../test_helper'
 
-class TabHelperTest < ActiveSupport::TestCase
+class TabHelperTest < ActionController::TestCase
   include TabHelper
+
+  fixtures :users, :roles
+
+  Role.find_by_name("staff")
   
   def test_defaults
     assert_equal [:home, :projects, :contact, :about], public_tabs, "Default tabs was not #{[:home, :projects, :contact, :about]}."
@@ -50,8 +54,9 @@ class TabHelperTest < ActiveSupport::TestCase
   end
 
   def test_admin_user_tabs
+    login_as users(:admin)
     expect = all_tabs
-    assert_equal expect, authorized_tabs("admin"), "Admin users should see all tabs"
+    assert_equal expect, tabs_for_role("admin"), "Admin users should see all tabs"
   end
 
   def test_all_tabs
@@ -61,21 +66,21 @@ class TabHelperTest < ActiveSupport::TestCase
 
   def test_coordinator_tabs
     expect = [:home, :coordinate, :my_account, :projects, :contact, :about]
-    assert_equal expect, authorized_tabs("coordinator"), "Expected coordinator's tabs"
+    assert_equal expect, tabs_for_role("coordinator"), "Expected coordinator's tabs"
   end
 
   def test_staff_tabs
     expect = [:home, :my_account, :projects, :contact, :about]
-    assert_equal expect, authorized_tabs("staff"), "Expected academic staff's tabs"
+    assert_equal expect, tabs_for_role("staff"), "Expected academic staff's tabs"
   end
 
   def test_student_tabs
     expect = [:home, :my_account, :projects, :select_projects, :contact, :about]
-    assert_equal expect, authorized_tabs("student"), "Expected student's tabs"
+    assert_equal expect, tabs_for_role("student"), "Expected student's tabs"
   end
 
   def test_public_tabs
     expect = public_tabs
-    assert_equal expect, authorized_tabs(), "Expected public tabs"
+    assert_equal expect, tabs_for_role(), "Expected public tabs"
   end
 end

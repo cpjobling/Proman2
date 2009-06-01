@@ -51,9 +51,14 @@ class User < ActiveRecord::Base
   
   # Assign a role
   def add_role(role)
-    return if self.has_role?(role)
+    return if self.has_role?(role.name)
     self.roles << role
-  end    
+  end
+
+  def delete_role(role)
+    return unless role = self.has_role?(role.name)
+    self.roles.delete(role)
+  end
   
   
   include Authentication

@@ -33,12 +33,19 @@ module TabHelper
 
   protected
 
-  def authorized_tabs
+  def tabs_for_role(role=nil)
+    return all_tabs if role == "admin"
+    return order_tabs([:coordinate,:my_account]) if role == "coordinator"
+    return order_tabs([:my_account]) if role == "staff"
+    return order_tabs([:my_account,:select_projects]) if role == "student"
+    return public_tabs # when user has no roles yet!
+  end
+
+   def authorized_tabs
     return public_tabs unless current_user
-    return all_tabs if current_user.has_role?("admin")
-    return order_tabs([:coordinate,:my_account]) if current_user.has_role?("coordinator")
-    return order_tabs([:my_account]) if current_user.has_role?("staff")
-    return order_tabs([:my_account,:select_projects]) if current_user.has_role?("student")
+    ["admin", "coordinator", "staff", "student"].each do |role|
+      return tabs_for_role(role) if current_user.has_role?(role)
+    end
     return public_tabs # when user has no roles yet!
   end
 

@@ -42,6 +42,7 @@ class Admin::SupervisorsController < ApplicationController
   # GET /admin/supervisors/new.xml
   def new
     @supervisor = Supervisor.new
+    @users = User.find(:all, :order => "last_name, first_name")
 
     respond_to do |format|
       format.html # new.html.erb
@@ -58,6 +59,7 @@ class Admin::SupervisorsController < ApplicationController
   # POST /admin/supervisors.xml
   def create
     @supervisor = Supervisor.new(params[:supervisor])
+    @supervisor.user.add_role(Role.find_by_name("staff"))
 
     respond_to do |format|
       if @supervisor.save
@@ -92,6 +94,7 @@ class Admin::SupervisorsController < ApplicationController
   # DELETE /admin/supervisors/1.xml
   def destroy
     @supervisor = Supervisor.find(params[:id])
+    @supervisor.user.delete_role(Role.find_by_name("staff"))
     @supervisor.destroy
 
     respond_to do |format|
