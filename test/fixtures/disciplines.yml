@@ -14,63 +14,78 @@
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-civ: 
+civ:
+  id: 1
   name: civil
   long_name: Civil Engineering
   
 mech:
+  id: 2
   name: mecheng
   long_name: Mechanical Engineering
 
 mat:
+  id: 3
   name: materials
   long_name: Materials Science and Engineering
 
 pde:
+  id: 4
   name: pde
   long_name: Product Design Engineering
 
 pdt:
+  id: 5
   name: pdt
   long_name: Product Design Technology
 
 chem:
+  id: 6
   name: chem
   long_name: Chemical and Biochemical Process Engineering
 
 med:
+  id: 7
   name: medical
   long_name: Medical Engineering
 
 aero:
+  id: 8
   name: aerospace
   long_name: Aerospace Engineering
 
 icct:
+  id: 9
   name: icct
   long_name: Information, Communication and Computing Technology
 
 eee:
+  id: 10
   name: eee
   long_name: Electronic and Electrical Engineering
   
 telecoms:
+  id: 11
   name: telecoms
   long_name: Telecommunication Engineering
   
 ecs:
+  id: 12
   name: ecs
   long_name: Electronics with Computer Science
 
 nano:
+  id: 13
   name: nano
   long_name: Nanoelectronics
 
 env:
+  id: 14
   name: environmental
   long_name: Environmental Engineering
   
 sport:
+  id: 15
   name: sports
   long_name: Sports Materials
   

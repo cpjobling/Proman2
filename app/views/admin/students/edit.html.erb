@@ -1,5 +1,4 @@
-<%#
- Copyright 2009 Swansea University
+<%# Copyright 2009 Swansea University
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -14,8 +13,17 @@
    limitations under the License.
 %>
 
-<%= link_to "Setup",              admin_setup_path %> |
-<%= link_to "Manage users",       admin_users_path %> |
-<%= link_to "Manage supervisors", admin_supervisors_path %> |
-<%= link_to "Manage students",    admin_students_path %> |
-<%= link_to "Manage projects",    admin_projects_path %>
+<% title "Editing student details" %>
+
+
+
+<% form_for(:admin, @student) do |f| %>
+  <%= f.error_messages %>
+  <%= render(:partial => "student", :locals => { :student => @student, :f => f})%>
+  <p>
+    <%= f.submit 'Update' %> <%= link_to 'Delete', admin_student_path(@student), :confirm => 'Note, this operation will not delete the associated user. Do you want to continue?', :method => :delete %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', admin_student_path(@student) %> |
+<%= link_to 'Back', admin_student_path %>

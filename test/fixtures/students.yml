@@ -1,0 +1,7 @@
+## YAML Template.
+
+nicolay:
+  user_id: 12
+  student_id: 382392
+  discipline_id: 9
+  grade: 99.9

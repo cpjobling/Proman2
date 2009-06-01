@@ -29,21 +29,11 @@ limitations under the License.
 </p>
 <% if student = @user.student %>
   <h3>Student details</h3>
-  <p>
-    <strong>Student number</strong>: <%= student.student_id %> <br />
-    <strong>Discipline</strong>: <%= student.discipline.long_name %><br />
-    <strong>Grade</strong>: <%= student.grade %>
-  </p>
+  <%= render(:partial => 'admin/students/show_student', :locals => {:student => student}) %>
 <% end %>
 <% if staff = @user.supervisor %>
   <h3>Staff details</h3>
-  <p>
-    <strong>Staff number</strong>: <%= staff.staff_id %> <br />
-    <strong>Research centre</strong>: <%= staff.research_centre.title %>  <br />
-    <% if @user.has_role?("coordinator") %>
-      <%= @user.name %> is the coordinator for <%= staff.research_centre.title %>.
-    <% end %>
-  </p>
+  <%= render(:partial => 'admin/supervisors/show_supervisor', :locals => {:staff => staff}) %>
 <% end %>
 
 

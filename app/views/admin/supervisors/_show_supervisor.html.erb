@@ -15,15 +15,10 @@
 #  under the License.
 %>
 
-<% user = student_index.user %>
-
-<tr class="<%= cycle 'even', 'odd' %>">
-  <td><%= user.id  %></td>
-  <td><%= user.name.last %>, <%= user.name.title %> <%= user.name.first %></td>
-  <td><%= student_index.discipline.long_name %></td>
-  <td><%= student_index.grade %>
-  <td><%= link_to 'Show', admin_student_path(student_index) %></td>
-  <%#= link_to project.title, project %>
-  <td><%= link_to 'Edit', edit_admin_student_path(student_index) %></td>
-  <td><%= link_to 'Delete', admin_student_path(student_index), :confirm => 'Are you sure?', :method => :delete %></td>
-</tr>
+<p>
+  <strong>Staff number</strong>: <%= staff.staff_id %> <br />
+  <strong>Research centre</strong>: <%= staff.research_centre.title %>  <br />
+  <% if staff.user.has_role?("coordinator") %>
+    <%= staff.user.name %> is the coordinator for <%= staff.research_centre.title %>.
+  <% end %>
+</p>

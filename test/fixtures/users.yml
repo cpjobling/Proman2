@@ -75,16 +75,16 @@ admin:
 # A dummy student
 student:
     id: 12
-    login: 111111
-    email: 111111@swansea.ac.uk
-    salt:                      356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
-    crypted_password:          63d8fefa835d181f7c2705227e0452045141b380 # 'monkey'
+    login: 382392
+    email: 382392@swansea.ac.uk
+    salt:                      356a192b7913b04c54574d18c28d46e6395428ab
+    crypted_password:          d755a1ef4fd94073b7109cfed5bc2418e638b6a7 # '05/07/1986'
     created_at: <%= 5.days.ago.to_s :db %>
     title: Mr
     first_name: Nicolay
-    last_name: Parashkevenov
-    known_as: Poker face
-
+    last_name: Parashkevanov
+    created_at: <%= 5.days.ago.to_s :db %>
+    known_as: poker player
 
 # A dummy staff member
 academic:

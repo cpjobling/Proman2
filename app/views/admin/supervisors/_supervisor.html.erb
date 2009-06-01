@@ -15,15 +15,7 @@
 #  under the License.
 %>
 
-<% user = student_index.user %>
-
-<tr class="<%= cycle 'even', 'odd' %>">
-  <td><%= user.id  %></td>
-  <td><%= user.name.last %>, <%= user.name.title %> <%= user.name.first %></td>
-  <td><%= student_index.discipline.long_name %></td>
-  <td><%= student_index.grade %>
-  <td><%= link_to 'Show', admin_student_path(student_index) %></td>
-  <%#= link_to project.title, project %>
-  <td><%= link_to 'Edit', edit_admin_student_path(student_index) %></td>
-  <td><%= link_to 'Delete', admin_student_path(student_index), :confirm => 'Are you sure?', :method => :delete %></td>
-</tr>
+<%= f.label :staff_id, "Input staff number if staff" %>:
+<%= f.text_field :staff_id, :size => "7", :title=>"Staff number is the 6 digit number to be found on your staff card." %>
+<br />
+Assign staff member to a research centre: <%= f.select( :research_centre_id, research_centres_for_select, {:prompt => "Select research centre"} ) %>

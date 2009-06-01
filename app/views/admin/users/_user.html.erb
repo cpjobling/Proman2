@@ -57,10 +57,7 @@ limitations under the License.
     <div id="staff_research_centre">
       <fieldset><legend>Staff details</legend>
         <% fields_for :supervisor do |staff| %>
-          <%= staff.label :staff_id, "Input staff number if staff" %>:
-          <%= staff.text_field :staff_id, :size => "7", :title=>"Your staff number is the 6 digit number to be found on your staff card." %>
-          <br />
-          Assign staff member to a research centre: <%= staff.select( :research_centre_id, research_centres_for_select, {:prompt => "Select research centre"} ) %>
+          <%= render(:partial => "admin/supervisors/supervisor", :locals => {:f => staff, :staff => :supervisor}) %>
         <% end %>
       </fieldset>
     </div>

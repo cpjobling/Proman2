@@ -15,15 +15,8 @@
 #  under the License.
 %>
 
-<% user = student_index.user %>
-
-<tr class="<%= cycle 'even', 'odd' %>">
-  <td><%= user.id  %></td>
-  <td><%= user.name.last %>, <%= user.name.title %> <%= user.name.first %></td>
-  <td><%= student_index.discipline.long_name %></td>
-  <td><%= student_index.grade %>
-  <td><%= link_to 'Show', admin_student_path(student_index) %></td>
-  <%#= link_to project.title, project %>
-  <td><%= link_to 'Edit', edit_admin_student_path(student_index) %></td>
-  <td><%= link_to 'Delete', admin_student_path(student_index), :confirm => 'Are you sure?', :method => :delete %></td>
-</tr>
+<%= f.label :student_id, "Input student number if student" %>:
+<%= f.text_field :student_id, :size => "7", :title=>"Your student number is the 6 digit number to be found on your student card." %>
+<br />
+Assign student to a discipline: <%= f.select(:discipline_id, disciplines_for_select, {:prompt => "Select discipline"}) %>.<br />
+Assign/update level 2 grade: <%= f.text_field :grade, :size=> "6" %>.
