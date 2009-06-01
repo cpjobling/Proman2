@@ -83,7 +83,7 @@ coordinators and there may be a delay of one or two working days before your acc
       <%= staff.label :staff_id, "Input your staff number" %>:
       <%= staff.text_field :staff_id, :size => "7", :title=>"Your staff number is the 6 digit number to be found on your staff card." %>
       <br />
-      Select your research centre: <%= staff.select( :research_center, research_centres_for_select ) %>
+      Select your research centre: <%= staff.select( :research_center_id, research_centres_for_select ) %>
     <% end %>
   </div>
   <div id="student_discipline">

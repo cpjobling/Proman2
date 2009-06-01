@@ -1,26 +1,56 @@
 <%# Copyright 2009 Swansea University
 
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-       http://www.apache.org/licenses/LICENSE-2.0
+http://www.apache.org/licenses/LICENSE-2.0
 
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 %>
 
 <% title "Showing user details" %>
 
 
+<h3>User record</h3>
+<p>
+  <strong>User Id (primary key)</strong>: <%= @user.id %><br />
+  <strong>Login</strong>:<%= @user.login %><br />
+  <strong>Name</strong>: <%= @user.name %>
+  <% if @user.known_as %>
+    <strong>Known as</strong>: <%= @user.known_as %>.
+  <% end %><br />
+  <strong>Email</strong>: <a href="mailto:<%= @user.email %>"><%= @user.email %></a>
+  <strong>Roles</strong>: <%= show_roles(@user) %>
+</p>
+<% if @user.has_role?("student") %>
+  <h3>Student details</h3>
+  <p>
+    <% student = Student.find_by_user_id(@user.id) %>
+    <strong>Student number</strong>: <%= student.student_id %> <br />
+    <strong>Discipline</strong>: <%= student.discipline.long_name %><br />
+    <strong>Grade</strong>: <%= student.grade %>
+  </p>
+<% end %>
+<% if @user.has_role?("staff") %>
+  <% staff = Supervisor.find_by_user_id(@user.id) %>
+  <h3>Staff details</h3>
+  <p>
+    <strong>Staff number</strong>: <%= staff.staff_id %> <br />
+    <strong>Research centre</strong>: <%= staff.research_centre.title %>  <br />
+    <% if @user.has_role?("coordinator") %>
+      <%= @user.name %> is the coordinator for <%= staff.research_centre.title %>.
+    <% end %>
+  </p>
+<% end %>
 
-<p><strong>Login</strong>:<%= @user.login %><br /> 
-	<strong>Name</strong>: <%= @user.name %><br />
-	<strong>Id</strong>: <%= @user.id %><br />
-	<strong>Email</strong>: <a href="mailto:<%= @user.email %>"><%= @user.email %></a></p>
-	
-<%= link_to 'Edit', edit_admin_user_path(@user) %> |
-<%= link_to 'Back', admin_users_path %>
+
+
+<p>
+  <%= link_to 'Edit', edit_admin_user_path(@user) %> |
+  <%= link_to 'Back', admin_users_path %>
+</p>

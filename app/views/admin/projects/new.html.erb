@@ -15,7 +15,7 @@
 
 <% title "New project" %>
 
-<% form_for(@project) do |f| %>
+<% form_for([:admin,@project]) do |f| %>
   <%= f.error_messages %>
   <%= f.hidden_field :created_by, { :value => session[:user_id] } %>
   
