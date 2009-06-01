@@ -15,7 +15,7 @@
 
 <% title "Editing project" %>
 
-<% form_for(@project) do |f| %>
+<% form_for([:admin, @project]) do |f| %>
   <%= f.error_messages %>
   <%= f.hidden_field :created_by %>
 
@@ -26,5 +26,5 @@
   </p>
 <% end %>
 
-<%= link_to 'Show', @project %> |
-<%= link_to 'Back', projects_path %>
+<%= link_to 'Show', admin_project_path(@project) %> |
+<%= link_to 'Back', admin_projects_path %>

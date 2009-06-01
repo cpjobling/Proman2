@@ -15,8 +15,6 @@
 
 <% title @project.title %>
 
-<% title @project.title %>
-
 <% supervisor = User.find(@project.created_by) %>
 <p><strong>Supervisor</strong>:
   <%= supervisor.name %>
@@ -24,7 +22,7 @@
   (<a href="mailto:<%= supervisor.email %>"><%= supervisor.email %></a>)
 </p>
 <p>
-  <strong>Research Centre</strong>: placeholder
+  <strong>Research Centre</strong>: supervisor.supervisor.research_centre.
 </p>
 
 <p><strong>Description</strong>: <%= @project.description %></p>
@@ -37,6 +35,7 @@
 <p><strong>Suitable for</strong>:</p>
 <%= render( :partial => "shared/list_disciplines", :object => @project) %>
 
-<%# TODO edit link should only be available to owner %>
+<% if can_edit?(@project) %>
 <%= link_to 'Edit', edit_project_path(@project) %> |
+<% end %>
 <%= link_to 'Back', projects_path %>

@@ -15,9 +15,6 @@ limitations under the License.
 
 <% title "All Projects" %>
 
-<% content_for :tabs do %>
-  <%= render(:partial => "shared/tabs", :locals => {:active_tab => :admin}) %>
-<% end %>
 
 <table>
   <thead><td>Number</td><td>Title</td><td>Supervisor</td><td>Email</td><td colspan="2">Action</td></thead>
@@ -28,4 +25,4 @@ limitations under the License.
 
 <br />
 
-<%= link_to 'New project', new_project_path %>
+<%= link_to 'New project', new_admin_project_path %>

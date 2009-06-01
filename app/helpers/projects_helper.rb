@@ -24,4 +24,11 @@ module ProjectsHelper
     return disciplines
   end
 
+
+  # Only owner can edit project
+  def can_edit?(project)
+    current_user.id == project.created_by
+  end
+
+
 end

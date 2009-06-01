@@ -35,6 +35,5 @@
 <p><strong>Suitable for</strong>:</p>
 <%= render( :partial => "shared/list_disciplines", :object => @project) %>
 
-<%# TODO edit link should only be available to owner %>
-<%= link_to 'Edit', edit_project_path(@project) %> |
-<%= link_to 'Back', projects_path %>
+<%= link_to 'Edit', edit_admin_project_path(@project) %> |
+<%= link_to 'Back', admin_projects_path %>

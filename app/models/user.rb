@@ -108,6 +108,13 @@ class User < ActiveRecord::Base
     write_attribute :email, (value ? value.downcase : nil)
   end
 
+  def is_owner?(project)
+    if logged_in?
+      return project.created_by == @current_user
+    end
+    false
+  end
+
   protected
     
 
