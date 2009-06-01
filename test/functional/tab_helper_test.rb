@@ -27,7 +27,7 @@ class TabHelperTest < ActionController::TestCase
   end
 
   def test_tab_order
-    expected = [:home, :admin, :coordinate, :my_account, :projects, :select_projects, :contact, :about]
+    expected = [:home, :admin, :coordinate, :projects, :select_projects, :contact, :about]
     assert_equal expected, tab_order, "Tab order was not #{expected}"
   end
 
@@ -48,11 +48,6 @@ class TabHelperTest < ActionController::TestCase
     assert_equal expect, order_tabs([:coordinate]), "When including :coordinate tabs should be #{expect}"
   end
 
-  def test_account_holder_order
-    expect = [:home, :my_account, :projects, :contact, :about]
-    assert_equal expect, order_tabs([:my_account]), "When including :my_account tabs should be #{expect}"
-  end
-
   def test_admin_user_tabs
     login_as users(:admin)
     expect = all_tabs
@@ -65,17 +60,17 @@ class TabHelperTest < ActionController::TestCase
   end
 
   def test_coordinator_tabs
-    expect = [:home, :coordinate, :my_account, :projects, :contact, :about]
+    expect = [:home, :coordinate, :projects, :contact, :about]
     assert_equal expect, tabs_for_role("coordinator"), "Expected coordinator's tabs"
   end
 
   def test_staff_tabs
-    expect = [:home, :my_account, :projects, :contact, :about]
+    expect = [:home, :projects, :contact, :about]
     assert_equal expect, tabs_for_role("staff"), "Expected academic staff's tabs"
   end
 
   def test_student_tabs
-    expect = [:home, :my_account, :projects, :select_projects, :contact, :about]
+    expect = [:home, :projects, :select_projects, :contact, :about]
     assert_equal expect, tabs_for_role("student"), "Expected student's tabs"
   end
 

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090601155225) do
+ActiveRecord::Schema.define(:version => 20090601200307) do
 
   create_table "disciplines", :force => true do |t|
     t.string "name"
@@ -23,6 +23,17 @@ ActiveRecord::Schema.define(:version => 20090601155225) do
 
   add_index "disciplines_projects", ["discipline_id"], :name => "index_disciplines_projects_on_discipline_id"
   add_index "disciplines_projects", ["project_id"], :name => "index_disciplines_projects_on_project_id"
+
+  create_table "four_oh_fours", :force => true do |t|
+    t.string   "url"
+    t.string   "referer"
+    t.integer  "count",      :default => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "four_oh_fours", ["url", "referer"], :name => "index_four_oh_fours_on_url_and_referer", :unique => true
+  add_index "four_oh_fours", ["url"], :name => "index_four_oh_fours_on_url"
 
   create_table "project_allocations", :force => true do |t|
     t.integer  "project_id"

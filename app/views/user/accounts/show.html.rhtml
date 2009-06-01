@@ -15,12 +15,10 @@
 #  under the License.
 %>
 
-<% if logged_in? %>
- <%= link_to_current_user :content_method => :name %> |
-		<%= link_to 'My Account', user_account_path(current_user), { :title => "My account" } %> | <%=  yield :menu %> | <%= link_to 'Logout', logout_path %>
-<% else %>
-  <%= link_to 'Login', login_path %>
-  <% if can_register? %>
-    | <%=  link_to 'Register', signup_path %>
-  <% end %>
-<% end %>
+<h1>My Account: <%=h @user.login %> <%= link_to '(edit)', edit_user_account_path(current_user) %></h1>
+<p>Joined on: <%=h @user.created_at.to_s(:long) %></p>
+<p>Name: <%=h @user.name %></p>
+<p>Username: <%=h @user.login %></p>
+<p>Email: <%=h @user.email %></p>
+<p>Password: <%= link_to '(change)', user_account_password_settings_path(current_user) %></p>
+

@@ -35,4 +35,36 @@ module ApplicationHelper
     return "<em>Proman<sup>&beta;</sup></em>"
   end
 
+  def if_admin?
+    yield if logged_in? && current_user.has_role?('admin')
+  end
+
+  def if_coordinator?
+    yield if logged_in? && current_user.has_role?('coordinator')
+  end
+
+  def if_student?
+    yield if logged_in? && current_user.has_role?('student')
+  end
+
+  def if_supervisor?
+    yield if logged_in? && current_user.has_role?('staff')
+  end
+
+  def if_logged_in?
+    yield if logged_in?
+  end
+
+  def in_beta?
+    APP_CONFIG['settings']['in_beta']
+  end
+
+  def if_in_beta?
+    yield if in_beta?
+  end
+
+  def unless_in_beta?
+    yield unless in_beta?
+  end
+
 end

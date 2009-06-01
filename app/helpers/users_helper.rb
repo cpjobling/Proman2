@@ -31,7 +31,9 @@ module UsersHelper
     end
   end
 
-  #
+  def user_profile_path
+
+  end#
   # Link to user's page ('users/1')
   #
   # By default, their login is used as link text and link title (tooltip)
@@ -63,7 +65,7 @@ module UsersHelper
     content_text      = options.delete(:content_text)
     content_text    ||= user.send(options.delete(:content_method))
     options[:title] ||= user.send(options.delete(:title_method))
-    link_to h(content_text), user_path(user), options
+    link_to h(content_text), user_account_path(user), options
   end
 
   #
@@ -126,16 +128,19 @@ module UsersHelper
 
   end
 
-  def supervisor?(user)
-    Supervisor.find_by_user_id(user.id)
-  end
-
-  def student?(user)
-    Student.find_by_user_id(user.id)
-  end
-
   def can_register?
     # TODO: make this system status dependent
-   true
+    false
+  end
+
+  def change_password!(old_password, new_password, new_confirmation)
+    errors.add_to_base("New password does not match the password confirmation.") and
+      return false if (new_password != new_confirmation)
+    errors.add_to_base("New password cannot be blank.") and
+      return false if new_password.blank?
+    errors.add_to_base("You password was not changed, your old password is incorrect.") and
+      return false unless self.authenticated?(old_password)
+    self.password, self.password_confirmation = new_password, new_confirmation
+    save
   end
 end

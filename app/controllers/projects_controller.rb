@@ -18,8 +18,6 @@ class ProjectsController < ApplicationController
 
   skip_before_filter :login_required, :only => ["index","by_discipline","by_centre","by_supervisor"]
   require_role ["admin", "coordinator", "staff"], :for => ["new", "create", "edit", "update", "destroy"]
-  before_filter :authorized?, :only => ["edit", "update", "destroy"]
-
 
   # GET /projects
   # GET /projects.xml
@@ -180,12 +178,6 @@ class ProjectsController < ApplicationController
     @projects = Project.find(:all)
   end
     
-  protected
-
-  # Only owner can edit project
-  def can_edit?(project)
-    current_user.id == project.created_by
-  end
 
   private
 

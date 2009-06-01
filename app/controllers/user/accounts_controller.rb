@@ -12,15 +12,29 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
-class MainController < ApplicationController
-  skip_before_filter :login_required
+class User::AccountsController < ApplicationController
   current_tab :home
-  
-  def index
-    @title = "Welcome to Proman"
+  before_filter :login_required, :only =>  [ :show, :edit, :update ]
+  before_filter :login_prohibited, :only => [:new, :create]
 
-    respond_to do |format|
-        format.html # index.html.erb
+  # This show action only allows users to view their own profile
+  def show
+    @user = current_user
+  end
+
+  def edit
+		@user = current_user
+  end
+
+  def update
+    @user = current_user
+    if @user.update_attributes(params[:user])
+      flash[:notice] = "Profile updated."
+      redirect_to :action => 'show'
+    else
+			flash.now[:error] = "There was a problem updating your profile."
+      render :action => 'edit'
     end
   end
+
 end

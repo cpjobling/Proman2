@@ -12,15 +12,25 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
-class MainController < ApplicationController
-  skip_before_filter :login_required
+class User::PasswordSettingsController < ApplicationController
   current_tab :home
-  
-  def index
-    @title = "Welcome to Proman"
+  before_filter :login_required
 
-    respond_to do |format|
-        format.html # index.html.erb
-    end
+  # Change password view
+  def index
+
   end
+  
+  # Change password action  
+  def create
+		if current_user.change_password!(params[:old_password], params[:password], params[:password_confirmation])
+   		flash[:notice] = "Password successfully updated."
+    	redirect_to user_account_path(current_user)
+		else
+			@old_password = nil
+      flash.now[:error] = current_user.errors.on_base || "There was a problem updating your password."
+      render :action => 'index'
+		end
+	end
+
 end

@@ -23,6 +23,7 @@ class ApplicationController < ActionController::Base
   before_filter :login_required
   helper_method :owner?
   helper_method :admin?
+
   
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details

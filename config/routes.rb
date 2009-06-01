@@ -56,17 +56,17 @@ ActionController::Routing::Routes.draw do |map|
   
   map.with_options :controller => "admin/setup" do |setup|
   	setup.import_staff 'admin/setup/import_staff',
-  			:conditions => { :method => :get }, :action => 'import_staff'
+      :conditions => { :method => :get }, :action => 'import_staff'
   	setup.csv_import_staff 'admin/setup/csv_import_staff',
-  			:conditions => { :method => :post }, :action => "csv_import_staff"
+      :conditions => { :method => :post }, :action => "csv_import_staff"
   	setup.import_students 'admin/setup/import_students',
-  			:conditions => { :method => :get }, :action => 'import_students'
+      :conditions => { :method => :get }, :action => 'import_students'
   	setup.csv_import_students 'admin/setup/csv_import_students',
-  			:conditions => { :method => :post }, :action => "csv_import_students"
+      :conditions => { :method => :post }, :action => "csv_import_students"
     setup.import_projects 'admin/setup/import_projects',
-  			:conditions => { :method => :get }, :action => 'import_projects'
+      :conditions => { :method => :get }, :action => 'import_projects'
   	setup.csv_import_projects 'admin/setup/csv_import_projects',
-  			:conditions => { :method => :post }, :action => "csv_import_projects"
+      :conditions => { :method => :post }, :action => "csv_import_projects"
   end
      
   map.with_options :controller => "admin/projects" do |ap|
@@ -79,21 +79,28 @@ ActionController::Routing::Routes.draw do |map|
   end
   
   map.coordinate 'coordinate', :conditions => { :method => :get },
-  :controller => 'coordinator', :action => 'index'
+    :controller => 'coordinator', :action => 'index'
   
-  map.account 'account', :conditions => { :method => :get },
-  :controller => 'account', :action => 'index'
+  map.namespace :user do |user|
+    #user.resources :activations
+    #user.resources :invitations
+    #user.resources :openid_accounts
+    user.resources :passwords
+    user.resources :accounts do |accounts|
+      accounts.resources :password_settings
+    end
+  end
 
   map.select_projects 'select_projects', :conditions => { :method => :get },
-  :controller => 'select_projects', :action => 'index'
+    :controller => 'select_projects', :action => 'index'
   
   map.about 'about', :conditions => { :method => :get}, :controller => 'about', :action => 'index'
 
   map.home 'main', :conditions => { :method => :get}, :controller => 'main', :action => 'index'
 
   map.contact 'contact', :conditions => { :method => :get}, :controller => 'contact', :action => 'index'
-
-  map.my_account 'account', :conditions => { :method => :get}, :controller => 'account', :action => 'index'
+  # this route may be surplus to requirements
+  map.my_account 'main', :conditions => { :method => :get}, :controller => 'main', :action => 'index'
   
   # The priority is based upon order of creation: first created -> highest priority.
 
@@ -121,12 +128,12 @@ ActionController::Routing::Routes.draw do |map|
   #   end
 
   map.namespace :admin do |admin|
-        # Directs /admin/users/* to Admin::UsersController (app/controllers/admin/users_controller.rb)
-        admin.resources :users
-        admin.resources :students
-        admin.resources :supervisors
-        admin.resources :projects
-   end
+    # Directs /admin/users/* to Admin::UsersController (app/controllers/admin/users_controller.rb)
+    admin.resources :users
+    admin.resources :students
+    admin.resources :supervisors
+    admin.resources :projects
+  end
 
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
   map.root :controller => "main"
@@ -136,6 +143,7 @@ ActionController::Routing::Routes.draw do |map|
   # Install the default routes as the lowest priority.
   # Note: These default routes make all actions in every controller accessible via GET requests. You should
   # consider removing the them or commenting them out if you're using named routes and resources.
-  map.connect ':controller/:action/:id'
-  map.connect ':controller/:action/:id.:format'
+  #map.connect ':controller/:action/:id'
+  #map.connect ':controller/:action/:id.:format'
+  map.connect '*path' , :controller => 'four_oh_fours'
 end

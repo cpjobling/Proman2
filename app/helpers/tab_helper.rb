@@ -35,9 +35,9 @@ module TabHelper
 
   def tabs_for_role(role=nil)
     return all_tabs if role == "admin"
-    return order_tabs([:coordinate,:my_account]) if role == "coordinator"
-    return order_tabs([:my_account]) if role == "staff"
-    return order_tabs([:my_account,:select_projects]) if role == "student"
+    return order_tabs([:coordinate]) if role == "coordinator"
+    return order_tabs([]) if role == "staff"
+    return order_tabs([:select_projects]) if role == "student"
     return public_tabs # when user has no roles yet!
   end
 
@@ -50,7 +50,7 @@ module TabHelper
   end
 
   def tab_order
-    [:home, :admin, :coordinate, :my_account, :projects, :select_projects, :contact, :about]
+    [:home, :admin, :coordinate, :projects, :select_projects, :contact, :about]
   end
 
   # Tabs accessible by visitors
@@ -74,7 +74,6 @@ module TabHelper
       :contact => [:contact, "Contact us."],
       :projects => [:projects, "View projects."],
       :admin => [:admin, "Administration tools."],
-      :my_account => [:account, "Access your account."],
       :select_projects => [:select_projects, "Select your projects."]
       }
   end

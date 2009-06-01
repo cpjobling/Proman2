@@ -19,13 +19,13 @@ class User < ActiveRecord::Base
   composed_of :name,
     :class_name => "Name",
     :mapping => [
-      # database  ruby
-      %w[ title title ],
-      %w[ first_name first ],
-      %w[ last_name last ],
-      %w[ initials initials ],
-      %w[ known_as known_as ]
-    ],
+    # database  ruby
+    %w[ title title ],
+    %w[ first_name first ],
+    %w[ last_name last ],
+    %w[ initials initials ],
+    %w[ known_as known_as ]
+  ],
     :allow_nil => true
 
   has_one :student, :dependent => :destroy
@@ -44,8 +44,8 @@ class User < ActiveRecord::Base
   # has_role? simply needs to return true or false whether a user has a role or not.  
   # It may be a good idea to have "admin" roles return true always
   def has_role?(role_in_question)
-        return true if self.roles.find_by_name("admin")
-        return self.roles.find_by_name(role_in_question)
+    return true if self.roles.find_by_name("admin")
+    return self.roles.find_by_name(role_in_question)
   end
   # ---------------------------------------
   
@@ -115,6 +115,16 @@ class User < ActiveRecord::Base
     false
   end
 
+  def change_password!(old_password, new_password, new_confirmation)
+    errors.add_to_base("New password does not match the password confirmation.") and
+      return false if (new_password != new_confirmation)
+    errors.add_to_base("New password cannot be blank.") and
+      return false if new_password.blank?
+    errors.add_to_base("You password was not changed, your old password is incorrect.") and
+      return false unless self.authenticated?(old_password)
+    self.password, self.password_confirmation = new_password, new_confirmation
+    save
+  end
   protected
     
 
