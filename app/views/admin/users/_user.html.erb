@@ -60,7 +60,7 @@ limitations under the License.
           <%= staff.label :staff_id, "Input staff number if staff" %>:
           <%= staff.text_field :staff_id, :size => "7", :title=>"Your staff number is the 6 digit number to be found on your staff card." %>
           <br />
-          Assign staff member to a research centre: <%= staff.select( :research_centre_id, research_centres_for_select ) %>
+          Assign staff member to a research centre: <%= staff.select( :research_centre_id, research_centres_for_select, {:prompt => "Select research centre"} ) %>
         <% end %>
       </fieldset>
     </div>
@@ -70,7 +70,7 @@ limitations under the License.
           <%= student.label :student_id, "Input student number if student" %>:
           <%= student.text_field :student_id, :size => "7", :title=>"Your student number is the 6 digit number to be found on your student card." %>
           <br />
-          Assign student to a discipline: <%= student.select(:discipline_id, disciplines_for_select) %>.<br />
+          Assign student to a discipline: <%= student.select(:discipline_id, disciplines_for_select, {:prompt => "Select discipline"}) %>.<br />
           Assign/update level 2 grade: <%= student.text_field :grade, :size=> "6" %>.
         <% end %>
       </fieldset>

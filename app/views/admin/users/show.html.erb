@@ -27,17 +27,15 @@ limitations under the License.
   <strong>Email</strong>: <a href="mailto:<%= @user.email %>"><%= @user.email %></a>
   <strong>Roles</strong>: <%= show_roles(@user) %>
 </p>
-<% if @user.has_role?("student") %>
+<% if student = @user.student %>
   <h3>Student details</h3>
   <p>
-    <% student = Student.find_by_user_id(@user.id) %>
     <strong>Student number</strong>: <%= student.student_id %> <br />
     <strong>Discipline</strong>: <%= student.discipline.long_name %><br />
     <strong>Grade</strong>: <%= student.grade %>
   </p>
 <% end %>
-<% if @user.has_role?("staff") %>
-  <% staff = Supervisor.find_by_user_id(@user.id) %>
+<% if staff = @user.supervisor %>
   <h3>Staff details</h3>
   <p>
     <strong>Staff number</strong>: <%= staff.staff_id %> <br />
