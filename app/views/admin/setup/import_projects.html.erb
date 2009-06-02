@@ -23,7 +23,7 @@
 
 <% slogan "An apple a day keeps the Doctor away!" %>
 
-<% form_for :import_students,
+<% form_for :import_projects,
             :url=>{:controller=>"admin/setup",
             :action=>"csv_import_projects"},
             :html => { :multipart => true } do |f| -%>

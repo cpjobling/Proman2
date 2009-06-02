@@ -34,6 +34,8 @@ class User < ActiveRecord::Base
   has_one :supervisor, :dependent => :destroy
   #accepts_nested_attributes_for :supervisor, :allow_destroy => true
 
+  has_many :projects, :dependent => :nullify
+
   #has_one :coordinator, :dependent => :nullify
   
   # ---------------------------------------

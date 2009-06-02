@@ -14,6 +14,7 @@
 
 class Project < ActiveRecord::Base
   has_and_belongs_to_many :disciplines
+  belongs_to :user, :foreign_key => "created_by"
 
   validates_presence_of :title
   validates_uniqueness_of :title
@@ -58,6 +59,10 @@ class Project < ActiveRecord::Base
   		end
   	end
   end
+
+  def suitable_for_these(array)
+    array.each { |d| self.suitable_for(d) }
+  end
   
   # Convenience method to determine if a project is suitable for no disciplines.
   # That is has not been assigned to any disciplines.
@@ -71,12 +76,34 @@ class Project < ActiveRecord::Base
   	self.disciplines.delete_all
   end
 
+  # User attached by created_by attribute
+  def creator
+    self.user
+  end
+
+  # The supervisor object for the user that created this project
+  def supervisor
+    self.creator.supervisor
+  end
+
+  def centre
+    return self.supervisor && self.supervisor.research_centre
+  end
+
+  def centre_abbrev
+    return self.centre && self.centre.abbrev || "undefined"
+  end
+
+  def centre_title
+    return self.centre && self.centre.title || "undefined"
+  end
+  
   private
 
   def name_discipline(discipline)
     return discipline.name if discipline.class == Discipline
     return Discipline.find(discipline).name if discipline.class == Fixnum
     return discipline if discipline.class == String
-    return ""
+    return discipline.to_s || "" # catch all
   end
 end

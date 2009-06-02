@@ -117,4 +117,47 @@ class Admin::SetupController < ApplicationController
     redirect_to admin_students_path
   end
 
-end
+  def import_projects
+
+  end
+
+  def csv_import_projects
+    @parsed_file = CSV::Reader.parse(params[:import_projects][:projects_file])
+    n=0
+    result = ""
+    @parsed_file.each  do |row|
+      project = Project.new
+      logger.info "Read: #{row}"
+      "0: Centre	1: Supervisor	2: Email	3: Title	4: Description	5: Resources	6: Suitable for"
+      email = row[2].downcase
+      supervisor = User.find(:first, :conditions => ['email LIKE ?', email])
+      if supervisor
+        logger.info "Found user #{supervisor} to match #{email}"
+        project.user = supervisor
+      else
+        logger.info "Couldn't find user #{supervisor} to match #{email}"
+      end
+      
+      project.title = row[3]
+      project.description = row[4]
+      project.resources = row[5] || ""
+      suited_to = row - row[0..5]
+      logger.info "Found disciplines for #{suited_to}"
+      if suited_to[0].downcase == "all"
+        logger.info "Project is suitable for all"
+        project.suitable_for_all
+      else
+        project.suitable_for_these(suited_to)
+      end
+      if project.save
+        logger.info "#{n}: Added #{project.title} as #{project.id}<br />\n"
+        n = n+1
+        GC.start if n % 50 == 0
+      else
+        logger.error "Couldn't save record for #{project.title}"
+      end
+      flash[:notice] = "#{result}\nCSV Projects Import Successful,  #{n} new records added to data base."
+    end
+    redirect_to admin_projects_path
+    end
+  end  

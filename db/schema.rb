@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090601200307) do
+ActiveRecord::Schema.define(:version => 20090602073615) do
 
   create_table "disciplines", :force => true do |t|
     t.string "name"
@@ -60,6 +60,8 @@ ActiveRecord::Schema.define(:version => 20090601200307) do
     t.boolean  "carbon_critical", :default => false
     t.boolean  "sure",            :default => false
   end
+
+  add_index "projects", ["created_by"], :name => "index_projects_on_created_by"
 
   create_table "projects_supervisors", :id => false, :force => true do |t|
     t.integer "supervisor_id"

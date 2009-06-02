@@ -30,5 +30,12 @@ module ProjectsHelper
     current_user.id == project.created_by
   end
 
+  def abbreviate(text, length=80)
+    if text.length > length
+      return text[0...length-3] + "..."
+    end
+    return text
+  end
+
 
 end

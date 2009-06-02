@@ -39,6 +39,10 @@ class Name
     return @known_as
   end
 
+  def last_first
+    return "#{@last}, #{@title} #{@first}, #{@intials}"
+  end
+
   # Apparently needed to satisfy assert_difference when testing composed objects?
   def size
     return 1

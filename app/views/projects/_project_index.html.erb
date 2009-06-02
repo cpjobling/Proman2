@@ -19,11 +19,9 @@ limitations under the License.
     <%= project_index.id -%>
   </td>
   <td>
-    <%= link_to project_index.title, project_index %>
+    <%= link_to abbreviate(project_index.title), project_index, {:title => project_index.title} %>
   </td>
-  <td><%= creator.name %>
+  <td><%= creator.name.last_first %>
   </td>
-  <td><a href="mailto:<%= creator.email %>">
-    <%= creator.email -%></a>
-  </td>
+  <td><span title="<%=  project_index.centre_title %>"><%= project_index.centre_abbrev %></span>
 </tr>
