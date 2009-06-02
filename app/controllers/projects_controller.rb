@@ -167,11 +167,15 @@ class ProjectsController < ApplicationController
   end
 
   def by_supervisor
-    @projects = Project.find_by_sql "SELECT p.title, p.id, u.last_name FROM `projects` AS p, users AS u WHERE p.created_by = u.id ORDER BY u.last_name ASC"
+    @supervisors = User.find(:all, :joins => :supervisor, :order => 'last_name, first_name')
+     # "SELECT p.title, p.id, u.id
+     #  FROM `projects` AS p, `users` AS u
+     #  WHERE p.created_by = u.id
+      # ORDER BY u.last_name, u.first_name ASC")
   end
 
   def by_discipline
-    @disciplines_projects = DisciplinesProjects.find(:all, :order =>'discipline_id')
+    @disciplines = Discipline.find(:all, :order => 'long_name')
   end
 
   def by_centre

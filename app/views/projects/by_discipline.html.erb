@@ -1,53 +1,51 @@
 <%# Copyright 2009 Swansea University
 
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-       http://www.apache.org/licenses/LICENSE-2.0
+http://www.apache.org/licenses/LICENSE-2.0
 
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 %>
 
 
 <% title "Projects by Discipline" %>
 <p><%= render(:partial => "navigation") %></p>
-<%
- curr_disc = '';
-%>
-<p>
-<% if @disciplines_projects.blank? %>
-    <p>No projects to display</p>
-<%else%>
-  <ul id="projects">
-    <% @disciplines_projects.each do |is| %>
- <%
-          if curr_disc == ''
-            curr_disc = Discipline.find(is.discipline_id).name
-        %>
-      <p><u><%= 'Projects suitable for ' + Discipline.find(is.discipline_id).name %><br></u></p>
-      <%
-          else
-            if curr_disc != Discipline.find(is.discipline_id).name
-        %>
-    <p><u><%= 'Projects suitable for ' + Discipline.find(is.discipline_id).name %><br></u></p>
-    <%
-              curr_disc = Discipline.find(is.discipline_id).name
-            end
-          end
-        %>
-      <li>
-  <%= link_to  Project.find(is.project_id).title, project_url( :id => is.project_id) -%>
-      <%end%>
-  </ul>
-<%end%>
 
-<p>To view projects sorted by supervisor that created them <%= link_to "Click Here", {:action => 'by_supervisor'} %></p>
-<p><%= link_to 'Back', {:action => 'index'} %></p>
+<p>Please note that this catergorization of projects is approximate as supervisors
+may not have been particularly specific in defining the suitability of their projects
+for particular disciplines. For example, mechanical engineering projects are often
+suitable for product design engineering and project design technology students,
+electricial and electronic engineering projects may be suitable for electronics
+with computer science and telecommunication engineering.
+
+<% if @disciplines.blank? %>
+  <p>No projects to display.</p>
+<%else%>
+   <h3 id="top">Disciplines</h3>
+  <ul id="disciplines">
+    <% @disciplines.each do |discipline| %>
+      <li><a href="#<%= discipline.id %>"><%= discipline.long_name %></a></li>
+    <% end %>
+  </ul>
+
+  <% @disciplines.each do |discipline| %>
+    <h3 id="<%= discipline.id %>"><%= discipline.long_name %></h2>
+    <table>
+      <thead><td>Number</td><td>Title</td><td>Supervisor</td><td>Centre</td></thead>
+      <tbody>
+        <%= render(:partial => "project_index", :collection => discipline.projects) %>
+      </tbody>
+    </table>
+    <p><a href="#top">Top</a> | <%= link_to 'Back to full project list', {:action => 'index'} %></p>
+    <hr />
+  <% end %>
+<% end %>
 
 
 
