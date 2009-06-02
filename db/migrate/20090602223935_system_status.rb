@@ -12,6 +12,7 @@ class SystemStatus < ActiveRecord::Migration
     # Populate research centres from fixture ... see dev_data/README.txt
     directory = File.join(File.dirname(__FILE__), '../../test/fixtures')
     Fixtures.create_fixtures(directory, "system_status")
+ 
   end
 
   def self.down
