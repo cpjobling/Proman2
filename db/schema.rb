@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090602073615) do
+ActiveRecord::Schema.define(:version => 20090602223935) do
 
   create_table "disciplines", :force => true do |t|
     t.string "name"
@@ -113,6 +113,14 @@ ActiveRecord::Schema.define(:version => 20090602073615) do
   end
 
   add_index "supervisors", ["staff_id"], :name => "index_supervisors_on_staff_id", :unique => true
+
+  create_table "system_status", :force => true do |t|
+    t.integer  "code"
+    t.string   "status"
+    t.text     "message"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "login",                     :limit => 40
