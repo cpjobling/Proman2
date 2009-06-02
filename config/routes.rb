@@ -38,6 +38,11 @@ ActionController::Routing::Routes.draw do |map|
     :controller => "projects",
     :action => "my_projects"
 
+    map.connect 'specials',
+      :conditions => { :method => :get },
+      :action => "specials",
+      :controller => 'projects'
+
   map.resources :projects
 
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'

@@ -165,7 +165,7 @@ class Admin::ProjectsController < ApplicationController
   end
 
   def by_supervisor
-    @projects = Project.find_by_sql "SELECT p.title, p.id, u.last_name FROM `projects` AS p, users AS u WHERE p.created_by = u.id ORDER BY u.last_name ASC"
+        @supervisors = User.find(:all, :joins => :supervisor, :order => 'last_name, first_name')
   end
 
   def by_discipline

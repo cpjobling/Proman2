@@ -168,10 +168,6 @@ class ProjectsController < ApplicationController
 
   def by_supervisor
     @supervisors = User.find(:all, :joins => :supervisor, :order => 'last_name, first_name')
-     # "SELECT p.title, p.id, u.id
-     #  FROM `projects` AS p, `users` AS u
-     #  WHERE p.created_by = u.id
-      # ORDER BY u.last_name, u.first_name ASC")
   end
 
   def by_discipline
@@ -179,9 +175,14 @@ class ProjectsController < ApplicationController
   end
 
   def by_centre
+    @centres = ResearchCentre.find(:all)
     @projects = Project.find(:all)
   end
-    
+
+  def specials
+    @sure_projects = Project.find_all_by_sure(true)
+    @c2_projects = Project.find_all_by_carbon_critical(true)
+  end
 
   private
 

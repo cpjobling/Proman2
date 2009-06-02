@@ -1,0 +1,52 @@
+<%#
+#  Copyright 2009 Swansea University.
+# 
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+# 
+#       http://www.apache.org/licenses/LICENSE-2.0
+# 
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+#  under the License.
+%>
+
+<% title "Special Projects" %>
+<p><%= render(:partial => "navigation") %></p>
+<% slogan "&ldquo;Vorsprung durch Technik&rdquo; (Progress through technology) &ndash; Audi avertising slogan." %>
+
+<h3>Projects that may Address the Carbon Critical Agenda</h3>
+
+<p>Every year the School of Engineering is able to award the Atkins C<sup>2</sup> prize to the project that best
+addresses the "Carbon Critical Agenda". Projects that may be suitable for this award
+are listed on this page and by the note "This project may be suitable for the Atkins Carbon Critical award"
+to be found in the associated project description pages. The Atkins C<sup>2</sup> prize will comprise £500,
+an inscription on a suitable trophy to be kept at the School of Engineering and a certificate.
+The award presentation will take place at Graduation Day in July. Projects from any discipline are eligible for
+the prize.
+
+<table>
+  <thead><td>Number</td><td>Title</td><td>Supervisor</td><td>Centre</td></thead>
+  <tbody>
+    <%= render(:partial => "project_index", :collection => @c2_projects) %>
+  </tbody>
+</table>
+
+<h3>Projects based on the SURE Project</h3>
+
+<p>Many projects, across the disciplines, are related to the Swansea University Racecar Engineering
+project. These are indicated as such on the project description pages and listed below.
+
+<table>
+  <thead><td>Number</td><td>Title</td><td>Supervisor</td><td>Centre</td></thead>
+  <tbody>
+    <%= render(:partial => "project_index", :collection => @sure_projects) %>
+  </tbody>
+</table>
+
+
+
