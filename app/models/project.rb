@@ -15,6 +15,8 @@
 class Project < ActiveRecord::Base
   has_and_belongs_to_many :disciplines
   belongs_to :user, :foreign_key => "created_by"
+  has_and_belongs_to_many :selected_projects
+  has_one :student
 
   validates_presence_of :title
   validates_uniqueness_of :title

@@ -17,6 +17,46 @@
 
 <% title @title %>
 
+<p><%= proman %> is the new on-line project selection tool that has been
+developed for the School of Engineering to help manage the EG-353 Research Project.
+</p>
+
+<% unless logged_in? %>
+  <p>Although you can browse the available projects without it, you will need a
+  user account and password to access the project selection features of this site. Login details
+  have been emailed to all registered staff of the School of Engineering
+  and those students expected to be enrolled on the research project EG-353 next year.
+  Please contact the project coordinator whose details you will find on the <%= link_to "contact page", :contact, {:target => "_new", :title => "Link to the EG-353 Social Network. Opens in a new window."}  %>
+  if you have any difficulties or to request a user account if we have missed you off our lists.</p>
+  <p><strong><%= link_to :login %></strong></p>
+<% end %>
+<% if logged_in?  %>
+<p>From this page you can:</p>
+<ul>
+
+<li>Check your account details</li>
+<!-- If you are an administrator -->
+<li>Administer <%= proman %></li>
+<!-- If you are a coordinator -->
+<li>Coordinate the students, projects and supervisors within your research centre (coming soon)</li>
+<!-- If you are staff -->
+<li>View and edit your project descriptions</li>
+<!-- If any of your projects have been allocated to students -->
+<li>View your project students</li>
+<!-- If you are a student -->
+<!-- If registration/or selection -->
+<li>View the available projects</li>
+<!-- If selection active -->
+<li>Select projects</li>
+<li>View and rank the projects you have selected</li>
+</ul>
+<% end %>
+
+<h3>Please report problems</h3>
+<p>This is beta software, so please email details of any problems or issues that you
+encounter to the project coordinator whose details you will find on the <%= link_to "contact page", :contact  %>.</p>
+
+<p>A discussion formum for <%= proman %> has also been established on the <%= link_to "EG-353 Social Network", "http://eg-353.ning.com/" %>.</p>
 
 <% slogan "&ldquo;If I have seen further it is by  standing on the shoulders of giants&rdquo; &ndash; Sir Isaac Newton (1642&mdash;1727)" %>
 

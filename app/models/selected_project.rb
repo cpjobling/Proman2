@@ -12,7 +12,9 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-class ProjectSelection < ActiveRecord::Base
-  has_many :selected_projects, :order => :position
-  belongs_to :student
+# Represents list of selected projects in a student's project selection
+class SelectedProject < ActiveRecord::Base
+  has_and_belongs_to_many :project_selection
+  acts_as_list :scope => :project_selection
+  belongs_to :project
 end
