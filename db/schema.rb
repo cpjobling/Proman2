@@ -9,7 +9,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090602223935) do
+ActiveRecord::Schema.define(:version => 20090603083732) do
+
+  create_table "allocation_round", :id => false, :force => true do |t|
+    t.integer  "round",      :default => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "disciplines", :force => true do |t|
     t.string "name"
@@ -35,20 +41,20 @@ ActiveRecord::Schema.define(:version => 20090602223935) do
   add_index "four_oh_fours", ["url", "referer"], :name => "index_four_oh_fours_on_url_and_referer", :unique => true
   add_index "four_oh_fours", ["url"], :name => "index_four_oh_fours_on_url"
 
-  create_table "project_allocations", :force => true do |t|
-    t.integer  "project_id"
+  create_table "project_selections", :force => true do |t|
     t.integer  "student_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "selected_project_id"
   end
 
-  create_table "project_selections", :force => true do |t|
-    t.integer  "project_id"
-    t.integer  "student_id"
-    t.integer  "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table "project_selections_selected_projects", :id => false, :force => true do |t|
+    t.integer "project_selection_id"
+    t.integer "selected_project_id"
   end
+
+  add_index "project_selections_selected_projects", ["project_selection_id"], :name => "index_project_selections_selected_projects_on_project_selection_id"
+  add_index "project_selections_selected_projects", ["selected_project_id"], :name => "index_project_selections_selected_projects_on_selected_project_id"
 
   create_table "projects", :force => true do |t|
     t.integer  "created_by"
@@ -59,6 +65,8 @@ ActiveRecord::Schema.define(:version => 20090602223935) do
     t.datetime "updated_at"
     t.boolean  "carbon_critical", :default => false
     t.boolean  "sure",            :default => false
+    t.boolean  "allocated",       :default => false
+    t.integer  "round",           :default => 0
   end
 
   add_index "projects", ["created_by"], :name => "index_projects_on_created_by"
@@ -91,11 +99,21 @@ ActiveRecord::Schema.define(:version => 20090602223935) do
   add_index "roles_users", ["role_id"], :name => "index_roles_users_on_role_id"
   add_index "roles_users", ["user_id"], :name => "index_roles_users_on_user_id"
 
+  create_table "selected_projects", :force => true do |t|
+    t.integer "project_selection_id"
+    t.integer "position"
+    t.integer "project_id"
+  end
+
+  create_table "status", :force => true do |t|
+    t.integer "system_status_id"
+  end
+
   create_table "students", :force => true do |t|
     t.integer  "user_id"
-    t.decimal  "grade",                 :precision => 10, :scale => 2
+    t.decimal  "grade"
     t.integer  "project_selection_id"
-    t.integer  "project_allocation_id"
+    t.integer  "project_id"
     t.integer  "discipline_id"
     t.string   "student_id"
     t.datetime "created_at"
