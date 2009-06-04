@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090603161628) do
+ActiveRecord::Schema.define(:version => 20090604225354) do
 
   create_table "allocation_round", :id => false, :force => true do |t|
     t.integer  "round",      :default => 0
@@ -45,17 +45,8 @@ ActiveRecord::Schema.define(:version => 20090603161628) do
     t.integer  "student_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "selected_project_id"
     t.integer  "round"
   end
-
-  create_table "project_selections_selected_projects", :id => false, :force => true do |t|
-    t.integer "project_selection_id"
-    t.integer "selected_project_id"
-  end
-
-  add_index "project_selections_selected_projects", ["project_selection_id"], :name => "index_project_selections_selected_projects_on_project_selection_id"
-  add_index "project_selections_selected_projects", ["selected_project_id"], :name => "index_project_selections_selected_projects_on_selected_project_id"
 
   create_table "projects", :force => true do |t|
     t.integer  "created_by"
