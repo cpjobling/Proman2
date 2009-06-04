@@ -13,7 +13,7 @@
 #   limitations under the License.
 #
 class User::AccountsController < ApplicationController
-  current_tab :home
+  current_tab :my_account
   before_filter :login_required, :only =>  [ :show, :edit, :update ]
   before_filter :login_prohibited, :only => [:new, :create]
 

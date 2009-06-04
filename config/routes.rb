@@ -96,6 +96,9 @@ ActionController::Routing::Routes.draw do |map|
     end
   end
 
+  map.my_account 'my_account', :conditions => { :method => :get },
+    :controller => 'user', :action => 'index'
+
   map.select_projects 'select_projects', :conditions => { :method => :get },
     :controller => 'select_projects', :action => 'index'
   
@@ -104,8 +107,6 @@ ActionController::Routing::Routes.draw do |map|
   map.home 'main', :conditions => { :method => :get}, :controller => 'main', :action => 'index'
 
   map.contact 'contact', :conditions => { :method => :get}, :controller => 'contact', :action => 'index'
-  # this route may be surplus to requirements
-  map.my_account 'main', :conditions => { :method => :get}, :controller => 'main', :action => 'index'
   
   # The priority is based upon order of creation: first created -> highest priority.
 

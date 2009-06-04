@@ -16,8 +16,7 @@
 %>
 
 <% if logged_in? %>
- <%= link_to_current_user :content_method => :name %> |
-		<%= link_to 'My Account', user_account_path(current_user), { :title => "My account" } %> | <%=  yield :menu %> | <%= link_to 'Logout', logout_path %>
+<%= current_user.name %> | <%= link_to 'My Account', my_account_path, { :title => "Go to your account page." } %> | <%=  yield :menu %> | <%= link_to 'Logout', logout_path %>
 <% else %>
   <%= link_to 'Login', login_path %>
   <% if can_register? %>

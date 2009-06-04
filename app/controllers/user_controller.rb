@@ -13,10 +13,11 @@
 #   limitations under the License.
 #
 
-class SelectProjectsController < ApplicationController
-  require_role "student"
-
+class UserController < ApplicationController
+  current_tab :my_account
+  before_filter :login_required
+  
   def index
-    
   end
+
 end

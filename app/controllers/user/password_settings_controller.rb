@@ -13,7 +13,7 @@
 #   limitations under the License.
 #
 class User::PasswordSettingsController < ApplicationController
-  current_tab :home
+  current_tab :my_account
   before_filter :login_required
 
   # Change password view

@@ -12,7 +12,7 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-module UsersHelper
+module RoleHelper
   
   #
   # Use this to wrap view elements that the user can't access.
@@ -33,9 +33,7 @@ module UsersHelper
 
   def user_profile_path
 
-  end
-
-
+  end#
   # Link to user's page ('users/1')
   #
   # By default, their login is used as link text and link title (tooltip)
@@ -113,6 +111,19 @@ module UsersHelper
     return "Student" if Student.find_by_user_id(self.id)
     return "Staff" if Supervisor.find_by_user_id(self.id)
     "Undefined"
+  end
+
+  # Show roles
+  def show_roles(user)
+    if user.roles.count > 0
+      roles = []
+      user.roles.each do |role|
+        roles << role.name
+      end
+      return roles.join(', ')
+    else
+      return "<span style=\"color:red;\">None defined</span>"
+    end
   end
 
 

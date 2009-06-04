@@ -110,13 +110,6 @@ class User < ActiveRecord::Base
     write_attribute :email, (value ? value.downcase : nil)
   end
 
-  def is_owner?(project)
-    if logged_in?
-      return project.created_by == @current_user
-    end
-    false
-  end
-
   def change_password!(old_password, new_password, new_confirmation)
     errors.add_to_base("New password does not match the password confirmation.") and
       return false if (new_password != new_confirmation)
@@ -127,6 +120,23 @@ class User < ActiveRecord::Base
     self.password, self.password_confirmation = new_password, new_confirmation
     save
   end
+
+  def administrator?
+    return self.has_role?('admin')
+  end
+
+  def coordinator?
+    return self.has_role?('coordinator')
+  end
+
+  def supervisor?
+    return self.has_role?('staff')
+  end
+
+  def student?
+    return self.has_role?('student')
+  end
+  
   protected
     
 
