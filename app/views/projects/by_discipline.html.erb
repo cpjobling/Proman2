@@ -17,6 +17,18 @@ limitations under the License.
 <% title "Projects by Discipline" %>
 <p><%= render(:partial => "navigation") %></p>
 
+<% content_for :head do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('.accordian .content').hide();
+      $('.accordian .head').click(function() {
+        $(this).next().toggle('slow');
+        return false;
+      }).next().hide();
+    });
+  </script>
+<% end %>
+
 <p>Please note that this catergorization of projects is approximate as supervisors
 may not have been particularly specific in defining the suitability of their projects
 for particular disciplines. For example, mechanical engineering projects are often
@@ -26,30 +38,27 @@ with computer science and telecommunication engineering.
 
 <% if @disciplines.blank? %>
   <p>No projects to display.</p>
-<%else%>
-   <h3 id="top">Disciplines</h3>
-  <ul id="disciplines">
-    <% @disciplines.each do |discipline| %>
-      <li><a href="#<%= discipline.id %>"><%= discipline.long_name %></a></li>
-    <% end %>
-  </ul>
+<% else %>
+  <p>Click on a discipline to reveal the projects that have been set for that discipline.</p>
 
   <% @disciplines.each do |discipline| %>
-    <h3 id="<%= discipline.id %>"><%= discipline.long_name %></h2>
-    <table>
-      <thead><td>Number</td><td>Title</td><td>Supervisor</td><td>Centre</td></thead>
-      <tbody>
-        <%= render(:partial => "project_index", :collection => discipline.projects) %>
-      </tbody>
-    </table>
-    <p><a href="#top">Top</a> | <%= link_to 'Back to full project list', {:action => 'index'} %></p>
-    <hr />
+    <!-- Accordian controls -->
+    <div class="accordian">
+      <h3  class="head" 
+            id="<%= discipline.id %>"
+            title="<%= discipline.id %>: <%= discipline.long_name %>">
+         <%= discipline.long_name %>
+      </h3>
+      <div class="content">
+        <table>
+          <thead><td>Number</td><td>Title</td><td>Supervisor</td><td>Centre</td></thead>
+          <tbody>
+            <%= render(:partial => "project_index", :collection => discipline.projects) %>
+          </tbody>
+        </table>
+        <p><a href="#top">Top</a> | <%= link_to 'Back to full project list', {:action => 'index'} %></p>
+        <hr />
+      </div>
+    </div>
   <% end %>
 <% end %>
-
-
-
-
-
-
-
