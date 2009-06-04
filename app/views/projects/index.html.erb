@@ -26,7 +26,7 @@ limitations under the License.
   </script>
 <% end %>
 
-<p><%= render(:partial => "navigation") %></p>
+<%= render(:partial => "navigation") %>
 
 <% slogan "&ldquo;Vorsprung durch Technik&rdquo; (Progress through technology) &ndash; Audi avertising slogan." %>
 
@@ -49,4 +49,4 @@ limitations under the License.
   <%= render(:partial => "project_index", :collection => @projects) %>
 </tbody>
 </table>
-<%= render(:partial => "shared/tablesorter_pager")%>
+<%= render(:partial => "shared/tablesorter_pager", :locals => {:pager_id => 'pager'})%>

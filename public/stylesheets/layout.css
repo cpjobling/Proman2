@@ -129,7 +129,7 @@ img {
     background:#eee;		/* right column background colour */
 }
 .threecol .colmid {
-    right:20%;			/* width of the right column */
+    right:25%;			/* width of the right column */
     background:#fff;		/* center column background colour */
 }
 .threecol .colleft {
@@ -141,12 +141,12 @@ img {
     left:102%;			/* 100% plus left padding of center column */
 }
 .threecol .col2 {
-    width:11%;			/* Width of left column content (column width minus padding on either side) */
-    left:25%;			/* width of (right column) plus (center column left and right padding) plus (left column left padding) */
+    width:6%;			/* Width of left column content (column width minus padding on either side) */
+    left:31%;			/* width of (right column) plus (center column left and right padding) plus (left column left padding) */
 }
 .threecol .col3 {
-    width:16%;			/* Width of right column content (column width minus padding on either side) */
-    left:95%;			/* Please make note of the brackets here:
+    width:21%;			/* Width of right column content (column width minus padding on either side) */
+    left:100%;			/* Please make note of the brackets here:
     (100% - left column width) plus (center column left and right padding) plus (left column left and right padding) plus (right column left padding) */
 }
 /* Footer styles */

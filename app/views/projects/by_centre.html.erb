@@ -15,34 +15,74 @@ limitations under the License.
 
 
 <% title "Projects by Research Centre" %>
-<p><%= render(:partial => "navigation") %></p>
+<%= render(:partial => "navigation") %>
+
+<% content_for :head do %>
+  <%= render(:partial => "shared/import_tablesorter") %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+
+    });
+  </script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('.accordian .content').hide();
+      $('.accordian .head').click(function() {
+        $(this).next().toggle('slow');
+        return false;
+      }).next().hide();
+
+      $("#c2ecprojects")
+      .tablesorter({sortList: [[2, 0]], widthFixed: true, widgets: ['zebra']})
+      .tablesorterPager({container: $("#c2ecpager"), positionFixed: false});
+
+      $("#mrcprojects")
+      .tablesorter({sortList: [[2, 0]], widthFixed: true, widgets: ['zebra']})
+      .tablesorterPager({container: $("#mrcpager"), positionFixed: false});
+
+      $("#mnccprojects")
+      .tablesorter({sortList: [[2, 0]], widthFixed: true, widgets: ['zebra']})
+      .tablesorterPager({container: $("#mncpager"), positionFixed: false});
+    });
+  </script>
+<% end %>
+
 
 <% if @centres.blank? %>
   <p>No projects to display.</p>
 <%else%>
-  <h3 id="top">Research Centres</h3>
-  <ul id="centres">
-    <% @centres.each do |centre| %>
-      <li><a href="#<%= centre.id %>"><%= centre.title %></a></li>
-    <% end %>
-  </ul>
 
+  <p>Click on a research centre to reveal the projects that have been set for that centre.</p>
   <% @centres.each do |centre| %>
-    <h3 id="<%= centre.id %>"><%= centre.title %></h2>
-    <table>
-      <thead><td>Number</td><td>Title</td><td>Supervisor</td></thead>
-      <tbody>
-        <% supervisors = centre.supervisors %>
-        <% supervisors.each do |supervisor| %>
-          <% projects = Project.find_all_by_created_by(supervisor.user) %>
-            <%= render(:partial => "project_index", :collection => projects) %>
-        <% end %>
-      </tbody>
-    </table>
-    <p><a href="#top">Top</a> | <%= link_to 'Back to full project list', {:action => 'index'} %></p>
-    <hr />
-  <% end %>
+    <!-- Accordian controls -->
+    <div class="accordian">
+      <h3  class="head"
+           id="<%= centre.id %>"
+           title="<%= centre.id %>: <%= centre.title %>">
+        <%= centre.title %>
+      </h3>
+      <div class="content">
+        <table id="<%=  centre.abbrev -%>projects" class="tablesorter">
+          <thead>
+            <th title="Click to sort by project number: click again to reverse sort direction.">Number</th>
+            <th title="Click to sort by project title: click again to reverse sort direction.">Title</th>
+            <th title="Click to sort by project supervisor: click again to reverse sort direction.">Supervisor</th></thead>
+          <tbody>
+            <% supervisors = centre.supervisors %>
+            <% supervisors.each do |supervisor| %>
+              <% projects = Project.find_all_by_created_by(supervisor.user) %>
+              <%= render(:partial => "project_index", :collection => projects) %>
+            <% end %>
+          </tbody>
+        </table>
+        <%= render(:partial => "shared/tablesorter_pager", :locals => {:pager_id => centre.abbrev + 'pager'})%>
+        <p><%= link_to 'Back to full project list', {:action => 'index'} %></p>
+        <hr />
+      </div>
+    <% end %>
+  </div>
 <% end %>
+
 
 
 

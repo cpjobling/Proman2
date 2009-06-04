@@ -15,40 +15,65 @@ limitations under the License.
 
 
 <% title "Projects by Supervisor" %>
-<p><%= render(:partial => "navigation") %></p>
+<%= render(:partial => "navigation") %>
+
+<% content_for :head do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('.accordian .content').hide();
+      $('.accordian .head').click(function() {
+        $(this).next().toggle('slow');
+        return false;
+      }).next().hide();
+    });
+  </script>
+<% end %>
+
 
 <p>Note that although each member of staff has been asked to provide four or five projects, staff loading
   considerations may mean that not all advertised projects will actually be available.
   For example, some very popular projects/supervisors
 may be eliminated in the first allocation round once staff loading limits are reached.</p>
 
+<p>Click on the supervisor's name to see his or her projects.</p.
+
 <% if @supervisors.blank? %>
   <p>no projects to display</p>
 <%else%>
-  <table>
-    <thead>
-      <tr>
-        <th>Number</th><th>Title</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @supervisors.each do |supervisor| %>
-        <%  projects = Project.find_all_by_created_by(supervisor) %>
-        <% unless projects.size == 0 %>
-          <tr><th colspan="4"><%= supervisor.name %> (<a href="mailto:<%= supervisor.email %>"><%= supervisor.email %></a>),
-                <%= supervisor.supervisor.research_centre.title %> </th></tr>
-          <%  projects.each do |project| %>
-            <tr class="<%=  cycle('odd', 'even') %>">
-              <td>
-                <%= project.id -%>
-              </td>
-              <td>
-                <%= link_to project.title, project %>
-              </td>
-            </tr>
-          <%  end %>
+
+  <% @supervisors.each do |supervisor| %>
+    <%  projects = Project.find_all_by_created_by(supervisor) %>
+    <% unless projects.size == 0 %>
+      <div class="accordian">
+        <h3 class="head"
+            id="<%= supervisor.id %>"
+            title="<%= supervisor.id %>: <%= supervisor.name %>">
+          <%= supervisor.name %>
+        </h3>
+        <div class="content">
+          <p><em>Contact email</em>: <a href="mailto:<%= supervisor.email %>"><%= supervisor.email %></a>.<br />
+          <em>Research centre</em>: <%= supervisor.supervisor.research_centre.title %></p>
+          <table>
+            <thead>
+              <tr>
+                <th>Number</th><th>Title</th>
+              </tr>
+            </thead>
+            <tbody>
+              <%  projects.each do |project| %>
+                <tr class="<%=  cycle('odd', 'even') %>">
+                  <td>
+                    <%= project.id -%>
+                  </td>
+                  <td>
+                    <%= link_to project.title, project %>
+                  </td>
+                </tr>
+              <%  end %>
+            </tbody>
+          </table>
         <% end %>
-      <% end %>
-    </tbody>
-  </table>
+    </div>
+    <% end %>
+  </div>
 <%end%>

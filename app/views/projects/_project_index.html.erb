@@ -16,12 +16,12 @@ limitations under the License.
 <% creator = project_index.creator %>
 <tr class="<%=  cycle('odd', 'even') %>">
   <td>
-    <%= project_index.id -%>
+    <%= link_to project_index.id, project_index, {:title => 'Click to view details of: ' + project_index.title} %>
   </td>
-  <td>
-    <%= link_to abbreviate(project_index.title), project_index, {:title => project_index.title} %>
+  <td title="<%= project_index.title %>">
+    <%=  abbreviate(project_index.title) %>
   </td>
   <td><%= creator.name.last_first %>
   </td>
-  <td><span title="<%=  project_index.centre_title %>"><%= project_index.centre_abbrev %></span></td>
+  <td title="<%=  project_index.centre_title %>"><%= project_index.centre_abbrev %></td>
 </tr>
