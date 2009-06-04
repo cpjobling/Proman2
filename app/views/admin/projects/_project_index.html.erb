@@ -21,11 +21,9 @@ limitations under the License.
   <td>
     <%= link_to project_index.title, admin_project_path(project_index) %>
   </td>
-  <td><%= creator.name %>
+  <td><%= creator.name.last_first %>
   </td>
-  <td><a href="mailto:<%= creator.email %>">
-    <%= creator.email -%></a>
-  </td>
+  <td title="<%=  abbreviate(project_index.centre_title) %>"><%= project_index.centre_abbrev %></td>
   <td><%= link_to 'Edit', edit_admin_project_path(project_index) %></td>
   <td><%= link_to 'Destroy', admin_project_path(project_index), :confirm => 'Are you sure?', :method => :delete %></td>
 </tr>

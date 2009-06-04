@@ -15,14 +15,32 @@ limitations under the License.
 
 <% title "All Projects" %>
 
+<%= render(:partial=>"admin/navigation") %>
+<%= render(:partial => "navigation") %>
 
-<table>
-  <thead><td>Number</td><td>Title</td><td>Supervisor</td><td>Email</td><td colspan="2">Action</td></thead>
+<% content_for :head do %>
+  <%= render(:partial => "shared/import_tablesorter") %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $("#projects")
+      .tablesorter({sortList: [[2, 0]], widthFixed: true, widgets: ['zebra']})
+      .tablesorterPager({container: $("#pager"), positionFixed: false});
+    });
+  </script>
+<% end %>
+
+<%= link_to 'New project', new_admin_project_path %>
+<table id="projects" class="tablesorter">
+  <thead>
+    <th title="Click to sort by project number: click again to reverse sort direction.">Number</th>
+    <th title="Click to sort by project title: click again to reverse sort direction.">Title</th>
+    <th title="Click to sort by project supervisor: click again to reverse sort direction.">Supervisor</th>
+    <th title="Click to sort by research centre: click again to reverse sort direction.">Centre</th>
+    <th colspan="2" class="{sorter: false}">Action</th></thead>
+  <tfoot><th>Number</th><th>Title</th><th>Supervisor</th><th>Centre</th><th colspan="2">Action</th></tfoot>
   <tbody>
     <%= render(:partial => "project_index", :collection => @projects ) %>
   </tbody>
 </table>
+<%= render(:partial => "shared/tablesorter_pager")%>
 
-<br />
-
-<%= link_to 'New project', new_admin_project_path %>

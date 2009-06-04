@@ -13,7 +13,8 @@
    limitations under the License.
 %>
 <% title "Projects by Research Centre" %>
-<p><%= render(:partial => "navigation") %></p>
+<%= render(:partial=>"admin/navigation") %>
+<%= render(:partial => "navigation") %>
 
 <p><strong>This functionality has not been added yet! This page presents same results as order by discipline!</strong>
 <p> <%= link_to "View all", {:action => 'index'} %> | <%= link_to "View by discipline", {:action => 'by_discipline'} %></p>

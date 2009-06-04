@@ -17,10 +17,9 @@
 
 <tr class="<%=  cycle('even', 'odd')%>">
   <td><%= user_index.id %></td>
-  <td><%= user_index.name.last %>, <%= user_index.name.title %> <%= user_index.name.first %></td>
+  <td><%= user_index.name.last_first %></td>
   <td><%= show_roles(user_index) %></td>
   <td><%= link_to 'Show', admin_user_path(user_index) %></td>
-  <%#= link_to project.title, project %>
   <td><%= link_to 'Edit', edit_admin_user_path(user_index) %></td>
   <td><%= link_to 'Delete', admin_user_path(user_index), :confirm => 'Are you sure?', :method => :delete %></td>
 </tr>

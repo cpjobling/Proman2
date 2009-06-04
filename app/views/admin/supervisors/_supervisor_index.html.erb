@@ -19,7 +19,7 @@
 <% user = supervisor_index.user %>
 
 <tr class="<%= cycle('even','odd') %>">
-  <td><%= user.id  %></td>
+  <td><%= supervisor_index.staff_id  %></td>
   <td><%= user.name.last %>, <%= user.name.title %> <%= user.name.first %></td>
   <td><%= supervisor_index.research_centre.abbrev %></td>
   <td><%= link_to 'Show', admin_supervisor_path(supervisor_index) %></td>

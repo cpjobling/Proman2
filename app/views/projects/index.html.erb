@@ -1,26 +1,52 @@
 <%# Copyright 2009 Swansea University
 
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-       http://www.apache.org/licenses/LICENSE-2.0
+http://www.apache.org/licenses/LICENSE-2.0
 
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 %>
 
 <% title "All Projects" %>
-<p><%= render(:partial => "navigation") %></p>
-<% slogan "&ldquo;Vorsprung durch Technik&rdquo; (Progress through technology) &ndash; Audi avertising slogan." %>
-<table>
-  <thead><td>Number</td><td>Title</td><td>Supervisor</td><td>Centre</td></thead>
-  <tbody>
-    <%= render(:partial => "project_index", :collection => @projects) %>
-  </tbody>
-</table>
 
-<br />
+<% content_for :head do %>
+  <%= render(:partial => "shared/import_tablesorter") %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $("#projects")
+      .tablesorter({sortList: [[2, 0]], widthFixed: true, widgets: ['zebra']})
+      .tablesorterPager({container: $("#pager"), positionFixed: false});
+    });
+  </script>
+<% end %>
+
+<p><%= render(:partial => "navigation") %></p>
+
+<% slogan "&ldquo;Vorsprung durch Technik&rdquo; (Progress through technology) &ndash; Audi avertising slogan." %>
+
+<table id="projects" class="tablesorter">
+<thead>
+  <th title="Click to sort by project number: click again to reverse sort direction.">Number</th>
+  <th title="Click to sort by project title: click again to reverse sort direction.">Title</th>
+  <th title="Click to sort by project supervisor: click again to reverse sort direction.">Supervisor</th>
+  <th title="Click to sort by research centre: click again to reverse sort direction.">Centre</th>
+  <% if logged_in? %>
+    <th colspan="2" class="{sorter: false}">Action</th></thead>
+  <% end %>
+<tfoot>
+  <th>Number</th><th>Title</th><th>Supervisor</th><th>Centre</th>
+  <% if logged_in? %>
+    <th colspan="2" class="{sorter: false}">Action</th></thead>
+  <% end %>
+</tfoot>
+<tbody>
+  <%= render(:partial => "project_index", :collection => @projects) %>
+</tbody>
+</table>
+<%= render(:partial => "shared/tablesorter_pager")%>
