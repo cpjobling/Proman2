@@ -41,7 +41,7 @@ limitations under the License.
   </thead>
   <tfoot><tr><th>User id</th><th>Name</th><th>Discipline</th><th>Grade</th><th>Show</th><th>Edit</th><th>Delete</th></tr></tfoot>
   <tbody>
-    <%= render(:partial => "student_index", :collection => @students, :locals => { :pager_id => 'pager' }) %>
+    <%= render(:partial => "student_index", :collection => @students) %>
   </tbody>
 </table>
-<%= render(:partial => "shared/tablesorter_pager")%>
+<%= render(:partial => "shared/tablesorter_pager", :locals => { :pager_id => 'pager' })%>

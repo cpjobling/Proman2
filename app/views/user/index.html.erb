@@ -5,24 +5,24 @@
 <%= slogan "&ldquo;This above all: to thine own self be true&rdquo; &ndash; William Shakespeare (Hamlet 1601)"%>
 
 
-<p>Welcome to <em>your</em> personal account page, <%=  current_user.name.informally %>.</p>
+<p>Welcome to <em>your</em> personal account page, <%=  @user.name.informally -%>.</p>
 <p>This page is all about you! From here you can:</p>
-<ul><li>Access and amend your <%= link_to 'login details', user_account_path(current_user), { :title => "Your account details account" } %> .</li>
-  <% if current_user.supervisor?  %>
+<ul><li>Access and amend your <%= link_to 'login details', user_account_path(@user), { :title => "Your account details account" } -%>.</li>
+  <% if @user.supervisor?  %>
     <!-- If you are staff -->
-    <li>View and edit your project descriptions</li>
+    <li>View and edit your <%= link_to "project descriptions", user_projects_path -%>.</li>
     <!-- If any of your projects have been allocated to students -->
     <li>View your project students (coming soon)</li>
   <% end %>
-  <% if current_user.student?  %>
+  <% if @user.student?  %>
     <!-- If you are a student -->
     <!-- If registration/or selection -->
-    <li>View the available projects</li>
+    <li>View the <%= link_to "available projects", projects_path -%>.</li>
     <!-- If selection active -->
-    <li>Select projects (coming soon)</li>
-    <li>View and rank the projects you have selected (coming soon)</li>
+    <li>Select projects (coming soon).</li>
+    <li>View and rank the projects you have selected (coming soon).</li>
     <!-- If project has been allocated -->
-    <li>Find the contact details of your supervisor and research centre coordinator (coming soon)</li>
+    <li>Find the contact details of your supervisor and research centre coordinator (coming soon).</li>
   <% end %>
 </ul>
 

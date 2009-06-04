@@ -94,6 +94,7 @@ ActionController::Routing::Routes.draw do |map|
     user.resources :accounts do |accounts|
       accounts.resources :password_settings
     end
+    user.resources :projects
   end
 
   map.my_account 'my_account', :conditions => { :method => :get },

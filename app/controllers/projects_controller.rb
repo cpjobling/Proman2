@@ -16,8 +16,8 @@
 class ProjectsController < ApplicationController
 
 
-  skip_before_filter :login_required, :only => ["index","by_discipline","by_centre","by_supervisor"]
-  require_role ["admin", "coordinator", "staff"], :for => ["new", "create", "edit", "update", "destroy"]
+  skip_before_filter :login_required, :only => ["show","index","by_discipline","by_centre","by_supervisor","specials"]
+  require_role ["admin", "coordinator"], :for => ["new", "create", "edit", "update", "destroy"]
 
   # GET /projects
   # GET /projects.xml

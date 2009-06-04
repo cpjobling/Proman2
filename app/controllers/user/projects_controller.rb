@@ -12,15 +12,15 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
-class Admin::ProjectsController < ApplicationController
+class User::ProjectsController < ApplicationController
 
-  require_role "admin"
-  current_tab :admin
-  
+  require_role ["staff"], :for => ["new", "create", "edit", "update", "destroy"]
+
   # GET /projects
   # GET /projects.xml
   def index
-    @projects = Project.all
+    @user = current_user
+    @projects = Project.find_all_by_created_by(@user)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -153,18 +153,6 @@ class Admin::ProjectsController < ApplicationController
 
   end
 
-  def by_supervisor
-        @supervisors = User.find(:all, :joins => :supervisor, :order => 'last_name, first_name')
-  end
-
-  def by_discipline
-    @disciplines_projects = DisciplinesProjects.find(:all, :order =>'discipline_id')
-  end
-
-  def by_centre
-    @projects = Project.find(:all)
-  end
-    
   private
 
   def handle_disciplines_projects
@@ -179,6 +167,7 @@ class Admin::ProjectsController < ApplicationController
     @disciplines = {}
     Discipline.find(:all).collect {|r| @disciplines[r.long_name] = r.id }
   end
+
 
 
 end

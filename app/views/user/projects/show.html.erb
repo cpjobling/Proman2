@@ -15,16 +15,6 @@
 
 <% title @project.title %>
 
-<% supervisor = User.find(@project.created_by) %>
-<p><strong>Supervisor</strong>:
-  <%= supervisor.name %>
-
-  (<a href="mailto:<%= supervisor.email %>"><%= supervisor.email %></a>)
-</p>
-<p>
-  <strong>Research Centre</strong>: <%=  supervisor.supervisor.research_centre.title %>.
-</p>
-
 <p><strong>Description</strong>: <%= textilize(@project.description) %></p>
 
 <p><strong>Resources</strong>: <%= @project.resources %></p>
@@ -37,4 +27,6 @@
 <% end %>
 <p><strong>Suitable for</strong>:</p>
 <%= render( :partial => "shared/list_disciplines", :object => @project) %>
-<%= link_to 'Back', projects_path %>
+
+<%= link_to 'Edit', edit_user_project_path(@project) %> |
+<%= link_to 'Back',user_projects_path %>

@@ -29,7 +29,7 @@ limitations under the License.
 <% end %>
 
 <p>
-<%= link_to 'New supervisor', new_admin_supervisor_path %>
+  <%= link_to 'New supervisor', new_admin_supervisor_path %>
 </p>
 
 <table id="#supervisors" class="tablesorter">
@@ -38,12 +38,12 @@ limitations under the License.
     <th title="Click to sort by name: click again to reverse sort direction.">Name</th>
     <th title="Click to sort by research centre: click again to reverse sort direction.">Centre</th>
     <th class="{sorter: false}">Show</th><th class="{sorter: false}">Edit</th><th class="{sorter: false}">Delete</th>
-  </thead
-    <tfoot>
-    <th>Staff id</th><th>Name</th><th>Centre</th><th>Show</th><th>Edit</th><th>Delete</th></tfoot>
+  </thead>
+  <tfoot>
+  <th>Staff id</th><th>Name</th><th>Centre</th><th>Show</th><th>Edit</th><th>Delete</th></tfoot>
   <tbody>
-    <%= render(:partial => "supervisor_index", :collection => @supervisors, :locals => { :pager_id => 'pager' }) %>
+    <%= render(:partial => "supervisor_index", :collection => @supervisors) %>
   </tbody>
 </table>
-<%= render(:partial => "shared/tablesorter_pager")%>
+<%= render(:partial => "shared/tablesorter_pager", :locals => { :pager_id => 'pager' })%>
 

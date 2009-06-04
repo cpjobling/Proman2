@@ -25,12 +25,15 @@
   <strong>Research Centre</strong>: placeholder
 </p>
 
-<p><strong>Description</strong>: <%= @project.description %></p>
+<p><strong>Description</strong>: <%= textilize(@project.description) %></p>
 
 <p><strong>Resources</strong>: <%= @project.resources %></p>
 
 <% if @project.carbon_critical %>
   <p>This project may be suitable for the Atkins Carbon Critical award.</p>
+<% end %>
+<% if @project.sure %>
+  <p>This project is part of the Swansea University Racecar Engineering (SURE) project.</p>
 <% end %>
 <p><strong>Suitable for</strong>:</p>
 <%= render( :partial => "shared/list_disciplines", :object => @project) %>

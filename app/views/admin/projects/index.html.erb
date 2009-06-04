@@ -39,8 +39,8 @@ limitations under the License.
     <th colspan="2" class="{sorter: false}">Action</th></thead>
   <tfoot><th>Number</th><th>Title</th><th>Supervisor</th><th>Centre</th><th colspan="2">Action</th></tfoot>
   <tbody>
-    <%= render(:partial => "project_index", :collection => @projects, :locals => { :pager_id => 'pager' } ) %>
+    <%= render(:partial => "project_index", :collection => @projects) %>
   </tbody>
 </table>
-<%= render(:partial => "shared/tablesorter_pager")%>
+<%= render(:partial => "shared/tablesorter_pager", :locals => { :pager_id => 'pager' } )%>
 

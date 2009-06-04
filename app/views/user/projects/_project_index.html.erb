@@ -16,14 +16,12 @@ limitations under the License.
 <% creator = User.find(project_index.created_by) %>
 <tr class="<%=  cycle('odd', 'even') %>">
   <td>
-    <%= link_to project_index.id, admin_project_path(project_index) %>
+    <%= project_index.id -%>
   </td>
   <td>
-    <%=  project_index.title %>
+    <%= project_index.title %>
   </td>
-  <td><%= creator.name.last_first %>
-  </td>
-  <td title="<%=  abbreviate(project_index.centre_title) %>"><%= project_index.centre_abbrev %></td>
-  <td><%= link_to 'Edit', edit_admin_project_path(project_index) %></td>
-  <td><%= link_to 'Destroy', admin_project_path(project_index), :confirm => 'Are you sure?', :method => :delete %></td>
+  <td><%= link_to 'Show', user_project_path(project_index) %></td>
+  <td><%= link_to 'Edit', edit_user_project_path(project_index) %></td>
+  <td><%= link_to 'Destroy', user_project_path(project_index), :confirm => 'Are you sure?', :method => :delete %></td>
 </tr>
