@@ -165,6 +165,16 @@ c2ec_coordinator:
     title: Prof
     initials: G.
 
+admin_team_coordinator:
+    id: 104
+    login: h.burt
+    email: h.burt@swansea.ac.uk
+    crypted_password: e887fa1e015731ce18e46b6fc071d7ad3706ae30
+    salt: 7a51382a199aaffbc775c2bf80e6175a7517b01d
+    first_name: Howard
+    last_name: Burt
+    title: Mr
+
 new_user:
     login: nobody
     email: nobody@nowhere.com 

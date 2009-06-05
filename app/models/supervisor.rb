@@ -16,4 +16,21 @@ class Supervisor < ActiveRecord::Base
   belongs_to :user
   belongs_to :research_centre
   has_many :projects
+
+  # It should be a validation error to have a supervisor with no centre
+  def research_centre_title
+    if self.research_centre
+      return  self.research_centre.title
+    else
+      return "Undefined"
+    end
+  end
+
+  def research_centre_abbrev
+    if self.research_centre
+      return  self.research_centre.abbrev
+    else
+      return "N/A"
+    end
+  end
 end
