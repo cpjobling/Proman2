@@ -1,10 +1,10 @@
 <div id="<%= pager_id %>" class="pager">
   <form>
-    <img src="/icons/first.png" class="first"/>
-    <img src="/icons/prev.png" class="prev"/>
-    <input type="text" class="pagedisplay"/>
-    <img src="/icons/next.png" class="next"/>
-    <img src="/icons/last.png" class="last"/>
+    <%= image_tag("/images/icons/first.png",:class => "first", :alt => '|<<', :title => "Jump to first page") %>
+    <%= image_tag("/images/icons/prev.png", :class=>"prev", :alt => '<<', :title => "Previous page")  %>
+    <input type="text" class="pagedisplay" />
+    <%= image_tag("/images/icons/next.png", :class=>"next", :alt => '>>', :title => "Next page")  %>
+    <%= image_tag("/images/icons/last.png", :class=>"last", :alt => '>>|', :title => "Jump to last page")  %>
     <select class="pagesize">
       <option selected="selected"  value="10">10</option>
       <option value="20">20</option>

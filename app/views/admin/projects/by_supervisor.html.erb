@@ -34,17 +34,10 @@ who have no projects.</p>
       <% @supervisors.each do |supervisor| %>
         <%  projects = Project.find_all_by_created_by(supervisor) %>
         <tr><th colspan="4"><%= supervisor.name %> (<a href="mailto:<%= supervisor.email %>"><%= supervisor.email %></a>),
-        <%= supervisor.supervisor.research_centre.title %> </th></tr>
-        <%  projects.each do |project| %>
-          <tr class="<%=  cycle('odd', 'even') %>">
-            <td>
-              <%= project.id -%>
-            </td>
-            <td>
-              <%= link_to project.title, project %>
-            </td>
-          </tr>
-        <%  end %>
+        <%= supervisor.supervisor.research_centre_title %> </th></tr>
+        <% unless projects.empty? %>
+          <%= render(:partial => "project_index", :collection => projects) %>
+        <% end %>
       <% end %>
     </tbody>
   </table>

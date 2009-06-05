@@ -19,11 +19,11 @@ limitations under the License.
     <%= link_to project_index.id, admin_project_path(project_index) %>
   </td>
   <td>
-    <%=  project_index.title %>
+    <%=  abbreviate(project_index.title) %>
   </td>
   <td><%= creator.name.last_first %>
   </td>
-  <td title="<%=  abbreviate(project_index.centre_title) %>"><%= project_index.centre_abbrev %></td>
+  <td title="<%=  project_index.centre_title %>"><%= project_index.centre_abbrev %></td>
   <td><%= link_to 'Edit', edit_admin_project_path(project_index) %></td>
   <td><%= link_to 'Destroy', admin_project_path(project_index), :confirm => 'Are you sure?', :method => :delete %></td>
 </tr>

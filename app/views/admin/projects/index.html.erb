@@ -23,8 +23,8 @@ limitations under the License.
   <script type="text/javascript">
     $(document).ready(function() {
       $("#projects")
-      .tablesorter({sortList: [[2, 0]], widthFixed: true, widgets: ['zebra']})
-      .tablesorterPager({container: $("#pager"), positionFixed: false});
+      .tablesorter({sortList: [[2, 0]], widthFixed: true, widgets: ['zebra']});
+      //.tablesorterPager({container: $("#pager"), positionFixed: false});
     });
   </script>
 <% end %>
@@ -42,5 +42,5 @@ limitations under the License.
     <%= render(:partial => "project_index", :collection => @projects) %>
   </tbody>
 </table>
-<%= render(:partial => "shared/tablesorter_pager", :locals => { :pager_id => 'pager' } )%>
+<%#= render(:partial => "shared/tablesorter_pager", :locals => { :pager_id => 'pager' } )%>
 
