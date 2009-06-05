@@ -43,6 +43,8 @@ class Admin::ProjectsController < ApplicationController
   # GET /projects/new.xml
   def new
     @project = Project.new
+    @supervisors = supervisors
+    
 
     respond_to do |format|
       format.html # new.html.erb
@@ -53,6 +55,7 @@ class Admin::ProjectsController < ApplicationController
   # GET /projects/1/edit
   def edit
     @project = Project.find(params[:id])
+    @supervisors = supervisors
   end
 
   # POST /projects
@@ -63,7 +66,7 @@ class Admin::ProjectsController < ApplicationController
     respond_to do |format|
       if @project.save
         flash[:notice] = 'Project was successfully created.'
-        format.html { redirect_to(@project) }
+        format.html { redirect_to(admin_project_path(@project)) }
         format.xml  { render :xml => @project, :status => :created, :location => @project }
       else
         format.html { render :action => "new" }
@@ -80,7 +83,7 @@ class Admin::ProjectsController < ApplicationController
     respond_to do |format|
       if @project.update_attributes(params[:project])
         flash[:notice] = 'Project was successfully updated.'
-        format.html { redirect_to(@project) }
+        format.html { redirect_to(admin_project_path(@project)) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -96,7 +99,7 @@ class Admin::ProjectsController < ApplicationController
     @project.destroy
 
     respond_to do |format|
-      format.html { redirect_to(admin_projects_url) }
+      format.html { redirect_to(admin_projects_path) }
       format.xml  { head :ok }
     end
   end
@@ -180,5 +183,10 @@ class Admin::ProjectsController < ApplicationController
     Discipline.find(:all).collect {|r| @disciplines[r.long_name] = r.id }
   end
 
+  private
+
+  def supervisors
+    return User.find(:all, :order => 'first_name, last_name').select {|u| u.has_role?('staff')}
+  end
 
 end

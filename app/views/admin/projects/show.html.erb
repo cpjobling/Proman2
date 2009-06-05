@@ -22,7 +22,7 @@
   (<a href="mailto:<%= supervisor.email %>"><%= supervisor.email %></a>)
 </p>
 <p>
-  <strong>Research Centre</strong>: placeholder
+  <strong>Research Centre</strong>: <%= supervisor.supervisor.research_centre.title %>
 </p>
 
 <p><strong>Description</strong>: <%= textilize(@project.description) %></p>

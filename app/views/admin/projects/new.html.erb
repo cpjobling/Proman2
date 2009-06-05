@@ -17,9 +17,8 @@
 
 <% form_for([:admin,@project]) do |f| %>
   <%= f.error_messages %>
-  <%= f.hidden_field :created_by, { :value => session[:user_id] } %>
   
-  <%= render :partial => "project", :object => @project, :locals => { :f => f } %>
+  <%= render :partial => "project", :object => @project, :locals => { :f => f, :supervisors => @supervisors } %>
 
   <p>
     <%= f.submit 'Create' %>
