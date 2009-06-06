@@ -73,7 +73,7 @@ ActionController::Routing::Routes.draw do |map|
   	setup.csv_import_projects 'admin/setup/csv_import_projects',
       :conditions => { :method => :post }, :action => "csv_import_projects"
   end
-     
+
   map.with_options :controller => "admin/projects" do |ap|
     ap.by_supervisor 'admin/projects/by_supervisor',
       :conditions => { :method => :get }, :action => "by_supervisor"
@@ -140,6 +140,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :students
     admin.resources :supervisors
     admin.resources :projects
+    admin.resources :status_settings
   end
 
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.

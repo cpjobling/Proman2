@@ -4,54 +4,64 @@ offline:
   code: 100
   status: System offline
   message: The system is offline for maintainance. Please check back later.
+  default_permissions: 070000
 
 pre-registration:
   code: 200
   status: Pre-registration
-  message: Staff may enter and edit their project descriptions.
+  message: Staff may self register and edit their project descriptions.
+  default_permissions: 076600
 
 registration:
   code: 201
   status: Registration
-  message: Bona-fide members of the School of Engineering may register for a student or staff account.
+  message: Bona-fide students in the School of Engineering may register for a student account.
+  default_permissions: 076640
 
 pre-selection:
   code: 202
   status: Pre-selection
   message: Students may view projects and their descriptions. Staff may continue to adjust their project descriptions.
+  default_permissions: 076640
 
 selection1:
   code: 203
   status: Project Selection (Round 1)
   message: You may select and rank projects ready for the first round of project allocations.
+  default_permissions: 076460
 
 allocation1:
   code: 204
   status: Project Allocation (Round 1)
   message: Projects are being allocated, project selections and rankings are frozen. You can only access the full project list at this time.
+  default_permissions: 076440
 
 selection2:
   code: 205
   status: Project Selection (Round 2)
   message: Initial round of project selections is complete. If you have been allocated a project it will appear in the "My Account" page and you may make arrangements to meet your supervisor. If you have been unlucky this time, you may make a second selection from the remaining projects.
+  default_permissions: 076460
 
 allocation2:
   code: 206
   status: Project Allocation (Round 2)
   message: Second round of project allocations is in progress. Project selections and rankings are frozen. You can only access the full project list at this time.
+  default_permissions: 076440
 
 selection3:
   code: 207
   status: Project Selection (Round 3)
   message: Second round of project allocations is complete. If you have been allocated a project it will appear in the "My Account" page and you may make arrangements to meet your supervisor. If you have been unlucky this time, you may make a third and final selection from the remaining projects.
+  default_permissions: 076460
 
 allocation3:
   code: 208
   status: Project Allocation (Round 3)
   message: Third and final round of project allocations is in progress. Project selections and rankings are frozen. You can only access the full project list at this time.
+  default_permissions: 076440
 
 allocation4:
   code: 300
   status: Project Selection Offline
   message: Project selections complete. If you have not been successful in selecting a project so far, one will be allocated to you by the Project Coordinator working in consulation with the head of teaching.
-
+  default_permissions: 076440

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090604225354) do
+ActiveRecord::Schema.define(:version => 20090606103107) do
 
   create_table "allocation_round", :id => false, :force => true do |t|
     t.integer  "round",      :default => 0
@@ -103,6 +103,15 @@ ActiveRecord::Schema.define(:version => 20090604225354) do
     t.integer "system_status_id"
   end
 
+  create_table "status_settings", :force => true do |t|
+    t.integer  "code"
+    t.string   "status"
+    t.text     "message"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "permissions", :default => 28672
+  end
+
   create_table "students", :force => true do |t|
     t.integer  "user_id"
     t.decimal  "grade"
@@ -125,14 +134,6 @@ ActiveRecord::Schema.define(:version => 20090604225354) do
   end
 
   add_index "supervisors", ["staff_id"], :name => "index_supervisors_on_staff_id", :unique => true
-
-  create_table "system_status", :force => true do |t|
-    t.integer  "code"
-    t.string   "status"
-    t.text     "message"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "users", :force => true do |t|
     t.string   "login",                     :limit => 40
