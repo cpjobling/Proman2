@@ -17,30 +17,30 @@ class Permissions
   
   def initialize(permissions)
     value = permissions
-    @admin = value / 4096
+    @admins = value / 4096
     value %= 4096
-    @coordinator = value / 512
+    @coordinators = value / 512
     value %= 512
     @staff = value / 64
     value %= 64
-    @student = value / 8
+    @students = value / 8
     @others = value % 8
   end
 
-  def admin
-    return @admin
+  def admins
+    return @admins
   end
 
-  def coordinator
-    return @coordinator
+  def coordinators
+    return @coordinators
   end
 
   def staff
-    return @staff
+    return @staffs
   end
 
-  def student
-    return @student
+  def students
+    return @students
   end
 
   def others
@@ -72,14 +72,14 @@ class Permissions
   end
 
   def to_s
-    return Permissions.as_string(@admin) +
-           Permissions.as_string(@coordinator) +
+    return Permissions.as_string(@admins) +
+           Permissions.as_string(@coordinators) +
            Permissions.as_string(@staff) +
-           Permissions.as_string(@student) +
+           Permissions.as_string(@students) +
            Permissions.as_string(@others)
   end
 
   def to_number
-    (@admin * 4096 + @coordinator * 512 + @staff * 64 + @student * 8 + @others)
+    (@admins * 4096 + @coordinators * 512 + @staff * 64 + @students * 8 + @others)
   end
 end

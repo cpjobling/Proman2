@@ -21,7 +21,7 @@
 
 <p>This page summarizes the system seetings ordered by code.</p>
 
-<% if @status_settings.blank? %>
+<% if @settings.blank? %>
   <p>No system status settings have been defined. <%= link_to "Create one now?", new_admin_status_setting_path %></p>
 <%else%>
   <table>
@@ -31,7 +31,7 @@
       </tr>
     </thead>
     <tbody>
-      <%= render(:partial => "status_settings_index", :collection => @status_settings) %>
+      <%= render(:partial => "status_settings_index", :collection => @settings) %>
     </tbody>
   </table>
   <p><%= link_to 'New system status setting', new_admin_status_setting_path %></p>

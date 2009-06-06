@@ -28,8 +28,8 @@ class Admin::ProjectsController < ApplicationController
     end
   end
 
-  # GET /projects/1
-  # GET /projects/1.xml
+  # GET /admin/projects/1
+  # GET /admin/projects/1.xml
   def show
     @project = Project.find(params[:id])
 
@@ -39,8 +39,8 @@ class Admin::ProjectsController < ApplicationController
     end
   end
 
-  # GET /projects/new
-  # GET /projects/new.xml
+  # GET /admin/projects/new
+  # GET /admin/projects/new.xml
   def new
     @project = Project.new
     @supervisors = supervisors
@@ -52,14 +52,14 @@ class Admin::ProjectsController < ApplicationController
     end
   end
 
-  # GET /projects/1/edit
+  # GET /admin/projects/1/edit
   def edit
     @project = Project.find(params[:id])
     @supervisors = supervisors
   end
 
-  # POST /projects
-  # POST /projects.xml
+  # POST /admin/projects
+  # POST /admin/projects.xml
   def create
     @project = Project.new(params[:project])
 
@@ -75,8 +75,8 @@ class Admin::ProjectsController < ApplicationController
     end
   end
 
-  # PUT /projects/1
-  # PUT /projects/1.xml
+  # PUT /admin/projects/1
+  # PUT /admin/projects/1.xml
   def update
     @project = Project.find(params[:id])
 
@@ -92,8 +92,8 @@ class Admin::ProjectsController < ApplicationController
     end
   end
 
-  # DELETE /projects/1
-  # DELETE /projects/1.xml
+  # DELETE /admin/projects/1
+  # DELETE /admin/projects/1.xml
   def destroy
     @project = Project.find(params[:id])
     @project.destroy
