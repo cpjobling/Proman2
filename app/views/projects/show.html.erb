@@ -13,28 +13,11 @@
    limitations under the License.
 %>
 
-<% title @project.title %>
 
-<% supervisor = User.find(@project.created_by) %>
-<p><strong>Supervisor</strong>:
-  <%= supervisor.name %>
+<%= supervisor_for(@project) %>
 
-  (<a href="mailto:<%= supervisor.email %>"><%= supervisor.email %></a>)
-</p>
-<p>
-  <strong>Research Centre</strong>: <%=  supervisor.supervisor.research_centre.title %>.
-</p>
+<%= render(:partial => "projects/project_description", :locals => {:project => @project}) %>
 
-<p><strong>Description</strong>: <%= textilize(@project.description) %></p>
-
-<p><strong>Resources</strong>: <%= @project.resources %></p>
-
-<% if @project.carbon_critical %>
-  <p>This project may be suitable for the Atkins Carbon Critical award.</p>
-<% end %>
-<% if @project.sure %>
-  <p>This project is part of the Swansea University Racecar Engineering (SURE) project.</p>
-<% end %>
-<p><strong>Suitable for</strong>:</p>
 <%= render( :partial => "shared/list_disciplines", :object => @project) %>
+
 <%= link_to 'Back', projects_path %>

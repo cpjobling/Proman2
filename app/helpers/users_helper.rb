@@ -128,4 +128,14 @@ module UsersHelper
     false
   end
 
+  def supervisor_for(project)
+    u = User.find(@project.created_by)
+    s_string = "<p><strong>Supervisor</strong>: #{u.name} (<a href=\"mailto:#{u.email}\">#{u.email}</a>)</p>"
+    if u.supervisor?
+      s_string += "<p><strong>Research Centre</strong>: #{u.supervisor.research_centre_title}</p>"
+    end
+    return s_string
+  rescue
+    "<p>Un-defined</p>"
+  end
 end

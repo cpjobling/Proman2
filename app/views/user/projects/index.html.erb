@@ -19,15 +19,11 @@ limitations under the License.
 
 <% if @user.supervisor? %>
   <!-- Staff page -->
-  <% if @projects %>
-    <p>Dear <%= @user.name.formally %>, here is your current list of projects.</p>
-    <p>Until <%= proman %> is open to students
-      for project selection, you are free and encouraged to edit, your project
-      descriptions and add new ones. However, please be aware of the
-      requirements of the School and your research centre's project coordinator. It
-      would help if you could refine the disciplines for your projects and indicate if
-      your project would be suitable for consideration under the Atkins Carbon Critical
-    (C<sup>2</sup>) award or the Swansea University Racecar Engineering (SURE) team.</p>
+   <p>Dear <%= @user.name.formally %>,</p>
+   <% if @projects.empty? %>
+    <p>You do not appear to have created any projects yet. <%= link_to "Create one now? ", new_user_project_path %>.
+  <% else %>
+    <p>Here is your current list of projects.</p>
     <table id="projects">
       <thead>
         <th>Number</th>
@@ -38,8 +34,15 @@ limitations under the License.
         <%= render(:partial => "project_index", :collection => @projects) %>
       </tbody>
     </table>
-  <% else %>
-    <p>You do not appear to have created any projects yet. Create one now? <%= link_to "New project", new_user_project_path %>.
+    <p><%= link_to "New project", new_user_project_path %>.</p>
+
+    <p>Until <%= proman %> is open to students
+      for project selection, you are free and encouraged to edit, your project
+      descriptions and add new ones. However, please be aware of the
+      requirements of the School and your research centre's project coordinator. It
+      would help if you could refine the disciplines for your projects and indicate if
+      your project would be suitable for consideration under the Atkins Carbon Critical
+    (C<sup>2</sup>) award or the Swansea University Racecar Engineering (SURE) team.</p>
   <% end %>
 <% elsif @user.student? %>
   <!-- Student page -->

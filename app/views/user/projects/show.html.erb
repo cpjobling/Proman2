@@ -13,19 +13,10 @@
    limitations under the License.
 %>
 
-<% title @project.title %>
-
-<p><strong>Description</strong>: <%= textilize(@project.description) %></p>
+<%= render(:partial => "projects/project_description", :locals => {:project => @project}) %>
 
 <p><strong>Resources</strong>: <%= @project.resources %></p>
 
-<% if @project.carbon_critical %>
-  <p>This project may be suitable for the Atkins Carbon Critical award.</p>
-<% end %>
-<% if @project.sure %>
-  <p>This project is part of the Swansea University Racecar Engineering (SURE) project.</p>
-<% end %>
-<p><strong>Suitable for</strong>:</p>
 <%= render( :partial => "shared/list_disciplines", :object => @project) %>
 
 <%= link_to 'Edit', edit_user_project_path(@project) %> |
