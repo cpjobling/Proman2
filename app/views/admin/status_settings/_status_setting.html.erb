@@ -1,0 +1,74 @@
+<%# Copyright 2009 Swansea University
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+%>
+
+
+<fieldset><legend>Code and Message</lengend>
+<p><%= f.label :code, 'Code' %> <%= f.text_field :code, :size => 5 %></p>
+<p><%= f.label :message, 'Message' %><br /><%= f.text_area :message, :value => "Describe this setting (textile text accepted)", :rows => 10, :cols => 60 %>
+</p></fieldset>
+<fieldset><legend>Permissions</legend>
+<h3>Define the default permissions for this setting.</h3>
+<p><%= f.label :default_permissions, 'Set numerical permissions (e.g. 75444):' %> <%= f.text_field :num_perms, :size => 5, :value => ('%o' % setting.default_permissions.to_number) %></p>
+<p>Or set symbolic permissions:</p>
+<table>
+  <thead><th>Role</th><th>Permissions</th>
+  </thead>
+  <tbody>
+    <tr class="even">
+      <td>Administrators</td>
+      <td>
+        R <input type="checkbox" name="permissions[perm][]" title="Administrators have read access"    checked = "checked" value="040000" />
+        W <input type="checkbox" name="permissions[perm][]" title="Administrators have write access"   checked = "checked" value="020000" />
+        X <input type="checkbox" name="permissions[perm][]" title="Administrators have execute access" checked = "checked" value="010000" />
+      </td>
+    </tr>
+    <tr class="odd">
+      <td>Coordinators</td>
+      <td>
+        R <input type="checkbox" name="permissions[perm][]" title="Coordinators have read access"    value="004000" />
+        W <input type="checkbox" name="permissions[perm][]" title="Coordinators have write access"   value="002000" />
+        X <input type="checkbox" name="permissions[perm][]" title="Coordinators have execute access" value="001000" />
+      </td>
+    </tr>
+    <tr class="even">
+      <td>Staff</td>
+      <td>
+        R <input type="checkbox" name="permissions[perm][]" title="Staff have read access"    value="000400" />
+        W <input type="checkbox" name="permissions[perm][]" title="Staff have write access"   value="000200" />
+        X <input type="checkbox" name="permissions[perm][]" title="Staff have execute access" value="000100" />
+      </td>
+    </tr>
+    <tr class="odd">
+      <td>Students</td>
+      <td>
+        R <input type="checkbox" name="permissions[perm][]" title="Students have read access"    value="000040" />
+        W <input type="checkbox" name="permissions[perm][]" title="Students have write access"   value="000020" />
+        X <input type="checkbox" name="permissions[perm][]" title="Students have execute access" value="000010" />
+      </td>
+    </tr>
+    <tr class="even">
+      <td>Others</td>
+      <td>
+        R <input type="checkbox" name="permissions[perm][]" title="Others (i.e. the public) have read access" value="000004" />
+        W <input type="checkbox" name="permissions[perm][]" title="Others (i.e. the public) have write access" value="000002" />
+        X <input type="checkbox" name="permissions[perm][]" title="Others (i.e. the public) have read access" value="000001" />
+      </td>
+    </tr>
+  </tbody>
+</table>
+</p>
+</fieldset>
+
+
