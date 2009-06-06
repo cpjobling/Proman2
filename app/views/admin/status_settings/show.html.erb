@@ -23,26 +23,36 @@ limitations under the License.
 <p>Numerical: <%= '%o' % perm.to_number -%>.</p>
 <p>Code: <code><%= perm -%></code>.</p>
 
-<table border="1">
-  <thead>
-    <tr>
-      <th>Administrators</th><th>Coordinators</th><th>Staff</th><th>Students</th><th>Others</th>
-    </tr>
+<table>
+  <thead><th>Role</th><th>Permissions</th>
   </thead>
   <tbody>
-    <tr>
+    <tr class="even">
+      <td>Administrators</td>
       <td>
         <code><%= Permissions.as_string(perm.admins) %></code>
       </td>
+    </tr>
+    <tr class="odd">
+      <td>Coordinators</td>
       <td>
         <code><%= Permissions.as_string(perm.coordinators) %></code>
       </td>
+    </tr>
+    <tr class="even">
+      <td>Staff</td>
       <td>
         <code><%= Permissions.as_string(perm.staff) %></code>
       </td>
+    </tr>
+    <tr class="odd">
+      <td>Students</td>
       <td>
         <code><%= Permissions.as_string(perm.students) %></code>
       </td>
+    </tr>
+    <tr class="even">
+      <td>Others</td>
       <td>
         <code><%= Permissions.as_string(perm.others) %></code>
       </td>

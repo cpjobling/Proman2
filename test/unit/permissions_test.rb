@@ -117,12 +117,12 @@ class PermissionsTest < Test::Unit::TestCase
 
   def test_admin_numerical_permissions
     permissions =  Permissions.new(070000)
-    assert_equal 07, permissions.admin
+    assert_equal 07, permissions.admins
   end
 
   def test_coordinator_numerical_permissions
     permissions =  Permissions.new(006000)
-    assert_equal 06, permissions.coordinator
+    assert_equal 06, permissions.coordinators
   end
 
   def test_staff_numerical_permissions
@@ -132,7 +132,7 @@ class PermissionsTest < Test::Unit::TestCase
 
   def test_student_numerical_permissions
     permissions =  Permissions.new(000040)
-    assert_equal 04, permissions.student
+    assert_equal 04, permissions.students
   end
 
   def test_others_numerical_permissions

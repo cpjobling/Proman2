@@ -36,7 +36,7 @@ class Permissions
   end
 
   def staff
-    return @staffs
+    return @staff
   end
 
   def students
