@@ -73,13 +73,25 @@ class Permissions
 
   def to_s
     return Permissions.as_string(@admins) +
-           Permissions.as_string(@coordinators) +
-           Permissions.as_string(@staff) +
-           Permissions.as_string(@students) +
-           Permissions.as_string(@others)
+      Permissions.as_string(@coordinators) +
+      Permissions.as_string(@staff) +
+      Permissions.as_string(@students) +
+      Permissions.as_string(@others)
   end
 
-  def to_number
+  def permissions
     (@admins * 4096 + @coordinators * 512 + @staff * 64 + @students * 8 + @others)
+  end
+
+  # Converts a string like 76544 that would otherwise be considered a decimal
+  # into an octal. Returns zero if digits are not correct format
+  def Permissions.perms2octal(decimal_string)
+    return 0 unless decimal_string =~ /^[0-7]{5}$/
+    o = decimal_string.to_i(8)
+    return o
+  end
+
+  def to_octal
+    return '%05o' % self.permissions
   end
 end

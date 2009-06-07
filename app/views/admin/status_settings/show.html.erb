@@ -20,8 +20,8 @@ limitations under the License.
 
 <h3>Default permissions</h3>
 <% perm = @setting.default_permissions %>
-<p>Numerical: <%= '%o' % perm.to_number -%>.</p>
-<p>Code: <code><%= perm -%></code>.</p>
+<p>Octal: <%= '%o' % perm.permissions -%>.</p>
+<p>Symbolic: <code><%= perm -%></code>.</p>
 
 <table>
   <thead><th>Role</th><th>Permissions</th>

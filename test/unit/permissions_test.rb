@@ -107,7 +107,7 @@ class PermissionsTest < Test::Unit::TestCase
 
   def test_permissions_to_number
     permissions = Permissions.new(077777)
-    assert_equal 077777, permissions.to_number
+    assert_equal 077777, permissions.permissions
   end
 
   def test_all_permissions_to_s
@@ -147,4 +147,39 @@ class PermissionsTest < Test::Unit::TestCase
       assert_equal expected[i], Permissions.as_string(perms[i]), "Permission wasn't #{expected[i]}"
     end
   end
+
+ def test_permissions_to_octal_works
+    assert_equal 077777, Permissions.perms2octal('77777')
+    assert_equal 0, Permissions.perms2octal('777777')
+    assert_equal 0, Permissions.perms2octal('87777')
+    assert_equal 0, Permissions.perms2octal('-1')
+    assert_equal 0, Permissions.perms2octal('7')
+    assert_equal 0, Permissions.perms2octal('77')
+    assert_equal 0, Permissions.perms2octal('777')
+    assert_equal 0, Permissions.perms2octal('7777')
+  end
+
+  def test_to_octal
+    assert_equal '11111', Permissions.new(011111).to_octal
+    assert_equal '22222', Permissions.new(022222).to_octal
+    assert_equal '33333', Permissions.new(033333).to_octal
+    assert_equal '44444', Permissions.new(044444).to_octal
+    assert_equal '55555', Permissions.new(055555).to_octal
+    assert_equal '66666', Permissions.new(066666).to_octal
+    assert_equal '77777', Permissions.new(077777).to_octal
+    assert_equal '70000', Permissions.new(070000).to_octal
+    assert_equal '77000', Permissions.new(077000).to_octal
+    assert_equal '77700', Permissions.new(077700).to_octal
+    assert_equal '77770', Permissions.new(077770).to_octal
+  end
+
+    def test_to_octal_with_leading_0
+    assert_equal '00000', Permissions.new(0).to_octal
+    assert_equal '00001', Permissions.new(01).to_octal
+    assert_equal '00020', Permissions.new(020).to_octal
+    assert_equal '00300', Permissions.new(0300).to_octal
+    assert_equal '04000', Permissions.new(04000).to_octal
+    assert_equal '50000', Permissions.new(050000).to_octal
+  end
+
 end

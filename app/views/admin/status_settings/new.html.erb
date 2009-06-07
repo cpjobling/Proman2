@@ -18,7 +18,7 @@
 <% form_for([:admin,@setting]) do |f| %>
   <%= f.error_messages %>
   
-  <%= render :partial => "status_setting", :object => @setting, :locals => { :f => f, :setting => @setting } %>
+  <%= render :partial => "status_setting", :object => @setting, :locals => { :f => f, :setting => @setting, :perms => @perms } %>
 
   <p>
     <%= f.submit 'Create' %>

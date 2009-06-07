@@ -21,4 +21,12 @@ class StatusSetting < ActiveRecord::Base
     %w[ permissions permissions ],
   ],
   :allow_nil => false
+
+  validates_presence_of :code
+  validates_uniqueness_of :code
+  validates_numericality_of :code
+  
+  validates_presence_of :message
+
+  #validates_format_of "permissions[permissions]", :with => /[0-7]{5}/, :message => "Must be 5 octal digits (0-7)",  :allow_nil => true, :allow_blank => true
 end

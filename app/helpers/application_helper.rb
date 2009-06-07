@@ -66,5 +66,4 @@ module ApplicationHelper
   def unless_in_beta?
     yield unless in_beta?
   end
-
 end
