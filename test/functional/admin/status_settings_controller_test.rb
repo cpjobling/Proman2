@@ -32,10 +32,6 @@ class Admin::StatusSettingsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "new should set perms" do
-    get :new
-    assert_not_nil assigns(:perms)
-  end
 
   test "should create status setting" do
     assert_difference('StatusSetting.count') do
@@ -70,7 +66,39 @@ class Admin::StatusSettingsControllerTest < ActionController::TestCase
   end
 
   test "permissions[numeric] is intepreted" do
-     post :create, :status_setting => { :code=> "5123", :message=>"test"}, :parameters => {'permissions[numerical]'=>"70000" }
+    post :create, {
+      :status_setting => { :code=> "5123", :message=>"test", :permissions=>"70000" },
+      :permissions => { :perms =>  [
+              "16384",
+               "8192",
+               "4096" ] } }
+    setting = StatusSetting.find(:last)
+    assert_equal 5123, setting.code
+    assert_equal "test", setting.message
+    assert_equal 070000, setting.permissions
+  end
+
+  test "permissions[perm] is an array" do
+    post :create, {
+            :status_setting =>{ :message => "Describe this setting (textile text accepted)",
+                              :code =>790, :permissions=>"70000" },
+            :permissions => { :perms =>  [
+              "16384",
+               "8192",
+               "4096",
+               "2048",
+               "1024",
+                "512",
+                "256",
+                 "32",
+                 "16",
+                 "4"
+            ]}
+          }
+    setting = StatusSetting.find(:last)
+    assert_equal 790, setting.code
+    assert_equal "Describe this setting (textile text accepted)", setting.message
+    assert_equal 077464, setting.permissions
   end
 
 

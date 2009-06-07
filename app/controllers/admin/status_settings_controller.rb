@@ -44,7 +44,7 @@ class Admin::StatusSettingsController < ApplicationController
   # GET /admin/status_settings/new.xml
   def new
     @setting = StatusSetting.new
-    @perms = Permissions.new(070000) # default permissions
+    @setting.default_permissions = Permissions.new(070000) # default permissions
 
 
     respond_to do |format|
@@ -56,15 +56,26 @@ class Admin::StatusSettingsController < ApplicationController
   # GET /admin/status_settings/1/edit
   def edit
     @setting = StatusSetting.find(params[:id])
-    @perms = @setting.default_permissions
   end
 
   # POST /admin/status_settings
   # POST /admin/status_settings.xml
   def create
-    @setting = StatusSetting.new(params[:status_setting])
-    decimal_permissions = params["permissions[numeric]"]
-    @setting.default_permissions = Permissions.new(Permissions.perms2octal(decimal_permissions))
+    setting = params[:status_setting]
+    octal_permissions = setting['permissions']
+    setting.delete('permissions')
+    @setting = StatusSetting.new(setting)
+    decimal_permissions = Permissions.from_octal(octal_permissions)
+    
+    # Process the symbolic values
+    permissions = params[:permissions]
+    perms = permissions[:perms]
+    symbolic_permissions = 0
+    perms.each do |perm|
+      symbolic_permissions += perm.to_i
+    end
+    @setting.default_permissions = Permissions.new(decimal_permissions & symbolic_permissions)
+
     respond_to do |format|
       if @setting.save
         flash[:notice] = 'status_setting was successfully created.'

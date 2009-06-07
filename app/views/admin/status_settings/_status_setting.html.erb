@@ -19,9 +19,8 @@ limitations under the License.
   <p><%= f.label :message, 'Message' %><br /><%= f.text_area :message, :value => "Describe this setting (textile text accepted)", :rows => 10, :cols => 60 %>
 </p></fieldset>
 <fieldset><legend>Permissions</legend>
-  <% fields_for :permissions do |perm| %>
   <h3>Define the default permissions for this setting.</h3>
-  <p>Either set <%= perm.label :permissions, 'numerical permissions (e.g. 76544)' %> <%= perm.text_field :numeric, :size => 5, :value => perms.to_octal %>
+  <p>Either set <%= f.label :permissions, 'numerical permissions (e.g. 76544)' %> <%= f.text_field :permissions, :size => 5, :value => '%05o' % setting.permissions %>
     <p>Or set symbolic permissions:</p>
     <table>
       <thead><th>Role</th><th>Permissions</th>
@@ -69,7 +68,6 @@ limitations under the License.
         </tr>
       </tbody>
     </table>
-  <% end %>
   </p>
 </fieldset>
 

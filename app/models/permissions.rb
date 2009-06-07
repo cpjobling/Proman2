@@ -85,10 +85,10 @@ class Permissions
 
   # Converts a string like 76544 that would otherwise be considered a decimal
   # into an octal. Returns zero if digits are not correct format
-  def Permissions.perms2octal(decimal_string)
-    return 0 unless decimal_string =~ /^[0-7]{5}$/
-    o = decimal_string.to_i(8)
-    return o
+  def Permissions.from_octal(octal_string)
+    return 0 unless octal_string =~ /^[0-7]{5}$/
+    d = octal_string.to_i(8)
+    return d
   end
 
   def to_octal

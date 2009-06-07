@@ -149,14 +149,14 @@ class PermissionsTest < Test::Unit::TestCase
   end
 
  def test_permissions_to_octal_works
-    assert_equal 077777, Permissions.perms2octal('77777')
-    assert_equal 0, Permissions.perms2octal('777777')
-    assert_equal 0, Permissions.perms2octal('87777')
-    assert_equal 0, Permissions.perms2octal('-1')
-    assert_equal 0, Permissions.perms2octal('7')
-    assert_equal 0, Permissions.perms2octal('77')
-    assert_equal 0, Permissions.perms2octal('777')
-    assert_equal 0, Permissions.perms2octal('7777')
+    assert_equal 077777, Permissions.from_octal('77777')
+    assert_equal 0, Permissions.from_octal('777777')
+    assert_equal 0, Permissions.from_octal('87777')
+    assert_equal 0, Permissions.from_octal('-1')
+    assert_equal 0, Permissions.from_octal('7')
+    assert_equal 0, Permissions.from_octal('77')
+    assert_equal 0, Permissions.from_octal('777')
+    assert_equal 0, Permissions.from_octal('7777')
   end
 
   def test_to_octal
