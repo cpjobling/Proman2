@@ -66,39 +66,11 @@ class Admin::StatusSettingsControllerTest < ActionController::TestCase
   end
 
   test "permissions[numeric] is intepreted" do
-    post :create, {
-      :status_setting => { :code=> "5123", :message=>"test", :permissions=>"70000" },
-      :permissions => { :perms =>  [
-              "16384",
-               "8192",
-               "4096" ] } }
+    post :create, :status_setting => { :code=> "5123", :message=>"test", :permissions=>"70000" }
     setting = StatusSetting.find(:last)
     assert_equal 5123, setting.code
     assert_equal "test", setting.message
     assert_equal 070000, setting.permissions
-  end
-
-  test "permissions[perm] is an array" do
-    post :create, {
-            :status_setting =>{ :message => "Describe this setting (textile text accepted)",
-                              :code =>790, :permissions=>"70000" },
-            :permissions => { :perms =>  [
-              "16384",
-               "8192",
-               "4096",
-               "2048",
-               "1024",
-                "512",
-                "256",
-                 "32",
-                 "16",
-                 "4"
-            ]}
-          }
-    setting = StatusSetting.find(:last)
-    assert_equal 790, setting.code
-    assert_equal "Describe this setting (textile text accepted)", setting.message
-    assert_equal 077464, setting.permissions
   end
 
 

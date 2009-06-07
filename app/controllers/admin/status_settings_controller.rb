@@ -67,14 +67,7 @@ class Admin::StatusSettingsController < ApplicationController
     @setting = StatusSetting.new(setting)
     decimal_permissions = Permissions.from_octal(octal_permissions)
     
-    # Process the symbolic values
-    permissions = params[:permissions]
-    perms = permissions[:perms]
-    symbolic_permissions = 0
-    perms.each do |perm|
-      symbolic_permissions += perm.to_i
-    end
-    @setting.default_permissions = Permissions.new(decimal_permissions & symbolic_permissions)
+    @setting.default_permissions = Permissions.new(decimal_permissions)
 
     respond_to do |format|
       if @setting.save
