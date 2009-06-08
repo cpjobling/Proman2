@@ -66,7 +66,6 @@ class Admin::StatusSettingsController < ApplicationController
     setting.delete('permissions')
     @setting = StatusSetting.new(setting)
     decimal_permissions = Permissions.from_octal(octal_permissions)
-    
     @setting.default_permissions = Permissions.new(decimal_permissions)
 
     respond_to do |format|
@@ -84,16 +83,22 @@ class Admin::StatusSettingsController < ApplicationController
   # PUT /admin/status_settings/1
   # PUT /admin/status_settings/1.xml
   def update
-    @status_setting = StatusSetting.find(params[:id])
-
+    @setting = StatusSetting.find(params[:id])
+    new_setting = params[:status_setting]
+    octal_permissions = new_setting['permissions']
+    if octal_permissions
+      new_setting.delete('permissions')
+      decimal_permissions = Permissions.from_octal(octal_permissions)
+      @setting.default_permissions = Permissions.new(decimal_permissions)
+    end
     respond_to do |format|
-      if @status_setting.update_attributes(params[:status_setting])
-        flash[:notice] = 'status_setting was successfully updated.'
-        format.html { redirect_to(admin_status_setting_path(@status_setting)) }
-        format.xml  { head :ok }
+        if @setting.update_attributes(new_setting)
+          flash[:notice] = 'status_setting was successfully updated.'
+          format.html { redirect_to(admin_status_setting_path(@setting)) }
+          format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @status_setting.errors, :status => :unprocessable_entity }
+        format.xml  { render :xml => @setting.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -101,8 +106,8 @@ class Admin::StatusSettingsController < ApplicationController
   # DELETE /admin/status_settings/1
   # DELETE /admin/status_settings/1.xml
   def destroy
-    @status_setting = StatusSetting.find(params[:id])
-    @status_setting.destroy
+    @setting = StatusSetting.find(params[:id])
+    @setting.destroy
 
     respond_to do |format|
       format.html { redirect_to(admin_status_settings_path) }
@@ -132,11 +137,5 @@ class Admin::StatusSettingsController < ApplicationController
 
     return Permissions.new(perms)
   end
-
-
-
-
-
-
 
 end

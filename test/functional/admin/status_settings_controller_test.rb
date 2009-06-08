@@ -49,7 +49,6 @@ class Admin::StatusSettingsControllerTest < ActionController::TestCase
 
   test "should get edit" do
     get :edit, :id => status_settings(:allocation1).to_param
-    assert_not_nil assigns(:perms)
     assert_response :success
   end
 
