@@ -10,7 +10,7 @@ class SystemStatus < ActiveRecord::Migration
       t.timestamps
     end
     # Populate research centres from fixture ... see dev_data/README.txt
-    directory = File.join(File.dirname(__FILE__), '../../test/fixtures')
+    directory = File.join(File.dirname(__FILE__), '../../test/fixtures/obsolete')
     Fixtures.create_fixtures(directory, "system_status")
  
   end

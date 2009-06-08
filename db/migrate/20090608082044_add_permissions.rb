@@ -1,10 +1,6 @@
-class AddPermissionsToStatus < ActiveRecord::Migration
+class AddPermissions < ActiveRecord::Migration
   def self.up
-    rename_table :system_status, :status_settings
-    # Default permissions for administrator, coordinator, staff, student, others
-    # Modelled on Unix
-    add_column :status_settings, :permissions, :integer, :default => 070000 #
-    statuses = {100 => 070000,
+  	    statuses = {100 => 070000,
                 200 => 076600,
                 201 => 076640,
                 202 => 076640,
@@ -23,7 +19,5 @@ class AddPermissionsToStatus < ActiveRecord::Migration
   end
 
   def self.down
-    rename_table :status_settings, :system_status
-    remove_column :system_status, :permissions
   end
 end
