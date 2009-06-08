@@ -141,6 +141,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :supervisors
     admin.resources :projects
     admin.resources :status_settings
+    admin.resource  :status
   end
 
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.

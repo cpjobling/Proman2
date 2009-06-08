@@ -12,17 +12,18 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
-class Admin::StatusController < ApplicationController
+class Admin::StatusesController < ApplicationController
 
   require_role "admin"
   current_tab :admin
 
-  def index
-    
+  def show
+    @status = Status.find(1)
+    @setting = @status.status_setting
   end
   
   def edit
-    @status = Status.find(:first)
+    @status = Status.find(1)
   end
 
 end
