@@ -14,7 +14,7 @@ limitations under the License.
 %>
 
 <% creator = User.find(project_index.created_by) %>
-<tr class="<%=  cycle('odd', 'even') %>">
+<tr id="project_<%= project_index.id -%>" class="<%=  cycle('odd', 'even') %>">
   <td>
     <%= project_index.id -%>
   </td>

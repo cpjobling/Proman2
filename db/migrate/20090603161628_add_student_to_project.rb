@@ -8,6 +8,6 @@ class AddStudentToProject < ActiveRecord::Migration
   def self.down
     remove_column :projects, :student_id, :integer
     remove_column :projects, :round, :integer
-    remove_column :available, :boolean, :default => true
+    remove_column :projects, :available
   end
 end

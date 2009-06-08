@@ -14,7 +14,7 @@ limitations under the License.
 %>
 
 <% creator = project_index.creator %>
-<tr class="<%=  cycle('odd', 'even') %>">
+<tr id="project_<%= project_index.id -%>" class="<%=  cycle('odd', 'even') %>">
   <td>
     <%= link_to project_index.id, project_index, {:title => 'Click to view details of: ' + project_index.title} %>
   </td>

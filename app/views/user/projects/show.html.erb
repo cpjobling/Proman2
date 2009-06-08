@@ -20,4 +20,4 @@
 <%= render( :partial => "shared/list_disciplines", :object => @project) %>
 
 <%= link_to 'Edit', edit_user_project_path(@project) %> |
-<%= link_to 'Back',user_projects_path %>
+<%= link_to 'Back',user_projects_path(:anchor => "project_#{@project.id}") %>
