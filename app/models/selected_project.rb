@@ -14,7 +14,7 @@
 
 # Represents list of selected projects in a student's project selection
 class SelectedProject < ActiveRecord::Base
-  has_many :project_selection
+  has_many :project_selections
   acts_as_list :scope => :project_selection
   belongs_to :project
 end

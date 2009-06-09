@@ -1,4 +1,4 @@
-# Copyright 2009 Swansea University
+  # Copyright 2009 Swansea University
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -15,6 +15,6 @@
 class Student < ActiveRecord::Base
   belongs_to :user
   belongs_to :discipline
-  has_one :project, :through => :project_allocation
-  has_many :selections, :through => :project_selections, :source => :project
+  has_one :project
+  has_one :project_selection
 end

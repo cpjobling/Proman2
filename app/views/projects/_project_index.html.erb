@@ -24,4 +24,7 @@ limitations under the License.
   <td><%= creator.name.last_first %>
   </td>
   <td title="<%=  project_index.centre_title %>"><%= project_index.centre_abbrev %></td>
+  <% if student %>
+    <td>Select <%=  project_index.id %> for <%=  student.id %></td>
+  <% end %>
 </tr>

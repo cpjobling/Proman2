@@ -15,6 +15,11 @@ limitations under the License.
 
 <% title "All Projects" %>
 
+<% if @student %>
+  <p>Strong: we are logged in as a student with student id: <%= @student.id %></p>
+  <p>My project selection is <%= @student.project_selection.id || 'nil' %>
+<% end %>
+
 <% content_for :head do %>
   <%= render(:partial => "shared/import_tablesorter") %>
   <script type="text/javascript">
@@ -36,17 +41,18 @@ limitations under the License.
   <th title="Click to sort by project title: click again to reverse sort direction.">Title</th>
   <th title="Click to sort by project supervisor: click again to reverse sort direction.">Supervisor</th>
   <th title="Click to sort by research centre: click again to reverse sort direction.">Centre</th>
-  <% if logged_in? %>
-    <th colspan="2" class="{sorter: false}">Action</th></thead>
-  <% end %>
+  <%# if @student %>
+    <th colspan="2" class="{sorter: false}">Select</th></thead>
+  <%# end %>
 <tfoot>
   <th>Number</th><th>Title</th><th>Supervisor</th><th>Centre</th>
-  <% if logged_in? %>
-    <th colspan="2" class="{sorter: false}">Action</th></thead>
-  <% end %>
+  <%# if @student %>
+    <th colspan="2" class="{sorter: false}">Select</th></thead>
+  <%# end %>
 </tfoot>
 <tbody>
-  <%= render(:partial => "project_index", :collection => @projects) %>
+  <tr><td><%= @student.id %><.td?<tr>
+  <%= render(:partial => "project_index", :collection => @projects, :locals => {:student => @student}) %>
 </tbody>
 </table>
 <%= render(:partial => "shared/tablesorter_pager", :locals => {:pager_id => 'pager'})%>

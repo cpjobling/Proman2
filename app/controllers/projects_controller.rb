@@ -23,6 +23,7 @@ class ProjectsController < ApplicationController
   # GET /projects.xml
   def index
     @projects = Project.all
+    @student = set_student
 
     respond_to do |format|
       format.html # index.html.erb
@@ -199,6 +200,24 @@ class ProjectsController < ApplicationController
     Discipline.find(:all).collect {|r| @disciplines[r.long_name] = r.id }
   end
 
+  private
 
+  def set_student
+    student = nil
+    if can_select_project?
+      if logged_in? && current_user.has_role?("student")
+        student = current_user.student
+        unless student.project_selection
+          # Haven't yet got a project-selection record
+          student.project_selection = ProjectSelection.new
+        end
+      end
+    end
+    return student
+  end
+
+  def can_select_project?
+    return true
+  end
 
 end
