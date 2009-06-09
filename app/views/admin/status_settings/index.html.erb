@@ -24,6 +24,7 @@
 <% if @settings.blank? %>
   <p>No system status settings have been defined. <%= link_to "Create one now?", new_admin_status_setting_path %></p>
 <%else%>
+  <p><%= link_to "Current system status", admin_statuses_path %></p>
   <table>
     <thead>
       <tr>
