@@ -18,11 +18,11 @@
     <!-- If you are a student -->
     <!-- If registration/or selection -->
     <li>View the <%= link_to "available projects", projects_path -%>.</li>
-    <!-- If selection active -->
-    <li>Select projects (coming soon).</li>
-    <li>View and rank the projects you have selected (coming soon).</li>
+    <% if Proman::Config.can_select? %>
+    <li>Make <%= link_to 'project selection or view and rank the projects you have selected', project_selections_path %>.</li>
+    <% end %>
     <!-- If project has been allocated -->
-    <li>Find the contact details of your supervisor and research centre coordinator (coming soon).</li>
+    <!-- <li>Find the contact details of your supervisor and research centre coordinator (after allocation).</li> -->
   <% end %>
 </ul>
 

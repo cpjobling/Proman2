@@ -1,4 +1,4 @@
-<% title "Your project selection" %>
+<% title "Build your project selection" %>
 
 <% content_for :head do %>
   <%= render(:partial => "shared/import_tablesorter") %>
@@ -16,41 +16,39 @@
 <p>On this page you will find a list of projects that are suitable for the
 <strong><%= @student.discipline.long_name %></strong> discipline.</p>
 <p>Use this page to make your shortlist of selections: simply check the checkboxes of all the
-projects that interest you and then click "Submit selections" when you are done. You should
-select at least five projects (there is no upper limit) but you should choose no more than
-two projects from the same supervisor (although this version of <%= proman %> does not check this).
-You can click on the project number to see the details of any project: the back link should return to the same
+  projects that interest you and then click "Submit selections" when you are done. You should
+  select at least five projects (there is no upper limit) but you should choose no more than
+  two projects from the same supervisor (although this version of <%= proman %> does not check this).
+  You can click on the project number to see the details of any project: the back link should return to the same
 point in the list.</p>
 <p>If you are interested in a project from the full list that is not available on this page,
-you should first check that you have been assigned to the correct discipline (contact me if you are not).
-If the project has been assigned to a different discipline, but you think that you could tackle it, you should
-contact the supervisor by email and ask him either to verify that it would be suitable for you. After that
-you (or the supervisor) can contact me and I'll ammend the assigned discipline record. Of course any
-project that is re-assigned to your discipline would also be available to other students too!</p>
+  you should first check that you have been assigned to the correct discipline (contact me if you are not).
+  If the project has been assigned to a different discipline, but yu think that you could tackle it, you should
+  contact the supervisor by email and ask him either to verify that it would be suitable for you. After that
+  you (or the supervisor) can contact me and I'll ammend the assigned discipline record. Of course any
+project that you have assigned to your discipline would also be available to other students too!</p>
 
 
 <% form_for(@project_selection) do |f| %>
   <%= f.error_messages %>
 
-<table id="projects" class="tablesorter">
-  <thead>
-    <th title="Click to sort by project number: click again to reverse sort direction.">Number</th>
-    <th title="Click to sort by project title: click again to reverse sort direction.">Title</th>
-    <th title="Click to sort by project supervisor: click again to reverse sort direction.">Supervisor</th>
-    <th title="Click to sort by research centre: click again to reverse sort direction.">Centre</th>
-    <th colspan="2">Select</th>
-  </thead>
-    <% form_for (@project_selection) do |f| %>
-      <tfoot>
-        <tr><th colspan="3">&nbsp;</th><th colspan="2"><%= f.submit "Submit selections"  %></th></tr>
-      </tfoot>
-      <tbody>
-        <%= render(:partial => "project_selection_index", :collection => @projects,
-          :locals => {:f => f, :selected_projects => @selected_projects.collect {|sp| sp.project_id }}) %>
-      </tbody>
-    <% end %>
-</table>
-<%= render(:partial => "shared/tablesorter_pager", :locals => {:pager_id => 'pager'})%>
+  <table id="projects" class="tablesorter">
+    <thead>
+      <th title="Click to sort by project number: click again to reverse sort direction.">Number</th>
+      <th title="Click to sort by project title: click again to reverse sort direction.">Title</th>
+      <th title="Click to sort by project supervisor: click again to reverse sort direction.">Supervisor</th>
+      <th title="Click to sort by research centre: click again to reverse sort direction.">Centre</th>
+      <th colspan="2">Select</th>
+    </thead>
+    <tfoot>
+      <tr><th colspan="3">&nbsp;</th><th colspan="2"><%= f.submit "Submit selections"  %></th></tr>
+    </tfoot>
+    <tbody>
+      <%= render(:partial => "project_selection_index", :collection => @projects,
+        :locals => {:f => f, :selected_projects => @selected_projects.collect {|sp| sp.project_id }}) %>
+    </tbody>
+  </table>
+  <%= render(:partial => "shared/tablesorter_pager", :locals => {:pager_id => 'pager'})%>
 
 <% end %>
 

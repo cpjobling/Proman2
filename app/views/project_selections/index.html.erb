@@ -2,12 +2,22 @@
 <p>Welcome <%= @student.user.name.informally %>.</p>
 
 <p><% if @project_selection %>
-  <% if  @project_selection.selected_projects.empty? %>
-    <p>Your project selection is empty. Do you want to <%= link_to "add some projects", edit_project_selection_path(@project_selection) %>?</p>
-  <% else %>
-    <p>TODO: Here should be your list of projects</p>
-    <p><%= link_to 'Rank your project selections', project_selection_selected_projects_path(@project_selection) %>?</p>
+    <% if  @project_selection.selected_projects.empty? %>
+      <p>Your project selection is empty. Do you want to <%= link_to "add some projects", edit_project_selection_path(@project_selection) %>?</p>
+    <% else %>
+      <table id="projects" class="tablesorter">
+        <thead>
+          <th>Rank</th>
+          <th>Title</th>
+          <th>Supervisor</th>
+          <th>Centre</th>
+        </thead>
+        <tbody>
+          <%= render(:partial => "selected_project_index", :collection => @project_selection.selected_projects) %>
+        </tbody>
+      </table>
+      <p>
+      <%= link_to 'Rank your project selections', project_selection_selected_projects_path(@project_selection) %>|<%= link_to "Add some more projects", edit_project_selection_path(@project_selection) %>?</p>
+    </p>
   <% end %>
-<% else %>
-  <p>You don't yet appear to have a project selection, would you like to <%= link_to 'create one', new_project_selection_path %>?</p>
 <% end %>
