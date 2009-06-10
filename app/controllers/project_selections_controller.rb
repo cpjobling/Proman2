@@ -55,8 +55,9 @@ class ProjectSelectionsController < ApplicationController
   
   # GET /project_selections/1/edit
   def edit
-    @selected_projects = {}
-    Project.find(:all).collect {|p| @projects[p.title] = p.id }
+    # This should be projects for student's discipline
+    @projects = Project.find(:all, :order => 'title')
+    @selected_projects = @project_selection.selected_projects
   end
 
 

@@ -27,7 +27,6 @@
         <tr><th colspan="3">&nbsp;</th><th colspan="2"><%= f.submit "Submit selections"  %></th></tr>
       </tfoot>
       <tbody>
-        <tr><th>PS ID</th><td><%= @project_selection.id %></td></tr>
         <%= render(:partial => "project_selection_index", :collection => @projects, :locals => {:f => f, :selection => @project_selection}) %>
       </tbody>
     <% end %>

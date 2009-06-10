@@ -23,6 +23,9 @@
   <p>You don't appear to have selected any projects yet. Go <%= link_to 'back to selection list', project_selections_path %>?
 <% else %>
 <p>Here is the current order of your selected projects. One is considered highest.</p>
+<p>In this version of <%= proman %>, the ranking tool is rather low-tech. You have to
+follow the re-order link, select a new order in the "re-rank" page, and submit.
+I am wrking on a more elegent solution, but time ran out. It may be better by the time you read this.</p>
 
 
 
@@ -58,5 +61,5 @@
 <br />
 
 <%= link_to 'Select more projects', edit_project_selection_path(@project_selection) %>
-<%= link_to 'Back', project_selections_path %>
+<%= link_to 'See your selections', project_selections_path %>
 <% end %>

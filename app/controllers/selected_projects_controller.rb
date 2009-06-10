@@ -45,7 +45,7 @@ class SelectedProjectsController < ApplicationController
     sp = params[:selected_project]
     new_position = sp['position'].to_i
     @selected_project.insert_at(new_position)
-    @project_selection.children(true) # Force reload
+    @project_selection.selected_projects(true) # Force reload
     respond_to do |format|
       if @selected_project.save
         flash[:notice] = 'Project successfully re-ranked'
