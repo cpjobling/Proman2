@@ -15,7 +15,7 @@ limitations under the License.
 
 <fieldset><legend>Code and Message</lengend>
   <p><%= f.label :code, 'Code' %> <%= f.text_field :code, :size => 5 %></p>
-  <p><%= f.label :message, 'Message' %><br /><%= f.text_area :message, :value => "Describe this setting (textile text accepted)", :rows => 10, :cols => 60 %>
+  <p><%= f.label :message, 'Message' %><br /><%= f.text_area :message, :rows => 10, :cols => 60, :title => "Describe this setting (textile text accepted)" %>
 </p></fieldset>
 <fieldset><legend>Permissions</legend>
   <h3>Define the default permissions for this setting.</h3>

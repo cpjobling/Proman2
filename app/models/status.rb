@@ -25,5 +25,5 @@
 #  under the License.
 
 class Status < ActiveRecord::Base
-  has_one :status_setting
+  belongs_to :status_setting
 end

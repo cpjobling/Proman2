@@ -28,7 +28,7 @@
 #  under the License.
 
 class StatusSetting < ActiveRecord::Base
-  belongs_to :status
+  has_one :status
 
   composed_of :default_permissions,
     :class_name => "Permissions",
