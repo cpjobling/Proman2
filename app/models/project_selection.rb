@@ -1,3 +1,15 @@
+# == Schema Information
+# Schema version: 20090609102805
+#
+# Table name: project_selections
+#
+#  id         :integer         not null, primary key
+#  student_id :integer
+#  created_at :datetime
+#  updated_at :datetime
+#  round      :integer
+#
+
 # Copyright 2009 Swansea University
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");

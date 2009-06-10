@@ -1,3 +1,23 @@
+# == Schema Information
+# Schema version: 20090609102805
+#
+# Table name: projects
+#
+#  id              :integer         not null, primary key
+#  created_by      :integer
+#  title           :string(255)
+#  description     :text
+#  resources       :text
+#  created_at      :datetime
+#  updated_at      :datetime
+#  carbon_critical :boolean
+#  sure            :boolean
+#  allocated       :boolean
+#  round           :integer         default(0)
+#  student_id      :integer
+#  available       :boolean         default(TRUE)
+#
+
 # Copyright 2009 Swansea University
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");

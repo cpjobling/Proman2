@@ -1,3 +1,17 @@
+# == Schema Information
+# Schema version: 20090609102805
+#
+# Table name: students
+#
+#  id            :integer         not null, primary key
+#  user_id       :integer
+#  grade         :decimal(, )
+#  discipline_id :integer
+#  student_id    :string(255)
+#  created_at    :datetime
+#  updated_at    :datetime
+#
+
 ## YAML Template.
 
 nicolay:

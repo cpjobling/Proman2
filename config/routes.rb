@@ -14,6 +14,8 @@
 
 
 ActionController::Routing::Routes.draw do |map|
+  map.resources :project_selections, :has_many => :selected_projects
+
 
   map.connect 'projects/by_supervisor',
     :conditions => { :method => :get },
@@ -98,13 +100,15 @@ ActionController::Routing::Routes.draw do |map|
     :controller => 'user', :action => 'index'
 
   map.select_projects 'select_projects', :conditions => { :method => :get },
-    :controller => 'select_projects', :action => 'index'
+    :controller => 'project_selections', :action => 'index'
   
   map.about 'about', :conditions => { :method => :get}, :controller => 'about', :action => 'index'
 
   map.home 'main', :conditions => { :method => :get}, :controller => 'main', :action => 'index'
 
   map.contact 'contact', :conditions => { :method => :get}, :controller => 'contact', :action => 'index'
+  
+
   
   # The priority is based upon order of creation: first created -> highest priority.
 

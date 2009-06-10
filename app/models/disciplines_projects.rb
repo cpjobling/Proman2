@@ -1,3 +1,12 @@
+# == Schema Information
+# Schema version: 20090609102805
+#
+# Table name: disciplines_projects
+#
+#  discipline_id :integer
+#  project_id    :integer
+#
+
 # Copyright 2009 Swansea University
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");

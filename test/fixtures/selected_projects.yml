@@ -1,3 +1,14 @@
+# == Schema Information
+# Schema version: 20090609102805
+#
+# Table name: selected_projects
+#
+#  id                   :integer         not null, primary key
+#  project_selection_id :integer
+#  position             :integer
+#  project_id           :integer
+#
+
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 # one:

@@ -1,3 +1,16 @@
+# == Schema Information
+# Schema version: 20090609102805
+#
+# Table name: research_centres
+#
+#  id          :integer         not null, primary key
+#  abbrev      :string(255)
+#  title       :string(255)
+#  coordinator :integer
+#  created_at  :datetime
+#  updated_at  :datetime
+#
+
 # Copyright 2009 Swansea University
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");

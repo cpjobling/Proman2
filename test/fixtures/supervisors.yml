@@ -1,3 +1,16 @@
+# == Schema Information
+# Schema version: 20090609102805
+#
+# Table name: supervisors
+#
+#  id                 :integer         not null, primary key
+#  research_centre_id :integer
+#  user_id            :integer
+#  staff_id           :string(255)
+#  created_at         :datetime
+#  updated_at         :datetime
+#
+
 ## YAML Template.
 
 mgedwards:

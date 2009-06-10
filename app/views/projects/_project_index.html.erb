@@ -12,19 +12,16 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 %>
-
-<% creator = project_index.creator %>
-<tr id="project_<%= project_index.id -%>" class="<%=  cycle('odd', 'even') %>">
+<% project = project_index %>
+<% creator = project.creator %>
+<tr id="project_<%= project.id -%>" class="<%=  cycle('odd', 'even') %>">
   <td>
-    <%= link_to project_index.id, project_index, {:title => 'Click to view details of: ' + project_index.title} %>
+    <%= link_to project.id, project, {:title => 'Click to view details of: ' + project.title} %>
   </td>
-  <td title="<%= project_index.title %>">
-    <%=  abbreviate(project_index.title) %>
+  <td title="<%= project.title %>">
+    <%=  abbreviate(project.title) %>
   </td>
   <td><%= creator.name.last_first %>
   </td>
-  <td title="<%=  project_index.centre_title %>"><%= project_index.centre_abbrev %></td>
-  <% if student %>
-    <td>Select <%=  project_index.id %> for <%=  student.id %></td>
-  <% end %>
+  <td title="<%=  project.centre_title %>"><%= project.centre_abbrev %></td>
 </tr>

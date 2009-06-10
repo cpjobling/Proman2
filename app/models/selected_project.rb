@@ -1,3 +1,14 @@
+# == Schema Information
+# Schema version: 20090609102805
+#
+# Table name: selected_projects
+#
+#  id                   :integer         not null, primary key
+#  project_selection_id :integer
+#  position             :integer
+#  project_id           :integer
+#
+
 # Copyright 2009 Swansea University
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,5 +27,6 @@
 class SelectedProject < ActiveRecord::Base
   has_many :project_selections
   acts_as_list :scope => :project_selection
+  default_scope :order => :position
   belongs_to :project
 end

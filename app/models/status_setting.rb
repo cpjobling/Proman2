@@ -1,3 +1,17 @@
+# == Schema Information
+# Schema version: 20090609102805
+#
+# Table name: status_settings
+#
+#  id          :integer         not null, primary key
+#  code        :integer
+#  message     :text
+#  created_at  :datetime
+#  updated_at  :datetime
+#  permissions :integer         default(28672)
+#  status_id   :integer         default(1)
+#
+
 #  Copyright 2009 Swansea University.
 # 
 #  Licensed under the Apache License, Version 2.0 (the "License");

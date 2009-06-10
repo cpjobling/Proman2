@@ -1,3 +1,24 @@
+# == Schema Information
+# Schema version: 20090609102805
+#
+# Table name: users
+#
+#  id                        :integer         not null, primary key
+#  login                     :string(40)
+#  email                     :string(100)
+#  crypted_password          :string(40)
+#  salt                      :string(40)
+#  remember_token            :string(40)
+#  remember_token_expires_at :datetime
+#  first_name                :string(100)     default("")
+#  last_name                 :string(100)     default("")
+#  title                     :string(10)      default("")
+#  initials                  :string(10)      default("")
+#  known_as                  :string(25)      default("")
+#  created_at                :datetime
+#  updated_at                :datetime
+#
+
 # Copyright 2009 Swansea University
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");

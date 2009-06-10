@@ -1,0 +1,20 @@
+<h1>Editing project_selection</h1>
+
+<% form_for(@project_selection) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+
+  <p>
+    <select id="project_ids" name="project_ids[]" multiple="multiple">
+      <%= options_for_select(@projects, @project_selection.selected_projects.collect {|sp| sp.id }) %>
+    </select>
+  </p>
+
+
+<% end %>
+
+<%= link_to 'Show', @project_selection %> |
+<%= link_to 'Back', project_selections_path %>

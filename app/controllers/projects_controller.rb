@@ -23,7 +23,7 @@ class ProjectsController < ApplicationController
   # GET /projects.xml
   def index
     @projects = Project.all
-    @student = set_student
+    @project_selection = get_project_selection
 
     respond_to do |format|
       format.html # index.html.erb
@@ -202,22 +202,22 @@ class ProjectsController < ApplicationController
 
   private
 
-  def set_student
-    student = nil
+  def get_project_selection
     if can_select_project?
       if logged_in? && current_user.has_role?("student")
-        student = current_user.student
+        return nil unless student = current_user.student
         unless student.project_selection
           # Haven't yet got a project-selection record
           student.project_selection = ProjectSelection.new
         end
+        return student.project_selection
       end
     end
-    return student
+    return nil
   end
 
   def can_select_project?
-    return true
+    return Proman::Config.can_select?
   end
 
 end

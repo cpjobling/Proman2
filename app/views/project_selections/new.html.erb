@@ -1,20 +1,4 @@
-<%# Copyright 2009 Swansea University
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-%>
-
-<% title "All Projects" %>
-
+<% title "New project selection" %>
 
 <% content_for :head do %>
   <%= render(:partial => "shared/import_tablesorter") %>
@@ -27,9 +11,8 @@ limitations under the License.
   </script>
 <% end %>
 
-<%= render(:partial => "navigation") %>
-
-<% slogan "&ldquo;Vorsprung durch Technik&rdquo; (Progress through technology) &ndash; Audi avertising slogan." %>
+<% form_for(@project_selection) do |f| %>
+  <%= f.error_messages %>
 
 <table id="projects" class="tablesorter">
   <thead>
@@ -37,28 +20,20 @@ limitations under the License.
     <th title="Click to sort by project title: click again to reverse sort direction.">Title</th>
     <th title="Click to sort by project supervisor: click again to reverse sort direction.">Supervisor</th>
     <th title="Click to sort by research centre: click again to reverse sort direction.">Centre</th>
-    <%= add_selection_to_table_header_if(@project_selection) %>
+    <th colspan="2">Select</th>
   </thead>
-  <% if @project_selection %>
     <% form_for (@project_selection) do |f| %>
       <tfoot>
-        <tr><th colspan="3">&nbsp;</th><th colspan="2"><%= f.submit "Update selections"  %></th></tr>
+        <tr><th colspan="3">&nbsp;</th><th colspan="2"><%= f.submit "Submit selections"  %></th></tr>
       </tfoot>
       <tbody>
         <tr><th>PS ID</th><td><%= @project_selection.id %></td></tr>
         <%= render(:partial => "project_selection_index", :collection => @projects, :locals => {:f => f, :selection => @project_selection}) %>
       </tbody>
     <% end %>
-  <% else %>
-    <tfoot>
-      <th>Number</th>
-      <th>Title</th>
-      <th>Supervisor</th>
-      <th>Centre</th>
-    </tfoot>
-    <tbody>
-      <%= render(:partial => "project_index", :collection => @projects) %>
-    </tbody>
-  <% end %>
 </table>
 <%= render(:partial => "shared/tablesorter_pager", :locals => {:pager_id => 'pager'})%>
+
+<% end %>
+
+<%= link_to 'Back', project_selections_path %>

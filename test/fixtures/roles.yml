@@ -1,3 +1,12 @@
+# == Schema Information
+# Schema version: 20090609102805
+#
+# Table name: roles
+#
+#  id   :integer         not null, primary key
+#  name :string(255)
+#
+
 # Copyright 2009 Swansea University
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");

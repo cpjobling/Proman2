@@ -1,4 +1,18 @@
-  # Copyright 2009 Swansea University
+# == Schema Information
+# Schema version: 20090609102805
+#
+# Table name: students
+#
+#  id            :integer         not null, primary key
+#  user_id       :integer
+#  grade         :decimal(, )
+#  discipline_id :integer
+#  student_id    :string(255)
+#  created_at    :datetime
+#  updated_at    :datetime
+#
+
+# Copyright 2009 Swansea University
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -15,6 +29,9 @@
 class Student < ActiveRecord::Base
   belongs_to :user
   belongs_to :discipline
-  has_one :project
-  has_one :project_selection
+  # Student can be allocated one project
+  has_one :project, :dependent => :nullify
+  # Student has a projects selection, which
+  # if student destroys it, is deleted.
+  has_one :project_selection, :dependent => :destroy
 end
