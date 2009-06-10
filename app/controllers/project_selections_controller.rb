@@ -45,7 +45,7 @@ class ProjectSelectionsController < ApplicationController
   # GET /project_selections/new
   # GET /project_selections/new.xml
   def new
-    @projects = Project.find(:all)
+    @projects = projects_suitable_for_student
   
     respond_to do |format|
       format.html # new.html.erb
@@ -56,7 +56,7 @@ class ProjectSelectionsController < ApplicationController
   # GET /project_selections/1/edit
   def edit
     # This should be projects for student's discipline
-    @projects = Project.find(:all, :order => 'title')
+    @projects = projects_suitable_for_student
     @selected_projects = @project_selection.selected_projects
   end
 
@@ -131,7 +131,7 @@ class ProjectSelectionsController < ApplicationController
     @student = current_user.student
     unless @student.project_selection
       # Haven't yet got a project-selection record
-      student.project_selection = ProjectSelection.create(:student => @student, :round => current_selection_round)
+      @student.project_selection = ProjectSelection.create(:student => @student, :round => current_selection_round)
     end
     @project_selection = @student.project_selection
   end
@@ -154,7 +154,11 @@ class ProjectSelectionsController < ApplicationController
   end
 
   def current_selection_round
-    return Proman::Config.project_selection_round
+    return Proman::Config.current_selection_round
   end
 
+  def projects_suitable_for_student
+    d = Discipline.find(@student.discipline)
+    return d.projects.find(:all)
+  end
 end
