@@ -183,8 +183,6 @@ class Admin::ProjectsController < ApplicationController
     Discipline.find(:all).collect {|r| @disciplines[r.long_name] = r.id }
   end
 
-  private
-
   def supervisors
     return User.find(:all, :order => 'first_name, last_name').select {|u| u.has_role?('staff')}
   end

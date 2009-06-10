@@ -19,12 +19,32 @@ require 'active_support'
 module Proman
   module Config
     # Settings
-    @@can_select = true
+
+    # Enable project selection
+    @@can_select = false
     def self.can_select?
       return @@can_select
     end
     def self.can_select=(value)
       @@can_select = value ? true : false
+    end
+
+    # Set project selection round
+    @@project_selection_round = 0
+    def self.current_selection_round
+      return @@project_selection_round
+    end
+
+    def self.update_selection_round
+      @@project_selection_round += 1
+    end
+
+    def self.reset_selection_round
+      @@project_selection_round = 0
+    end
+
+    def self.current_selection_round=(value)
+      @@project_selection_round = value
     end
   end
 end

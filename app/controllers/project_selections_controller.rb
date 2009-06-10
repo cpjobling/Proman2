@@ -17,13 +17,13 @@
 class ProjectSelectionsController < ApplicationController
 
   require_role "student"
-  before_filter :find_student
+  before_filter :can_select_projects
+  before_filter :find_student_and_project_selection
   current_tab :project_selections
 
   # GET /project_selections
   # GET /project_selections.xml
   def index
-    @project_selection = @student.project_selection
 
     respond_to do |format|
       format.html # index.html.erb
@@ -34,7 +34,6 @@ class ProjectSelectionsController < ApplicationController
   # GET /project_selections/1
   # GET /project_selections/1.xml
   def show
-    @project_selection = ProjectSelection.find(params[:id])
     @selected_projects = @project_selection.selected_projects
 
     respond_to do |format|
@@ -46,8 +45,6 @@ class ProjectSelectionsController < ApplicationController
   # GET /project_selections/new
   # GET /project_selections/new.xml
   def new
-    @project_selection = ProjectSelection.new
-    @project_selection.student = @student
     @projects = Project.find(:all)
   
     respond_to do |format|
@@ -58,7 +55,6 @@ class ProjectSelectionsController < ApplicationController
   
   # GET /project_selections/1/edit
   def edit
-    @project_selection = ProjectSelection.find(params[:id])
     @selected_projects = {}
     Project.find(:all).collect {|p| @projects[p.title] = p.id }
   end
@@ -67,9 +63,6 @@ class ProjectSelectionsController < ApplicationController
   # POST /project_selections
   # POST /project_selections.xml
   def create
-    unless @project_selection = ProjectSelection.find_by_student_id(@student.id)
-      @project_selection = ProjectSelection.create(:student => @student)
-    end
     if project_selection = params[:project_selection]
       if project_selection['project_ids']
         unless @project_selection.selected_projects.empty?
@@ -97,17 +90,21 @@ class ProjectSelectionsController < ApplicationController
   # PUT /project_selections/1
   # PUT /project_selections/1.xml
   def update
-    @project_selection = ProjectSelection.find(params[:id])
-    project_selection = params[:project_selection]
-    selected_projects = project_selection[:selected_projects]
-    selected_projects.each do |sp|
-      p = Project.find(sp.to_i)
-      @project_selection.selected_projects.create(:project => p)
+    if project_selection = params[:project_selection]
+      if project_selection['project_ids']
+        unless @project_selection.selected_projects.empty?
+          @project_selection.selected_projects.clear
+        end
+        selected_projects = project_selection['project_ids'].map {|id| Project.find(id)}
+        for project in selected_projects
+          @project_selection.selected_projects.create(:project => project)
+        end
+      end
     end
     respond_to do |format|
       if @project_selection.save
         flash[:notice] = 'Project selection was successfully updated.'
-        format.html { redirect_to(@project_selection) }
+        format.html { redirect_to(project_selection_selected_projects_path(@project_selection)) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -119,7 +116,6 @@ class ProjectSelectionsController < ApplicationController
   # DELETE /project_selections/1
   # DELETE /project_selections/1.xml
   def destroy
-    @project_selection = ProjectSelection.find(params[:id])
     @project_selection.destroy
 
     respond_to do |format|
@@ -130,9 +126,13 @@ class ProjectSelectionsController < ApplicationController
 
   private
 
-  def find_student
+  def find_student_and_project_selection
     @student = current_user.student
-    puts @student
+    unless @student.project_selection
+      # Haven't yet got a project-selection record
+      student.project_selection = ProjectSelection.create(:student => @student, :round => current_selection_round)
+    end
+    @project_selection = @student.project_selection
   end
 
   def handle_selected_projects(my_hash)
@@ -144,4 +144,16 @@ class ProjectSelectionsController < ApplicationController
       end
     end
   end
+
+  def can_select_projects
+    unless Proman::Config.can_select?
+      flash[:notice] = "Project selection is not enabled at this time."
+      redirect_to :controller => "projects", :action => "index"
+    end
+  end
+
+  def current_selection_round
+    return Proman::Config.project_selection_round
+  end
+
 end

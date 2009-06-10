@@ -35,12 +35,11 @@ limitations under the License.
   For example, some very popular projects/supervisors
 may be eliminated in the first allocation round once staff loading limits are reached.</p>
 
-<p>Click on the supervisor's name to see his or her projects.</p.
+<p>Click on the supervisor's name to see his or her projects.</p>
 
 <% if @supervisors.blank? %>
-  <p>no projects to display</p>
+  <p>No projects to display.</p>
 <%else%>
-
   <% @supervisors.each do |supervisor| %>
     <%  projects = Project.find_all_by_created_by(supervisor) %>
     <% unless projects.size == 0 %>
@@ -72,8 +71,8 @@ may be eliminated in the first allocation round once staff loading limits are re
               <%  end %>
             </tbody>
           </table>
-        <% end %>
-    </div>
+        </div>
+      </div>
     <% end %>
-  </div>
+  <% end %>
 <%end%>
