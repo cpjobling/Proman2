@@ -19,6 +19,7 @@ class ProjectSelectionsController < ApplicationController
   require_role "student"
   before_filter :can_select_projects
   before_filter :find_student_and_project_selection
+  before_filter :verify_ownership, :only => [:show, :edit, :update]
   current_tab :project_selections
 
   # GET /project_selections
@@ -34,23 +35,13 @@ class ProjectSelectionsController < ApplicationController
   # GET /project_selections/1
   # GET /project_selections/1.xml
   def show
-    @selected_projects = @project_selection.selected_projects
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @project_selection }
-    end
+    redirect_to project_selection_selected_projects_path(@project_selection)
   end
 
   # GET /project_selections/new
   # GET /project_selections/new.xml
   def new
-    @projects = projects_suitable_for_student
-  
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @project_selection }
-    end
+    redirect_to project_selections_url
   end
   
   # GET /project_selections/1/edit
@@ -60,33 +51,6 @@ class ProjectSelectionsController < ApplicationController
     @selected_projects = @project_selection.selected_projects
   end
 
-
-  # POST /project_selections
-  # POST /project_selections.xml
-  def create
-    if project_selection = params[:project_selection]
-      if project_selection['project_ids']
-        unless @project_selection.selected_projects.empty?
-          @project_selection.selected_projects.clear
-        end
-        selected_projects = project_selection['project_ids'].map {|id| Project.find(id)}
-        for project in selected_projects
-          @project_selection.selected_projects.create(:project => project)
-        end
-      end
-    end
-
-    respond_to do |format|
-      if @project_selection.save
-        flash[:notice] = 'ProjectSelection was successfully created.'
-        format.html { redirect_to(project_selection_selected_projects_path(@project_selection)) }
-        format.xml  { render :xml => @project_selection, :status => :created, :location => @project_selection }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @project_selection.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
 
   # PUT /project_selections/1
   # PUT /project_selections/1.xml
@@ -111,17 +75,6 @@ class ProjectSelectionsController < ApplicationController
         format.html { render :action => "edit" }
         format.xml  { render :xml => @project_selection.errors, :status => :unprocessable_entity }
       end
-    end
-  end
-
-  # DELETE /project_selections/1
-  # DELETE /project_selections/1.xml
-  def destroy
-    @project_selection.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(project_selections_url) }
-      format.xml  { head :ok }
     end
   end
 
@@ -160,5 +113,16 @@ class ProjectSelectionsController < ApplicationController
   def projects_suitable_for_student
     d = Discipline.find(@student.discipline)
     return d.projects.find(:all)
+  end
+
+  def verify_ownership
+    the_student = @student
+    the_ps = @project_selection
+    the_ps_owner = the_ps.student
+    unless @student == @project_selection.student
+      flash[:notice] = "You are not permitted to access another student's project selection. This access attempt has been logged."
+      logger.error "Student #{@student.id} attempted to access project selection id #{@project_selection.id} at #{Time.now}"
+      redirect_to(:action => 'index')
+    end
   end
 end

@@ -16,7 +16,8 @@
 class SelectedProjectsController < ApplicationController
   require_role "student"
   current_tab :project_selections
-  before_filter :find_project_selection
+  before_filter :find_student_and_project_selection
+  before_filter :verify_ownership
 
   def index
     @selected_projects = @project_selection.selected_projects
@@ -54,14 +55,14 @@ class SelectedProjectsController < ApplicationController
       else
         format.html { reder :action => "edit" }
         format.xml { render :xml => @selected_project.errors,
-                            :status => :unprocessable_entity }
+          :status => :unprocessable_entity }
       end
     end
   end
 
   def destroy
-   @selected_project = @project_selection.selected_projects.find(params[:id])
-   @selected_project.destroy
+    @selected_project = @project_selection.selected_projects.find(params[:id])
+    @selected_project.destroy
 
     respond_to do |format|
       format.html { redirect_to project_selection_selected_projects_url(@project_selection)}
@@ -72,7 +73,18 @@ class SelectedProjectsController < ApplicationController
   
   private
 
-  def find_project_selection
+  
+  def find_student_and_project_selection
+    @student = current_user.student
     @project_selection = ProjectSelection.find(params[:project_selection_id])
   end
+
+  def verify_ownership
+    unless @project_selection.student == @student
+      flash[:notice] = "You are not permitted to access another student's selected projects. This access attempt has been logged."
+      logger.error "Student #{@student.id} attempted to access project selection id #{@project_selection.id} at #{Time.now}"
+      redirect_to project_selections_url
+    end
+  end
+
 end
