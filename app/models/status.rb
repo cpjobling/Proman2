@@ -26,4 +26,6 @@
 
 class Status < ActiveRecord::Base
   belongs_to :status_setting
+
+  delegate :code, :title, :message, :permissions, :to => :status_setting
 end

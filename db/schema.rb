@@ -101,15 +101,16 @@ ActiveRecord::Schema.define(:version => 20090609102805) do
 
   create_table "status_settings", :force => true do |t|
     t.integer  "code"
+    t.string   "title"
     t.text     "message"
+    t.integer  "permissions", :default => 28672
+    t.integer  "integer",     :default => 28672
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "permissions", :default => 28672
-    t.integer  "status_id",   :default => 1
   end
 
   create_table "statuses", :force => true do |t|
-    t.integer  "status_setting_id"
+    t.integer  "status_setting_id", :default => 1
     t.datetime "created_at"
     t.datetime "updated_at"
   end
