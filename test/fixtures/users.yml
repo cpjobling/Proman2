@@ -94,12 +94,12 @@ admin:
 
     
 # A dummy student
-student:
-    id: 12
+student1:
+    id: 201
     login: 382392
     email: 382392@swansea.ac.uk
-    salt:                      356a192b7913b04c54574d18c28d46e6395428ab
-    crypted_password:          d755a1ef4fd94073b7109cfed5bc2418e638b6a7 # '05/07/1986'
+    salt:                      356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
+    crypted_password:          63d8fefa835d181f7c2705227e0452045141b380 # 'monkey'
     created_at: <%= 5.days.ago.to_s :db %>
     title: Mr
     first_name: Nicolay
@@ -132,8 +132,8 @@ coordinator:
     email: a.coordinator@swansea.ac.uk
     created_at: <%= 5.days.ago.to_s :db %>
     title: Prof
-    first_name: C.
-    initials: O
+    first_name: Izny
+    initials: C.
     last_name: O'dinated
     known_as: Ready 4 N.E. Thing
 
@@ -196,14 +196,60 @@ admin_team_coordinator:
     last_name: Burt
     title: Mr
 
-new_user:
-    id: 200
-    login: nobody
-    email: nobody@nowhere.com 
+student2:
+    id: 202
+    login: student2
+    email: student2@uni.edu
     salt:                      356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
     crypted_password:          63d8fefa835d181f7c2705227e0452045141b380 # 'monkey'
-    title: Ms
+    title: Mrs
     first_name: Anne
+    last_name: Bancroft
+    known_as: cougar
+
+student3:
+    id: 203
+    login: student3
+    email: student2@uni.edu
+    salt:                      356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
+    crypted_password:          63d8fefa835d181f7c2705227e0452045141b380 # 'monkey'
+    title: Mr
+    first_name: Karl
+    initials: C.
+    last_name: Marx
+    known_as: red
+
+student4:
+    id: 204
+    login: student4
+    email: student2@uni.edu
+    salt:                      356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
+    crypted_password:          63d8fefa835d181f7c2705227e0452045141b380 # 'monkey'
+    title: Mr
+    first_name: Oliver
     initials: O.
-    last_name: Minus
-    known_as: Nobody
+    last_name: Hardy
+    known_as: fatty
+
+
+student5:
+    id: 205
+    login: student5
+    email: student2@uni.edu
+    salt:                      356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
+    crypted_password:          63d8fefa835d181f7c2705227e0452045141b380 # 'monkey'
+    title: Mr
+    first_name: Cary
+    last_name: Grant
+    known_as: northwestern
+
+student6:
+    id: 206
+    login: student6
+    email: student2@uni.edu
+    salt:                      356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
+    crypted_password:          63d8fefa835d181f7c2705227e0452045141b380 # 'monkey'
+    title: Miss
+    first_name: Bette
+    last_name: Davis
+    known_as: diva

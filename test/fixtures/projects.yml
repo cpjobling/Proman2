@@ -39,68 +39,104 @@ project1:
   id: 1
   created_by: 13
   title: Project 1
-  description: This is a dummy project proposed by the staff member create by staff member with user_id = 3 (Prof. A. N. Academic).
+  description: This is a dummy project proposed by staff member with user_id = 13 (Dr Atomic B.Omb).
   resources: none
     
 project2:
   id: 2
   created_by: 13
   title: Project 2
-  description: This is the second dummy project proposed by the staff member create by staff member with user_id = 3 (Prof. A. N. Academic).
+  description: This is the second dummy project proposed by staff member with user_id = 13 (Dr Atomic B.Omb).
   resources: none
       
 project3:
   id: 3
   created_by: 13
   title: Project 3
-  description: This is the third dummy project proposed by the staff member create by staff member with user_id = 3 (Prof. A. N. Academic).
+  description: This is the third dummy project proposed by staff member with user_id = 13 (Dr Atomic B.Omb).
   resources: none
-            
+
 project4:
   id: 4
   created_by: 14
   title: Project 4
-  description: This is the fourth dummy project proposed by the staff member create by staff member with user_id = 4 (Dr A. Coordinator).
+  description: This is the fourth dummy project proposed by staff member with user_id = 14 (Prof Izny C. O'dinated).
   resources: none
             
 project5:
   id: 5
   created_by: 14
   title: Project 5
-  description: This is the fifth dummy project proposed by the staff member create by staff member with user_id = 4 (Dr A. Coordinator).
+  description: This is the fifth dummy project proposed by staff member with user_id = 14 (Prof Izny C. O'dinated).
   resources: none
             
 project6:
   id: 6
   created_by: 14
   title: Project 6
-  description: This is the sixth dummy project proposed by the staff member create by staff member with user_id = 4 (Dr A. Coordinator).
+  description: This is the sixth dummy project proposed by staff member with user_id = 14 (Prof Izny C. O'dinated).
   resources: none
             
 project7:
   id: 7
   created_by: 14
   title: Project 7
-  description: This is the seventh dummy project proposed by the staff member create by staff member with user_id = 4 (Dr A. Coordinator).
+  description: This is the seventh dummy project proposed by staff member with user_id = 14 (Prof Izny C. O'dinated).
   resources: none
-            
+          
 project8:
   id: 8
   created_by: 100
   title: Project 8
-  description: This is the eighth dummy project proposed by the staff member create by staff member with user_id = 5 (Dr C.P. Jobling).
+  description: This is the eighth dummy project proposed by staff member with user_id = 100 (Dr C.P. Jobling).
   resources: none
-            
+        
 project9:
   id: 9
   created_by: 100
   title: Project 9
-  description: This is the ninth dummy project proposed by the staff member create by staff member with user_id = 5 (Dr C.P. Jobling).
+  description: This is the ninth dummy project proposed by staff member with user_id = 100 (Dr C.P. Jobling).
   resources: none
             
 project10:
   id: 10
   created_by: 100
   title: Project 10
-  description: This is the tenth dummy project proposed by the staff member create by staff member with user_id = 5 (Dr C.P. Jobling).
+  description: This is the tenth dummy project proposed by staff member with user_id = 100 (Dr C.P. Jobling).
+  resources: none
+
+project11:
+  id: 11
+  created_by: 14
+  title: Project 11
+  description: This is the eleventh dummy project proposed by staff member with user_id = 14 (Prof Izny C. O'dinated).
+  resources: none
+
+project12:
+  id: 12
+  created_by: 14
+  title: Project 12
+  description: This is the twelth dummy project proposed by staff member with user_id = 14 (Prof Izny C. O'dinated).
+  resources: none
+
+
+project13:
+  id: 13
+  created_by: 13
+  title: Project 13
+  description: This is the thirteenth dummy project proposed by staff member with user_id = 13 (Dr Atomic B.Omb).
+  resources: none
+
+project13:
+  id: 14
+  created_by: 13
+  title: Project 14
+  description: This is the fourteenth dummy project proposed by staff member with user_id = 13 (Dr Atomic B.Omb).
+  resources: none
+
+project15:
+  id: 15
+  created_by: 100
+  title: Project 15
+  description: This is the fifteenth dummy project proposed by staff member with user_id = 100 (Dr C.P. Jobling).
   resources: none

@@ -5,11 +5,12 @@
 #
 #  id          :integer         not null, primary key
 #  code        :integer
+#  title       :string(255)
 #  message     :text
+#  permissions :integer         default(28672)
+#  integer     :integer         default(28672)
 #  created_at  :datetime
 #  updated_at  :datetime
-#  permissions :integer         default(28672)
-#  status_id   :integer         default(1)
 #
 
 #  Copyright 2009 Swansea University.

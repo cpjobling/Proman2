@@ -4,7 +4,7 @@
 # Table name: statuses
 #
 #  id                :integer         not null, primary key
-#  status_setting_id :integer
+#  status_setting_id :integer         default(1)
 #  created_at        :datetime
 #  updated_at        :datetime
 #

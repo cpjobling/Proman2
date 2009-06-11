@@ -32,3 +32,14 @@ cpjobling:
   user_id: 100
   staff_id: 039934
   research_centre_id: 2
+
+staff:
+  user_id: 13
+  staff_id: 544543
+  research_centre_id: 3
+
+
+coordinator:
+  user_id: 14
+  staff_id: 667543
+  research_centre_id: 1

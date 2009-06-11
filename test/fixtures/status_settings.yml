@@ -1,15 +1,16 @@
 # == Schema Information
 # Schema version: 20090609102805
 #
-# Table name: title_settings
+# Table name: status_settings
 #
 #  id          :integer         not null, primary key
 #  code        :integer
+#  title       :string(255)
 #  message     :text
+#  permissions :integer         default(28672)
+#  integer     :integer         default(28672)
 #  created_at  :datetime
 #  updated_at  :datetime
-#  permissions :integer         default(28672)
-#  title_id   :integer         default(1)
 #
 
 ## YAML Template.
