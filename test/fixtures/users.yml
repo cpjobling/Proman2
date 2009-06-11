@@ -197,6 +197,7 @@ admin_team_coordinator:
     title: Mr
 
 new_user:
+    id: 200
     login: nobody
     email: nobody@nowhere.com 
     salt:                      356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')

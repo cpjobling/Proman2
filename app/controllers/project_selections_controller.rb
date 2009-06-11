@@ -20,6 +20,7 @@ class ProjectSelectionsController < ApplicationController
   before_filter :can_select_projects
   before_filter :find_student_and_project_selection
   before_filter :verify_ownership, :only => [:show, :edit, :update]
+  layout "help", :only => :help
   current_tab :project_selections
 
   # GET /project_selections
@@ -35,13 +36,13 @@ class ProjectSelectionsController < ApplicationController
   # GET /project_selections/1
   # GET /project_selections/1.xml
   def show
-    redirect_to project_selection_selected_projects_path(@project_selection)
+    #redirect_to project_selection_selected_projects_path(@project_selection)
   end
 
   # GET /project_selections/new
   # GET /project_selections/new.xml
   def new
-    redirect_to project_selections_url
+    #redirect_to project_selections_url
   end
   
   # GET /project_selections/1/edit
@@ -75,6 +76,12 @@ class ProjectSelectionsController < ApplicationController
         format.html { render :action => "edit" }
         format.xml  { render :xml => @project_selection.errors, :status => :unprocessable_entity }
       end
+    end
+  end
+
+  def help
+    respond_to do |format|
+      format.html # help.html.erb
     end
   end
 

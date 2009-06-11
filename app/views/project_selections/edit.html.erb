@@ -1,4 +1,4 @@
-<% title "Build your project selection" %>
+<% title "Manage your project selection" %>
 
 <% content_for :head do %>
   <%= render(:partial => "shared/import_tablesorter") %>
@@ -13,23 +13,17 @@
 
 <% headline "Projects selected for #{@student.user.name}" %>
 
-<p>On this page you will find a list of projects that are suitable for the
-<strong><%= @student.discipline.long_name %></strong> discipline.</p>
-<p>Use this page to make your shortlist of selections: simply check the checkboxes of all the
-  projects that interest you and then click "Submit selections" when you are done. You should
-  select at least five projects (there is no upper limit) but you should choose no more than
-  two projects from the same supervisor (although this version of <%= proman %> does not check this).
-  You can click on the project number to see the details of any project: the back link should return to the same
-point in the list.</p>
 <p><strong>Important</strong>
 <p>The paging feature was causing some of you a problem. It has been disabled while an alternative is sought. The disadvantage
-is that there will be a verry long list for some of you.</p>
-<p>If you are interested in a project from the full list that is not available on this page,
-  you should first check that you have been assigned to the correct discipline (contact me if you are not).
-  If the project has been assigned to a different discipline, but you think that you could tackle it, you should
-  contact the supervisor by email and ask him either to verify that it would be suitable for you. After that
-  you (or the supervisor) can contact me and I'll ammend the assigned discipline record. Of course any
-project that you have assigned to your discipline would also be available to other students too!</p>
+is that there will be a very long list of projects to select from for some of you.</p>
+
+<p>On this page you can add new projects or remove projects from your "shortlist".
+If you select a project it will be added. If you deselect a project it will be removed.</p>
+<%= link_to "Help", { :action => "help" }, :popup => ['Help on the project selection pages', width=200, height=100] %>
+
+
+
+
 
 
 <% form_for(@project_selection) do |f| %>

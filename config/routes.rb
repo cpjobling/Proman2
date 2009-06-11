@@ -14,7 +14,14 @@
 
 
 ActionController::Routing::Routes.draw do |map|
+  # Special routes for project_selections controller
+  map.with_options :controller => "project_selections" do |ps|
+    ps.help 'project_selections/help', :conditions => { :method => :get }, :action => "help"
+  end
+  # Restful routes
   map.resources :project_selections, :has_many => :selected_projects
+
+
 
 
   map.connect 'projects/by_supervisor',

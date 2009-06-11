@@ -67,3 +67,7 @@ c2ec_coordinator_is_staff:
 c2ec_coordinator:
   user_id: 103
   role_id: 4
+
+other_student:
+  user_id: 200
+  role_id: 3

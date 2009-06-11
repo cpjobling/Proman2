@@ -17,7 +17,11 @@
         </tbody>
       </table>
       <p>
-      <%= link_to 'Rank your project selections', project_selection_selected_projects_path(@project_selection) %>|<%= link_to "Add some more projects", edit_project_selection_path(@project_selection) %>?</p>
+      <%= link_to 'Rank your project selections', project_selection_selected_projects_path(@project_selection) %>|
+      <%= link_to "Add some more projects", edit_project_selection_path(@project_selection) %> |
+      <%= link_to "Start over", delete_project_selection_path(@project_selection) %>.</p>
     </p>
   <% end %>
+<% else %>
+  <p>Create a new project selection shortlist: <%= link_to "new project selection", new_project_selection_path   %>
 <% end %>
