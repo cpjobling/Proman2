@@ -5,8 +5,8 @@
   <script type="text/javascript">
     $(document).ready(function() {
       $("#projects")
-      .tablesorter({sortList: [[2, 0]], widthFixed: true, widgets: ['zebra']})
-      .tablesorterPager({container: $("#pager"), positionFixed: false});
+      .tablesorter({sortList: [[2, 0]], widthFixed: true, widgets: ['zebra']});
+      //.tablesorterPager({container: $("#pager"), positionFixed: false});
     });
   </script>
 <% end %>
@@ -21,9 +21,12 @@
   two projects from the same supervisor (although this version of <%= proman %> does not check this).
   You can click on the project number to see the details of any project: the back link should return to the same
 point in the list.</p>
+<p><strong>Important</strong>
+<p>The paging feature was causing some of you a problem. It has been disabled while an alternative is sought. The disadvantage
+is that there will be a verry long list for some of you.</p>
 <p>If you are interested in a project from the full list that is not available on this page,
   you should first check that you have been assigned to the correct discipline (contact me if you are not).
-  If the project has been assigned to a different discipline, but yu think that you could tackle it, you should
+  If the project has been assigned to a different discipline, but you think that you could tackle it, you should
   contact the supervisor by email and ask him either to verify that it would be suitable for you. After that
   you (or the supervisor) can contact me and I'll ammend the assigned discipline record. Of course any
 project that you have assigned to your discipline would also be available to other students too!</p>
@@ -41,14 +44,15 @@ project that you have assigned to your discipline would also be available to oth
       <th colspan="2">Select</th>
     </thead>
     <tfoot>
-      <tr><th colspan="3">&nbsp;</th><th colspan="2"><%= f.submit "Submit selections"  %></th></tr>
+      <tr><th colspan="3">&nbsp;</th><th colspan="2"><%= f.submit "Submit selections"  %><br />
+      <span class="warning">Warning</span>: submission will overwrite all selections made so far.</th></tr>
     </tfoot>
     <tbody>
       <%= render(:partial => "project_selection_index", :collection => @projects,
         :locals => {:f => f, :selected_projects => @selected_projects.collect {|sp| sp.project_id }}) %>
     </tbody>
   </table>
-  <%= render(:partial => "shared/tablesorter_pager", :locals => {:pager_id => 'pager'})%>
+  <%# render(:partial => "shared/tablesorter_pager", :locals => {:pager_id => 'pager'})%>
 
 <% end %>
 
