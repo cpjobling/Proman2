@@ -25,7 +25,7 @@ class UserRoleMethodsTest < ActiveSupport::TestCase
 
   test "Other users are not administrators" do
     assert ! users(:academic).administrator?, 'Staff user should not be an administrator!'
-    assert ! users(:student).administrator?, 'Student user should not be an administrator!'
+    assert ! users(:student1).administrator?, 'Student user should not be an administrator!'
     assert ! users(:coordinator).administrator?, 'Coordinator user should not be an administrator!'
   end
 
@@ -39,7 +39,7 @@ class UserRoleMethodsTest < ActiveSupport::TestCase
 
   test "Staff and students are not coordinators" do
     assert ! users(:academic).coordinator?, 'Staff user should not be a coordinator!'
-    assert ! users(:student).coordinator?, 'Student user should not be a coordinator!'
+    assert ! users(:student1).coordinator?, 'Student user should not be a coordinator!'
   end
 
   test "Staff user is a supervisor" do
@@ -55,11 +55,11 @@ class UserRoleMethodsTest < ActiveSupport::TestCase
   end
 
   test "Students are not supervisors" do
-    assert ! users(:student).supervisor?, 'Student user should not be a supervisor!'
+    assert ! users(:student1).supervisor?, 'Student user should not be a supervisor!'
   end
 
   test "Student user is a student" do
-    assert users(:student).student?, 'Student user is a student'
+    assert users(:student1).student?, 'Student user is a student'
   end
 
   test "Admin user is a student" do

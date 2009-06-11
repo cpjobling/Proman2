@@ -19,7 +19,7 @@ class ProjectTest < ActiveSupport::TestCase
   fixtures :users, :projects
 
   def setup
-    @project = projects(:project1)
+    @project = projects(:test)
     @disciplines = Discipline.find(:all)
     @icct = disciplines(:icct)
   end

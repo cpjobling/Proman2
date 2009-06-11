@@ -253,3 +253,15 @@ student6:
     first_name: Bette
     last_name: Davis
     known_as: diva
+
+# A test user -- should have no roles
+test:
+    id: 500
+    login: test
+    email: test@uni.edu
+    salt:                      356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
+    crypted_password:          63d8fefa835d181f7c2705227e0452045141b380 # 'monkey'
+    title: Miss
+    first_name: Testes
+    last_name: Large
+    known_as: knapsack

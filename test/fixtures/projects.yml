@@ -140,3 +140,10 @@ project15:
   title: Project 15
   description: This is the fifteenth dummy project proposed by staff member with user_id = 100 (Dr C.P. Jobling).
   resources: none
+
+test:
+  id: 16
+  created_by: 13
+  title: Unit Test project
+  description: This is the sixteenth dummy project proposed by staff member with user_id = 3 (Dr Atomic B.Omb). It is not assigned to any disciplines.
+  resources: none

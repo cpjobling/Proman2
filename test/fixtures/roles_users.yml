@@ -17,7 +17,7 @@ admin_is_admin:
   role_id: 1 # admin role
 
 student_is_student:
-  user_id: 12
+  user_id: 201
   role_id: 3
 
 academic_is_staff:
@@ -69,5 +69,5 @@ c2ec_coordinator:
   role_id: 4
 
 other_student:
-  user_id: 200
+  user_id: 202
   role_id: 3

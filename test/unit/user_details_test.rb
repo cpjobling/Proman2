@@ -91,7 +91,7 @@ class UserDetailsTest < ActiveSupport::TestCase
 
   def test_unique_email
     user = User.new(:login => "newuser",
-      :email => users(:student).email,
+      :email => users(:student1).email,
       :name => @name,
       :staff_or_student_number => "777777",
       :password => "testing123",
@@ -116,7 +116,7 @@ class UserDetailsTest < ActiveSupport::TestCase
   #  end
 
   def test_new_user_has_no_role_assigned
-    guest = users(:student)
+    guest = users(:test)
 
     roles = Role.find(:all)
     roles.each do |role|
@@ -135,7 +135,7 @@ class UserDetailsTest < ActiveSupport::TestCase
   end
 
   def test_student_user_should_have_student_role
-    user = users(:student)
+    user = users(:student1)
     assert user.has_role?('student'), "user should have student role"
   end
 
