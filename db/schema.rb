@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090609102805) do
+ActiveRecord::Schema.define(:version => 20090612160338) do
 
   create_table "allocation_round", :id => false, :force => true do |t|
     t.integer  "round",      :default => 0
@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(:version => 20090609102805) do
   create_table "research_centres", :force => true do |t|
     t.string   "abbrev"
     t.string   "title"
-    t.integer  "coordinator"
+    t.integer  "supervisor_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

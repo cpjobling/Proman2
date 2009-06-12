@@ -34,7 +34,32 @@ class DisciplineTest < ActiveSupport::TestCase
     the_project = @icct.projects.find_by_title(@project.title)
     assert @project == the_project
   end
+
+  test "Discipline long_name cache works" do
+    long_names = Discipline::LONG_NAMES
+    for long_name in long_names do
+      db_record = Discipline.find(long_name[1])
+      assert_equal db_record.long_name, long_name[0], "Cached discipline name wasn't #{db_record.long_name}"
+      assert_equal db_record.id, long_name[1], "Cached id for #{long_name[1]} was inconsistent with DB record #{db_record.id}"
+    end
+  end
   
+  test "Discipline name cache works" do
+    names = Discipline::NAMES
+    for name in names do
+      db_record = Discipline.find(name[1])
+      assert_equal db_record.name, name[0], "Cached discipline name wasn't #{db_record.name}"
+      assert_equal db_record.id, name[1], "Cached id for #{name[1]} was inconsistent with DB record #{db_record.id}"
+    end
+  end
+  
+  test "Cached names are in correct order" do
+    records = Discipline.find(:all, :order => 'long_name')
+    records.each_with_index do |record, i|
+      assert_equal Discipline::NAMES[i][0], record.name, "Order of cached name #{Discipline::NAMES[i][0]} not consistend woth database record #{record.id}"
+      assert_equal Discipline::LONG_NAMES[i][0], record.long_name, "Order of cached name #{Discipline::LONG_NAMES[i][0]} not consistend woth database record #{record.id}"
+    end
+  end
   
   
   

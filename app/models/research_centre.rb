@@ -27,4 +27,14 @@
 
 class ResearchCentre < ActiveRecord::Base
   has_many :supervisors, :dependent => :nullify # put supervisors in limbo when research group deleted
+  belongs_to :supervisor # coordinator
+
+  @research_centres = self.find(:all, :order=>'title')
+  TITLES = @research_centres.map do |c|
+    [c.title, c.id]
+  end
+
+  ABBREVS = @research_centres.map do |c|
+    [c.abbrev, c.id]
+  end
 end

@@ -14,9 +14,51 @@
 
 require 'test_helper'
 
+
 class ResearchCentreTest < ActiveSupport::TestCase
+
+  fixtures :research_centres, :supervisors
+
   # Replace this with your real tests.
   test "the truth" do
     assert true
+  end
+
+  test "ResearchCentre title cache works" do
+    titles = ResearchCentre::TITLES
+    for title in titles do
+      db_record = ResearchCentre.find(title[1])
+      assert_equal db_record.title, title[0], "Cached ResearchCentre abbrev wasn't #{db_record.title}"
+      assert_equal db_record.id, title[1], "Cached id for #{title[1]} was inconsistent with DB record #{db_record.id}"
+    end
+  end
+
+  test "ResearchCentre abbrev cache works" do
+    abbrevs = ResearchCentre::ABBREVS
+    for abbrev in abbrevs do
+      db_record = ResearchCentre.find(abbrev[1])
+      assert_equal db_record.abbrev, abbrev[0], "Cached ResearchCentre abbrev wasn't #{db_record.abbrev}"
+      assert_equal db_record.id, abbrev[1], "Cached id for #{abbrev[1]} was inconsistent with DB record #{db_record.id}"
+    end
+  end
+
+  test "Cached abbrevs are in correct order" do
+    records = ResearchCentre.find(:all, :order => 'title')
+    records.each_with_index do |record, i|
+      assert_equal ResearchCentre::ABBREVS[i][0], record.abbrev, "Order of cached abbrev #{ResearchCentre::ABBREVS[i][0]} not consistent with database record #{record.id}"
+      assert_equal ResearchCentre::TITLES[i][0], record.title,   "Order of cached abbrev #{ResearchCentre::TITLES[i][0]} not consistent with database record #{record.id}"
+    end
+  end
+
+  test "coordinator" do
+    rcs = [research_centres(:c2ec), research_centres(:mnc), research_centres(:mrc)]
+    coordinators = [supervisors(:mgedwards), supervisors(:pmwilliams), supervisors(:dhisaac)]
+    i = 0
+    for centre in rcs do
+      centre.supervisor = coordinators[i]
+      centre.save!
+      assert_equal coordinators[i], centre.supervisor, "Coordinator wasn't saved"
+      assert coordinators[i].user.has_role?("coordinator"), "Coordinator isn't a coordinator"
+    end
   end
 end

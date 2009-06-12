@@ -28,19 +28,16 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 c2ec:
-  id: 1
   abbrev: c2ec
   title: Civil and Computational Engineering Centre
-  coordinator: 103 # Prof. Michael Edwards
+  supervisor: mgedwards
 
 mnc:
-  id: 2
   abbrev: mnc
   title: Multidisciplinary Nanotechnology Centre
-  coordinator: 101 # Dr Paul Williams
+  supervisor: pmwilliams
 
 mrc:
-  id: 3
   abbrev: mrc
   title: Materials Research Centre
-  coordinator: 102 # Dr David Isaac
+  supervisor: dhisaac

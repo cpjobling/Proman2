@@ -14,32 +14,32 @@
 ## YAML Template.
 
 mgedwards:
-  user_id: 103
+  user: c2ec_coordinator
   staff_id: 093149
-  research_centre_id: 1
+  research_centre: 1
 
 pmwilliams:
-  user_id: 101
+  user: mnc_coordinator
   staff_id: 077293
-  research_centre_id: 2
+  research_centre: 2
 
 dhisaac:
-  user_id: 102
+  user: c2ec_coordinator
   staff_id: 028521
-  research_centre_id: 3
+  research_centre: 3
 
 cpjobling:
-  user_id: 100
+  user: cpj
   staff_id: 039934
-  research_centre_id: 2
+  research_centre: mnc
 
 staff:
-  user_id: 13
+  user: academic
   staff_id: 544543
-  research_centre_id: 3
+  research_centre_id: mrc
 
 
 coordinator:
-  user_id: 14
+  user: coordinator
   staff_id: 667543
-  research_centre_id: 1
+  research_centre: c2ec

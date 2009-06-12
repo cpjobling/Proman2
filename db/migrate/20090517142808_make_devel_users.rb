@@ -4,9 +4,7 @@ class MakeDevelUsers < ActiveRecord::Migration
   def self.up
   	down
   	
-    # Create uses from fixture ... see dev_data/README.txt
-    directory = File.join(File.dirname(__FILE__), '../../test/fixtures')
-    Fixtures.create_fixtures(directory, "users")
+    # Creation of users depends on roles so migration moved to create role
   end
 
   def self.down

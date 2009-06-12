@@ -25,4 +25,13 @@
 class Discipline < ActiveRecord::Base
   has_and_belongs_to_many :projects
   has_many :students
+
+  @disciplines = self.find(:all, :order => 'long_name')
+  LONG_NAMES = @disciplines.map do |d|
+    [d.long_name, d.id]
+  end
+
+  NAMES = @disciplines.map do |d|
+    [d.name, d.id]
+  end
 end

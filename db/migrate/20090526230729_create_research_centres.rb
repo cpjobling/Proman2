@@ -1,4 +1,4 @@
-require 'active_record/fixtures'
+
 
 class CreateResearchCentres < ActiveRecord::Migration
   def self.up
@@ -9,9 +9,9 @@ class CreateResearchCentres < ActiveRecord::Migration
 
       t.timestamps
     end
-    # Populate research centres from fixture ... see dev_data/README.txt
-    directory = File.join(File.dirname(__FILE__), '../../test/fixtures')
-    Fixtures.create_fixtures(directory, "research_centres")
+
+
+
 
   end
 

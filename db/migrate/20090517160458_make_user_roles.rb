@@ -7,9 +7,9 @@ class MakeUserRoles < ActiveRecord::Migration
     directory = File.join(File.dirname(__FILE__), '../../test/fixtures')
     Fixtures.create_fixtures(directory, "roles")
     
-    # Create users_roles from fixture ... see dev_data/README.txt
+    # Create users from fixture ... see dev_data/README.txt
     directory = File.join(File.dirname(__FILE__), '../../test/fixtures')
-    Fixtures.create_fixtures(directory, "roles_users")
+    Fixtures.create_fixtures(directory, "users")
   end
 
   def self.down
