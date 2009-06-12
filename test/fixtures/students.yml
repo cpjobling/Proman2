@@ -15,42 +15,37 @@
 ## YAML Template.
 
 student1:
-  id: 1
-  user_id: 201
+  user: student1
   student_id: 382392
-  discipline_id: 1
+  discipline: icct
   grade: 99.9
 
 student2:
-  id: 2
-  user_id: 202
+  user_id: student2
   student_id: 123456
-  discipline_id: 2
+  discipline: civ
   grade: 44.45
 
 student3:
-  id: 3
-  user_id: 203
+  user: student3
   student_id: 123457
-  discipline_id: 3
+  discipline: mech
   grade: 77.71
 
 student4:
-  id: 4
-  user_id: 204
+  user: student4
   student_id: 123458
-  discipline_id: 4
+  discipline: aero
   grade: 50.0
 
 student5:
-  id: 5
-  user_id: 205
+  user: student5
   student_id: 123459
-  discipline_id: 5
+  discipline: mat
   grade: 69.69
 
 student6:
-  user_id: 206
+  user: student6
   student_id: 123460
-  discipline_id: 3
+  discipline: icct
   grade: 68.34

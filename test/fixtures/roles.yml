@@ -21,15 +21,14 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-admin_role:
-  id: 1
+admin:
   name: admin
-staff_role:
-  id: 2
+
+staff:
   name: staff
-student_role:
-  id: 3
+
+student:
   name: student
-coordinator_role:
-  id: 4
+
+coordinator:
   name: coordinator

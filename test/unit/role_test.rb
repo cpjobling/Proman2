@@ -28,4 +28,12 @@ class RoleTest < ActiveSupport::TestCase
   		assert_not_nil role, "Role #{role} is needed for this application to work"
   	end
   end
+
+  test "Roles from static cache" do
+    for role in Role::ROLES
+      db_role = Role.find(role[1]) # id
+      assert_equal role[0]. db_role.name, "Cached role-name wasn't #{role[1]}"
+      assert_equal role[1], db_role.id,     "Cached role id wasn't #{role[2]}"
+    end
+  end
 end
