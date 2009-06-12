@@ -4,6 +4,10 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.dirname(__FILE__) + "/../config/environment" unless defined?(RAILS_ROOT)
 require 'spec/autorun'
 require 'spec/rails'
+require "shoulda"
+require "shoulda/autoload_macros"
+require "shoulda/assertions"
+require "shoulda/rails"
 
 Spec::Runner.configure do |config|
   # If you're not using ActiveRecord you should remove these

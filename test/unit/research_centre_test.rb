@@ -17,12 +17,14 @@ require 'test_helper'
 
 class ResearchCentreTest < ActiveSupport::TestCase
 
+  should_validate_presence_of :abbrev, :title
+  should_validate_uniqueness_of :abbrev, :title
+  should_ensure_length_in_range :abbrev, (3..10)
+  should_have_many :supervisors
+  should_belong_to :supervisor
+
   fixtures :research_centres, :supervisors
 
-  # Replace this with your real tests.
-  test "the truth" do
-    assert true
-  end
 
   test "ResearchCentre title cache works" do
     titles = ResearchCentre::TITLES
@@ -59,6 +61,18 @@ class ResearchCentreTest < ActiveSupport::TestCase
       centre.save!
       assert_equal coordinators[i], centre.supervisor, "Coordinator wasn't saved"
       assert coordinators[i].user.has_role?("coordinator"), "Coordinator isn't a coordinator"
+    end
+  end
+
+  should "return names as a list" do
+    ResearchCentre::TITLES.each_with_index do |title, i|
+        assert_equal title[0], ResearchCentre.titles[i], "#{ResearchCentre.titles[i]} wasn't #{title}"
+    end
+  end
+
+  should "return abbreviations as a list" do
+    ResearchCentre::ABBREVS.each_with_index do |abbrev, i|
+        assert_equal abbrev[0], ResearchCentre.abbreviations[i], "#{ResearchCentre.abbreviations[i]} wasn't #{abbrev}"
     end
   end
 end

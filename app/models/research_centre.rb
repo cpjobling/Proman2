@@ -1,14 +1,14 @@
 # == Schema Information
-# Schema version: 20090609102805
+# Schema version: 20090612173705
 #
 # Table name: research_centres
 #
-#  id          :integer         not null, primary key
-#  abbrev      :string(255)
-#  title       :string(255)
-#  coordinator :integer
-#  created_at  :datetime
-#  updated_at  :datetime
+#  id            :integer         not null, primary key
+#  abbrev        :string(10)
+#  title         :string(255)
+#  supervisor_id :integer
+#  created_at    :datetime
+#  updated_at    :datetime
 #
 
 # Copyright 2009 Swansea University
@@ -29,6 +29,11 @@ class ResearchCentre < ActiveRecord::Base
   has_many :supervisors, :dependent => :nullify # put supervisors in limbo when research group deleted
   belongs_to :supervisor # coordinator
 
+
+  validates_presence_of :abbrev, :title
+  validates_uniqueness_of :abbrev, :title
+  validates_length_of :abbrev, :in => 3..10
+
   @research_centres = self.find(:all, :order=>'title')
   TITLES = @research_centres.map do |c|
     [c.title, c.id]
@@ -36,5 +41,13 @@ class ResearchCentre < ActiveRecord::Base
 
   ABBREVS = @research_centres.map do |c|
     [c.abbrev, c.id]
+  end
+
+  def ResearchCentre.titles
+    TITLES.map {|title| title[0]}
+  end
+
+  def ResearchCentre.abbreviations
+    ABBREVS.map {|abbrev| abbrev[0]}
   end
 end

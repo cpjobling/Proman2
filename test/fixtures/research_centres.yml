@@ -1,14 +1,14 @@
 # == Schema Information
-# Schema version: 20090609102805
+# Schema version: 20090612173705
 #
 # Table name: research_centres
 #
-#  id          :integer         not null, primary key
-#  abbrev      :string(255)
-#  title       :string(255)
-#  coordinator :integer
-#  created_at  :datetime
-#  updated_at  :datetime
+#  id            :integer         not null, primary key
+#  abbrev        :string(10)
+#  title         :string(255)
+#  supervisor_id :integer
+#  created_at    :datetime
+#  updated_at    :datetime
 #
 
 # Copyright 2009 Swansea University
