@@ -29,9 +29,13 @@
 class Student < ActiveRecord::Base
   belongs_to :user
   belongs_to :discipline
-  # Student can be allocated one project
+  # Student can be allocated one project.
+  # Project becomes de-allocated if student is deleted.
   has_one :project, :dependent => :nullify
   # Student has a projects selection, which
-  # if student destroys it, is deleted.
+  # if student is destroyed, is also destroyed
   has_one :project_selection, :dependent => :destroy
+
+  delegate :name, :email, :to => :user
+  delegate :name, :long_name, :to => :dicipline, :prefix => :disc
 end

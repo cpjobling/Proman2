@@ -25,7 +25,7 @@
 
 # Represents list of selected projects in a student's project selection
 class SelectedProject < ActiveRecord::Base
-  has_many :project_selections
+  belongs_to :project_selection
   acts_as_list :scope => :project_selection
   default_scope :order => :position
   belongs_to :project

@@ -25,6 +25,6 @@
 #   limitations under the License.
 
 class ProjectSelection < ActiveRecord::Base
-  has_many :selected_projects, :order => :position
+  has_many :selected_projects, :order => :position, :dependent => :delete_all
   belongs_to :student
 end
