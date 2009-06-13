@@ -16,17 +16,17 @@
 mgedwards:
   user: c2ec_coordinator
   staff_id: 093149
-  research_centre: 1
+  research_centre: c2ec
 
 pmwilliams:
   user: mnc_coordinator
   staff_id: 077293
-  research_centre: 2
+  research_centre: mnc
 
 dhisaac:
   user: c2ec_coordinator
   staff_id: 028521
-  research_centre: 3
+  research_centre: mrc
 
 cpjobling:
   user: cpj

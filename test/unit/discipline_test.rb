@@ -52,15 +52,4 @@ class DisciplineTest < ActiveSupport::TestCase
       assert_equal db_record.id, name[1], "Cached id for #{name[1]} was inconsistent with DB record #{db_record.id}"
     end
   end
-  
-  test "Cached names are in correct order" do
-    records = Discipline.find(:all, :order => 'long_name')
-    records.each_with_index do |record, i|
-      assert_equal Discipline::NAMES[i][0], record.name, "Order of cached name #{Discipline::NAMES[i][0]} not consistend woth database record #{record.id}"
-      assert_equal Discipline::LONG_NAMES[i][0], record.long_name, "Order of cached name #{Discipline::LONG_NAMES[i][0]} not consistend woth database record #{record.id}"
-    end
-  end
-  
-  
-  
 end

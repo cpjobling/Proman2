@@ -15,8 +15,10 @@
 require 'test_helper'
 
 class SupervisorTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
-  test "the truth" do
-    assert true
-  end
+
+  should_validate_presence_of :abbrev, :title
+  should_validate_uniqueness_of :abbrev, :title
+  should_ensure_length_in_range :abbrev, (3..10)
+  should_have_many :supervisors
+  should_belong_to :supervisor
 end

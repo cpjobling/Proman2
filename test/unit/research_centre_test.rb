@@ -44,14 +44,6 @@ class ResearchCentreTest < ActiveSupport::TestCase
     end
   end
 
-  test "Cached abbrevs are in correct order" do
-    records = ResearchCentre.find(:all, :order => 'title')
-    records.each_with_index do |record, i|
-      assert_equal ResearchCentre::ABBREVS[i][0], record.abbrev, "Order of cached abbrev #{ResearchCentre::ABBREVS[i][0]} not consistent with database record #{record.id}"
-      assert_equal ResearchCentre::TITLES[i][0], record.title,   "Order of cached abbrev #{ResearchCentre::TITLES[i][0]} not consistent with database record #{record.id}"
-    end
-  end
-
   test "coordinator" do
     rcs = [research_centres(:c2ec), research_centres(:mnc), research_centres(:mrc)]
     coordinators = [supervisors(:mgedwards), supervisors(:pmwilliams), supervisors(:dhisaac)]

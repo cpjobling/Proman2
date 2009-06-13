@@ -74,9 +74,9 @@ ActiveRecord::Schema.define(:version => 20090612183400) do
   add_index "projects_supervisors", ["supervisor_id"], :name => "index_projects_supervisors_on_supervisor_id"
 
   create_table "research_centres", :force => true do |t|
-    t.string   "abbrev",        :limit => 10
+    t.string   "abbrev",      :limit => 10
     t.string   "title"
-    t.integer  "supervisor_id"
+    t.integer  "coordinator"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

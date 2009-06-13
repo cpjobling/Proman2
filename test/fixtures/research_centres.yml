@@ -30,14 +30,14 @@
 c2ec:
   abbrev: c2ec
   title: Civil and Computational Engineering Centre
-  supervisor: mgedwards
+  coordinator: mgedwards
 
 mnc:
   abbrev: mnc
   title: Multidisciplinary Nanotechnology Centre
-  supervisor: pmwilliams
+  coordinator: pmwilliams
 
 mrc:
   abbrev: mrc
   title: Materials Research Centre
-  supervisor: dhisaac
+  coordinator: dhisaac
