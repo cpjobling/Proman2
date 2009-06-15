@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090615085710) do
+ActiveRecord::Schema.define(:version => 20090615110716) do
 
   create_table "allocation_round", :id => false, :force => true do |t|
     t.integer  "round",      :default => 0
@@ -132,6 +132,7 @@ ActiveRecord::Schema.define(:version => 20090615085710) do
     t.string   "staff_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "loading",            :default => 4
   end
 
   add_index "supervisors", ["staff_id"], :name => "index_supervisors_on_staff_id", :unique => true
