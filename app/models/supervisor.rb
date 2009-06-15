@@ -9,6 +9,7 @@
 #  staff_id           :string(255)
 #  created_at         :datetime
 #  updated_at         :datetime
+#  loading            :integer         default(4)
 #
 
 # Copyright 2009 Swansea University
