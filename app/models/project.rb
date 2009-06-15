@@ -41,7 +41,8 @@ class Project < ActiveRecord::Base
   validates_presence_of :title
   validates_uniqueness_of :title
   validates_presence_of :description
-  validates_presence_of :created_by
+  validates_presence_of :supervisor_id
+  
   # TODO: validator should check that at least one discipline has been specified
 	  
   # Helper methods
@@ -100,12 +101,7 @@ class Project < ActiveRecord::Base
 
   # User attached by created_by attribute
   def creator
-    self.user
-  end
-
-  # The supervisor object for the user that created this project
-  def supervisor
-    self.creator.supervisor
+    self.supervisor
   end
 
   def centre
