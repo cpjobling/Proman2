@@ -1,14 +1,14 @@
 # == Schema Information
-# Schema version: 20090612173705
+# Schema version: 20090615085710
 #
 # Table name: research_centres
 #
-#  id            :integer         not null, primary key
-#  abbrev        :string(10)
-#  title         :string(255)
-#  supervisor_id :integer
-#  created_at    :datetime
-#  updated_at    :datetime
+#  id          :integer         not null, primary key
+#  abbrev      :string(10)
+#  title       :string(255)
+#  coordinator :integer
+#  created_at  :datetime
+#  updated_at  :datetime
 #
 
 # Copyright 2009 Swansea University
@@ -30,7 +30,7 @@ class ResearchCentre < ActiveRecord::Base
   belongs_to :supervisor, :foreign_key => :coordinator
 
 
-  validates_presence_of :abbrev, :title
+  validates_presence_of :abbrev, :title, :coordinator
   validates_uniqueness_of :abbrev, :title
   validates_length_of :abbrev, :in => 3..10
 

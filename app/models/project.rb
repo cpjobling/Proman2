@@ -1,10 +1,10 @@
 # == Schema Information
-# Schema version: 20090612173705
+# Schema version: 20090615085710
 #
 # Table name: projects
 #
 #  id              :integer         not null, primary key
-#  created_by      :integer
+#  supervisor_id   :integer
 #  title           :string(255)
 #  description     :text
 #  resources       :text

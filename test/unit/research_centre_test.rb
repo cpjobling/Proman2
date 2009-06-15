@@ -45,8 +45,8 @@ class ResearchCentreTest < ActiveSupport::TestCase
   end
 
   test "coordinator" do
-    rcs = [research_centres(:c2ec), research_centres(:mnc), research_centres(:mrc)]
-    coordinators = [supervisors(:mgedwards), supervisors(:pmwilliams), supervisors(:dhisaac)]
+    rcs = [research_centres(:c2ec), research_centres(:mnc), research_centres(:mrc), research_centres(:admin)]
+    coordinators = [supervisors(:mgedwards), supervisors(:pmwilliams), supervisors(:dhisaac), supervisors(:howard)]
     i = 0
     for centre in rcs do
       centre.supervisor = coordinators[i]
