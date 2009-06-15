@@ -42,6 +42,8 @@ class Project < ActiveRecord::Base
   validates_uniqueness_of :title
   validates_presence_of :description
   validates_presence_of :supervisor_id
+
+  delegate :abbrev, :title, :to => "supervisor.research_centre.nil? ? false : supervisor.research_centre", :prefix => :centre
   
   # TODO: validator should check that at least one discipline has been specified
 	  
@@ -105,15 +107,7 @@ class Project < ActiveRecord::Base
   end
 
   def centre
-    return self.supervisor && self.supervisor.research_centre
-  end
-
-  def centre_abbrev
-    return self.centre && self.centre.abbrev || "undefined"
-  end
-
-  def centre_title
-    return self.centre && self.centre.title || "undefined"
+    return self.supervisor.research_centre
   end
 
   def created_by

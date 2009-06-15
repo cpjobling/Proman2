@@ -202,4 +202,17 @@ class ProjectTest < ActiveSupport::TestCase
     @project.suitable_for_none
     assert @project.suitable_for_none?, "Project is suitable for none"
   end
+
+  context "A valid project" do
+    setup do
+      @project = projects(:project8) # one of mine
+    end
+
+    should "return valid centre, centre_name and centre_title values by delegation" do
+      rc = @project.supervisor.research_centre
+      assert_equal rc, @project.centre, "Centre wasn't correct"
+      assert_equal rc.title, @project.centre_title, "Centre title wasn't delegated"
+      assert_equal rc.abbrev, @project.centre_abbrev, "centre abbreviation wasn't delegated"
+    end
+  end
 end
