@@ -16,9 +16,41 @@ require 'test_helper'
 
 class SupervisorTest < ActiveSupport::TestCase
 
-  should_validate_presence_of :abbrev, :title
-  should_validate_uniqueness_of :abbrev, :title
-  should_ensure_length_in_range :abbrev, (3..10)
-  should_have_many :supervisors
-  should_belong_to :supervisor
+  fixtures :users, :supervisors
+  
+  should_validate_presence_of :staff_id, :user_id, :research_centre_id
+  should_validate_uniqueness_of :staff_id
+  should_ensure_length_in_range :staff_id, (6..255)
+  should_validate_numericality_of :staff_id
+
+  should_have_many :projects, :dependent => :destroy
+  should_belong_to :user, :research_centre
+
+  # delegations
+  context "given a supervisor record" do
+    setup do
+      @supervisor = supervisors(:cpjobling)
+    end
+
+    should "have same name as associated user" do
+      assert_equal "Dr Christopher P. Jobling", @supervisor.name.to_s
+    end
+
+    should "have same email as associated user" do
+      assert_equal "C.P.Jobling@Swansea.ac.uk".downcase, @supervisor.email
+    end
+
+    should "have the correct research centre, rc abbreviation and rc title" do
+      assert_equal "mnc", @supervisor.rc_abbrev
+      assert_equal "Multidisciplinary Nanotechnology Centre", @supervisor.rc_title
+      assert_equal research_centres(:mnc), @supervisor.research_centre
+    end
+
+    should "have right number of projects" do
+      expected_number = 4
+      assert_not_nil @supervisor.projects, "Should not be nil"
+      assert ! @supervisor.projects.blank?, "Should have some projects"
+      assert_equal expected_number, @supervisor.projects.count, "Should have #{expected_number} projects"
+    end
+  end
 end

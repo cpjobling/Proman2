@@ -17,7 +17,7 @@ require 'test_helper'
 
 class ResearchCentreTest < ActiveSupport::TestCase
 
-  should_validate_presence_of :abbrev, :title
+  should_validate_presence_of :abbrev, :title, :coordinator
   should_validate_uniqueness_of :abbrev, :title
   should_ensure_length_in_range :abbrev, (3..10)
   should_have_many :supervisors

@@ -41,3 +41,8 @@ mrc:
   abbrev: mrc
   title: Materials Research Centre
   coordinator: dhisaac
+
+admin:
+  abbrev: admin
+  title: Administration Team
+  coordinator: Howard Burt

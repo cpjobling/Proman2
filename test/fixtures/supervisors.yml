@@ -43,3 +43,8 @@ coordinator:
   user: coordinator
   staff_id: 667543
   research_centre: c2ec
+
+howard:
+  user: admin_team_coordinator
+  staff_id: 023957
+  research_centre: admin

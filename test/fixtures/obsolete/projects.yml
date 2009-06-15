@@ -36,98 +36,98 @@
 # quickly so quite DRY
 
 project1:
-  supervisor: staff
+  user: academic
   title: Project 1
   description: This is a dummy project proposed by staff Dr Atomic B.Omb.
   resources: none
     
 project2:
-  supervisor: staff
+  user: academic
   title: Project 2
   description: This is the second dummy project proposed by staff Dr Atomic B.Omb.
   resources: none
       
 project3:
-  supervisor: staff
+  user: academic
   title: Project 3
   description: This is the third dummy project proposed by staff Dr Atomic B.Omb.
   resources: none
 
 project4:
-  supervisor: coordinator
+  user: coordinator
   title: Project 4
   description: This is the fourth dummy project proposed by Prof Izny C. O'dinated.
   resources: none
             
 project5:
-  supervisor: coordinator
+  user: coordinator
   title: Project 5
   description: This is the fifth dummy project proposed by Prof Izny C. O'dinated.
   resources: none
             
 project6:
-  supervisor: coordinator
+  user: coordinator
   title: Project 6
   description: This is the sixth dummy project proposed by Prof Izny C. O'dinated.
   resources: none
             
 project7:
-  supervisor: coordinator
+  user: coordinator
   title: Project 7
   description: This is the seventh dummy project proposed by Prof Izny C. O'dinated.
   resources: none
           
 project8:
-  supervisor: cpjobling
+  user: cpj
   title: Project 8
   description: This is the eighth dummy project proposed by Dr C.P. Jobling).
   resources: none
         
 project9:
-  supervisor: cpjobling
+  user: cpj
   title: Project 9
   description: This is the ninth dummy project proposed by Dr C.P. Jobling).
   resources: none
             
 project10:
-  supervisor: cpjobling
+  user: cpj
   title: Project 10
   description: This is the tenth dummy project proposed by Dr C.P. Jobling).
   resources: none
 
 project11:
-  supervisor: coordinator
+  user: coordinator
   title: Project 11
   description: This is the eleventh dummy project proposed by Prof Izny C. O'dinated).
   resources: none
 
 project12:
-  supervisor: coordinator
+  user: coordinator
   title: Project 12
   description: This is the twelth dummy project proposed by Prof Izny C. O'dinated).
   resources: none
 
 
 project13:
-  supervisor: staff
+  user: academic
   title: Project 13
   description: This is the thirteenth dummy project proposed by staff Dr Atomic B.Omb).
   resources: none
 
 project13:
-  supervisor: staff
+  user: academic
   title: Project 14
   description: This is the fourteenth dummy project proposed by staff Dr Atomic B.Omb).
   resources: none
 
 project15:
-  supervisor: cpjobling
+  user: cpj
   title: Project 15
   description: This is the fifteenth dummy project proposed by Dr C.P. Jobling).
   resources: none
 
 test:
-  supervisor: staff
+  user: academic
   title: Unit Test project
   description: This is the sixteenth dummy project proposed by Dr Atomic B.Omb. It is not assigned to any disciplines.
   resources: none

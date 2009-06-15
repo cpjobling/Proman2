@@ -34,7 +34,7 @@
 
 class Project < ActiveRecord::Base
   has_and_belongs_to_many :disciplines
-  belongs_to :user, :foreign_key => "created_by"
+  belongs_to :supervisor # created_by
   has_many :selected_projects, :dependent => :delete_all
   belongs_to :student # allocation
 
@@ -118,6 +118,14 @@ class Project < ActiveRecord::Base
 
   def centre_title
     return self.centre && self.centre.title || "undefined"
+  end
+
+  def created_by
+    return self.supervisor
+  end
+
+  def created_by=(supervisor)
+    self.supervisor = supervisor
   end
   
   private

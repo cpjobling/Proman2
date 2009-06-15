@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090612183400) do
+ActiveRecord::Schema.define(:version => 20090615085710) do
 
   create_table "allocation_round", :id => false, :force => true do |t|
     t.integer  "round",      :default => 0
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(:version => 20090612183400) do
   end
 
   create_table "projects", :force => true do |t|
-    t.integer  "created_by"
+    t.integer  "supervisor_id"
     t.string   "title"
     t.text     "description"
     t.text     "resources"
@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(:version => 20090612183400) do
     t.boolean  "available",       :default => true
   end
 
-  add_index "projects", ["created_by"], :name => "index_projects_on_created_by"
+  add_index "projects", ["supervisor_id"], :name => "index_projects_on_created_by"
 
   create_table "projects_supervisors", :id => false, :force => true do |t|
     t.integer "supervisor_id"
