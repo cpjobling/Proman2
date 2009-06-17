@@ -16,77 +16,66 @@
 ## YAML Template.
 
 offline:
-  id: 1
   code: 100
   title: System offline
   message: The system is offline for maintainance. Please check back later.
   permissions: 070000
 
 pre-registration:
-  id: 2
   code: 200
   title: Pre-registration
   message: Staff may self register and edit their project descriptions.
   permissions: 076600
 
 registration:
-  id: 3
   code: 201
   title: Registration
   message: Bona-fide students in the School of Engineering may register for a student account.
   permissions: 076640
 
 pre-selection:
-  id: 4
   code: 202
   title: Pre-selection
   message: Students may view projects and their descriptions. Staff may continue to adjust their project descriptions.
   permissions: 076640
 
 selection1:
-  id: 5
   code: 203
   title: Project Selection (Round 1)
   message: You may select and rank projects ready for the first round of project allocations.
   permissions: 076460
 
 allocation1:
-  id: 6
   code: 204
   title: Project Allocation (Round 1)
   message: Projects are being allocated, project selections and rankings are frozen. You can only access the full project list at this time.
   permissions: 076440
 
 selection2:
-  id: 7
   code: 205
   title: Project Selection (Round 2)
   message: Initial round of project selections is complete. If you have been allocated a project it will appear in the "My Account" page and you may make arrangements to meet your supervisor. If you have been unlucky this time, you may make a second selection from the remaining projects.
   permissions: 076460
 
 allocation2:
-  id: 8
   code: 206
   title: Project Allocation (Round 2)
   message: Second round of project allocations is in progress. Project selections and rankings are frozen. You can only access the full project list at this time.
   permissions: 076440
 
 selection3:
-  id: 9
   code: 207
   title: Project Selection (Round 3)
   message: Second round of project allocations is complete. If you have been allocated a project it will appear in the "My Account" page and you may make arrangements to meet your supervisor. If you have been unlucky this time, you may make a third and final selection from the remaining projects.
   permissions: 076460
 
 allocation3:
-  id: 10
   code: 208
   title: Project Allocation (Round 3)
   message: Third and final round of project allocations is in progress. Project selections and rankings are frozen. You can only access the full project list at this time.
   permissions: 076440
 
 allocation4:
-  id: 11
   code: 300
   title: Project Selection Offline
   message: Project selections complete. If you have not been successful in selecting a project so far, one will be allocated to you by the Project Coordinator working in consulation with the head of teaching.

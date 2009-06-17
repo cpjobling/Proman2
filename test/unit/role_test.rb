@@ -16,6 +16,10 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 
 class RoleTest < ActiveSupport::TestCase
+
+  should_have_and_belong_to_many :users
+  should_validate_presence_of    :name
+  should_validate_uniqueness_of  :name
   
   # Replace this with your real tests.
   def test_admin_role_exists
@@ -30,10 +34,10 @@ class RoleTest < ActiveSupport::TestCase
   end
 
   test "Roles from static cache" do
-    for role in Role::ROLES
-      db_role = Role.find(role[1]) # id
-      assert_equal role[0]. db_role.name, "Cached role-name wasn't #{role[1]}"
-      assert_equal role[1], db_role.id,     "Cached role id wasn't #{role[2]}"
+    Role::ROLES.each_with_index do |role, i|
+      db_role = Role.find(role[i][1]) # id
+      assert_equal role[i][0]. db_role.name,   "Cached role-name wasn't #{role[i][0]}"
+      assert_equal role[i][1], db_role.id,     "Cached role id wasn't #{role[i][1]}"
     end
   end
 end

@@ -1,11 +1,11 @@
 #  Copyright 2009 Swansea University.
-#
+# 
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#
+# 
 #       http://www.apache.org/licenses/LICENSE-2.0
-#
+# 
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -13,8 +13,14 @@
 #  limitations under the License.
 #  under the License.
 
+require 'test_helper'
 
+class StatusSettingTest < ActiveSupport::TestCase
 
-class StatusTest < ActiveSupport::TestCase
-  should_belong_to :status_setting
+  should_have_one :status
+
+  should_validate_presence_of :code, :message, :title
+  should_validate_uniqueness_of :code
+  should_validate_numericality_of :code, :permissions
+
 end

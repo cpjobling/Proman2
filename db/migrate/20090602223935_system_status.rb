@@ -8,7 +8,7 @@ class SystemStatus < ActiveRecord::Migration
       t.text     "message"
       # Default permissions for administrator, coordinator, staff, student, others
       # Modelled on Unix
-      t.integer  "permissions", :integer, :default => 070000
+      t.integer  "permissions", :default => 070000
 
       t.timestamps
     end

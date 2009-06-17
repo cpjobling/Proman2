@@ -116,7 +116,7 @@ class UserDetailsTest < ActiveSupport::TestCase
   #  end
 
   def test_new_user_has_no_role_assigned
-    guest = users(:test)
+    guest = users(:no_role_user)
 
     roles = Role.find(:all)
     roles.each do |role|

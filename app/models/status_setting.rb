@@ -39,11 +39,9 @@ class StatusSetting < ActiveRecord::Base
   ],
   :allow_nil => false
 
-  validates_presence_of :code
+  validates_presence_of :code, :message, :title, :permissions
   validates_uniqueness_of :code
-  validates_numericality_of :code
-  
-  validates_presence_of :message
+  validates_numericality_of :code, :permissions
 
   #validates_presence_of :permissions
   #validates_inclusion_of :permissions, :in => 0..32767, :message => "should be five octal digits, e.g. 765432"

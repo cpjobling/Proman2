@@ -23,6 +23,8 @@
 
 class Role < ActiveRecord::Base
   has_and_belongs_to_many :users
+  validates_presence_of   :name
+  validates_uniqueness_of :name
 
   # Recipe 61 "Look up constant data efficiently" in Adanced Rails Recipes
   ROLES = self.find(:all, :order => :name).map do |r|

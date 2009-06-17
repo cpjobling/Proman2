@@ -36,7 +36,7 @@ class Supervisor < ActiveRecord::Base
   validates_numericality_of :staff_id
   validates_uniqueness_of :staff_id
 
-  delegate :email, :name, :to => "user.nil? ? false : user"
+  delegate :email,  :name,  :to => "user.nil? ? false : user"
   delegate :abbrev, :title, :to => "research_centre.nil? ? false : research_centre", :prefix => :rc
 
   # It should be a validation error to have a supervisor with no centre

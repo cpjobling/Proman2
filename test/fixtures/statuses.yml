@@ -12,5 +12,4 @@
 ## YAML Template.
 
 status:
-  id: 1
-  status_setting_id: 1
+  status_setting: offline

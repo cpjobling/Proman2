@@ -66,7 +66,7 @@ class Admin::StatusSettingsControllerTest < ActionController::TestCase
   end
 
   test "permissions[numeric] is intepreted" do
-    post :create, :status_setting => { :code=> "5123", :message=>"test", :permissions=>"70000" }
+    post :create, :status_setting => { :code=> "5123", :title=> "test", :message=>"test", :permissions=>"70000" }
     setting = StatusSetting.find(:last)
     assert_equal 5123, setting.code
     assert_equal "test", setting.message
