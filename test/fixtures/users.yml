@@ -87,7 +87,7 @@ admin:
     first_name: Proman
     last_name: Administrator
     known_as: Boss
-    #roles: admin
+    roles: admin
 
     
 # A dummy student
@@ -102,8 +102,11 @@ student1:
     last_name: Parashkevanov
     created_at: <%= 5.days.ago.to_s :db %>
     known_as: poker player
-    #roles: student
-
+    roles: student
+    type: Student
+    student_number: 382392
+    discipline: icct
+    grade: 99.9
 
 # A dummy staff member
 academic:
@@ -117,10 +120,10 @@ academic:
     initials: B.
     last_name: Omb
     known_as: Kaboom
-    #roles: staff
+    roles: staff
     type: Supervisor
     staff_number: 544543
-    research_centre_id: mrc
+    research_centre: mrc
 
 
 
@@ -136,7 +139,7 @@ coordinator:
     initials: C.
     last_name: O'dinated
     known_as: Ready 4 N.E. Thing
-    #roles: coordinator, staff
+    roles: coordinator, staff
     type: Supervisor
     staff_number: 667543
     research_centre: c2ec
@@ -160,7 +163,7 @@ cpj:
     initials: P.
     last_name: Jobling
     known_as: Chris
-    #roles: admin, coordinator, staff
+    roles: admin, coordinator, staff
     type: Supervisor
     staff_number: 039934
     research_centre: mnc
@@ -175,7 +178,7 @@ pmwilliams:
     first_name: Paul
     initials: M.
     last_name: Williams
-    #roles: staff, coordinator
+    roles: staff, coordinator
     type: Supervisor
     staff_number: 077293
     research_centre: mnc
@@ -189,7 +192,7 @@ dhisaac:
    last_name: Isaac
    title: Dr
    initials: H.
-   #roles: staff, coordinator
+   roles: staff, coordinator
    type: Supervisor
    staff_number: 028521
    research_centre: mrc
@@ -203,7 +206,7 @@ mgedwards:
     last_name: Edwards
     title: Prof
     initials: G.
-    #roles: staff, coordinator
+    roles: staff, coordinator
     type: Supervisor
     staff_number: 093149
     research_centre: c2ec
@@ -216,7 +219,10 @@ hburt:
     first_name: Howard
     last_name: Burt
     title: Mr
-    #roles: coordinator
+    roles: coordinator
+    type: Supervisor
+    staff_number: 023957
+    research_centre: admin
 
 student2:
     login: student2
@@ -227,9 +233,11 @@ student2:
     first_name: Anne
     last_name: Bancroft
     known_as: cougar
-    #roles: student
+    roles: student
     type: Student
-
+    student_number: 123456
+    discipline: civ
+    grade: 44.45
 
 student3:
     login: student3
@@ -241,9 +249,11 @@ student3:
     initials: C.
     last_name: Marx
     known_as: red
-    #roles: student
+    roles: student
     type: Student
-
+    student_number: 123457
+    discipline: mech
+    grade: 77.71
 
 student4:
     login: student4
@@ -255,8 +265,11 @@ student4:
     initials: O.
     last_name: Hardy
     known_as: fatty
-    #roles: student
+    roles: student
     type: Student
+    student_number: 123458
+    discipline: aero
+    grade: 50.0
 
 student5:
     login: student5
@@ -267,8 +280,11 @@ student5:
     first_name: Cary
     last_name: Grant
     known_as: northwestern
-    #roles: student
+    roles: student
     type: Student
+    student_number: 123459
+    discipline: mat
+    grade: 69.69
 
 student6:
     login: student6
@@ -279,8 +295,13 @@ student6:
     first_name: Bette
     last_name: Davis
     known_as: diva
-    #roles: student
+    roles: student
     type: Student
+    student_number: 123460
+    discipline: icct
+    grade: 68.34
+
+
 
 # A test user -- should have no roles
 no_role_user:

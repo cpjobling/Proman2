@@ -49,10 +49,11 @@ class ResearchCentreTest < ActiveSupport::TestCase
     coordinators = [users(:mgedwards), users(:pmwilliams), users(:dhisaac), users(:hburt)]
     i = 0
     for centre in rcs do
-      centre.supervisor = coordinators[i]
-      centre.save!
-      assert_equal coordinators[i], centre.supervisor, "Coordinator wasn't saved"
+      assert_equal coordinators[i], centre.supervisor, "Coordinator can't be found via supervisor association"
+      assert_equal coordinators[i], User.find(centre.supervisor), "Coordinator can't be found from user"
+      assert_equal coordinators[i], Supervisor.find(centre.supervisor), "Coordinator can't be found from supervisor"
       assert coordinators[i].has_role?("coordinator"), "Coordinator isn't a coordinator"
+      i += 1
     end
   end
 
