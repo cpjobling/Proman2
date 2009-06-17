@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090615170247) do
+ActiveRecord::Schema.define(:version => 20090617215142) do
 
   create_table "allocation_round", :id => false, :force => true do |t|
     t.integer  "round",      :default => 0
@@ -40,6 +40,28 @@ ActiveRecord::Schema.define(:version => 20090615170247) do
 
   add_index "four_oh_fours", ["url", "referer"], :name => "index_four_oh_fours_on_url_and_referer", :unique => true
   add_index "four_oh_fours", ["url"], :name => "index_four_oh_fours_on_url"
+
+  create_table "original_students", :force => true do |t|
+    t.integer  "user_id"
+    t.decimal  "grade"
+    t.integer  "discipline_id"
+    t.string   "student_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "original_students", ["student_id"], :name => "index_students_on_student_id", :unique => true
+
+  create_table "original_supervisors", :force => true do |t|
+    t.integer  "research_centre_id"
+    t.integer  "user_id"
+    t.string   "staff_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "loading",            :default => 4
+  end
+
+  add_index "original_supervisors", ["staff_id"], :name => "index_supervisors_on_staff_id", :unique => true
 
   create_table "project_selections", :force => true do |t|
     t.integer  "student_id"
@@ -114,28 +136,6 @@ ActiveRecord::Schema.define(:version => 20090615170247) do
     t.datetime "updated_at"
   end
 
-  create_table "students", :force => true do |t|
-    t.integer  "user_id"
-    t.decimal  "grade"
-    t.integer  "discipline_id"
-    t.string   "student_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "students", ["student_id"], :name => "index_students_on_student_id", :unique => true
-
-  create_table "supervisors", :force => true do |t|
-    t.integer  "research_centre_id"
-    t.integer  "user_id"
-    t.string   "staff_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "loading",            :default => 4
-  end
-
-  add_index "supervisors", ["staff_id"], :name => "index_supervisors_on_staff_id", :unique => true
-
   create_table "users", :force => true do |t|
     t.string   "login",                     :limit => 40
     t.string   "email",                     :limit => 100
@@ -143,15 +143,24 @@ ActiveRecord::Schema.define(:version => 20090615170247) do
     t.string   "salt",                      :limit => 40
     t.string   "remember_token",            :limit => 40
     t.datetime "remember_token_expires_at"
-    t.string   "first_name",                :limit => 100, :default => ""
-    t.string   "last_name",                 :limit => 100, :default => ""
-    t.string   "title",                     :limit => 10,  :default => ""
-    t.string   "initials",                  :limit => 10,  :default => ""
-    t.string   "known_as",                  :limit => 25,  :default => ""
+    t.string   "first_name",                :limit => 100,                                :default => ""
+    t.string   "last_name",                 :limit => 100,                                :default => ""
+    t.string   "title",                     :limit => 10,                                 :default => ""
+    t.string   "initials",                  :limit => 10,                                 :default => ""
+    t.string   "known_as",                  :limit => 25,                                 :default => ""
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "type"
+    t.decimal  "grade",                                    :precision => 10, :scale => 2
+    t.integer  "discipline_id"
+    t.string   "student_number"
+    t.integer  "research_centre_id"
+    t.string   "staff_number"
+    t.integer  "loading",                                                                 :default => 4
   end
 
   add_index "users", ["login"], :name => "index_users_on_login", :unique => true
+  add_index "users", ["staff_number"], :name => "index_users_on_staff_number"
+  add_index "users", ["student_number"], :name => "index_users_on_student_number"
 
 end

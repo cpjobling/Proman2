@@ -21,7 +21,7 @@ student1:
   grade: 99.9
 
 student2:
-  user_id: student2
+  user: student2
   student_id: 123456
   discipline: civ
   grade: 44.45

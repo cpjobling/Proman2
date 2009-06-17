@@ -23,7 +23,7 @@ class ResearchCentreTest < ActiveSupport::TestCase
   should_have_many :supervisors
   should_belong_to :supervisor
 
-  fixtures :research_centres, :supervisors
+  fixtures :research_centres, :users
 
 
   test "ResearchCentre title cache works" do
@@ -46,13 +46,13 @@ class ResearchCentreTest < ActiveSupport::TestCase
 
   test "coordinator" do
     rcs = [research_centres(:c2ec), research_centres(:mnc), research_centres(:mrc), research_centres(:admin)]
-    coordinators = [supervisors(:mgedwards), supervisors(:pmwilliams), supervisors(:dhisaac), supervisors(:howard)]
+    coordinators = [users(:mgedwards), users(:pmwilliams), users(:dhisaac), users(:hburt)]
     i = 0
     for centre in rcs do
       centre.supervisor = coordinators[i]
       centre.save!
       assert_equal coordinators[i], centre.supervisor, "Coordinator wasn't saved"
-      assert coordinators[i].user.has_role?("coordinator"), "Coordinator isn't a coordinator"
+      assert coordinators[i].has_role?("coordinator"), "Coordinator isn't a coordinator"
     end
   end
 

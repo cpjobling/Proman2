@@ -184,7 +184,9 @@ class Admin::ProjectsController < ApplicationController
   end
 
   def supervisors
-    return User.find(:all, :order => 'first_name, last_name').select {|u| u.has_role?('staff')}
+    users = User.find(:all, :order => 'first_name, last_name').select {|u| u.has_role?('staff')}
+    #supervisors = users.map { |u| u.supervisor}
+
   end
 
 end

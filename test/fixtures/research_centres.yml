@@ -30,19 +30,20 @@
 c2ec:
   abbrev: c2ec
   title: Civil and Computational Engineering Centre
-  coordinator: mgedwards
+  coordinator:  <%= Fixtures.identify(:mgedwards) %>
 
 mnc:
   abbrev: mnc
   title: Multidisciplinary Nanotechnology Centre
-  coordinator: pmwilliams
+  coordinator: <%= Fixtures.identify(:pmwilliams) %>
+
 
 mrc:
   abbrev: mrc
   title: Materials Research Centre
-  coordinator: dhisaac
+  coordinator:  <%= Fixtures.identify(:dhisaac) %>
 
 admin:
   abbrev: admin
   title: Administration Team
-  coordinator: howard
+  coordinator:  <%= Fixtures.identify(:hburt) %>

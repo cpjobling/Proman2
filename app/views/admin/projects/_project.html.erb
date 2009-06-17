@@ -16,7 +16,7 @@ limitations under the License.
 
 <p><label for="project_title">Title:</label>
 <%= f.text_field :title, :size => 80, :class => "project_title"%></p>
-<p><label for="created_by">Supervisor</label>: <%= f.collection_select(:created_by, supervisors, :id, :name, {:prompt => '-Select supervisor'}) %>
+<p><label for="supervisor_id">Supervisor</label>: <%= f.collection_select(:supervisor_id, supervisors, :id, :name, {:prompt => '-Select supervisor'}) %>
 
 
 <p><label for="project_sure">This is a Swansea University Racecar Engineering (SURE) Project:</label>

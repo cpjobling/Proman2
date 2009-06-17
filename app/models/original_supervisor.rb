@@ -26,8 +26,8 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-class Supervisor < User
-  # belongs_to :user
+class OriginalSupervisor < ActiveRecord::Base
+  belongs_to :user
   belongs_to :research_centre
   has_many :projects, :dependent => :destroy
 

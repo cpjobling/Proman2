@@ -14,7 +14,7 @@
 
 require 'test_helper'
 
-class ProjectsControllerTest < ActionController::TestCase
+class Admin::ProjectsControllerTest < ActionController::TestCase
   fixtures :users, :supervisors, :projects, :disciplines
 
   def setup
@@ -34,10 +34,12 @@ class ProjectsControllerTest < ActionController::TestCase
 
   test "should create project" do
     assert_difference('Project.count') do
-      post :create, :project => { :title=> "test", :description=>"test", :created_by=>supervisors(:cpjobling) }
+      post :create, :project => { :title=> "test", :description=>"test", :supervisor_id=>supervisors(:cpjobling).id }
     end
-
-    assert_redirected_to project_path(assigns(:project))
+    # Check referential integrity
+    p = Project.find(assigns(:project))
+    assert_equal supervisors(:cpjobling), p.supervisor
+    assert_redirected_to admin_project_path(assigns(:project))
   end
 
   test "should show project" do
@@ -52,13 +54,13 @@ class ProjectsControllerTest < ActionController::TestCase
 
   test "should update project" do
     put :update, :id => projects(:project1).to_param, :project => { }
-    assert_redirected_to project_path(assigns(:project))
+    assert_redirected_to admin_project_path(assigns(:project))
   end
 
   test "should destroy project" do
     assert_difference('Project.count', -1) do
       delete :destroy, :id => projects(:project1).to_param
     end
-    assert_redirected_to projects_url
+    assert_redirected_to admin_projects_url
   end
 end

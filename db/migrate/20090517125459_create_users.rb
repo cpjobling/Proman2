@@ -8,7 +8,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :remember_token,            :limit => 40
       t.datetime :remember_token_expires_at
 
-      # Name value object poulates these fields
+      # Name value object populates these fields
 
       t.string :first_name,                :limit => 100, :default => ""
       t.string :last_name,                 :limit => 100, :default => ""

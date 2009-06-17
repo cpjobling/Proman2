@@ -87,7 +87,7 @@ admin:
     first_name: Proman
     last_name: Administrator
     known_as: Boss
-    #roles: admin
+    roles: admin
 
     
 # A dummy student
@@ -102,8 +102,7 @@ student1:
     last_name: Parashkevanov
     created_at: <%= 5.days.ago.to_s :db %>
     known_as: poker player
-    #roles: student
-
+    roles: student
 
 # A dummy staff member
 academic:
@@ -117,10 +116,7 @@ academic:
     initials: B.
     last_name: Omb
     known_as: Kaboom
-    #roles: staff
-    type: Supervisor
-    staff_number: 544543
-    research_centre_id: mrc
+    roles: staff
 
 
 
@@ -136,16 +132,7 @@ coordinator:
     initials: C.
     last_name: O'dinated
     known_as: Ready 4 N.E. Thing
-    #roles: coordinator, staff
-    type: Supervisor
-    staff_number: 667543
-    research_centre: c2ec
-
-
-
-
-
-
+    roles: coordinator, staff
 
 # A real staff member (Dr Jobling is Module Coordinator)!
 # Obviously this is not the password that is in production!
@@ -160,13 +147,9 @@ cpj:
     initials: P.
     last_name: Jobling
     known_as: Chris
-    #roles: admin, coordinator, staff
-    type: Supervisor
-    staff_number: 039934
-    research_centre: mnc
+    roles: admin, coordinator, staff
 
-
-pmwilliams:
+mnc_coordinator:
     login: paul.melvyn.willams
     email: paul.melvyn.williams@swansea.ac.uk
     salt: 3ea07d6413efa2ccd3d691eee5b5156588134cec
@@ -175,12 +158,9 @@ pmwilliams:
     first_name: Paul
     initials: M.
     last_name: Williams
-    #roles: staff, coordinator
-    type: Supervisor
-    staff_number: 077293
-    research_centre: mnc
+    roles: staff, coordinator
 
-dhisaac:
+mrc_coordinator:
    login: d.h.isaac
    email: d.h.isaac@swansea.ac.uk
    crypted_password: 7a18543ec17f9f7c56ed3d5a48fd0a10fcc4216d
@@ -189,12 +169,9 @@ dhisaac:
    last_name: Isaac
    title: Dr
    initials: H.
-   #roles: staff, coordinator
-   type: Supervisor
-   staff_number: 028521
-   research_centre: mrc
+   roles: staff, coordinator
 
-mgedwards:
+c2ec_coordinator:
     login: m.g.edwards
     email: m.g.edwards@swansea.ac.uk
     crypted_password: 0d19366f6e5ca5c8a9d778b0d13932468c63f5fd
@@ -203,12 +180,9 @@ mgedwards:
     last_name: Edwards
     title: Prof
     initials: G.
-    #roles: staff, coordinator
-    type: Supervisor
-    staff_number: 093149
-    research_centre: c2ec
+    roles: staff, coordinator
 
-hburt:
+admin_team_coordinator:
     login: h.burt
     email: h.burt@swansea.ac.uk
     crypted_password: e887fa1e015731ce18e46b6fc071d7ad3706ae30
@@ -216,7 +190,7 @@ hburt:
     first_name: Howard
     last_name: Burt
     title: Mr
-    #roles: coordinator
+    roles: coordinator
 
 student2:
     login: student2
@@ -227,9 +201,7 @@ student2:
     first_name: Anne
     last_name: Bancroft
     known_as: cougar
-    #roles: student
-    type: Student
-
+    roles: student
 
 student3:
     login: student3
@@ -241,9 +213,7 @@ student3:
     initials: C.
     last_name: Marx
     known_as: red
-    #roles: student
-    type: Student
-
+    roles: student
 
 student4:
     login: student4
@@ -255,8 +225,7 @@ student4:
     initials: O.
     last_name: Hardy
     known_as: fatty
-    #roles: student
-    type: Student
+    roles: student
 
 student5:
     login: student5
@@ -267,8 +236,7 @@ student5:
     first_name: Cary
     last_name: Grant
     known_as: northwestern
-    #roles: student
-    type: Student
+    roles: student
 
 student6:
     login: student6
@@ -279,8 +247,7 @@ student6:
     first_name: Bette
     last_name: Davis
     known_as: diva
-    #roles: student
-    type: Student
+    roles: student
 
 # A test user -- should have no roles
 no_role_user:

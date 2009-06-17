@@ -26,8 +26,8 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-class Student < User
-  #belongs_to :user
+class OriginalStudent < ActiveRecord::Base
+  belongs_to :user
   belongs_to :discipline
   # Student can be allocated one project.
   # Project becomes de-allocated if student is deleted.

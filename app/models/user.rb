@@ -49,13 +49,7 @@ class User < ActiveRecord::Base
   ],
     :allow_nil => true
 
-  has_one :student, :dependent => :destroy
-  #accepts_nested_attributes_for :student, :allow_destroy => true
-
-  has_one :supervisor, :dependent => :destroy
-  #accepts_nested_attributes_for :supervisor, :allow_destroy => true
-
-  has_many :projects, :dependent => :nullify
+  #has_many :projects, :dependent => :nullify
 
   #has_one :coordinator, :dependent => :nullify
   

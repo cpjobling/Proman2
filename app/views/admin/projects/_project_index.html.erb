@@ -13,7 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 %>
 
-<% creator = User.find(project_index.created_by) %>
+<% creator = Supervisor.find(project_index.created_by) %>
 <tr id="project_<%= project_index.id -%>" class="<%=  cycle('odd', 'even') %>">
   <td>
     <%= link_to project_index.id, admin_project_path(project_index) %>
