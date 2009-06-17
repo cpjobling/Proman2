@@ -54,8 +54,11 @@ class Admin::StatusSettingsControllerTest < ActionController::TestCase
 
   test "should update status_setting" do
     put :update, :id => status_settings(:allocation1).to_param, 
-        :status_setting => { :code=> "5123", :title => "test", :message=>"test", :permissions=>"70000" }
-    assert_redirected_to admin_status_setting_path(assigns(:status_setting))
+        :status_setting => {  :code=> "204", :title=> "Project Allocation (Round 1)",
+        :message=>"Projects are being allocated, project selections and rankings are frozen. You can only access the full project list at this time.",
+        :permissions=>"70000" }
+    ss = assigns(:status_setting)
+    assert_redirected_to admin_status_setting_path(assigns(:setting))
   end
 
   test "should destroy status_setting" do
