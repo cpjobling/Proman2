@@ -7,7 +7,7 @@
 #  user_id       :integer
 #  grade         :decimal(, )
 #  discipline_id :integer
-#  student_id    :string(255)
+#  student_number    :string(255)
 #  created_at    :datetime
 #  updated_at    :datetime
 #
@@ -36,13 +36,12 @@ class Student < User
   # if student is destroyed, is also destroyed
   has_one :project_selection, :dependent => :destroy
 
-  validates_presence_of :student_id, :discipline_id
-  validates_uniqueness_of :student_id
-  validates_numericality_of :student_id
-  validates_length_of :student_id, :in => 6..255
+  validates_presence_of :student_number, :discipline_id
+  validates_uniqueness_of :student_number
+  validates_numericality_of :student_number
+  validates_length_of :student_number, :in => 6..8
   validates_numericality_of :grade, :allow_nil => true, :allow_blank => true
   validates_inclusion_of :grade, :within => 0..100, :allow_nil => true, :allow_blank => true
 
-  delegate :name, :email,     :to => "user.nil? ? false : user"
   delegate :name, :long_name, :to => "discipline.nil? ? false : discipline", :prefix => :disc
 end

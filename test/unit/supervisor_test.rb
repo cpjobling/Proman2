@@ -16,20 +16,20 @@ require 'test_helper'
 
 class SupervisorTest < ActiveSupport::TestCase
 
-  fixtures :users, :supervisors
+  fixtures :users
   
-  should_validate_presence_of :staff_id, :user_id, :research_centre_id
-  should_validate_uniqueness_of :staff_id
-  should_ensure_length_in_range :staff_id, (6..255)
-  should_validate_numericality_of :staff_id
+  should_validate_presence_of :staff_number, :research_centre_id
+  should_validate_uniqueness_of :staff_number
+  should_ensure_length_in_range :staff_number, (6..8)
+  should_validate_numericality_of :staff_number
 
   should_have_many :projects, :dependent => :destroy
-  should_belong_to :user, :research_centre
+  should_belong_to :research_centre
 
   # delegations
   context "given a supervisor record" do
     setup do
-      @supervisor = supervisors(:cpjobling)
+      @supervisor = users(:cpj)
     end
 
     should "have same name as associated user" do
