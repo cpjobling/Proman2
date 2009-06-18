@@ -1,14 +1,14 @@
 # == Schema Information
-# Schema version: 20090612173705
+# Schema version: 20090612183400
 #
 # Table name: research_centres
 #
-#  id            :integer         not null, primary key
-#  abbrev        :string(10)
-#  title         :string(255)
-#  supervisor_id :integer
-#  created_at    :datetime
-#  updated_at    :datetime
+#  id          :integer         not null, primary key
+#  abbrev      :string(10)
+#  title       :string(255)
+#  coordinator :integer
+#  created_at  :datetime
+#  updated_at  :datetime
 #
 
 # Copyright 2009 Swansea University
@@ -28,16 +28,25 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 c2ec:
+  id: 1
   abbrev: c2ec
   title: Civil and Computational Engineering Centre
-  coordinator: mgedwards
+  coordinator: 106
 
 mnc:
+  id: 2
   abbrev: mnc
   title: Multidisciplinary Nanotechnology Centre
-  coordinator: pmwilliams
+  coordinator: 104
 
 mrc:
+  id: 3
   abbrev: mrc
   title: Materials Research Centre
-  coordinator: dhisaac
+  coordinator: 105
+
+admin:
+  id: 4
+  abbrev: mrc
+  title: Administration Team
+  coordinator: 151

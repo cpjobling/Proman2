@@ -9,7 +9,7 @@ class ProjectSelectionsControllerTest < ActionController::TestCase
     Proman::Config.can_select = true
     @student1 = students(:student1)
     @student2 = students(:student2)
-    login_as :student
+    login_as @student1.user
   end
 
   def test current_round
@@ -69,7 +69,7 @@ class ProjectSelectionsControllerTest < ActionController::TestCase
   end
 
   test "before_filter verify_ownership for non-owner should fail and redirect" do
-    login_as :new_user # owns PS 2
+    login_as @student2.user # owns PS 2
     # attempt to access original user's project selection
     get :show, :id => project_selections(:one).to_param
     #assert_equal "You are not permitted to access another student's project selection. This access attempt has been logged.", flash[:notice]

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090612173705
+# Schema version: 20090612183400
 #
 # Table name: students
 #
@@ -15,37 +15,43 @@
 ## YAML Template.
 
 student1:
-  user: student1
+  id: 201
+  user_id: 201
   student_id: 382392
-  discipline: icct
+  discipline_id: 2
   grade: 99.9
 
 student2:
-  user_id: student2
+  id: 202
+  user_id: 202
   student_id: 123456
-  discipline: civ
+  discipline_id: 3
   grade: 44.45
 
 student3:
-  user: student3
+  id: 203
+  user_id: 203
   student_id: 123457
-  discipline: mech
+  discipline_id: 3
   grade: 77.71
 
 student4:
-  user: student4
+  id: 204
+  user_id: 204
   student_id: 123458
-  discipline: aero
+  discipline_id: 1
   grade: 50.0
 
 student5:
-  user: student5
+  id: 205
+  user_id: 205
   student_id: 123459
-  discipline: mat
+  discipline_id: 2
   grade: 69.69
 
 student6:
-  user: student6
+  id: 206
+  user_id: 206
   student_id: 123460
-  discipline: icct
+  discipline: 3
   grade: 68.34

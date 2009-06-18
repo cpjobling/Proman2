@@ -1,14 +1,14 @@
 # == Schema Information
-# Schema version: 20090612173705
+# Schema version: 20090612183400
 #
 # Table name: research_centres
 #
-#  id            :integer         not null, primary key
-#  abbrev        :string(10)
-#  title         :string(255)
-#  supervisor_id :integer
-#  created_at    :datetime
-#  updated_at    :datetime
+#  id          :integer         not null, primary key
+#  abbrev      :string(10)
+#  title       :string(255)
+#  coordinator :integer
+#  created_at  :datetime
+#  updated_at  :datetime
 #
 
 # Copyright 2009 Swansea University
@@ -27,7 +27,7 @@
 
 class ResearchCentre < ActiveRecord::Base
   has_many :supervisors, :dependent => :nullify # put supervisors in limbo when research group deleted
-  belongs_to :supervisor, :foreign_key => :coordinator
+  belongs_to :user, :foreign_key => :coordinator
 
 
   validates_presence_of :abbrev, :title

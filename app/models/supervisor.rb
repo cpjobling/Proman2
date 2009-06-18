@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090612173705
+# Schema version: 20090612183400
 #
 # Table name: supervisors
 #
@@ -29,6 +29,13 @@ class Supervisor < ActiveRecord::Base
   belongs_to :user
   belongs_to :research_centre
   has_many :projects
+
+  validates_presence_of :user_id, :staff_id, :research_centre_id
+
+  validates_uniqueness_of :staff_id
+  validates_length_of :staff_id, :in => 5..10
+  validates_numericality_of :staff_id, :user_id, :research_centre_id
+
 
   # It should be a validation error to have a supervisor with no centre
   def research_centre_title

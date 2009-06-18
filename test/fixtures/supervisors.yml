@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090612173705
+# Schema version: 20090612183400
 #
 # Table name: supervisors
 #
@@ -14,32 +14,37 @@
 ## YAML Template.
 
 mgedwards:
-  user: c2ec_coordinator
+  id: 325941294
+  user_id: 103
   staff_id: 093149
-  research_centre: c2ec
+  research_centre_id: 1
 
 pmwilliams:
-  user: mnc_coordinator
+  id: 405571210
+  user_id: 101
   staff_id: 077293
-  research_centre: mnc
+  research_centre_id: 2
 
 dhisaac:
-  user: c2ec_coordinator
+  id: 442500191
+  user_id: 102
   staff_id: 028521
-  research_centre: mrc
+  research_centre_id: 3
 
 cpjobling:
-  user: cpj
+  id: 470794374
+  user_id: 100
   staff_id: 039934
-  research_centre: mnc
+  research_centre_id: 2
 
 staff:
-  user: academic
+  id: 104
+  user_id: 104
   staff_id: 544543
-  research_centre_id: mrc
-
+  research_centre_id: 3
 
 coordinator:
-  user: coordinator
+  id: 105
+  user_id: 105
   staff_id: 667543
-  research_centre: c2ec
+  research_centre_id: 1

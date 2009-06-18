@@ -18,7 +18,7 @@ class StudentTest < ActiveSupport::TestCase
   def setup
     @student = students(:student1)
     @user = users(:student1)
-    @civil = disciplines(:civ)
+    @icct = disciplines(:icct)
   end
   # Replace this with your real tests.
   test "student has a user" do
@@ -34,7 +34,7 @@ class StudentTest < ActiveSupport::TestCase
     #    grade: 99.9
     assert_equal @user.id, @student.user_id
     assert_equal '382392', @student.student_id
-    assert_equal @civil, @student.discipline
+    assert_equal @icct, @student.discipline
     assert @student.grade > 99.0
   end
 
@@ -44,12 +44,12 @@ class StudentTest < ActiveSupport::TestCase
   end
 
   test "chained access methods still work" do
-    assert_equal @civil.name, @student.discipline.name
-    assert_equal @civil.long_name @student.discipline.long_name
+    assert_equal @icct.name, @student.discipline.name
+    assert_equal @icct.long_name @student.discipline.long_name
   end
 
   test "delegated discipline methods" do
-    assert_equal @civil.name, @student.disc_name
-    assert_equal @civil.long_name @student.disc_long_name
+    assert_equal @icct.name, @student.disc_name
+    assert_equal @icct.long_name @student.disc_long_name
   end
 end

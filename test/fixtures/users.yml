@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090612173705
+# Schema version: 20090612183400
 #
 # Table name: users
 #
@@ -35,6 +35,7 @@
 
 # For authenticated tests....
 quentin:
+  id: 10
   login:                     quentin
   email:                     quentin@example.com
   salt:                      356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
@@ -49,6 +50,7 @@ quentin:
 
 
 aaron:
+  id: 11
   login:                     aaron
   email:                     aaron@example.com
   salt:                      da4b9237bacccdf19c0760cab7aec4a8359010b0 # SHA1('1')
@@ -62,6 +64,7 @@ aaron:
 
 
 old_password_holder:
+  id: 12
   login:                     old_password_holder
   email:                     salty_dog@example.com
   salt:                      7e3041ebc2fc05a40c60028e2c4901a81035d3cd
@@ -77,6 +80,7 @@ old_password_holder:
 # An admin, student, coordinator and real member of staff
 
 admin:
+    id: 1
     login: admin
     email: eee.webmaster@swansea.ac.uk
     salt:                      356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
@@ -92,6 +96,7 @@ admin:
     
 # A dummy student
 student1:
+    id: 201
     login: 382392
     email: 382392@swansea.ac.uk
     salt:                      356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
@@ -106,6 +111,7 @@ student1:
 
 # A dummy staff member
 academic:
+    id: 104
     login: a.n.academic
     salt:                      356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
     crypted_password:          63d8fefa835d181f7c2705227e0452045141b380 # 'monkey'
@@ -122,6 +128,7 @@ academic:
 
 # A dummy coordinator
 coordinator:
+    id: 105
     login: a.coordinator
     salt:                      356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
     crypted_password:          63d8fefa835d181f7c2705227e0452045141b380 # 'monkey'
@@ -137,6 +144,7 @@ coordinator:
 # A real staff member (Dr Jobling is Module Coordinator)!
 # Obviously this is not the password that is in production!
 cpj:
+    id: 100
     login: cpjobling
     email: c.p.jobling@swansea.ac.uk
     salt:                      356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
@@ -150,6 +158,7 @@ cpj:
     roles: admin, coordinator, staff
 
 mnc_coordinator:
+    id: 101
     login: paul.melvyn.willams
     email: paul.melvyn.williams@swansea.ac.uk
     salt: 3ea07d6413efa2ccd3d691eee5b5156588134cec
@@ -161,6 +170,7 @@ mnc_coordinator:
     roles: staff, coordinator
 
 mrc_coordinator:
+   id: 102
    login: d.h.isaac
    email: d.h.isaac@swansea.ac.uk
    crypted_password: 7a18543ec17f9f7c56ed3d5a48fd0a10fcc4216d
@@ -172,6 +182,7 @@ mrc_coordinator:
    roles: staff, coordinator
 
 c2ec_coordinator:
+    id: 103
     login: m.g.edwards
     email: m.g.edwards@swansea.ac.uk
     crypted_password: 0d19366f6e5ca5c8a9d778b0d13932468c63f5fd
@@ -183,6 +194,7 @@ c2ec_coordinator:
     roles: staff, coordinator
 
 admin_team_coordinator:
+    id: 151
     login: h.burt
     email: h.burt@swansea.ac.uk
     crypted_password: e887fa1e015731ce18e46b6fc071d7ad3706ae30
@@ -193,6 +205,7 @@ admin_team_coordinator:
     roles: coordinator
 
 student2:
+    id: 202
     login: student2
     email: student2@uni.edu
     salt:                      356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
@@ -204,6 +217,7 @@ student2:
     roles: student
 
 student3:
+    id: 203
     login: student3
     email: student2@uni.edu
     salt:                      356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
@@ -216,6 +230,7 @@ student3:
     roles: student
 
 student4:
+    id: 204
     login: student4
     email: student2@uni.edu
     salt:                      356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
@@ -228,6 +243,7 @@ student4:
     roles: student
 
 student5:
+    id: 205
     login: student5
     email: student2@uni.edu
     salt:                      356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
@@ -239,6 +255,7 @@ student5:
     roles: student
 
 student6:
+    id: 206
     login: student6
     email: student2@uni.edu
     salt:                      356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
@@ -251,6 +268,7 @@ student6:
 
 # A test user -- should have no roles
 no_role_user:
+    id: 301
     login: test
     email: test@uni.edu
     salt:                      356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')

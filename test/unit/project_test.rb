@@ -145,7 +145,7 @@ class ProjectTest < ActiveSupport::TestCase
   	end
 
   	# Remove last discipline
-  	@project.disciplines.delete(disciplines(:sport))
+  	@project.disciplines.delete(disciplines(:sports_materials))
     assert ! @project.suitable_for_all?,
        "Project assigned to all but one discipline should not suit all disciplines"
   end

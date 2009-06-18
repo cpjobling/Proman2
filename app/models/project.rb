@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090612173705
+# Schema version: 20090612183400
 #
 # Table name: projects
 #
@@ -37,6 +37,7 @@ class Project < ActiveRecord::Base
   belongs_to :user, :foreign_key => "created_by"
   has_many :selected_projects, :dependent => :delete_all
   belongs_to :student # allocation
+  has_one :supervisor
 
   validates_presence_of :title
   validates_uniqueness_of :title
