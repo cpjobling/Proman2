@@ -16,7 +16,7 @@ require 'test_helper'
 
 class ProjectTest < ActiveSupport::TestCase
 
-  fixtures :supervisors, :projects
+  fixtures :users, :projects
 
   should_belong_to :supervisor, :student
   should_have_many :selected_projects, :dependent => :delete_all
@@ -45,14 +45,14 @@ class ProjectTest < ActiveSupport::TestCase
   end
 
   def test_creator
-    assert_equal supervisors(:staff), @project.creator
+    assert_equal users(:academic), @project.creator
   end
 
   def test_created_by_accessors
     project = Project.new(:title => "test project", :description=>"project description")
-    project.created_by = supervisors(:cpjobling)
+    project.created_by = users(:cpj)
     project.save
-    assert_equal supervisors(:cpjobling), project.created_by
+    assert_equal users(:cpj), project.created_by
   end
 
   def test_project_can_be_carbon_critical

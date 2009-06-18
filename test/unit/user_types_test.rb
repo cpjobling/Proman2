@@ -16,8 +16,9 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class UserTypesTest < ActiveSupport::TestCase
 
+  self.use_instantiated_fixtures = false
   def setup
-    @staff =         users(:academic)
+  @staff =           users(:academic)
     @coordinator =   users(:coordinator)
     @student =       users(:student1)
     @administrator = users(:admin)
