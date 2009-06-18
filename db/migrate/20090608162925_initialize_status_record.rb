@@ -2,7 +2,7 @@ class InitializeStatusRecord < ActiveRecord::Migration
   def self.up
     # Create status record
     status = Status.new(:id => 1)
-    default_setting = StatusSetting.find(1)
+    default_setting = StatusSetting.find_by_code(100)
     status.status_setting = default_setting
     status.save!
 
