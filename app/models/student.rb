@@ -36,6 +36,13 @@ class Student < ActiveRecord::Base
   # if student is destroyed, is also destroyed
   has_one :project_selection, :dependent => :destroy
 
+  validates_length_of :student_id, :in => 6..10
+  validates_numericality_of :student_id
+  validates_uniqueness_of :student_id
+  validates_presence_of :student_id, :user_id, :discipline_id
+  validates_presence_of :grade, :allow_nil => true, :allow_blank => :true
+  validates_numericality_of :grade, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100
+
   delegate :name, :email, :to => :user
-  delegate :name, :long_name, :to => :dicipline, :prefix => :disc
+  delegate :name, :long_name, :to => :discipline, :prefix => :disc
 end

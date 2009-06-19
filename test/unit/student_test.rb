@@ -15,6 +15,51 @@
 require 'test_helper'
 
 class StudentTest < ActiveSupport::TestCase
+
+  should_belong_to :user, :discipline
+  should_have_one :project, :dependent => :nullify
+  should_have_one :project_selection, :dependent => :destroy
+
+  #  id            :integer         not null, primary key
+  #  user_id       :integer
+  #  grade         :decimal(, )
+  #  discipline_id :integer
+  #  student_id    :string(255)
+  #  created_at    :datetime
+  #  updated_at    :datetime
+
+  should_validate_presence_of :user_id, :discipline_id, :student_id, :grade
+  should_ensure_length_in_range :student_id, (6..10)
+  should_validate_numericality_of :student_id
+  should_validate_uniqueness_of :student_id
+  should_validate_numericality_of :grade
+
+  context "a student" do
+    setup do
+      @student = students(:student1)
+    end
+
+    should "only accept a grade that is between 0 and 100" do
+      for grade in 0..100
+        @student.grade = grade
+        assert_valid(@student)
+      end
+    end
+
+    should "not except a negative grade" do
+      @student.grade = -0.999999999999999999999999999999999999999999999999999999
+      assert ! @student.valid?
+    end
+
+    should "not accept a grade that is just a bit more than 100.00" do
+      @student.grade = 100.00
+      assert_valid @student
+      @student.grade = 100.01
+      assert ! @student.valid?
+    end
+
+  end
+
   def setup
     @student = students(:student1)
     @user = users(:student1)
@@ -39,17 +84,17 @@ class StudentTest < ActiveSupport::TestCase
   end
 
   test "delegated user methods" do
-     assert_equal @user.email, @student.email
-     assert_equal @user.name.to_s, @student.name.to_s
+    assert_equal @user.email, @student.email
+    assert_equal @user.name.to_s, @student.name.to_s
   end
 
   test "chained access methods still work" do
     assert_equal @icct.name, @student.discipline.name
-    assert_equal @icct.long_name @student.discipline.long_name
+    assert_equal @icct.long_name, @student.discipline.long_name
   end
 
   test "delegated discipline methods" do
     assert_equal @icct.name, @student.disc_name
-    assert_equal @icct.long_name @student.disc_long_name
+    assert_equal @icct.long_name, @student.disc_long_name
   end
 end
