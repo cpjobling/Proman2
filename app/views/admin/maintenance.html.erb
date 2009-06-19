@@ -1,0 +1,89 @@
+<%#
+#  Copyright 2009 Swansea University.
+# 
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+# 
+#       http://www.apache.org/licenses/LICENSE-2.0
+# 
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+#  under the License.
+# See Recipe 69: Custom Maintenance Page, in Advanced Rails Recipes.
+%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+ Copyright 2009 Swansea University
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-GB">
+<head>
+  <title>Proman^&beta; &ndash; Temporarily Offline</title>
+  <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+  <meta name="description" content="Management tool for University Undergraduate Dissertation Projects, Developed in the School of Engineering, Swansea University." />
+  <meta name="keywords" content="Swansea, University, EG-353, Projects, School of Engineering, Open Source, Ruby on Rails" />
+  <meta name="robots" content="index, follow" />
+  <meta name="Author" content="Nicolay Parashkevanov">
+  <meta name="Author" content="Dr Chris P. Jobling">
+  <meta http-equiv="Content-Language" content="en-gb">
+  <meta http-equiv="Pragma" content="no-cache">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+  <div id="header">
+    <h1><span class="logo"><%= proman %></span></h1>
+    <h2>
+      Temporarily Offline
+    </h2>
+  </div>
+
+  <div class="colmask threecol">
+    <div class="colmid">
+      <div class="colleft">
+        <div class="col1">
+          <!-- Column 1 start -->
+          <h2>We're currently offline for <%= reason ? reason : "maintenance" %>
+          as of <%= Time.now.strftime('%I:%M %p %Z') %></h2>
+          <p>Sorry for the inconvenience. We'll be back
+            <%= deadline ? "by #{deadline}" : "shortly" %>.
+            Please <a href="mailto:C.P.Jobling@Swansea.ac.uk">e-mail us</a> if
+          you need to get in touch.</p>
+          <!-- Column 1 end -->
+        </div>
+        <div class="col2">
+          <!-- Column 2 start -->
+
+            <!-- Column 2 end -->
+        </div>
+        <div class="col3">
+          <!-- Column 3 start -->
+          <h3>Back soon!</h3>
+          <!-- Column 3 end -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="footer">
+    <p>
+      <em>Managing EG-353 Research Projects since 2009!</em>
+    </p>
+    <p style="font-size: xx-small; text-align: center;">Copyright &copy; 2009 <a href="http://www.swansea.ac.uk" target="_new">Swansea University</a>. All Rights Reserved.</p>
+  </div>
+</body>
+</html>

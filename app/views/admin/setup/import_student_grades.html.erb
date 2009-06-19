@@ -13,27 +13,33 @@
    limitations under the License.
 %>
 
+<% title "Bulk upload student grades" %>
 
-<% title "Setup tools" %>
-
-<% headline "Setting up Proman" %>
+<% headline "Upload student grades" %>
 
 <p><%= render(:partial=>"admin/navigation") %></p>
 
 <% slogan "An apple a day keeps the Doctor away!" %>
 
-<h3>Bulk uploaders</h3>
-<ul>
-	<li>
-		<%= link_to "Upload staff details", import_staff_path %>
-	</li>
-	<li>
-		<%= link_to "Upload student details", import_students_path %>
-	</li>
-    <li>
-		<%= link_to "Upload project details", import_projects_path %>
-	</li>
-    <li>
-		<%= link_to "Upload student grades", import_student_grades_path %>
-	</li>
-</ul>
+<% form_for :import_student_grades,
+            :url=>{:controller=>"admin/setup",
+            :action=>"csv_import_grades"},
+            :html => { :multipart => true } do |f| -%>
+ <table>
+   <tr>
+     <td>
+      <label for="student_grades_file">
+        Select a CSV File :
+      </label>
+     </td>
+     <td >
+       <%= f.file_field :student_grades_file -%>
+     </td>
+   </tr>
+   <tr>
+     <td colspan='2'>
+       <%= submit_tag 'Submit' -%> <%=  link_to "Back", admin_setup_path %>
+     </td>
+   </tr>
+ </table>
+<% end -%>

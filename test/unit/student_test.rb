@@ -97,4 +97,11 @@ class StudentTest < ActiveSupport::TestCase
     assert_equal @icct.name, @student.disc_name
     assert_equal @icct.long_name, @student.disc_long_name
   end
+
+  test "can have a board decision" do
+    decision = "Progress:CL"
+    @student.board_decision = decision
+    @student.save
+    assert_equal decision, @student.board_decision
+  end
 end

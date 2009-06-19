@@ -20,6 +20,7 @@ student1:
   student_id: 382392
   discipline_id: 9
   grade: 99.9
+  board_decision: Progress:CL
 
 student2:
   id: 202
@@ -27,6 +28,7 @@ student2:
   student_id: 123456
   discipline_id: 3
   grade: 44.45
+  board_decision: Progress:SUP
 
 student3:
   id: 203
@@ -34,6 +36,7 @@ student3:
   student_id: 123457
   discipline_id: 3
   grade: 77.71
+  board_decision: Progress:SUP
 
 student4:
   id: 204
@@ -41,6 +44,7 @@ student4:
   student_id: 123458
   discipline_id: 1
   grade: 50.0
+  board_decision: Progress:SUP C
 
 student5:
   id: 205
@@ -48,6 +52,7 @@ student5:
   student_id: 123459
   discipline_id: 2
   grade: 69.69
+  board_decision: Progress:CL
 
 student6:
   id: 206

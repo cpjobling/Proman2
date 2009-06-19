@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090619105901) do
+ActiveRecord::Schema.define(:version => 20090619145008) do
 
   create_table "allocation_round", :id => false, :force => true do |t|
     t.integer  "round",      :default => 0
@@ -122,6 +122,7 @@ ActiveRecord::Schema.define(:version => 20090619105901) do
     t.string   "student_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "board_decision"
   end
 
   add_index "students", ["student_id"], :name => "index_students_on_student_id", :unique => true

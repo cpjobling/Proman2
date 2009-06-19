@@ -128,7 +128,7 @@ class Admin::SetupController < ApplicationController
     @parsed_file.each  do |row|
       project = Project.new
       logger.info "Read: #{row}"
-      "0: Centre	1: Supervisor	2: Email	3: Title	4: Description	5: Resources	6: Suitable for"
+      # 0: Centre	1: Supervisor	2: Email	3: Title	4: Description	5: Resources	6: Suitable for"
       email = row[2].downcase
       supervisor = User.find(:first, :conditions => ['email LIKE ?', email])
       if supervisor
@@ -159,5 +159,39 @@ class Admin::SetupController < ApplicationController
       flash[:notice] = "#{result}\nCSV Projects Import Successful,  #{n} new records added to data base."
     end
     redirect_to admin_projects_path
+  end
+
+  def import_student_grades
+
+  end
+
+  def csv_import_grades
+    @parsed_file = CSV::Reader.parse(params[:import_student_grades][:student_grades_file])
+    n=0
+    result = ""
+    @parsed_file.each  do |row|
+      logger.info "Read: #{row}"
+      # 0: student_id	1: Student name and course: 2: Decision	3: Grade
+      student_id = row[0]
+      student = Student.find_by_student_id(student_id)
+      if student
+        logger.info "Found student #{student_id}"
+      else
+        logger.info "Couldn't find student #{student_id}"
+        next
+      end
+
+      student.board_decision = row[2] || "no decision"
+      student.grade = row[3].to_f || 0.0
+      if student.save
+        logger.info "#{n}: Added decision: '#{student.board_decision}' and grade = #{student.grade} to student #{student.student_id}<br />\n"
+        n = n+1
+        GC.start if n % 50 == 0
+      else
+        logger.error "Couldn't save decision and/or grade for student #{student.student_id}<br />\n"
+      end
+      flash[:notice] = "#{result}\nCSV Student Grades Import Successful,  #{n} new records added to data base."
     end
-  end  
+    redirect_to admin_projects_path
+  end
+end

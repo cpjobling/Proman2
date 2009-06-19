@@ -16,7 +16,8 @@
 %>
 
 <%= f.label :student_id, "Input student number if student" %>:
-<%= f.text_field :student_id, :size => "7", :title=>"Your student number is the 6 digit number to be found on your student card." %>
+<%= f.text_field :student_id, :size => "8", :title=>"The student number is the 6 digit number university student number." %>
 <br />
 Assign student to a discipline: <%= f.select(:discipline_id, disciplines_for_select, {:prompt => "Select discipline"}) %>.<br />
-Assign/update level 2 grade: <%= f.text_field :grade, :size=> "6" %>.
+Assign/update level 2 grade: <%= f.text_field :grade, :size=> "6" %>.<br />
+Assign/update level 2 board decision: <%= f.text_field :board_decision, :size=> "20" %>.<br />

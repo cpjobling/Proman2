@@ -78,6 +78,10 @@ ActionController::Routing::Routes.draw do |map|
       :conditions => { :method => :get }, :action => 'import_projects'
   	setup.csv_import_projects 'admin/setup/csv_import_projects',
       :conditions => { :method => :post }, :action => "csv_import_projects"
+    setup.import_student_grades 'admin/setup/import_student_grades',
+      :conditions => { :method => :get }, :action => "import_student_grades"
+   	setup.csv_import_grades 'admin/setup/csv_import_grades',
+      :conditions => { :method => :post }, :action => "csv_import_grades"
   end
 
   map.with_options :controller => "admin/projects" do |ap|
