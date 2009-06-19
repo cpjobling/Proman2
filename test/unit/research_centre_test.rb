@@ -21,7 +21,7 @@ class ResearchCentreTest < ActiveSupport::TestCase
   should_validate_uniqueness_of :abbrev, :title
   should_ensure_length_in_range :abbrev, (3..10)
   should_have_many :supervisors
-  should_belong_to :supervisor
+  should_belong_to :coordinator
 
   fixtures :research_centres, :supervisors
 
@@ -46,13 +46,12 @@ class ResearchCentreTest < ActiveSupport::TestCase
 
   test "coordinator" do
     rcs = [research_centres(:c2ec), research_centres(:mnc), research_centres(:mrc)]
-    coordinators = [supervisors(:mgedwards), supervisors(:pmwilliams), supervisors(:dhisaac)]
+    coordinators = [users(:c2ec_coordinator), users(:mnc_coordinator), users(:mrc_coordinator)]
     i = 0
     for centre in rcs do
-      centre.supervisor = coordinators[i]
-      centre.save!
-      assert_equal coordinators[i], centre.supervisor, "Coordinator wasn't saved"
-      assert coordinators[i].user.has_role?("coordinator"), "Coordinator isn't a coordinator"
+      assert_equal coordinators[i], centre.coordinator, "Coordinator wasn't saved"
+      assert coordinators[i].has_role?("coordinator"), "Coordinator isn't a coordinator"
+      i += 1
     end
   end
 

@@ -31,19 +31,19 @@ c2ec:
   id: 1
   abbrev: c2ec
   title: Civil and Computational Engineering Centre
-  coordinator: 106
+  coordinator: 103
 
 mnc:
   id: 2
   abbrev: mnc
   title: Multidisciplinary Nanotechnology Centre
-  coordinator: 104
+  coordinator: 101
 
 mrc:
   id: 3
   abbrev: mrc
   title: Materials Research Centre
-  coordinator: 105
+  coordinator: 102
 
 admin:
   id: 4

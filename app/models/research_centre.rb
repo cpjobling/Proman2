@@ -27,7 +27,7 @@
 
 class ResearchCentre < ActiveRecord::Base
   has_many :supervisors, :dependent => :nullify # put supervisors in limbo when research group deleted
-  belongs_to :user, :foreign_key => :coordinator
+  belongs_to :coordinator, :class_name => 'User', :foreign_key => :coordinator
 
 
   validates_presence_of :abbrev, :title
