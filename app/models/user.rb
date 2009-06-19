@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090612183400
+# Schema version: 20090619105901
 #
 # Table name: users
 #
@@ -55,7 +55,7 @@ class User < ActiveRecord::Base
   has_one :supervisor, :dependent => :destroy
   #accepts_nested_attributes_for :supervisor, :allow_destroy => true
 
-  has_many :projects, :dependent => :nullify
+  has_many :projects, :foreign_key => :created_by, :dependent => :nullify
 
   #has_one :coordinator, :dependent => :nullify
   

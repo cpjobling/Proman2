@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090612183400
+# Schema version: 20090619105901
 #
 # Table name: supervisors
 #
@@ -9,6 +9,7 @@
 #  staff_id           :string(255)
 #  created_at         :datetime
 #  updated_at         :datetime
+#  loading            :integer         default(4)
 #
 
 ## YAML Template.

@@ -16,42 +16,99 @@ require 'test_helper'
 
 class SupervisorTest < ActiveSupport::TestCase
 
-#  id                 :integer         not null, primary key
-#  research_centre_id :integer
-#  user_id            :integer
-#  staff_id           :string(255)
-#  created_at         :datetime
-#  updated_at         :datetime
-#
-  should_validate_presence_of :user_id, :staff_id, :research_centre_id
+  # Table name: supervisors
+  #
+  #  id                 :integer         not null, primary key
+  #  research_centre_id :integer
+  #  user_id            :integer
+  #  staff_id           :string(255)
+  #  created_at         :datetime
+  #  updated_at         :datetime
+  #  loading            :integer         default(4)
+
+  should_validate_presence_of :user_id, :staff_id, :research_centre_id, :loading
   should_ensure_length_in_range :staff_id, (5..10)
-  should_validate_numericality_of :staff_id, :research_centre_id, :user_id
+  should_validate_numericality_of :staff_id, :research_centre_id, :user_id, :loading
   should_validate_uniqueness_of :staff_id
   
-  should_have_many :projects, :dependent => :delete_all
+  #  should_have_many :projects, :through => :user
   should_belong_to :user, :research_centre
 
-  context "supervisors and their projects" do
+  
+  context "a user" do
+    setup do
+      @user = users(:cpj)
+    end
+    
+    should "be associated with a supervisor" do
+      assert_equal supervisors(:cpjobling), @user.supervisor
+    end
+  
+    context "and a user's projects" do
+      setup do
+        @supervisor = supervisors(:cpjobling)
+        @projects = @user.projects
+      end
+
+      should "have many projects" do
+        assert_not_nil @projects
+        assert_equal 4, @projects.count
+      end
+
+      should "each be created by the user" do
+        @projects.each do |project|
+          assert_equal @user.id, project.created_by
+          assert_equal @user, User.find(project.created_by)
+        end
+      end
+    end
+  end
+
+  context "a supervisor" do
     setup do
       @supervisor = supervisors(:cpjobling)
+      @user = @supervisor.user
     end
 
-    should "have many projects" do
+    should "have a user" do
+      assert_not_nil @user
+      assert_equal users(:cpj), @user
+    end
+
+    should "have a user with the correct id" do
+      @user.id = users(:cpj).id
+    end
+
+    should "have a user with role 'staff'" do
+      assert @user.has_role?('staff')
+    end
+
+    should "have a user with the correct name" do
+      assert_equal "Dr Christopher P. Jobling", @user.name.to_s
+    end
+
+    should "have valid attributes" do
+      assert_equal "039934", @supervisor.staff_id
+      assert_equal  research_centres(:mnc), @supervisor.research_centre
+      assert_equal 4, @supervisor.loading
+    end
+
+    should "be able to access projects by delegation" do
       assert_not_nil @supervisor.projects
       assert_equal 4, @supervisor.projects.count
     end
 
-    context "a supervisor's projects" do
-      setup do
-        @projects = @supervisor.projects
-      end
+    should "be able to access useful user fields by delegation" do
+      assert_equal @user.name, @supervisor.name
+      assert_equal @user.email, @supervisor.email
+    end
 
-      should "each be created by the supervisor" do
-        @projects.each do |project|
-          assert_equal @supervisor, project.supervisor
-        end
-      end
+    should "be able to access research centre abbrev and title via delation" do
+      rc = research_centres(:mnc)
+      assert_equal rc.abbrev, @supervisor.rc_abbrev
+      assert_equal rc.title, @supervisor.rc_title
     end
 
   end
+
 end

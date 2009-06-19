@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090612183400
+# Schema version: 20090619105901
 #
 # Table name: supervisors
 #
@@ -9,6 +9,7 @@
 #  staff_id           :string(255)
 #  created_at         :datetime
 #  updated_at         :datetime
+#  loading            :integer         default(4)
 #
 
 # Copyright 2009 Swansea University
@@ -28,13 +29,17 @@
 class Supervisor < ActiveRecord::Base
   belongs_to :user
   belongs_to :research_centre
-  has_many :projects
+#  has_many :projects, :through => :projects, :source => :user, :foreign_key => 'created_by'
 
   validates_presence_of :user_id, :staff_id, :research_centre_id
 
   validates_uniqueness_of :staff_id
   validates_length_of :staff_id, :in => 5..10
-  validates_numericality_of :staff_id, :user_id, :research_centre_id
+  validates_numericality_of :staff_id, :user_id, :research_centre_id, :loading
+  validates_presence_of :loading, :allow_blank => true, :allow_nil => true
+
+  delegate :name, :email, :to => :user
+  delegate :abbrev, :title, :to => :research_centre, :prefix => :rc
 
 
   # It should be a validation error to have a supervisor with no centre
