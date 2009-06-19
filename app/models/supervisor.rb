@@ -41,21 +41,7 @@ class Supervisor < ActiveRecord::Base
   delegate :name, :email, :to => :user
   delegate :abbrev, :title, :to => :research_centre, :prefix => :rc
 
-
-  # It should be a validation error to have a supervisor with no centre
-  def research_centre_title
-    if self.research_centre
-      return  self.research_centre.title
-    else
-      return "Undefined"
-    end
-  end
-
-  def research_centre_abbrev
-    if self.research_centre
-      return  self.research_centre.abbrev
-    else
-      return "N/A"
-    end
+  def projects
+    return self.user.projects
   end
 end
