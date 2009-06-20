@@ -35,9 +35,21 @@ module TabHelper
 
   def tabs_for_role(role=nil)
     return all_tabs if role == "admin"
-    return order_tabs([:my_account, :coordinate]) if role == "coordinator"
+    if role == "coordinator"
+      if Proman::Config.can_allocate?
+        return order_tabs([:my_account, :coordinate, :project_allocation])
+      else
+        return order_tabs([:my_account, :coordinate])
+      end
+    end
     return order_tabs([:my_account]) if role == "staff"
-    return order_tabs([:my_account,:project_selections]) if role == "student"
+    if role == "student"
+      if Proman::Config.can_select?
+        return order_tabs([:my_account,:project_selections])
+      else
+        return order_tabs([:my_account])
+      end
+    end
     return public_tabs # when user has no roles yet!
   end
 
@@ -50,7 +62,7 @@ module TabHelper
   end
 
   def tab_order
-    [:home, :my_account, :admin, :coordinate, :projects, :project_selections, :contact, :about]
+    [:home, :my_account, :admin, :coordinate, :projects, :project_allocation, :project_selections, :contact, :about]
   end
 
   # Tabs accessible by visitors
@@ -75,6 +87,7 @@ module TabHelper
       :projects => [:projects, "View projects."],
       :admin => [:admin, "Administration tools."],
       :project_selections => [:project_selections, "Select your projects."],
+      :project_allocation => [:project_allocation, "Allocate projects"],
       :my_account => [:my_account, "Go to your account page."]
       }
   end

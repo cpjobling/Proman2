@@ -25,8 +25,18 @@ module Proman
     def self.can_select?
       return @@can_select
     end
+
     def self.can_select=(value)
       @@can_select = value ? true : false
+    end
+
+    @@can_allocate = false
+    def self.can_allocate?
+      return @@can_allocate
+    end
+
+    def self.can_allocate=(value)
+      @@can_allocate = value ? true : false
     end
 
     # Set project selection round

@@ -20,14 +20,18 @@ class TabHelperTest < ActionController::TestCase
 
   fixtures :users, :roles
 
-  Role.find_by_name("staff")
-  
+  def setup
+    @staff = Role.find_by_name("staff")
+    Proman::Config.can_select=true
+    Proman::Config.can_allocate=true
+  end
+
   def test_defaults
     assert_equal [:home, :projects, :contact, :about], public_tabs, "Default tabs was not #{[:home, :projects, :contact, :about]}."
   end
 
   def test_tab_order
-    expected = [:home, :my_account, :admin, :coordinate, :projects, :select_projects, :contact, :about]
+    expected = [:home, :my_account, :admin, :coordinate, :projects, :project_allocation, :project_selections, :contact, :about]
     assert_equal expected, tab_order, "Tab order was not #{expected}"
   end
 
@@ -66,7 +70,7 @@ class TabHelperTest < ActionController::TestCase
   end
 
   def test_coordinator_tabs
-    expect = [:home, :my_account, :coordinate, :projects, :contact, :about]
+    expect = [:home, :my_account, :coordinate, :projects, :project_allocation, :contact, :about]
     assert_equal expect, tabs_for_role("coordinator"), "Expected coordinator's tabs"
   end
 
@@ -76,12 +80,34 @@ class TabHelperTest < ActionController::TestCase
   end
 
   def test_student_tabs
-    expect = [:home, :my_account, :projects, :select_projects, :contact, :about]
+    expect = [:home, :my_account, :projects, :project_selections, :contact, :about]
     assert_equal expect, tabs_for_role("student"), "Expected student's tabs"
   end
 
   def test_public_tabs
     expect = public_tabs
     assert_equal expect, tabs_for_role(), "Expected public tabs"
+  end
+
+  context "can't select projects" do
+    setup do
+      Proman::Config.can_select=false
+    end
+
+    should "not have select projects tab" do
+      expect = [:home, :my_account, :projects, :contact, :about]
+      assert_equal expect, tabs_for_role("student"), "Expected student's tabs"
+    end
+  end
+
+  context "can't allocate projects" do
+    setup do
+      Proman::Config.can_allocate=false
+    end
+
+    should "not have allocate projects tab" do
+      expect = [:home, :my_account, :coordinate, :projects, :contact, :about]
+      assert_equal expect, tabs_for_role("coordinator"), "Expected coordinator's tabs"
+    end
   end
 end
