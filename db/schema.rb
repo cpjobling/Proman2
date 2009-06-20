@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090619145008) do
+ActiveRecord::Schema.define(:version => 20090620092503) do
 
   create_table "allocation_round", :id => false, :force => true do |t|
     t.integer  "round",      :default => 0

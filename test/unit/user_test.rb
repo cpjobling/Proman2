@@ -109,6 +109,17 @@ class UserTest < ActiveSupport::TestCase
     assert users(:quentin).remember_token_expires_at.between?(before, after)
   end
 
+  should_have_one :student, :dependent => :destroy
+  #accepts_nested_attributes_for :student, :allow_destroy => true
+
+  should_have_one :supervisor, :dependent => :destroy
+  #accepts_nested_attributes_for :supervisor, :allow_destroy => true
+
+  should_have_many :projects, :dependent => :nullify
+
+  should_have_and_belong_to_many :roles
+
+
 protected
   def create_user(options = {})
     record = User.new({

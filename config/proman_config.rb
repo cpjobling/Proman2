@@ -21,7 +21,7 @@ module Proman
     # Settings
 
     # Enable project selection
-    @@can_select = true
+    @@can_select = false
     def self.can_select?
       return @@can_select
     end

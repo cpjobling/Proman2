@@ -1,21 +1,3 @@
-<%#
-#  Copyright 2009 Swansea University.
-# 
-#  Licensed under the Apache License, Version 2.0 (the "License");
-#  you may not use this file except in compliance with the License.
-#  You may obtain a copy of the License at
-# 
-#       http://www.apache.org/licenses/LICENSE-2.0
-# 
-#  Unless required by applicable law or agreed to in writing, software
-#  distributed under the License is distributed on an "AS IS" BASIS,
-#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-#  See the License for the specific language governing permissions and
-#  limitations under the License.
-#  under the License.
-# See Recipe 69: Custom Maintenance Page, in Advanced Rails Recipes.
-%>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!--
  Copyright 2009 Swansea University
@@ -34,56 +16,296 @@
 -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-GB">
 <head>
-  <title>Proman^&beta; &ndash; Temporarily Offline</title>
-  <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
-  <meta name="description" content="Management tool for University Undergraduate Dissertation Projects, Developed in the School of Engineering, Swansea University." />
-  <meta name="keywords" content="Swansea, University, EG-353, Projects, School of Engineering, Open Source, Ruby on Rails" />
-  <meta name="robots" content="index, follow" />
-  <meta name="Author" content="Nicolay Parashkevanov">
-  <meta name="Author" content="Dr Chris P. Jobling">
-  <meta http-equiv="Content-Language" content="en-gb">
-  <meta http-equiv="Pragma" content="no-cache">
-  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <title>Proman^&beta; &ndash; Temporarily Offline</title>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <meta name="description" content="Management tool for University Undergraduate Dissertation Projects, Developed in the School of Engineering, Swansea University." />
+    <meta name="keywords" content="Swansea, University, EG-353, Projects, School of Engineering, Open Source, Ruby on Rails" />
+    <meta name="robots" content="index, follow" />
+    <meta name="Author" content="Nicolay Parashkevanov" />
+    <meta name="Author" content="Dr Chris P. Jobling" />
+    <meta http-equiv="Content-Language" content="en-gb" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <style type="text/css">
+        <!--
+        body { background-color: #fff; color: #333; }
+
+        body, p, ol, ul, td {
+            font-family: verdana, arial, helvetica, sans-serif;
+            font-size:   13px;
+            line-height: 18px;
+        }
+
+        pre {
+            background-color: #eee;
+            padding: 10px;
+            font-size: 11px;
+        }
+
+        a { color: #000; }
+        a:visited { color: #666; }
+        a:hover { color: #fff; background-color:#000; }
+
+        .fieldWithErrors {
+            padding: 2px;
+            background-color: red;
+            display: table;
+        }
+
+        #errorExplanation {
+            width: 400px;
+            border: 2px solid red;
+            padding: 7px;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            background-color: #f0f0f0;
+        }
+
+        #errorExplanation h2 {
+            text-align: left;
+            font-weight: bold;
+            padding: 5px 5px 5px 15px;
+            font-size: 12px;
+            margin: -7px;
+            background-color: #c00;
+            color: #fff;
+        }
+
+        #errorExplanation p {
+            color: #333;
+            margin-bottom: 0;
+            padding: 5px;
+        }
+
+        #errorExplanation ul li {
+            font-size: 12px;
+            list-style: square;
+        }
+
+        .odd {
+            background-color: #EEE;
+        }
+
+        .even {
+            background-color: #CCC;
+        }
+
+        .warning {
+            color: red;
+            font-weight: bold;
+        }
+
+        /* Based on the Perfect 3 Column Liquid Layout by Matthew James Taylor.
+        http://matthewjamestaylor.com/blog/perfect-multi-column-liquid-layouts
+        */
+
+        /* General styles */
+        body {
+            margin:0;
+            padding:0;
+            border:0;			/* This removes the border around the viewport in old versions of IE */
+            width:100%;
+            background:#fff;
+            min-width:600px;		/* Minimum width of layout - remove line if not required */
+            /* The min-width property does not work in old versions of Internet Explorer */
+            font-size:90%;
+        }
+        a {
+            color:#369;
+        }
+        a:hover {
+            color:#fff;
+            background:#369;
+            text-decoration:none;
+        }
+        h1, h2, h3 {
+            margin:.8em 0 0.8em 0;
+            padding:0;
+        }
+        p {
+            margin:.4em 0 .8em 0;
+            padding:0;
+        }
+        img {
+            margin:10px 0 5px;
+        }
+        /* Header styles */
+        #header {
+            clear:both;
+            float:left;
+            width:100%;
+        }
+        #header {
+            border-bottom:1px solid #000;
+        }
+        #header p,
+        #header h1,
+        #header h2 {
+            padding:.4em 15px 0 15px;
+            margin:0;
+        }
+        #header ul {
+            clear:left;
+            float:left;
+            width:100%;
+            list-style:none;
+            margin:10px 0 0 0;
+            padding:0;
+        }
+        #header ul li {
+            display:inline;
+            list-style:none;
+            margin:0;
+            padding:0;
+        }
+        #header ul li a {
+            display:block;
+            float:left;
+            margin:0 0 0 1px;
+            padding:3px 10px;
+            text-align:center;
+            background:#eee;
+            color:#000;
+            text-decoration:none;
+            position:relative;
+            left:15px;
+            line-height:1.3em;
+        }
+        #header ul li a:hover {
+            background:#369;
+            color:#fff;
+        }
+        #header ul li.current a,
+        #header ul li.current a:hover {
+            color:#fff;
+            background:#000;
+            font-weight:bold;
+        }
+        #header ul li a span {
+            display:block;
+        }
+        /* 'menu' sub menu */
+        .menu {
+            clear:both;
+            background:#eee;
+            border-top:4px solid #000;
+            margin:0;
+            padding:6px 15px !important;
+            text-align:right;
+        }
+
+        /* column container */
+        .colmask {
+            position:relative;	/* This fixes the IE7 overflow hidden bug */
+            clear:both;
+            float:left;
+            width:100%;			/* width of whole page */
+            overflow:hidden;	/* This chops off any overhanging divs */
+        }
+        /* common column settings */
+        .colright,
+        .colmid,
+        .colleft {
+            float:left;
+            width:100%;			/* width of page */
+            position:relative;
+        }
+        .col1,
+        .col2,
+        .col3 {
+            float:left;
+            position:relative;
+            padding:0 0 1em 0;	/* no left and right padding on columns, we just make them narrower instead
+            only padding top and bottom is included here, make it whatever value you need */
+            overflow:hidden;
+        }
+        /* 3 Column settings */
+        .threecol {
+            background:#eee;		/* right column background colour */
+        }
+        .threecol .colmid {
+            right:25%;			/* width of the right column */
+            background:#fff;		/* center column background colour */
+        }
+        .threecol .colleft {
+            right:65%;			/* width of the middle column */
+            background:#f4f4f4;	/* left column background colour */
+        }
+        .threecol .col1 {
+            width:61%;			/* width of center column content (column width minus padding on either side) */
+            left:102%;			/* 100% plus left padding of center column */
+        }
+        .threecol .col2 {
+            width:6%;			/* Width of left column content (column width minus padding on either side) */
+            left:31%;			/* width of (right column) plus (center column left and right padding) plus (left column left padding) */
+        }
+        .threecol .col3 {
+            width:21%;			/* Width of right column content (column width minus padding on either side) */
+            left:100%;			/* Please make note of the brackets here:
+            (100% - left column width) plus (center column left and right padding) plus (left column left and right padding) plus (right column left padding) */
+        }
+        /* Footer styles */
+        #footer {
+            clear:both;
+            float:left;
+            width:100%;
+            border-top:1px solid #000;
+        }
+        #footer p {
+            padding:10px;
+            margin:0;
+        }
+
+        div.dialog {
+            width: 25em;
+            padding: 0 4em;
+            margin: 4em auto 0 auto;
+            border: 1px solid #ccc;
+            border-right-color: #999;
+            border-bottom-color: #999;
+        }
+        -->
+    </style>
 </head>
 <body>
-  <div id="header">
-    <h1><span class="logo"><%= proman %></span></h1>
+<div id="header">
+    <h1><span class="logo">Proman<sup>&beta;</sup></span></h1>
     <h2>
-      Temporarily Offline
+        Temporarily Offline
     </h2>
-  </div>
+</div>
 
-  <div class="colmask threecol">
-    <div class="colmid">
-      <div class="colleft">
-        <div class="col1">
-          <!-- Column 1 start -->
-          <h2>We're currently offline for <%= reason ? reason : "maintenance" %>
-          as of <%= Time.now.strftime('%I:%M %p %Z') %></h2>
-          <p>Sorry for the inconvenience. We'll be back
-            <%= deadline ? "by #{deadline}" : "shortly" %>.
-            Please <a href="mailto:C.P.Jobling@Swansea.ac.uk">e-mail us</a> if
-          you need to get in touch.</p>
-          <!-- Column 1 end -->
-        </div>
-        <div class="col2">
-          <!-- Column 2 start -->
+<div class="colmask threecol">
+<div class="colmid">
+<div class="colleft">
+<div class="col1">
+<!-- Column 1 start -->
+<div class="dialog"><p><strong>We're currently offline for <%= reason ? reason : "maintenance" %>
+as of <%= Time.now.strftime('%I:%M %p %Z') %></strong></p>
+<p>Sorry for the inconvenience. We'll be back
+    <%= deadline ? "by #{deadline}" : "shortly" %>.
+    Please <a href="mailto:C.P.Jobling@Swansea.ac.uk">e-mail us</a> if
+you need to get in touch.</p></div>
+<!-- Column 1 end -->
+</div>
+<div class="col2">
+    <!-- Column 2 start -->
 
             <!-- Column 2 end -->
-        </div>
-        <div class="col3">
-          <!-- Column 3 start -->
-          <h3>Back soon!</h3>
-          <!-- Column 3 end -->
-        </div>
-      </div>
-    </div>
-  </div>
-  <div id="footer">
-    <p>
-      <em>Managing EG-353 Research Projects since 2009!</em>
+</div>
+<div class="col3">
+    <!-- Column 3 start -->
+    <h3>Back soon!</h3>
+    <!-- Column 3 end -->
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+        <blockquote>&ldquo;<em>Like Sisyphus, our work is never done;<br />
+        Continually rolls back the restless stone.</em>&rdquo;</blockquote><p>Stephen Duck 1705&mdash;56</p>
     </p>
-    <p style="font-size: xx-small; text-align: center;">Copyright &copy; 2009 <a href="http://www.swansea.ac.uk" target="_new">Swansea University</a>. All Rights Reserved.</p>
-  </div>
+    <p style="font-size: xx-small; text-align: center;">Copyright &copy; 2009 <a href="http://www.swansea.ac.uk">Swansea University</a>. All Rights Reserved.</p>
+</div>
 </body>
 </html>

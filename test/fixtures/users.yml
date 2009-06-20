@@ -139,7 +139,7 @@ coordinator:
     initials: C.
     last_name: O'dinated
     known_as: Ready 4 N.E. Thing
-    roles: coordinator
+    roles: staff, coordinator
 
 # A real staff member (Dr Jobling is Module Coordinator)!
 # Obviously this is not the password that is in production!

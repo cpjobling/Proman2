@@ -100,23 +100,9 @@ class UserDetailsTest < ActiveSupport::TestCase
     assert !user.save, "should not validate"
   end
 
-  #  def test_unique_staff_or_student_number
-  #  	user = User.new(:login => "newuser",
-  #  		:email => users(:student).email,
-  #  		:first_name => "Lillian",
-  #  		:last_name => "Gish",
-  #  		:staff_or_student_number =>
-  #  		         users(:coordinator).staff_or_student_number,
-  #  		:password => "test",
-  #  		:password_confirmation => "test")
-  #
-  #  	assert !user.save
-  #  	assert_equal "has already been taken",
-  #  	        user.errors.on(:staff_or_student_number)
-  #  end
 
   def test_new_user_has_no_role_assigned
-    guest = users(:test)
+    guest = users(:no_role_user)
 
     roles = Role.find(:all)
     roles.each do |role|

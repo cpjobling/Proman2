@@ -97,6 +97,7 @@ set :db_password, "0TFLMf53"
 #   The authenticity of host '#{domain} (...)' can't be established.
 #   RSA key fingerprint is ...
 #   Are you sure you want to continue connecting (yes/no)? yes
+
 namespace :deploy do
   namespace :web do
 
