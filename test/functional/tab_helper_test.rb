@@ -31,7 +31,7 @@ class TabHelperTest < ActionController::TestCase
   end
 
   def test_tab_order
-    expected = [:home, :my_account, :admin, :coordinate, :projects, :project_allocation, :project_selections, :contact, :about]
+    expected = [:home, :my_account, :admin, :coordinate, :projects, :project_allocations, :project_selections, :contact, :about]
     assert_equal expected, tab_order, "Tab order was not #{expected}"
   end
 
@@ -70,7 +70,7 @@ class TabHelperTest < ActionController::TestCase
   end
 
   def test_coordinator_tabs
-    expect = [:home, :my_account, :coordinate, :projects, :project_allocation, :contact, :about]
+    expect = [:home, :my_account, :coordinate, :projects, :contact, :about]
     assert_equal expect, tabs_for_role("coordinator"), "Expected coordinator's tabs"
   end
 

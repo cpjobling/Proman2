@@ -20,6 +20,7 @@ ActionController::Routing::Routes.draw do |map|
   end
   # Restful routes
   map.resources :project_selections, :has_many => :selected_projects
+  map.resources :project_allocations
 
 
 
