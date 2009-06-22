@@ -2,11 +2,12 @@ require 'test_helper'
 
 class ProjectSelectionsControllerTest < ActionController::TestCase
 
-  fixtures :users, :students, :disciplines, :projects
+  fixtures :users, :students, :disciplines, :projects, :status_settings
 
   def setup
     Proman::Config.current_selection_round = 1
-    Proman::Config.can_select = true
+    @status = Status.find(1)
+    @status.status_setting = status_settings
     @student1 = students(:student1)
     @student2 = students(:student2)
     login_as @student1.user
@@ -72,7 +73,7 @@ class ProjectSelectionsControllerTest < ActionController::TestCase
     login_as @student2.user # owns PS 2
     # attempt to access original user's project selection
     get :show, :id => project_selections(:one).to_param
-    #assert_equal "You are not permitted to access another student's project selection. This access attempt has been logged.", flash[:notice]
+    assert_equal "You are not permitted to access another student's project selection. This access attempt has been logged.", flash[:notice]
     assert_redirected_to :action => "index"
   end
 

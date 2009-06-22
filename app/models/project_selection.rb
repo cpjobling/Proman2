@@ -27,4 +27,7 @@
 class ProjectSelection < ActiveRecord::Base
   has_many :selected_projects, :order => :position, :dependent => :delete_all
   belongs_to :student
+  validates_presence_of :student_id, :round
+  validates_numericality_of :student_id, :round 
+  attr_readonly :student_id, :round
 end
