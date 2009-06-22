@@ -17,13 +17,13 @@
 
 <% title "Set status" %>
 
-<% if @current_setting %>
+<% if @status.code %>
   <fieldset><legend>Current setting</legend>
     <h3>Code</h3>
-    <p> <%= @current_setting.code %></p>
-    <h3>Message</h3><%= textilize(@current_setting.message) %>
-    <h3>Default permissions</h3><p><code><%= @current_setting.default_permissions %></code> (<%= @current_setting.default_permissions.to_octal %>)
-    <%= render(:partial => "other_settings", :locals => { :setting => @current_setting }) %>
+    <p> <%= @status.code %></p>
+    <h3>Message</h3><%= textilize(@status.message) %>
+    <h3>Default permissions</h3><p><code><%= @status.default_permissions %></code> (<%= @status.default_permissions.to_octal %>)
+    <%= render(:partial => "other_settings", :locals => { :setting => @status }) %>
   </fieldset>
 <% else %>
   <p>Currrent status undefined.</p>
@@ -37,8 +37,8 @@
           <th>Code</th><th>Message</th><th>Default permissions</th><th>Select</th>
         </tr>
       </thead>
-      <% @settings.each do |setting| %>
-        <tbody>
+      <tbody>
+        <% @settings.each do |setting| %>
           <tr class="<%=  cycle('odd', 'even') %>">
             <td>
               <%=  setting.code %>
@@ -49,10 +49,16 @@
             <td>
               <%= setting.default_permissions.to_s %>
             </td>
-            <td><%= f.radio_button :status_setting, setting.id %></td>
+            <td>
+              <% if setting.code == @status.code %>
+                <%= f.radio_button :status_setting, setting.id, :checked => true %>
+              <% else %>
+                <%= f.radio_button :status_setting, setting.id %>
+              <% end %>
+            </td>
           </tr>
-        </tbody>
-      <%  end %>
+        <%  end %>
+      </tbody>
     </table>
     <p>
     <p><%= f.submit 'Update' %> <%= link_to 'Cancel', admin_status_settings_path %></p>

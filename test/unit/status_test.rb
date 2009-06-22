@@ -32,8 +32,11 @@ class StatusTest < ActiveSupport::TestCase
       assert_equal @setting.title,        @status.title
       assert_equal @setting.message,      @status.message
       assert_equal @setting.permissions,  @status.permissions
+      assert_equal @setting.default_permissions, @status.default_permissions
+      assert_equal @setting.octal_permissions, @status.octal_permissions
       assert_equal @setting.can_select,   @status.can_select
       assert_equal @setting.can_allocate, @status.can_allocate
+      assert_equal @setting.selection_round, @status.selection_round
     end
   end
 end

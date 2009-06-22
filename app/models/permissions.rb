@@ -94,4 +94,10 @@ class Permissions
   def to_octal
     return '%05o' % self.permissions
   end
+
+  def ==(other)
+    return false unless other.class == Permissions
+    return false if other.nil?
+    return self.permissions == other.permissions
+  end
 end

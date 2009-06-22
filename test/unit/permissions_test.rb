@@ -182,4 +182,12 @@ class PermissionsTest < Test::Unit::TestCase
     assert_equal '50000', Permissions.new(050000).to_octal
   end
 
+  def test_equals
+    perm1 = Permissions.new(076543)
+    perm2 = Permissions.new(076543)
+    assert_equal perm1, perm2
+    assert_not_equal perm1, Permissions.new(076542)
+    assert_not_equal perm1, nil
+    assert_not_equal perm1, 076543
+  end
 end
