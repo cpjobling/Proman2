@@ -55,6 +55,14 @@ class StatusSetting < ActiveRecord::Base
     return self.default_permissions.to_octal
   end
 
+  def can_select?
+    return can_select
+  end
+
+  def can_allocate?
+    return can_allocate
+  end
+
   #validates_presence_of :permissions
   #validates_inclusion_of :permissions, :in => 0..32767, :message => "should be five octal digits, e.g. 765432"
 

@@ -17,16 +17,16 @@
 class ProjectSelectionsController < ApplicationController
 
   require_role "student"
-  before_filter :can_select_projects
+  before_filter :get_status
+  before_filter :can_select_projects?
+  before_filter :current_selection_round
   before_filter :find_student_and_project_selection
   before_filter :verify_ownership, :only => [:show, :edit, :update]
-  layout "help", :only => :help
   current_tab :project_selections
 
   # GET /project_selections
   # GET /project_selections.xml
   def index
-
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @project_selection }
@@ -42,7 +42,12 @@ class ProjectSelectionsController < ApplicationController
   # GET /project_selections/new
   # GET /project_selections/new.xml
   def new
-    #redirect_to project_selections_url
+    @project_selection = ProjectSelection.create(:student => @student, :round => current_selection_round)
+    @projects = projects_suitable_for_student
+    respond_to do |format|
+      format.html # new.html.erb
+      format.xml  { render :xml => @project }
+    end
   end
   
   # GET /project_selections/1/edit
@@ -89,10 +94,6 @@ class ProjectSelectionsController < ApplicationController
 
   def find_student_and_project_selection
     @student = current_user.student
-    unless @student.project_selection
-      # Haven't yet got a project-selection record
-      @student.project_selection = ProjectSelection.create(:student => @student, :round => current_selection_round)
-    end
     @project_selection = @student.project_selection
   end
 
@@ -106,15 +107,15 @@ class ProjectSelectionsController < ApplicationController
     end
   end
 
-  def can_select_projects
-    unless Proman::Config.can_select?
+  def can_select_projects?
+    unless @status.can_select?
       flash[:notice] = "Project selection is not enabled at this time."
       redirect_to :controller => "projects", :action => "index"
     end
   end
 
   def current_selection_round
-    return Proman::Config.current_selection_round
+    @selection_round = @status.selection_round || 1
   end
 
   def projects_suitable_for_student
@@ -132,4 +133,9 @@ class ProjectSelectionsController < ApplicationController
       redirect_to(:action => 'index')
     end
   end
+
+  def get_status
+    @status = Status.find(1)
+  end
+
 end

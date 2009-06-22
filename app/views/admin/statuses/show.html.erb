@@ -19,7 +19,7 @@
 
 <% if @status.code %>
   <h3>Code</h3><p> <%= @status.code %></p>
-  <h3>Message</h3><%= textilize(setting.message) %>
+  <h3>Message</h3><%= textilize(@status.message) %>
   <h3>Default permissions</h3><p><code><%= @status.default_permissions %></code> (<%= @status.octal_permissions %>)
   <%= render(:partial => "other_settings", :locals => { :setting => @status }) %>
   <p><%= link_to "Change status", edit_admin_status_path(@status) %></p>

@@ -29,7 +29,7 @@ dp01a:
 
 dp01b:
   project_id: 1
-  discipline_id: 1
+  discipline_id: 9
 
 dp02a:
   project_id: 2
@@ -45,7 +45,7 @@ dp03a:
 
 dp03b:
   project_id: 3
-  discipline_id: 1
+  discipline_id: 9
 
 dp04a:
   project_id: 4
@@ -57,7 +57,7 @@ dp04b:
 
 dp05a:
   project_id: 5
-  discipline_id: 1
+  discipline_id: 9
 
 dp05b:
   project_id: 5
@@ -65,7 +65,7 @@ dp05b:
 
 dp06a:
   project_id: 6
-  discipline_id: 1
+  discipline_id: 9
 
 dp06b:
   project_id: 6
@@ -85,7 +85,7 @@ dp07b:
 
 dp08a:
   project_id: 8
-  discipline_id: 1
+  discipline_id: 9
     
 dp08b:
   project_id: 8
@@ -105,7 +105,7 @@ dp09b:
 
 dp10:
   project_id: 10
-  discipline_id: 1
+  discipline_id: 9
 
 dp10:
   project_id: 10
@@ -113,7 +113,7 @@ dp10:
 
 dp11a:
   project_id: 11
-  discipline_id: 1
+  discipline_id: 9
 
 dp11a:
   project_id: 11
@@ -129,7 +129,7 @@ dp12a:
 
 dp13a:
   project_id: 13
-  discipline_id: 1
+  discipline_id: 9
 
 dp13b:
   project_id: 13
@@ -149,7 +149,7 @@ dp15a:
 
 dp15b:
   project_id: 15
-  discipline_id: 1
+  discipline_id: 9
 
 dp15c:
   project_id: 15

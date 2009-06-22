@@ -11,8 +11,28 @@
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-# one:
-#   column: value
-#
-# two:
-#   column: value
+s1_p1:
+  project_selection: one
+  position: 1
+  project: project1
+  
+s1_p2:
+  project_selection: one
+  position: 2
+  project: project2
+
+s1_p3:
+  project_selection: one
+  position: 3
+  project: project3
+
+s1_p4:
+  project_selection: one
+  position: 4
+  project: project4
+
+s1_p5:
+  project_selection: one
+  position: 5
+  project: project5
+

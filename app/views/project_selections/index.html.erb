@@ -1,27 +1,27 @@
-<% title "Your project selections" %>
-<p>Welcome <%= @student.user.name.informally %>.</p>
+<% title "Your round #{@status.selection_round} project selections" %>
+<p>Welcome <%= @student.name.informally %>.</p>
 
-<p><% if @project_selection %>
-    <% if  @project_selection.selected_projects.empty? %>
-      <p>Your project selection is empty. Do you want to <%= link_to "add some projects", edit_project_selection_path(@project_selection) %>?</p>
-    <% else %>
-      <table id="projects" class="tablesorter">
-        <thead>
-          <th>Rank</th>
-          <th>Title</th>
-          <th>Supervisor</th>
-          <th>Centre</th>
-        </thead>
-        <tbody>
-          <%= render(:partial => "selected_project_index", :collection => @project_selection.selected_projects) %>
-        </tbody>
-      </table>
-      <p>
+<% if @project_selection.nil? %>
+    <p id="projects">You do not yet have a round <%=  @selection_round %> project selection.  You should <%= link_to "create a new project selection", new_project_selection_path   %> now!</p>
+  <% else %>
+  <% if  @project_selection.selected_projects.empty? %>
+    <p id="projects">Your round <%=  @selection_round %> project selection list is empty. Do you want to <%= link_to "add some projects", new_project_selection_path %>?</p>
+  <% else %>
+    <table id="projects" class="tablesorter">
+      <thead>
+        <th>Rank</th>
+        <th>Title</th>
+        <th>Supervisor</th>
+        <th>Centre</th>
+      </thead>
+      <tbody>
+        <%= render(:partial => "selected_project_index", :collection => @project_selection.selected_projects) %>
+      </tbody>
+    </table>
+    <p>
       <%= link_to 'Rank your project selections', project_selection_selected_projects_path(@project_selection) %>|
       <%= link_to "Add some more projects", edit_project_selection_path(@project_selection) %> |
-      <%= link_to "Start over", delete_project_selection_path(@project_selection) %>.</p>
+      <%= link_to "Start over", project_selection_path(@project_selection), :confirm => 'Are you sure?', :method => :delete %>.
     </p>
   <% end %>
-<% else %>
-  <p>Create a new project selection shortlist: <%= link_to "new project selection", new_project_selection_path   %>
 <% end %>

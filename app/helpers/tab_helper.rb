@@ -36,7 +36,7 @@ module TabHelper
   def tabs_for_role(role=nil)
     return all_tabs if role == "admin"
     if role == "coordinator"
-      if Proman::Config.can_allocate?
+      if can_allocate?
         return order_tabs([:my_account, :coordinate, :project_allocation])
       else
         return order_tabs([:my_account, :coordinate])
@@ -44,7 +44,7 @@ module TabHelper
     end
     return order_tabs([:my_account]) if role == "staff"
     if role == "student"
-      if Proman::Config.can_select?
+      if can_select?
         return order_tabs([:my_account,:project_selections])
       else
         return order_tabs([:my_account])

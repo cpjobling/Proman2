@@ -66,4 +66,14 @@ module ApplicationHelper
   def unless_in_beta?
     yield unless in_beta?
   end
+
+  def can_allocate?
+    status = Status.find(1)
+    return status.can_allocate?
+  end
+
+  def can_select?
+    status = Status.find(1)
+    return status.can_select?
+  end
 end

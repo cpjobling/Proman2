@@ -27,7 +27,7 @@
   </td>
   <td title="<%=  project.centre_title %>"><%= project.centre_abbrev %></td>
   <td><input type="checkbox" id="project_selection_<%= project.id %>" name="project_selection[project_ids][]" value="<%=  project.id %>"
-    <% if selected_projects.include?(project.id) %>
+    <% if selection.include?(project.id) %>
       checked="checked"
     <% end %> /></td>
 </tr>

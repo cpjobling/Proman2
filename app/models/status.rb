@@ -28,5 +28,5 @@ class Status < ActiveRecord::Base
   belongs_to :status_setting
 
   delegate :code, :title, :message, :permissions, :default_permissions, :octal_permissions,
-    :can_select, :can_allocate, :selection_round, :to => :status_setting
+    :can_select?, :can_allocate?, :selection_round, :to => :status_setting
 end

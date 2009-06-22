@@ -5,32 +5,139 @@ class ProjectSelectionsControllerTest < ActionController::TestCase
   fixtures :users, :students, :disciplines, :projects, :status_settings
 
   def setup
-    Proman::Config.current_selection_round = 1
-    @status = Status.find(1)
-    @status.status_setting = status_settings
     @student1 = students(:student1)
     @student2 = students(:student2)
-    login_as @student1.user
+    @student3 = students(:student3)
+    @student4 = students(:student4)
+    @student5 = students(:student5)
   end
 
-  def test current_round
-    assert_equal 1, current_selection_round
-  end
+  context "In a selection round" do
+    setup do
+      selection_round_one
+      login_as @student5.user
+    end
 
-  test "doesn't allow selection when selection turned off then on" do
-    Proman::Config.can_select = false
-    get :index
-    assert_response 302, "Expected error for action => :index"
-    Proman::Config.can_select = true
-    get :index
-    assert_response 200
-  end
+    should "be selection round 1" do
+      assert_equal 1, @status.selection_round
+    end
 
-  test "before_filter can_select_projects" do
-    Proman::Config.can_select = false
-    get :index
-    assert_equal "Project selection is not enabled at this time.", flash[:notice]
-    assert_redirected_to projects_path, "Should redirect to projects index"
+    context "index when student 5 has no project selection" do
+      setup { get :index }
+      should_assign_to :status
+      should_assign_to :student
+      should_assign_to :selection_round
+      should_render_template :index
+      should_not_set_the_flash
+      should_respond_with :success
+    
+      should "initially have no projects" do
+        assert_select "p#projects", :text => /You do not yet have a round 1 project selection./
+      end
+
+      should "page title and header contain the selection round" do
+        assert_select "title", :text => /[R|r]ound 1/
+        assert_select "h2", :text => /[R|r]ound 1/
+      end
+
+      should "have a link to create ps" do
+        url = new_project_selection_path
+        assert_select "p#projects a[href=#{url}]", :text => /create a new project selection/
+      end
+    end
+
+    context "index when student 5 has an empty project selection" do
+      setup do
+        @student5.project_selection = ProjectSelection.new(:student => @student5, :round => @status.selection_round)
+        get :index
+      end
+
+      should "initially have an empty project selection" do
+        assert_select "p#projects", :text => /.*empty.* add some projects/
+      end
+
+      should "page title and header contain the selection round" do
+        assert_select "title", :text => /[R|r]ound 1/
+        assert_select "h2", :text => /[R|r]ound 1/
+      end
+
+      should "have a link to add projects" do
+        url = new_project_selection_path
+        assert_select "p#projects a[href=#{url}]", :text => /add some projects/
+      end
+    end
+
+    context "index when student 5 has a project selection" do
+      setup do
+        @student5.project_selection = ProjectSelection.new(:student => @student5, :round => @status.selection_round)
+        SelectedProject.create(:project_selection => @student5.project_selection, :project => projects(:project1))
+        get :index
+      end
+
+      should "have a table" do
+        assert_select "table#projects"
+      end
+
+      should "have a link to edit project selection" do
+        url = edit_project_selection_path(assigns(:project_selection))
+        assert_select "p a[href=#{url}]", :text => /Add some more projects/
+      end
+
+      should "have a link to rank project selection" do
+        url = project_selection_selected_projects_path(assigns(:project_selection))
+        assert_select "p a[href=#{url}]", :text => /Rank your project selections/
+      end
+
+      should "have a link to start over" do
+        url = project_selection_path(assigns(:project_selection))
+        assert_select "p a[href=#{url}]", :text => /Start over/
+      end
+    end
+
+    context "new project selection" do
+      setup { get :new }
+      should_assign_to :status
+      should_assign_to :student
+      should_assign_to :selection_round
+      should_render_template :new
+      should_not_set_the_flash
+      should_respond_with :success
+    end
+
+    context "show page" do
+      setup { get :index }
+      should "initially have no projects" do
+        assert_select "p#projects", :text => /Your round 1 project selection list is empty./
+      end
+
+      should "contain the selection round" do
+        assert_select "h2", :text => /[R|r]ound 1/
+      end
+
+      should "have a link to edit ps 1" do
+        url = new_project_selection_path
+        assert_select "p#projects a[href=#{url}]", :text => /add some projects/
+      end
+    end
+    
+  end
+  context "In an allocation round" do
+
+    setup do
+      allocation_round_one
+    end
+
+    should "be selection round 1" do
+      assert_equal 1, @status.selection_round
+    end
+
+    context "request rejected by before_filter can_select_projects" do
+      setup { get :index }
+      should_assign_to :status
+      should_respond_with 302
+      should_set_the_flash_to "Project selection is not enabled at this time."
+      should_redirect_to "projects_path"
+    end
   end
 
   test "before_filter find_student_and_project_selection assigns a student" do
@@ -123,5 +230,19 @@ class ProjectSelectionsControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to project_selections_path
+  end
+
+  private
+
+  def selection_round_one
+    @status = Status.find(1)
+    @status.status_setting = status_settings(:selection1)
+    @status.save
+  end
+
+  def allocation_round_one
+    @status = Status.find(1)
+    @status.status_setting = status_settings(:allocation1)
+    @status.save
   end
 end
