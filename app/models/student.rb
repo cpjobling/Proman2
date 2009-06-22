@@ -1,15 +1,16 @@
 # == Schema Information
-# Schema version: 20090619105901
+# Schema version: 20090621110215
 #
 # Table name: students
 #
-#  id            :integer         not null, primary key
-#  user_id       :integer
-#  grade         :decimal(, )
-#  discipline_id :integer
-#  student_id    :string(255)
-#  created_at    :datetime
-#  updated_at    :datetime
+#  id             :integer         not null, primary key
+#  user_id        :integer
+#  grade          :decimal(, )
+#  discipline_id  :integer
+#  student_id     :string(255)
+#  created_at     :datetime
+#  updated_at     :datetime
+#  board_decision :string(255)
 #
 
 # Copyright 2009 Swansea University

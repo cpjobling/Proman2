@@ -19,12 +19,13 @@
 
 <% setting = @status.status_setting %>
 <% if setting %>
-<h3>Code</h3><p> <%= setting.code %></p>
-<h3>Message</h3><%= textilize(setting.message) %>
-<h3>Default permissions</h3><p><code><%= setting.default_permissions %></code> (<%= setting.default_permissions.to_octal %>)
-<p><%= link_to "Change status", edit_admin_status_path(@status) %></p>
+  <h3>Code</h3><p> <%= setting.code %></p>
+  <h3>Message</h3><%= textilize(setting.message) %>
+  <h3>Default permissions</h3><p><code><%= setting.default_permissions %></code> (<%= setting.default_permissions.to_octal %>)
+  <%= render(:partial => "other_settings", :locals => { :setting => setting }) %>
+  <p><%= link_to "Change status", edit_admin_status_path(@status) %></p>
 <% else %>
-<p>Status undefined. <%= link_to "Set status?", edit_admin_status_path(@status) %></p>
+  <p>Status undefined. <%= link_to "Set status?", edit_admin_status_path(@status) %></p>
 <% end %>
 
 <%= link_to 'Back', admin_status_settings_path %>

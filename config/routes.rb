@@ -22,9 +22,6 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :project_selections, :has_many => :selected_projects
   map.resources :project_allocations
 
-
-
-
   map.connect 'projects/by_supervisor',
     :conditions => { :method => :get },
     :controller => "projects",

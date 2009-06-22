@@ -1,16 +1,18 @@
 # == Schema Information
-# Schema version: 20090619105901
+# Schema version: 20090621110215
 #
 # Table name: status_settings
 #
-#  id          :integer         not null, primary key
-#  code        :integer
-#  title       :string(255)
-#  message     :text
-#  permissions :integer         default(28672)
-#  integer     :integer         default(28672)
-#  created_at  :datetime
-#  updated_at  :datetime
+#  id              :integer         not null, primary key
+#  code            :integer
+#  title           :string(255)
+#  message         :text
+#  permissions     :integer         default(28672)
+#  created_at      :datetime
+#  updated_at      :datetime
+#  can_select      :boolean
+#  can_allocate    :boolean
+#  selection_round :integer         default(0)
 #
 
 #  Copyright 2009 Swansea University.
@@ -39,11 +41,19 @@ class StatusSetting < ActiveRecord::Base
   ],
   :allow_nil => false
 
-  validates_presence_of :code
+  validates_presence_of :code, :message, :title, :permissions, :selection_round
   validates_uniqueness_of :code
-  validates_numericality_of :code
-  
-  validates_presence_of :message
+  validates_numericality_of :code, :permissions, :selection_round
+
+
+  def octal_permissions=(octal_permissions)
+    decimal_permissions = Permissions.from_octal(octal_permissions)
+    self.permissions = decimal_permissions
+  end
+
+  def octal_permissions
+    return self.default_permissions.to_octal
+  end
 
   #validates_presence_of :permissions
   #validates_inclusion_of :permissions, :in => 0..32767, :message => "should be five octal digits, e.g. 765432"

@@ -17,10 +17,12 @@ limitations under the License.
   <p><%= f.label :code, 'Code' %> <%= f.text_field :code, :size => 5 %></p>
   <p><%= f.label :title, 'Title' %> <%= f.text_field :title, :size => 60 %></p>
   <p><%= f.label :message, 'Message' %><br /><%= f.text_area :message, :rows => 10, :cols => 60, :title => "Describe this setting (textile text accepted)" %>
-</p></fieldset>
+</p>
+<%= render(:partial => 'edit_other_settings', :locals => {:f => f}) %>
+</fieldset>
 <fieldset><legend>Permissions</legend>
   <h3>Define the default permissions for this setting.</h3>
-  <p>Either set <%= f.label :permissions, 'numerical permissions (e.g. 76544)' %> <%= f.text_field :permissions, :size => 5, :value => '%05o' % setting.permissions %>
+  <p>Either set <%= f.label :octal_permissions, 'numerical permissions (e.g. 76544)' %> <%= f.text_field :octal_permissions, :size => 5 %>
     <p>Or set symbolic permissions (these don't do any thing yet!):</p>
     <table>
       <thead><th>Role</th><th>Permissions</th>

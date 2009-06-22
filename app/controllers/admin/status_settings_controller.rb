@@ -61,12 +61,7 @@ class Admin::StatusSettingsController < ApplicationController
   # POST /admin/status_settings
   # POST /admin/status_settings.xml
   def create
-    setting = params[:status_setting]
-    octal_permissions = setting['permissions']
-    setting.delete('permissions')
-    @setting = StatusSetting.new(setting)
-    decimal_permissions = Permissions.from_octal(octal_permissions)
-    @setting.default_permissions = Permissions.new(decimal_permissions)
+    @setting = StatusSetting.new(params[:status_setting])
 
     respond_to do |format|
       if @setting.save
@@ -84,15 +79,9 @@ class Admin::StatusSettingsController < ApplicationController
   # PUT /admin/status_settings/1.xml
   def update
     @setting = StatusSetting.find(params[:id])
-    new_setting = params[:status_setting]
-    octal_permissions = new_setting['permissions']
-    if octal_permissions
-      new_setting.delete('permissions')
-      decimal_permissions = Permissions.from_octal(octal_permissions)
-      @setting.default_permissions = Permissions.new(decimal_permissions)
-    end
+    
     respond_to do |format|
-        if @setting.update_attributes(new_setting)
+        if @setting.update_attributes(params[:status_setting])
           flash[:notice] = 'status_setting was successfully updated.'
           format.html { redirect_to(admin_status_setting_path(@setting)) }
           format.xml  { head :ok }

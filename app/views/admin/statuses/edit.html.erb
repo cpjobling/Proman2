@@ -23,6 +23,7 @@
     <p> <%= @current_setting.code %></p>
     <h3>Message</h3><%= textilize(@current_setting.message) %>
     <h3>Default permissions</h3><p><code><%= @current_setting.default_permissions %></code> (<%= @current_setting.default_permissions.to_octal %>)
+    <%= render(:partial => "other_settings", :locals => { :setting => @current_setting }) %>
   </fieldset>
 <% else %>
   <p>Currrent status undefined.</p>

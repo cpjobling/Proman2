@@ -35,7 +35,7 @@ class Admin::StatusSettingsControllerTest < ActionController::TestCase
 
   test "should create status setting" do
     assert_difference('StatusSetting.count') do
-      post :create, :status_setting => { :code=> "5123", :title => "test", :message=>"test", :permissions=>"70000" }
+      post :create, :status_setting => { :code=> "5123", :title => "test", :message=>"test", :octal_permissions=>"70000" }
     end
 
     assert_redirected_to admin_status_setting_path(assigns(:setting))
@@ -54,7 +54,7 @@ class Admin::StatusSettingsControllerTest < ActionController::TestCase
 
   test "should update status_setting" do
     put :update, :id => status_settings(:allocation1).to_param, 
-        :status_setting => { :code=> "5123", :title => "test", :message=>"test", :permissions=>"70000" }
+        :status_setting => { :code=> "5123", :title => "test", :message=>"test", :octal_permissions=>"70000" }
     assert_redirected_to admin_status_setting_path(assigns(:setting))
   end
 
@@ -64,14 +64,4 @@ class Admin::StatusSettingsControllerTest < ActionController::TestCase
     end
     assert_redirected_to admin_status_settings_url
   end
-
-  test "permissions[numeric] is intepreted" do
-    post :create, :status_setting => { :code=> "5123", :message=>"test", :permissions=>"70000" }
-    setting = StatusSetting.find(:last)
-    assert_equal 5123, setting.code
-    assert_equal "test", setting.message
-    assert_equal 070000, setting.permissions
-  end
-
-
 end

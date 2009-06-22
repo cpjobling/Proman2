@@ -1,16 +1,18 @@
 # == Schema Information
-# Schema version: 20090619105901
+# Schema version: 20090621110215
 #
 # Table name: status_settings
 #
-#  id          :integer         not null, primary key
-#  code        :integer
-#  title       :string(255)
-#  message     :text
-#  permissions :integer         default(28672)
-#  integer     :integer         default(28672)
-#  created_at  :datetime
-#  updated_at  :datetime
+#  id              :integer         not null, primary key
+#  code            :integer
+#  title           :string(255)
+#  message         :text
+#  permissions     :integer         default(28672)
+#  created_at      :datetime
+#  updated_at      :datetime
+#  can_select      :boolean
+#  can_allocate    :boolean
+#  selection_round :integer         default(0)
 #
 
 ## YAML Template.
@@ -21,6 +23,9 @@ offline:
   title: System offline
   message: The system is offline for maintainance. Please check back later.
   permissions: 070000
+  selection_round: 0
+  can_select: false
+  can_allocate: false
 
 pre-registration:
   id: 2
@@ -28,6 +33,9 @@ pre-registration:
   title: Pre-registration
   message: Staff may self register and edit their project descriptions.
   permissions: 076600
+  selection_round: 0
+  can_select: false
+  can_allocate: false
 
 registration:
   id: 3
@@ -35,6 +43,9 @@ registration:
   title: Registration
   message: Bona-fide students in the School of Engineering may register for a student account.
   permissions: 076640
+  selection_round: 0
+  can_select: false
+  can_allocate: false
 
 pre-selection:
   id: 4
@@ -42,6 +53,9 @@ pre-selection:
   title: Pre-selection
   message: Students may view projects and their descriptions. Staff may continue to adjust their project descriptions.
   permissions: 076640
+  selection_round: 0
+  can_select: false
+  can_allocate: false
 
 selection1:
   id: 5
@@ -49,6 +63,9 @@ selection1:
   title: Project Selection (Round 1)
   message: You may select and rank projects ready for the first round of project allocations.
   permissions: 076460
+  selection_round: 1
+  can_select: true
+  can_allocate: false
 
 allocation1:
   id: 6
@@ -56,6 +73,9 @@ allocation1:
   title: Project Allocation (Round 1)
   message: Projects are being allocated, project selections and rankings are frozen. You can only access the full project list at this time.
   permissions: 076440
+  selection_round: 1
+  can_select: false
+  can_allocate: true
 
 selection2:
   id: 7
@@ -63,6 +83,9 @@ selection2:
   title: Project Selection (Round 2)
   message: Initial round of project selections is complete. If you have been allocated a project it will appear in the "My Account" page and you may make arrangements to meet your supervisor. If you have been unlucky this time, you may make a second selection from the remaining projects.
   permissions: 076460
+  selection_round: 2
+  can_select: true
+  can_allocate: false
 
 allocation2:
   id: 8
@@ -70,6 +93,9 @@ allocation2:
   title: Project Allocation (Round 2)
   message: Second round of project allocations is in progress. Project selections and rankings are frozen. You can only access the full project list at this time.
   permissions: 076440
+  selection_round: 2
+  can_select: false
+  can_allocate: true
 
 selection3:
   id: 9
@@ -77,6 +103,9 @@ selection3:
   title: Project Selection (Round 3)
   message: Second round of project allocations is complete. If you have been allocated a project it will appear in the "My Account" page and you may make arrangements to meet your supervisor. If you have been unlucky this time, you may make a third and final selection from the remaining projects.
   permissions: 076460
+  selection_round: 3
+  can_select: true
+  can_allocate: false
 
 allocation3:
   id: 10
@@ -84,6 +113,9 @@ allocation3:
   title: Project Allocation (Round 3)
   message: Third and final round of project allocations is in progress. Project selections and rankings are frozen. You can only access the full project list at this time.
   permissions: 076440
+  selection_round: 3
+  can_select: false
+  can_allocate: true
 
 allocation4:
   id: 11
@@ -91,3 +123,17 @@ allocation4:
   title: Project Selection Offline
   message: Project selections complete. If you have not been successful in selecting a project so far, one will be allocated to you by the Project Coordinator working in consulation with the head of teaching.
   permissions: 076440
+  selection_round: 100
+  can_select: false
+  can_allocate: true
+
+post_allocation:
+  id: 12
+  code: 400
+  title: Post Allocation
+  message: Project allocation complete. Use Proman to view projects for this session.
+  permissions: 074440
+  selection_round: 100
+  can_select: false
+  can_allocate: false
+

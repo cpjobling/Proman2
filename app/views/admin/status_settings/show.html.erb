@@ -13,11 +13,14 @@ See the License for the specific language governing permissions and
 limitations under the License.
 %>
 
-<% title "Code #{@setting.code}" %>
+<% title @setting.title %>
 
-<h3>Status information</h3>
-<p><%= @setting.title %></p>
+<h3>Code</h3>
+<p><%= @setting.code %></p>
+<h3>Message</h3>
 <%= textilize(@setting.message) %>
+<%= render(:partial => "admin/statuses/other_settings", :locals => {:setting => @setting}) %>
+
 
 <h3>Default permissions</h3>
 <% perm = @setting.default_permissions %>
