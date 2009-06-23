@@ -120,6 +120,14 @@ class Project < ActiveRecord::Base
   def centre_title
     return self.centre && self.centre.title || "undefined"
   end
+
+  def allocate(student, round)
+    self.available = false
+    self.round = round
+    self.student = student
+    self.selected_projects
+    SelectedProject.drop_from_selections(self)
+  end
   
   private
 

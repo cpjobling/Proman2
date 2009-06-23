@@ -12,27 +12,52 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 s1_p1:
-  project_selection: one
+  project_selection_id: 1
   position: 1
-  project: project1
+  project_id: 1
   
 s1_p2:
-  project_selection: one
+  project_selection_id: 1
   position: 2
-  project: project2
+  project_id: 2
 
 s1_p3:
-  project_selection: one
+  project_selection_id: 1
   position: 3
-  project: project3
+  project_id: 3
 
 s1_p4:
-  project_selection: one
+  project_selection_id: 1
   position: 4
-  project: project4
+  project_id: 4
 
 s1_p5:
-  project_selection: one
+  project_selection_id: 1
   position: 5
-  project: project5
+  project_id: 5
+
+s2_p3:
+  project_selection_id: 2
+  position: 1
+  project_id: 3
+
+s2_p4:
+  project_selection_id: 2
+  position: 2
+  project_id: 4
+
+s2_p5:
+  project_selection_id: 2
+  position: 3
+  project_id: 5
+
+s2_p6:
+  project_selection_id: 2
+  position: 4
+  project_id: 6
+
+s2_p7:
+  project_selection_id: 2
+  position: 5
+  project_id: 7
 

@@ -12,7 +12,7 @@ class ProjectSelectionsControllerTest < ActionController::TestCase
     @student5 = students(:student5)
   end
 
-  context "In a selection round" do
+  context "student5 in a selection round" do
     setup do
       selection_round_one
       login_as @student5.user
@@ -93,33 +93,72 @@ class ProjectSelectionsControllerTest < ActionController::TestCase
         assert_select "p a[href=#{url}]", :text => /Start over/
       end
     end
+  end
+
+  context "student2 in a selection round" do
+    setup do
+      selection_round_one
+      login_as @student2.user
+      get :new
+    end
 
     context "new project selection" do
-      setup { get :new }
       should_assign_to :status
       should_assign_to :student
       should_assign_to :selection_round
+      should_assign_to :project_selection
+      should_assign_to :projects
       should_render_template :new
       should_not_set_the_flash
       should_respond_with :success
     end
 
-    context "show page" do
-      setup { get :index }
-      should "initially have no projects" do
-        assert_select "p#projects", :text => /Your round 1 project selection list is empty./
+    context "new parameters" do
+      setup do
+        @projects = assigns(:projects)
       end
 
-      should "contain the selection round" do
-        assert_select "h2", :text => /[R|r]ound 1/
+      should "find available projects" do
+        assert_equal 3, @projects.size, "There should be 3 available projects"
+        @projects.each do |p|
+          assert p.available, "Project #{p.id} should be available"
+          assert p.suitable_for?(@student2.discipline), "Project #{p.id} should be suitable for student 2"
+        end
+      end
+      
+      should "find not find unavailable projects" do
+        [2, 5].each do |p|
+          assert available_project = Project.find(p), "Should find project #{p}"
+          assert available_project.suitable_for?(@student2.discipline), "Project #{p} should be suitable for student 2"
+          assert ! available_project.available, "Project #{p} should be unavailable"
+        end
       end
 
-      should "have a link to edit ps 1" do
-        url = new_project_selection_path
-        assert_select "p#projects a[href=#{url}]", :text => /add some projects/
+      should "find not find projects from another discipline" do
+        [3, 4, 7, 9, 10].each do |p|
+          assert available_project = Project.find(p), "Should find project #{p}"
+          assert available_project.available, "Project #{p} should be available"
+          assert available_project.suitable_for?(@student2.discipline), "Project #{p} should be suitable for student 2"
+        end
       end
-    end
+
+      context "new project selection page" do
+        should "initially have no projects" do
+          assert_select "p#projects", :text => /Your round 1 project selection list is empty./
+        end
+
+        should "contain the selection round" do
+          assert_select "h2", :text => /[R|r]ound 1/
+        end
+
+        should "have a link to edit ps 1" do
+          url = new_project_selection_path
+          assert_select "p#projects a[href=#{url}]", :text => /add some projects/
+        end
+      end
     
+    end
+
   end
   context "In an allocation round" do
 

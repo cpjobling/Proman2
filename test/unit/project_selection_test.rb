@@ -26,15 +26,15 @@ class ProjectSelectionTest < ActiveSupport::TestCase
 
   # new one should have round set
 
-  context "a project selection" do
+  context "a new project selection" do
     setup do
-      @student = students(:student1)
-      @ps1 = ProjectSelection.new(:student => @student, :round => 0)
+      @student = students(:student5)
+      @ps = ProjectSelection.new(:student => @student, :round => 0)
     end
 
     should "have student" do
-      assert_equal @student, @ps1.student
-      assert_equal 0, @ps1.round
+      assert_equal @student, @ps.student
+      assert_equal 0, @ps.round
     end
 
     context "made in a selection round" do
@@ -47,6 +47,35 @@ class ProjectSelectionTest < ActiveSupport::TestCase
         ps = ProjectSelection.new(:student => @student, :round => @status.selection_round)
         assert_equal 1, ps.round
         assert_valid ps
+      end
+    end
+  end
+
+  context "a project selection" do
+    setup do
+      @student = students(:student1)
+      @ps = @student.project_selection
+    end
+
+    should "have student" do
+      assert_equal @student, @ps.student
+      assert_equal 1, @ps.round
+    end
+
+    context "should have some selected projects" do
+
+      setup do
+        @selected_projects = @ps.selected_projects
+      end
+
+      should "should have 5 selected projects" do
+        assert_equal 5, @selected_projects.count
+      end
+
+      should "deselect a project" do
+        project = projects(:project1)
+        @ps.deselect(project)
+        assert_equal 4, @selected_projects.count
       end
     end
   end

@@ -46,4 +46,13 @@ class Student < ActiveRecord::Base
 
   delegate :name, :email, :to => :user
   delegate :name, :long_name, :to => :discipline, :prefix => :disc
+
+  def deselect(project)
+    project_selection.deselect(project)
+  end
+
+  def drop_selection
+    project_selection.destroy
+    self.reload
+  end
 end

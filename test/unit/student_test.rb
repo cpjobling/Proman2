@@ -16,6 +16,8 @@ require 'test_helper'
 
 class StudentTest < ActiveSupport::TestCase
 
+  fixtures :students, :project_selections, :selected_projects
+  
   should_belong_to :user, :discipline
   should_have_one :project, :dependent => :nullify
   should_have_one :project_selection, :dependent => :destroy
@@ -58,6 +60,36 @@ class StudentTest < ActiveSupport::TestCase
       assert ! @student.valid?
     end
 
+  end
+
+  context "a student with a project selection" do
+    setup do
+      @student = students(:student1)
+    end
+
+    should "have a project selection" do
+      assert_not_nil @student.project_selection
+    end
+
+    context "deselection of a project" do
+      setup do
+        @project1 = projects(:project1)
+      end
+
+      should "have project in selection" do
+        assert @student.project_selection.selected_projects.find_by_project_id(@project1)
+      end
+
+      should "be able to remove project from selection" do
+        @student.deselect(@project1)
+        assert_nil @student.project_selection.selected_projects.find_by_project_id(@project1)
+      end
+    end
+
+    should "destroy project selection" do
+      @student.drop_selection
+      assert_nil @student.project_selection
+    end
   end
 
   def setup

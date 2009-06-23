@@ -29,4 +29,9 @@ class SelectedProject < ActiveRecord::Base
   acts_as_list :scope => :project_selection
   default_scope :order => :position
   belongs_to :project
+
+  # Drop project from all selected projects
+  def SelectedProject.drop_from_all_selections(project)
+    SelectedProject.destroy_all(["project_id = ?", project.id])
+  end
 end

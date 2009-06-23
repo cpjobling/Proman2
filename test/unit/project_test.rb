@@ -200,4 +200,31 @@ class ProjectTest < ActiveSupport::TestCase
   	@project.suitable_for_none
   	assert @project.suitable_for_none?, "Project is suitable for none"
   end
+
+  def test_available
+    project = projects(:project1)
+    assert project.available?, "project 2 should be available"
+    project.available = false
+    assert ! project.available?, "project 2 should not be available"
+  end
+
+  def test_round
+    project = projects(:project1)
+    assert_equal 0, project.round
+    project.round =  1
+    assert_equal 1, project.round
+  end
+
+  def test_allocate
+    project = projects(:project1)
+    assert project.available?, "project1 should be available"
+    assert_equal 0, project.round, "project1 should have default value for round"
+    student = students(:student1)
+    assert_not_nil student.project_selection, "student 1 has a project selection"
+    project.allocate(student, 1)
+    assert ! project.available?, "project 1 should now be unavailable"
+    assert_equal 1, project.round, "project 1 should be allocated in round 1"
+    assert_equal student, project.student, "project 1 should be assigned to student"
+    assert_nil student.project_selection, "student 1 has no project selection"
+  end
 end
