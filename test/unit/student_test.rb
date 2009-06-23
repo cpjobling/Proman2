@@ -84,11 +84,35 @@ class StudentTest < ActiveSupport::TestCase
         @student.deselect(@project1)
         assert_nil @student.project_selection.selected_projects.find_by_project_id(@project1)
       end
+
+      should "allocate project from the student's selection" do
+        assert_equal 5, @student.project_selection.selected_projects.count
+        @student.allocate(@project1)
+        assert_nil @student.project_selection
+        assert_equal @project1, @student.project
+        assert ! @student.project.available?, "should not be available"
+        assert_equal 1, @student.project.round, "should have been allocated in round 1"
+      end
+
+      should "not allocate project that isn't in the student's selection" do
+        before = @student.project_selection.selected_projects.count
+        @student.allocate(projects(:project6))
+        assert_equal 5, before
+      end
+
     end
 
     should "destroy project selection" do
       @student.drop_selection
       assert_nil @student.project_selection
+    end
+
+    should "return projects in selection" do
+      selection = @student.selection
+      assert @student.project_selection.selected_projects.count, selection.size
+      @student.project_selection.selected_projects.each_with_index do |ps, i|
+        assert_equal ps.project, selection[i], "ps.project should be equal to selection[#{i}]"
+      end
     end
   end
 

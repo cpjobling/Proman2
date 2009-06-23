@@ -47,6 +47,12 @@ class Student < ActiveRecord::Base
   delegate :name, :email, :to => :user
   delegate :name, :long_name, :to => :discipline, :prefix => :disc
 
+  # Allocate a project to this student if the project is in the students selected projects.
+  def allocate(project)
+    return unless project_selection.selected_projects.find_by_project_id(project.id)
+    project.allocate(self, project_selection.round)
+  end
+  
   def deselect(project)
     project_selection.deselect(project)
   end
@@ -54,5 +60,9 @@ class Student < ActiveRecord::Base
   def drop_selection
     project_selection.destroy
     self.reload
+  end
+
+  def selection
+    return project_selection.projects
   end
 end
