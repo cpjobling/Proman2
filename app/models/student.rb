@@ -58,6 +58,7 @@ class Student < ActiveRecord::Base
   end
 
   def drop_selection
+    return if project_selection.nil?
     project_selection.destroy
     self.reload
   end

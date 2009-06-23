@@ -98,6 +98,8 @@ class ProjectSelectionsControllerTest < ActionController::TestCase
   context "student2 in a selection round" do
     setup do
       selection_round_one
+      allocate(projects(:project2), @student1)
+      allocate(projects(:project5), @student3)
       login_as @student2.user
       get :new
     end
@@ -119,7 +121,7 @@ class ProjectSelectionsControllerTest < ActionController::TestCase
       end
 
       should "find available projects" do
-        assert_equal 3, @projects.size, "There should be 3 available projects"
+        assert_equal 3, @projects.size, "There should be 5 available projects"
         @projects.each do |p|
           assert p.available, "Project #{p.id} should be available"
           assert p.suitable_for?(@student2.discipline), "Project #{p.id} should be suitable for student 2"
@@ -134,27 +136,21 @@ class ProjectSelectionsControllerTest < ActionController::TestCase
         end
       end
 
-      should "find not find projects from another discipline" do
-        [3, 4, 7, 9, 10].each do |p|
+      should "not find projects from another discipline" do
+        [1, 3, 4, 7, 9, 10, 11, 12, 13, 14].each do |p|
           assert available_project = Project.find(p), "Should find project #{p}"
           assert available_project.available, "Project #{p} should be available"
-          assert available_project.suitable_for?(@student2.discipline), "Project #{p} should be suitable for student 2"
+          assert ! available_project.suitable_for?(@student2.discipline), "Project #{p} should be suitable for student 2"
         end
       end
 
       context "new project selection page" do
-        should "initially have no projects" do
-          assert_select "p#projects", :text => /Your round 1 project selection list is empty./
-        end
 
         should "contain the selection round" do
-          assert_select "h2", :text => /[R|r]ound 1/
+          assert_select "div.col1 h2", :text => /[R|r]ound 1/
         end
-
-        should "have a link to edit ps 1" do
-          url = new_project_selection_path
-          assert_select "p#projects a[href=#{url}]", :text => /add some projects/
-        end
+        
+        should_render_a_form
       end
     
     end
@@ -163,6 +159,7 @@ class ProjectSelectionsControllerTest < ActionController::TestCase
   context "In an allocation round" do
 
     setup do
+      login_as :student1
       allocation_round_one
     end
 
@@ -283,5 +280,9 @@ class ProjectSelectionsControllerTest < ActionController::TestCase
     @status = Status.find(1)
     @status.status_setting = status_settings(:allocation1)
     @status.save
+  end
+
+  def allocate(project, student)
+    project.allocate(student, 1)
   end
 end

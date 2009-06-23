@@ -1,4 +1,4 @@
-<% title "New project selection" %>
+<% title "New round #{@project_selection.round} project selection" %>
 
 <% content_for :head do %>
   <%= render(:partial => "shared/import_tablesorter") %>
@@ -27,7 +27,7 @@
     </tfoot>
     <tbody>
       <%= render(:partial => "project_selection_index", :collection => @projects, :locals => {:f => f, :selection => []}) %>
-      </tbody>
+    </tbody>
   </table>
   <%= render(:partial => "shared/tablesorter_pager", :locals => {:pager_id => 'pager'})%>
 

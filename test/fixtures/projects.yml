@@ -127,7 +127,7 @@ project13:
   description: This is the thirteenth dummy project proposed by staff member with user_id = 13 (Dr Atomic B.Omb).
   resources: none
 
-project13:
+project14:
   id: 14
   created_by: 104
   title: Project 14

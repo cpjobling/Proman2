@@ -94,7 +94,12 @@ class ProjectSelectionsController < ApplicationController
 
   def find_student_and_project_selection
     @student = current_user.student
-    @project_selection = @student.project_selection
+    if @student
+      @project_selection = @student.project_selection
+    else
+      flash[:notice] = "You must be a student to make a project selection"
+      redirect_to projects_path
+    end
   end
 
   def handle_selected_projects(my_hash)
@@ -120,7 +125,8 @@ class ProjectSelectionsController < ApplicationController
 
   def projects_suitable_for_student
     d = Discipline.find(@student.discipline)
-    return d.projects.find(:all)
+    projects = d.projects.find(:all)
+    return projects.select{ |p| p.available }
   end
 
   def verify_ownership
