@@ -216,15 +216,19 @@ class ProjectTest < ActiveSupport::TestCase
   end
 
   def test_allocate
-    project = projects(:project1)
+    project = projects(:project3)
     assert project.available?, "project1 should be available"
     assert_equal 0, project.round, "project1 should have default value for round"
     student = students(:student1)
     assert_not_nil student.project_selection, "student 1 has a project selection"
+    assert_equal 10, SelectedProject.count, "there should be 10 selected projects"
     project.allocate(student, 1)
-    assert ! project.available?, "project 1 should now be unavailable"
-    assert_equal 1, project.round, "project 1 should be allocated in round 1"
-    assert_equal student, project.student, "project 1 should be assigned to student"
-    assert_nil student.project_selection, "student 1 has no project selection"
+    student.reload
+    assert ! project.available?, "project 3 should now be unavailable"
+    assert_equal 1, project.round, "project 3 should be allocated in round 1"
+    assert_equal student, project.student, "project 3 should be assigned to student"
+    assert_equal project, student.project, "student should be allocated with this project"
+    assert_nil student.project_selection, "student 3 has no project selection"
+    assert_equal 4, SelectedProject.count, "project selections have not been dettached"
   end
 end

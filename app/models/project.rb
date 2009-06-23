@@ -124,9 +124,12 @@ class Project < ActiveRecord::Base
   def allocate(student, round)
     self.available = false
     self.round = round
+    student.project = self
+    student.save
     self.student = student
-    self.selected_projects
-    SelectedProject.drop_from_selections(self)
+    student.drop_selection
+    SelectedProject.drop_from_all_selections(self)
+    self.save
   end
   
   private
