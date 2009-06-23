@@ -14,6 +14,7 @@
 #  under the License.
 
 require File.dirname(__FILE__) + '/../test_helper'
+require 'mocha'
 
 class TabHelperTest < ActionController::TestCase
   include TabHelper
@@ -22,76 +23,80 @@ class TabHelperTest < ActionController::TestCase
 
   def setup
     @staff = Role.find_by_name("staff")
-    Proman::Config.can_select=true
-    Proman::Config.can_allocate=true
   end
 
-  def test_defaults
-    assert_equal [:home, :projects, :contact, :about], public_tabs, "Default tabs was not #{[:home, :projects, :contact, :about]}."
-  end
-
-  def test_tab_order
-    expected = [:home, :my_account, :admin, :coordinate, :projects, :project_allocations, :project_selections, :contact, :about]
-    assert_equal expected, tab_order, "Tab order was not #{expected}"
-  end
-
-  def test_get_tab
-    the_tabs = get_tabs do |key, tab|
-      expect = the_tabs[key]
-      assert_equal expect, get_tab(tab), "Tab should be #{expect}"
+  context "default status" do
+    setup do
+      set_status(status_settings("pre-registration"))
     end
-  end
 
-  def test_admin_tabs_order
-    expect = [:home, :admin, :projects, :contact, :about]
-    assert_equal expect, order_tabs([:admin]), "When including :admin tabs should be #{expect}"
-  end
+    should "have default tabs" do
+      assert_equal [:home, :projects, :contact, :about], public_tabs, "Default tabs was not #{[:home, :projects, :contact, :about]}."
+    end
 
-  def test_coordinator_tabs_order
-    expect = [:home, :coordinate, :projects, :contact, :about]
-    assert_equal expect, order_tabs([:coordinate]), "When including :coordinate tabs should be #{expect}"
-  end
+    should "have correct tab order" do
+      expected = [:home, :my_account, :admin, :coordinate, :projects, :project_allocations, :project_selections, :contact, :about]
+      assert_equal expected, tab_order, "Tab order was not #{expected}"
+    end
+
+    should "get_tab" do
+      the_tabs = get_tabs do |key, tab|
+        expect = the_tabs[key]
+        assert_equal expect, get_tab(tab), "Tab should be #{expect}"
+      end
+    end
+
+    should "have admintabs" do
+      expect = [:home, :admin, :projects, :contact, :about]
+      assert_equal expect, order_tabs([:admin]), "When including :admin tabs should be #{expect}"
+    end
+
+    should "have coordinator tabs" do
+      expect = [:home, :coordinate, :projects, :contact, :about]
+      assert_equal expect, order_tabs([:coordinate]), "When including :coordinate tabs should be #{expect}"
+    end
 
 
-  def test_my_account_tabs_order
-    expect = [:home, :my_account, :projects, :contact, :about]
-    assert_equal expect, order_tabs([:my_account]), "When including :my_account tabs should be #{expect}"
-  end
+    should "have my_account tabs order" do
+      expect = [:home, :my_account, :projects, :contact, :about]
+      assert_equal expect, order_tabs([:my_account]), "When including :my_account tabs should be #{expect}"
+    end
 
-  def test_admin_user_tabs
-    login_as users(:admin)
-    expect = all_tabs
-    assert_equal expect, tabs_for_role("admin"), "Admin users should see all tabs"
-  end
+    should "have admin user tabs" do
+      login_as users(:admin)
+      expect = all_tabs
+      assert_equal expect, tabs_for_role("admin"), "Admin users should see all tabs"
+    end
 
-  def test_all_tabs
-    expect = tab_order
-    assert_equal expect, all_tabs, "Expected all tabs"
-  end
+    should "return all tabs" do
+      expect = tab_order
+      assert_equal expect, all_tabs, "Expected all tabs"
+    end
 
-  def test_coordinator_tabs
-    expect = [:home, :my_account, :coordinate, :projects, :contact, :about]
-    assert_equal expect, tabs_for_role("coordinator"), "Expected coordinator's tabs"
-  end
+    should "return coordinator tabs" do
+      expect = [:home, :my_account, :coordinate, :projects, :contact, :about]
+      assert_equal expect, tabs_for_role("coordinator"), "Expected coordinator's tabs"
+    end
 
-  def test_staff_tabs
-    expect = [:home, :my_account, :projects, :contact, :about]
-    assert_equal expect, tabs_for_role("staff"), "Expected academic staff's tabs"
-  end
+    should "return staff tabs" do
+      expect = [:home, :my_account, :projects, :contact, :about]
+      assert_equal expect, tabs_for_role("staff"), "Expected academic staff's tabs"
+    end
 
-  def test_student_tabs
-    expect = [:home, :my_account, :projects, :project_selections, :contact, :about]
-    assert_equal expect, tabs_for_role("student"), "Expected student's tabs"
-  end
+    should "return student tabs" do
+      expect = [:home, :my_account, :projects, :contact, :about]
+      assert_equal expect, tabs_for_role("student"), "Expected student's tabs"
+    end
 
-  def test_public_tabs
-    expect = public_tabs
-    assert_equal expect, tabs_for_role(), "Expected public tabs"
+    should "return public tabs" do
+      expect = public_tabs
+      assert_equal expect, tabs_for_role(), "Expected public tabs"
+    end
   end
 
   context "can't select projects" do
     setup do
-      Proman::Config.can_select=false
+      set_status(status_settings(:allocation1))
     end
 
     should "not have select projects tab" do
@@ -102,12 +107,44 @@ class TabHelperTest < ActionController::TestCase
 
   context "can't allocate projects" do
     setup do
-      Proman::Config.can_allocate=false
+      set_status(status_settings(:selection1))
     end
 
     should "not have allocate projects tab" do
       expect = [:home, :my_account, :coordinate, :projects, :contact, :about]
       assert_equal expect, tabs_for_role("coordinator"), "Expected coordinator's tabs"
     end
+  end
+
+  context "when project selection is live, students" do
+    setup do
+      login_as users(:student1)
+      set_status(status_settings(:selection1))
+    end
+
+    should "see project_selections tabs" do
+      expect = [:home, :my_account, :projects, :project_selections, :contact, :about]
+      assert_equal expect, tabs_for_role("student"), "Expected student's tabs"
+    end
+  end
+
+  context "when project allocation is live" do
+    setup do
+      login_as users(:coordinator)
+      set_status(status_settings(:allocation1))
+    end
+    should "see project_allocations tabs" do
+      expect = [:home, :my_account, :coordinate, :projects, :project_allocations, :contact, :about]
+      assert_equal expect, tabs_for_role("coordinator"), "Expected coordinator's tabs"
+    end
+
+  end
+
+  private
+
+  def set_status(setting)
+    status = Status.find(1)
+    status.status_setting = setting
+    status.save
   end
 end

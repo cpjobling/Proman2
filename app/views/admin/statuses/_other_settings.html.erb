@@ -22,10 +22,10 @@
       <td>Associated selection round</td><td><%= setting.selection_round %></td>
     </tr>
     <tr>
-      <td>Students can select projects?</td><td><%= setting.can_select %></td>
+      <td>Students can select projects?</td><td><%= setting.can_select? %></td>
     </tr>
     <tr>
-      <td>Coordinators can allocate projects?</td><td><%= setting.can_allocate %></td>
+      <td>Coordinators can allocate projects?</td><td><%= setting.can_allocate? %></td>
     </tr>
   </tbody>
 </table>

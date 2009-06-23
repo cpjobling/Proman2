@@ -37,7 +37,7 @@ module TabHelper
     return all_tabs if role == "admin"
     if role == "coordinator"
       if can_allocate?
-        return order_tabs([:my_account, :coordinate, :project_allocation])
+        return order_tabs([:my_account, :coordinate, :project_allocations])
       else
         return order_tabs([:my_account, :coordinate])
       end
@@ -89,7 +89,7 @@ module TabHelper
       :project_selections => [:project_selections, "Select your projects."],
       :project_allocations => [:project_allocations, "Allocate projects"],
       :my_account => [:my_account, "Go to your account page."]
-      }
+    }
   end
 
   def get_tab(tab)
@@ -98,5 +98,13 @@ module TabHelper
 
   def all_tabs
     return tab_order
+  end
+
+  def can_allocate?
+    Status.find(1).can_allocate?
+  end
+
+  def can_select?
+    Status.find(1).can_select?
   end
 end
