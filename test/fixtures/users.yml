@@ -35,7 +35,7 @@
 
 # For authenticated tests....
 quentin:
-  id: 10
+  id: 1
   login:                     quentin
   email:                     quentin@example.com
   salt:                      356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
@@ -50,7 +50,7 @@ quentin:
 
 
 aaron:
-  id: 11
+  id: 2
   login:                     aaron
   email:                     aaron@example.com
   salt:                      da4b9237bacccdf19c0760cab7aec4a8359010b0 # SHA1('1')
@@ -64,7 +64,7 @@ aaron:
 
 
 old_password_holder:
-  id: 12
+  id: 3
   login:                     old_password_holder
   email:                     salty_dog@example.com
   salt:                      7e3041ebc2fc05a40c60028e2c4901a81035d3cd
@@ -80,7 +80,7 @@ old_password_holder:
 # An admin, student, coordinator and real member of staff
 
 admin:
-    id: 1
+    id: 10
     login: admin
     email: eee.webmaster@swansea.ac.uk
     salt:                      356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
@@ -91,12 +91,11 @@ admin:
     first_name: Proman
     last_name: Administrator
     known_as: Boss
-    roles: admin
 
     
 # A dummy student
 student1:
-    id: 201
+    id: 12
     login: 382392
     email: 382392@swansea.ac.uk
     salt:                      356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
@@ -107,7 +106,6 @@ student1:
     last_name: Parashkevanov
     created_at: <%= 5.days.ago.to_s :db %>
     known_as: poker player
-    roles: student
 
 # A dummy staff member
 academic:
@@ -122,7 +120,6 @@ academic:
     initials: B.
     last_name: Omb
     known_as: Kaboom
-    roles: staff
 
 
 
@@ -139,7 +136,6 @@ coordinator:
     initials: C.
     last_name: O'dinated
     known_as: Ready 4 N.E. Thing
-    roles: staff, coordinator
 
 # A real staff member (Dr Jobling is Module Coordinator)!
 # Obviously this is not the password that is in production!
@@ -155,7 +151,6 @@ cpj:
     initials: P.
     last_name: Jobling
     known_as: Chris
-    roles: admin, coordinator, staff
 
 mnc_coordinator:
     id: 101
@@ -167,7 +162,6 @@ mnc_coordinator:
     first_name: Paul
     initials: M.
     last_name: Williams
-    roles: staff, coordinator
 
 mrc_coordinator:
    id: 102
@@ -179,7 +173,6 @@ mrc_coordinator:
    last_name: Isaac
    title: Dr
    initials: H.
-   roles: staff, coordinator
 
 c2ec_coordinator:
     id: 103
@@ -191,10 +184,9 @@ c2ec_coordinator:
     last_name: Edwards
     title: Prof
     initials: G.
-    roles: staff, coordinator
 
 admin_team_coordinator:
-    id: 151
+    id: 218798791
     login: h.burt
     email: h.burt@swansea.ac.uk
     crypted_password: e887fa1e015731ce18e46b6fc071d7ad3706ae30
@@ -202,7 +194,6 @@ admin_team_coordinator:
     first_name: Howard
     last_name: Burt
     title: Mr
-    roles: coordinator
 
 student2:
     id: 202
@@ -214,7 +205,6 @@ student2:
     first_name: Anne
     last_name: Bancroft
     known_as: cougar
-    roles: student
 
 student3:
     id: 203
@@ -227,7 +217,6 @@ student3:
     initials: C.
     last_name: Marx
     known_as: red
-    roles: student
 
 student4:
     id: 204
@@ -240,7 +229,7 @@ student4:
     initials: O.
     last_name: Hardy
     known_as: fatty
-    roles: student
+
 
 student5:
     id: 205
@@ -252,7 +241,6 @@ student5:
     first_name: Cary
     last_name: Grant
     known_as: northwestern
-    roles: student
 
 student6:
     id: 206
@@ -264,7 +252,6 @@ student6:
     first_name: Bette
     last_name: Davis
     known_as: diva
-    roles: student
 
 # A test user -- should have no roles
 no_role_user:

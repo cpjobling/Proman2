@@ -1,0 +1,85 @@
+## YAML Template.
+
+# Administrators
+admin:
+  role_id: 1
+  user_id: 10
+
+cpj_admin:
+  role_id: 1
+  user_id: 100
+
+# Staff
+coordinator_staff:
+  user_id: 105
+  role_id: 2
+
+academic_staff:
+  user_id: 104
+  role_id: 2
+
+cpj_staff:
+  role_id: 2
+  user_id: 100
+
+mnc_coordinator_staff:
+  role_id: 2
+  user_id: 101
+
+mrc_coordinator_staff:
+  role_id: 2
+  user_id: 102
+
+c2ec_coordinator_staff:
+  role_id: 2
+  user_id: 103
+
+# Students
+student1_student:
+  role_id: 3
+  user_id: 12
+
+student2_student:
+  role_id: 3
+  user_id: 202
+
+student3_student:
+  role_id: 3
+  user_id: 203
+
+student4_student:
+  role_id: 3
+  user_id: 204
+
+student5_student:
+  role_id: 3
+  user_id: 205
+
+student6_student:
+  role_id: 3
+  user_id: 206
+
+# Coordinators
+admin_team_coordinator:
+  role_id: 4
+  user_id: 218798791
+
+coordinator:
+  user_id: 105
+  role_id: 4
+
+cpj_coordinator:
+  role_id: 4
+  user_id: 100
+
+mnc_coordinator:
+  role_id: 4
+  user_id: 101
+
+mrc_coordinator:
+  role_id: 4
+  user_id: 102
+
+c2ec_coordinator:
+  role_id: 4
+  user_id: 103

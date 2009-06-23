@@ -22,13 +22,17 @@
 #   limitations under the License.
 
 admin:
+  id: 1
   name: admin
 
 staff:
+  id: 2
   name: staff
 
 student:
+  id: 3
   name: student
 
 coordinator:
+  id: 4
   name: coordinator

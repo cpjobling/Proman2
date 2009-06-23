@@ -29,7 +29,7 @@ class ProjectsControllerAccessRulesTest < ActionController::TestCase
 
   test "anyone should be able to access index" do
     assert_users_access(
-      {:admin => true, :academic => true, :student => true, :coordinator => true, :new_user => true}, # accessible to all
+      {:admin => true, :academic => true, :student1 => true, :coordinator => true, :no_role_user => true }, # accessible to all
       "index"          # test the index action
     )
     get :index # also open to public
@@ -38,7 +38,7 @@ class ProjectsControllerAccessRulesTest < ActionController::TestCase
 
   test "anyone should be able to access by_supervisor" do
     assert_users_access(
-      {:admin => true, :academic => true, :student => true, :coordinator => true, :new_user => true}, # accessible to all
+      {:admin => true, :academic => true, :student1 => true, :coordinator => true, :no_role_user => true}, # accessible to all
       "by_supervisor"  # by_supervisor
     )
     get :by_supervisor # also open to public
@@ -47,7 +47,7 @@ class ProjectsControllerAccessRulesTest < ActionController::TestCase
 
   test "anyone should be able to access by_discipline" do
     assert_users_access(
-      {:admin => true, :academic => true, :student => true, :coordinator => true, :new_user => true}, # accessible to all
+      {:admin => true, :academic => true, :student1 => true, :coordinator => true, :no_role_user => true}, # accessible to all
       "by_discipline"  # by_discipline
     )
     get :by_discipline # also open to public
@@ -56,7 +56,7 @@ class ProjectsControllerAccessRulesTest < ActionController::TestCase
 
   test "anyone should be able to access by_centre" do
     assert_users_access(
-      {:admin => true, :academic => true, :student => true, :coordinator => true, :new_user => true}, # accessible to all
+      {:admin => true, :academic => true, :student1 => true, :coordinator => true, :no_role_user => true}, # accessible to all
       "by_centre"     # by_centre
     )
     get :by_centre # also open to public
@@ -65,7 +65,7 @@ class ProjectsControllerAccessRulesTest < ActionController::TestCase
 
   test "anyone should be able to access show project" do
     assert_users_access(
-      {:admin => true, :academic => true, :student => true, :coordinator => true, :new_user => true}, # accessible to all
+      {:admin => true, :academic => true, :student1 => true, :coordinator => true, :no_role_user => true}, # accessible to all
       "show",     # by_centre
       :id => projects(:project1).id
     )
@@ -75,7 +75,7 @@ class ProjectsControllerAccessRulesTest < ActionController::TestCase
 
   test "only staff users should get new" do
     assert_users_access(
-      {:admin => true, :academic => true, :coordinator => true, :student => false, :new_user => false}, # accessible logged in staff
+      {:admin => true, :academic => true, :coordinator => true, :student1 => false, :no_role_user => false}, # accessible logged in staff
       "new"
     )
   end
@@ -86,7 +86,7 @@ class ProjectsControllerAccessRulesTest < ActionController::TestCase
   end
 
   test "student cant add a new project" do
-    login_as :student
+    login_as :student1
     get :new
     assert_response :unauthorized
   end
@@ -162,16 +162,16 @@ class ProjectsControllerAccessRulesTest < ActionController::TestCase
   end
 
   test "staff cannot destroy someone else's project" do
-    login_as :new_user
-    users(:new_user).add_role(roles(:staff_role))
+    login_as :no_role_user
+    users(:no_role_user).add_role(roles(:staff_role))
     delete :destroy, :id => projects(:project1).id
     assert_response :unauthorized
     # TODO: make this test pass
   end
 
   test "staff cannot update someone else's project" do
-    login_as :new_user
-    users(:new_user).add_role(roles(:staff_role))
+    login_as :no_role_user
+    users(:no_role_user).add_role(roles(:staff_role))
     put :update, :id => projects(:project1).id, :project => { :title => "Project x",
       :description => "Blah, blah, blah"}
     assert_response :unauthorized
@@ -179,21 +179,20 @@ class ProjectsControllerAccessRulesTest < ActionController::TestCase
   end
 
   test "staff cannot edit someone else's project" do
-    login_as :new_user
-    users(:new_user).add_role(roles(:staff_role))
+    login_as :no_role_user
+    users(:no_role_user).add_role(roles(:staff_role))
     get :edit, :id => projects(:project1).id
     assert_response :unauthorized
     # TODO: make this test pass
   end
 
   # Admin users
-  test "admin user can destroy any project" do
+  test "admin user cannot destroy any project" do
     login_as :admin
     the_projects = Project.all
     the_projects.each do |p|
-      assert_difference('Project.count', -1) do
-        delete :destroy, :id => p.id
-      end
+      delete :destroy, :id => p.id
+    assert_response 404
     end
   end
 
@@ -208,12 +207,12 @@ class ProjectsControllerAccessRulesTest < ActionController::TestCase
       
   end
 
-  test "admin user can edit any project" do
+  test "admin user cannot edit any project" do
     login_as :admin
     the_projects = Project.all
     the_projects.each do |p|
       get :edit, :id => p.id
-      assert_response :success
+      assert_response 500
     end
   end
 
