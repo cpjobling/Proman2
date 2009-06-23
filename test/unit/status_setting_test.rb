@@ -25,10 +25,11 @@ class StatusSettingTest < ActiveSupport::TestCase
     setup do
       @status = statuses(:status)
       @setting = status_settings(:offline)
+      @status.status_setting = @setting
     end
 
     should "be default status" do
-      assert_equal @status, @setting.status
+      assert_equal @setting, @status.status_setting
     end
 
     should "delegate code, title, message, permissions, can_select and can_allocate to status_setting" do
@@ -50,7 +51,7 @@ class StatusSettingTest < ActiveSupport::TestCase
 
   context "new status setting" do
     setup do
-      @setting = StatusSetting.new (:code => 900, :title => 'test', :message => 'test', :permissions => 070000)
+      @setting = StatusSetting.new(:code => 900, :title => 'test', :message => 'test', :permissions => 070000)
     end
 
     should "be able to set selection_round" do
