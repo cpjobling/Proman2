@@ -45,7 +45,7 @@ class Student < ActiveRecord::Base
   validates_numericality_of :grade, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100
 
   delegate :name, :email, :to => :user
-  delegate :name, :long_name, :to => :discipline, :prefix => :disc
+  delegate :name, :long_name, :to => "discipline.nil? ? false : discipline", :prefix => :disc
 
   # Allocate a project to this student if the project is in the students selected projects.
   def allocate(project)

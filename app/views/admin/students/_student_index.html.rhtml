@@ -20,7 +20,7 @@
 <tr class="<%= cycle 'even', 'odd' %>">
   <td><%=student_index.student_id  %></td>
   <td><%= user.name.last_first %></td>
-  <td><%= student_index.discipline.long_name %></td>
+  <td><%= student_index.disc_long_name %></td>
   <td><%= student_index.grade %>
   <td><%= student_index.board_decision %>
   <td><%= link_to 'Show', admin_student_path(student_index) %></td>
