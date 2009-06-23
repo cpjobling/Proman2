@@ -25,7 +25,7 @@ class ProjectSelectionTest < ActiveSupport::TestCase
   should_have_readonly_attributes :student_id, :round
 
   # new one should have round set
-
+  
   context "a new project selection" do
     setup do
       @student = students(:student5)
@@ -77,9 +77,72 @@ class ProjectSelectionTest < ActiveSupport::TestCase
         @ps.deselect(project)
         assert_equal 4, @selected_projects.count
       end
+
+      context "should act as a list" do
+        should "return first" do
+          assert_equal @ps.selected_projects[0], @ps.selected_projects.first
+        end
+        should "return last" do
+          assert_equal @ps.selected_projects[4], @ps.selected_projects.last
+        end
+        should "creates at end" do
+          @ps.selected_projects.create(:project => projects(:project6))
+          assert_equal 6, @ps.selected_projects.count
+          assert_equal projects(:project6), @ps.selected_projects[5].project
+          assert_equal @ps, @ps.selected_projects[5].project_selection
+          assert_equal 6, @ps.selected_projects[5].position
+        end
+        should "act like a list" do
+          index = 0
+          @ps.selected_projects.each do |sp|
+            assert_equal @ps.selected_projects[index], sp
+            assert_equal (index + 1), sp.position
+            index += 1
+          end
+        end
+        should "be able to change position" do
+          [5, 4, 3, 2, 1].each_with_index do |pos, i|
+            @ps.selected_projects[i].position = pos
+            @ps.selected_projects[i].save
+          end
+          @ps.selected_projects(true) # reload
+          assert_equal projects(:project5), @ps.selected_projects[0].project
+          assert_equal projects(:project4), @ps.selected_projects[1].project
+          assert_equal projects(:project3), @ps.selected_projects[2].project
+          assert_equal projects(:project2), @ps.selected_projects[3].project
+          assert_equal projects(:project1), @ps.selected_projects[4].project
+        end
+      end
+
+      context "should return a list of projects" do
+        setup do
+          @projects = @ps.projects
+        end
+        should "have all the projects in the selection" do
+          assert_equal 5, @projects.size, "should return 5 projects"
+        end
+        should "be returned in order of preference" do
+          pos = 1
+          @selected_projects.each_with_index do |selected_project, i|
+            assert_equal pos, selected_project.position
+            assert_equal selected_project.project, @projects[i]
+            pos += 1
+          end
+        end
+
+        should "maintain order when project dropped" do
+          @ps.deselect(projects(:project1))
+          sp = @ps.selected_projects
+          assert_equal 4, sp.size
+          project_ids = [2, 3, 4, 5]
+          position = 1
+          sp.each_with_index do |selected_project, i|
+            assert_equal selected_project.project, Project.find(project_ids[i])
+            assert_equal position, selected_project.position
+            position += 1
+          end
+        end
+      end
     end
   end
-  # should be an ordered list
-
-
 end

@@ -36,4 +36,8 @@ class ProjectSelection < ActiveRecord::Base
     sp.destroy unless sp.nil?
     self.selected_projects.reload
   end
+
+  def projects
+    return self.selected_projects.map { |sp| sp.project }
+  end
 end
