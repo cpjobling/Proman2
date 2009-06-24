@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090621110215) do
+ActiveRecord::Schema.define(:version => 20090624110933) do
 
   create_table "allocation_round", :id => false, :force => true do |t|
     t.integer  "round",      :default => 0
@@ -40,6 +40,20 @@ ActiveRecord::Schema.define(:version => 20090621110215) do
 
   add_index "four_oh_fours", ["url", "referer"], :name => "index_four_oh_fours_on_url_and_referer", :unique => true
   add_index "four_oh_fours", ["url"], :name => "index_four_oh_fours_on_url"
+
+  create_table "project_allocations", :force => true do |t|
+    t.integer  "user_id",          :null => false
+    t.integer  "student_id",       :null => false
+    t.integer  "project_id",       :null => false
+    t.integer  "allocation_round", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "project_allocations", ["allocation_round"], :name => "index_project_allocations_on_allocation_round"
+  add_index "project_allocations", ["project_id"], :name => "index_project_allocations_on_project_id"
+  add_index "project_allocations", ["student_id", "project_id", "allocation_round"], :name => "index_project_allocations_on_student_id_and_project_id_and_allocation_round", :unique => true
+  add_index "project_allocations", ["student_id"], :name => "index_project_allocations_on_student_id"
 
   create_table "project_selections", :force => true do |t|
     t.integer  "student_id"
