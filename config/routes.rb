@@ -14,6 +14,8 @@
 
 
 ActionController::Routing::Routes.draw do |map|
+  map.resources :project_allocations
+
   # Restful routes
   map.resources :project_selections, :except => [:show, :create], :has_many => :selected_projects
 

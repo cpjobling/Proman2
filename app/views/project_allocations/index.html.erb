@@ -1,0 +1,26 @@
+<h1>Listing project_allocations</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Student</th>
+    <th>Project</th>
+    <th>Allocation round</th>
+  </tr>
+
+<% @project_allocations.each do |project_allocation| %>
+  <tr>
+    <td><%=h project_allocation.user_id %></td>
+    <td><%=h project_allocation.student_id %></td>
+    <td><%=h project_allocation.project_id %></td>
+    <td><%=h project_allocation.allocation_round %></td>
+    <td><%= link_to 'Show', project_allocation %></td>
+    <td><%= link_to 'Edit', edit_project_allocation_path(project_allocation) %></td>
+    <td><%= link_to 'Destroy', project_allocation, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New project_allocation', new_project_allocation_path %>

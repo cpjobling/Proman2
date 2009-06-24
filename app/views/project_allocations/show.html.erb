@@ -1,0 +1,23 @@
+<p>
+  <b>User:</b>
+  <%=h @project_allocation.user_id %>
+</p>
+
+<p>
+  <b>Student:</b>
+  <%=h @project_allocation.student_id %>
+</p>
+
+<p>
+  <b>Project:</b>
+  <%=h @project_allocation.project_id %>
+</p>
+
+<p>
+  <b>Allocation round:</b>
+  <%=h @project_allocation.allocation_round %>
+</p>
+
+
+<%= link_to 'Edit', edit_project_allocation_path(@project_allocation) %> |
+<%= link_to 'Back', project_allocations_path %>
