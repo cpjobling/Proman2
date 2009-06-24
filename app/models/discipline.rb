@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090621110215
+# Schema version: 20090624110933
 #
 # Table name: disciplines
 #

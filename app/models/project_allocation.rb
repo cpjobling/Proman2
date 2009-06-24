@@ -1,3 +1,18 @@
+# == Schema Information
+# Schema version: 20090624110933
+#
+# Table name: project_allocations
+#
+#  id               :integer         not null, primary key
+#  user_id          :integer         not null
+#  student_id       :integer         not null
+#  project_id       :integer         not null
+#  supervisor_id    :integer         not null
+#  allocation_round :integer         not null
+#  created_at       :datetime
+#  updated_at       :datetime
+#
+
 # Copyright 2009 Swansea University
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");

@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(:version => 20090624110933) do
     t.integer  "user_id",          :null => false
     t.integer  "student_id",       :null => false
     t.integer  "project_id",       :null => false
+    t.integer  "supervisor_id",    :null => false
     t.integer  "allocation_round", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -52,8 +53,9 @@ ActiveRecord::Schema.define(:version => 20090624110933) do
 
   add_index "project_allocations", ["allocation_round"], :name => "index_project_allocations_on_allocation_round"
   add_index "project_allocations", ["project_id"], :name => "index_project_allocations_on_project_id"
-  add_index "project_allocations", ["student_id", "project_id", "allocation_round"], :name => "index_project_allocations_on_student_id_and_project_id_and_allocation_round", :unique => true
+  add_index "project_allocations", ["student_id", "project_id", "supervisor_id", "allocation_round"], :name => "index_project_allocations_on_student_id_and_project_id_and_supervisor_id_and_allocation_round", :unique => true
   add_index "project_allocations", ["student_id"], :name => "index_project_allocations_on_student_id"
+  add_index "project_allocations", ["supervisor_id"], :name => "index_project_allocations_on_supervisor_id"
 
   create_table "project_selections", :force => true do |t|
     t.integer  "student_id"
