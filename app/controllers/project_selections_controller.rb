@@ -21,7 +21,7 @@ class ProjectSelectionsController < ApplicationController
   before_filter :can_select_projects?
   before_filter :current_selection_round
   before_filter :find_student_and_project_selection
-  before_filter :verify_ownership, :only => [:show, :edit, :update]
+  before_filter :verify_ownership, :only => [:edit, :update, :destroy]
   current_tab :project_selections
 
   # GET /project_selections
@@ -33,12 +33,6 @@ class ProjectSelectionsController < ApplicationController
     end
   end
 
-  # GET /project_selections/1
-  # GET /project_selections/1.xml
-  def show
-    #redirect_to project_selection_selected_projects_path(@project_selection)
-  end
-
   # GET /project_selections/new
   # GET /project_selections/new.xml
   def new
@@ -46,13 +40,12 @@ class ProjectSelectionsController < ApplicationController
     @projects = projects_suitable_for_student
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @project }
+      format.xml  { render :xml => @project_selection }
     end
   end
-  
+
   # GET /project_selections/1/edit
   def edit
-    # This should be projects for student's discipline
     @projects = projects_suitable_for_student
     @selected_projects = @project_selection.selected_projects
   end
@@ -84,9 +77,14 @@ class ProjectSelectionsController < ApplicationController
     end
   end
 
-  def help
+  # DELETE /admin/projects/1
+  # DELETE /admin/projects/1.xml
+  def destroy
+    @project_selection.destroy
+
     respond_to do |format|
-      format.html # help.html.erb
+      format.html { redirect_to(project_selections_path) }
+      format.xml  { head :ok }
     end
   end
 
@@ -130,13 +128,11 @@ class ProjectSelectionsController < ApplicationController
   end
 
   def verify_ownership
-    the_student = @student
-    the_ps = @project_selection
-    the_ps_owner = the_ps.student
-    unless @student == @project_selection.student
+    @ps = ProjectSelection.find(params[:id])
+    unless @ps.student ==  @student
       flash[:notice] = "You are not permitted to access another student's project selection. This access attempt has been logged."
-      logger.error "Student #{@student.id} attempted to access project selection id #{@project_selection.id} at #{Time.now}"
-      redirect_to(:action => 'index')
+      logger.error "Student #{@student.id} attempted to access project selection id #{@ps.id} at #{Time.now}"
+      redirect_to :action => 'index'
     end
   end
 

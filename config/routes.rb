@@ -14,12 +14,9 @@
 
 
 ActionController::Routing::Routes.draw do |map|
-  # Special routes for project_selections controller
-  map.with_options :controller => "project_selections" do |ps|
-    ps.help 'project_selections/help', :conditions => { :method => :get }, :action => "help"
-  end
   # Restful routes
-  map.resources :project_selections, :has_many => :selected_projects
+  map.resources :project_selections, :except => [:show, :create], :has_many => :selected_projects
+
   map.resources :project_allocations
 
   map.connect 'projects/by_supervisor',
@@ -41,6 +38,11 @@ ActionController::Routing::Routes.draw do |map|
       :conditions => { :method => :get },
       :action => "specials",
       :controller => 'projects'
+
+  map.with_options :controller => "help" do |help|
+    help.project_selection_help 'help/project_selections',
+      :conditions => { :method => :get }, :action => 'project_selection'
+  end
 
   map.resources :projects, :only => [:index, :show]
 
@@ -103,9 +105,6 @@ ActionController::Routing::Routes.draw do |map|
   map.my_account 'my_account', :conditions => { :method => :get },
     :controller => 'user', :action => 'index'
 
-  map.select_projects 'select_projects', :conditions => { :method => :get },
-    :controller => 'project_selections', :action => 'index'
-  
   map.about 'about', :conditions => { :method => :get}, :controller => 'about', :action => 'index'
 
   map.home 'main', :conditions => { :method => :get}, :controller => 'main', :action => 'index'

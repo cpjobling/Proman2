@@ -29,10 +29,5 @@ three:
 
 four:
   id: 4
-  student_id: 203
-  round: 2
-
-five:
-  id: 5
   student_id: 204
-  round: 1
+  round: 2

@@ -176,96 +176,123 @@ class ProjectSelectionsControllerTest < ActionController::TestCase
     end
   end
 
-  test "before_filter find_student_and_project_selection assigns a student" do
-    get :index
-    assert_not_nil assigns('student')
-    assert_equal @student1, assigns('student'), "Student should be assigned to @student"
-  end
+  context "the before filter find_student_and_project_selection" do
 
-  test "before_filter find_student_and_project_selection creates a new project_selection" do
-    assert_difference('ProjectSelection.count') do
-      get :index
-    end
-    @student = assigns['student']
-    assert_not_nil @student.project_selection, "New PS created"
-    assert_equal @student.project_selection.student, @student
-    assert_equal @student.project_selection.round, Proman::Config.current_selection_round
-    assert_equal @student.project_selection, assigns['project_selection']
-  end
-
-  test "before_filter find_student_and_project_selection returns an existing project_selection" do
-    ps = ProjectSelection.create(:student => @student1, :round => Proman::Config.current_selection_round)
-    assert_no_difference('ProjectSelection.count') do
-      get :index
-    end
-    @student = assigns['student']
-    assert_not_nil @student.project_selection
-    assert_equal @student.project_selection.student, @student1
-    assert_equal ps, assigns['project_selection']
-  end
-
-  test "before_filter verify_ownership for owner succeeds" do
-    get :index
-    student = assigns['student']
-    ps = assigns['project_selection']
-    alleged_owner = @student1
-    assert_response :success
-  end
-
-  test "before_filter verify_ownership for non-owner should fail and redirect" do
-    login_as @student2.user # owns PS 2
-    # attempt to access original user's project selection
-    get :show, :id => project_selections(:one).to_param
-    assert_equal "You are not permitted to access another student's project selection. This access attempt has been logged.", flash[:notice]
-    assert_redirected_to :action => "index"
-  end
-
-  test "should get index" do
-    get :index
-    assert_response :success
-    assert_not_nil assigns(:project_selections)
-  end
-
-  test "should get help" do
-    get :help
-    assert_response :success
-    assert_template :help
-  end
-
-  test "should get new" do
-    get :new
-    assert_response :success
-  end
-
-  test "should create project_selection" do
-    assert_difference('ProjectSelection.count') do
-      post :create, :project_selection => { }
+    context "not a student" do
+      setup do
+        login_as :academic
+        get :index
+      end
+      should_respond_with :unauthorized
     end
 
-    assert_redirected_to project_selection_path(assigns(:project_selection))
-  end
+    context "logged in as a student who doesn't have a project selection" do
+      setup do
+        login_as :student5
+        get :index
+      end
 
-  test "should show project_selection" do
-    get :show, :id => project_selections(:one).to_param
-    assert_response :success
-  end
+      should  "assign to @student" do
+        assert_not_nil assigns('student'), "@student should be assigned"
+        assert_equal @student5, assigns('student'), "Student 5 should be assigned to @student"
+      end
 
-  test "should get edit" do
-    get :edit, :id => project_selections(:one).to_param
-    assert_response :success
-  end
+      should "find a nil project_selection" do
+        @student = assigns['student']
+        assert_nil @student.project_selection
+      end
 
-  test "should update project_selection" do
-    put :update, :id => project_selections(:one).to_param, :project_selection => { }
-    assert_redirected_to project_selection_path(assigns(:project_selection))
-  end
+      should "assign a nil @project_selection" do
+        assert_nil assigns('project_selection'), "@project_selection should be nil"
+      end
 
-  test "should destroy project_selection" do
-    assert_difference('ProjectSelection.count', -1) do
-      delete :destroy, :id => project_selections(:one).to_param
     end
 
-    assert_redirected_to project_selections_path
+    context "logged in as a student who has a project selection" do
+      setup do
+        login_as :student1
+        get :index
+      end
+
+      should  "assign to @student" do
+        assert_not_nil assigns('student'), "@student should be assigned"
+        assert_equal @student1, assigns('student'), "Student should be assigned to @student"
+      end
+
+      should "assign to @project_selection" do
+        assert assigns('project_selection'), "@project_selection should be assigned"
+      end
+
+      should "return an existing project_selection" do
+        @student = assigns['student']
+        assert_not_nil @student.project_selection
+        assert_equal @student.project_selection.student, @student1
+        assert_equal @student.project_selection, assigns['project_selection']
+      end
+
+      should "call verify_ownership for owner and succeed" do
+        ps = assigns['project_selection']
+        assert_equal @student1, ps.student
+        assert_response :success
+      end
+    end
+  end
+
+  context "before_filter verify_ownership for logged in student who but not the owner of the requested project selection" do
+    setup do
+      login_as :student2
+      get :edit, :id => project_selections(:one).to_param
+    end
+    should_assign_to :student
+    should_assign_to :ps
+    should "invalidate the test conditions" do
+      ps = assigns(:ps)
+      student = assigns(:student)
+      assert_equal @student2, student, "logged in student wasn't student2"
+      assert_equal @student1, ps.student, "project selection wasn't owned by student1"
+      assert_not_equal student, ps.student, "should not be equal"
+      assert_not_equal ps, student.project_selection, "project selections should be different"
+    end
+    should_set_the_flash_to /not permitted/
+    should "redirect to index" do
+      assert_redirected_to project_selections_path
+    end
+  end
+
+  context "student requests a new project selection" do
+    setup do
+      login_as :student5
+    end
+
+    should "get new" do
+      get :new
+      assert_response :success
+    end
+
+  end
+
+  context "student edits a project selection" do
+    setup do
+      login_as :student1
+    end
+
+    should "get edit" do
+      get :edit, :id => project_selections(:one).to_param
+      assert_response :success
+    end
+
+    should "update project_selection" do
+      put :update, :id => project_selections(:one).to_param, :project_selection => { }
+      assert_redirected_to project_selection_selected_projects_path(assigns(:project_selection))
+    end
+
+    should "destroy project_selection" do
+      assert_difference('ProjectSelection.count', -1) do
+        delete :destroy, :id => project_selections(:one).to_param
+      end
+
+      assert_redirected_to project_selections_path
+    end
   end
 
   private

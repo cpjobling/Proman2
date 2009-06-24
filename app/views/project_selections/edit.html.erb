@@ -13,18 +13,7 @@
 
 <% headline "Projects selected for #{@student.user.name}" %>
 
-<p><strong>Important</strong>
-<p>The paging feature was causing some of you a problem. It has been disabled while an alternative is sought. The disadvantage
-is that there will be a very long list of projects to select from for some of you.</p>
-
-<p>On this page you can add new projects or remove projects from your "shortlist".
-If you select a project it will be added. If you deselect a project it will be removed.</p>
-<%= link_to "Help", { :action => "help" }, :popup => ['Help on the project selection pages', width=200, height=100] %>
-
-
-
-
-
+<%= render(:partial => "explanation") %>
 
 <% form_for(@project_selection) do |f| %>
   <%= f.error_messages %>
@@ -43,12 +32,11 @@ If you select a project it will be added. If you deselect a project it will be r
     </tfoot>
     <tbody>
       <%= render(:partial => "project_selection_index", :collection => @projects,
-        :locals => {:f => f, :selected_projects => @selected_projects.collect {|sp| sp.project_id }}) %>
+        :locals => {:f => f, :selection => @selected_projects.collect {|sp| sp.project_id }}) %>
     </tbody>
   </table>
   <%# render(:partial => "shared/tablesorter_pager", :locals => {:pager_id => 'pager'})%>
 
 <% end %>
 
-<%= link_to 'Show', @project_selection %> |
 <%= link_to 'Back', project_selections_path %>

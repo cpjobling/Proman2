@@ -5,11 +5,13 @@
   <script type="text/javascript">
     $(document).ready(function() {
       $("#projects")
-      .tablesorter({sortList: [[2, 0]], widthFixed: true, widgets: ['zebra']})
-      .tablesorterPager({container: $("#pager"), positionFixed: false});
+      .tablesorter({sortList: [[2, 0]], widthFixed: true, widgets: ['zebra']});
+      //.tablesorterPager({container: $("#pager"), positionFixed: false});
     });
   </script>
 <% end %>
+
+<%= render(:partial => "explanation") %>
 
 <% form_for(@project_selection) do |f| %>
   <%= f.error_messages %>
@@ -29,7 +31,7 @@
       <%= render(:partial => "project_selection_index", :collection => @projects, :locals => {:f => f, :selection => []}) %>
     </tbody>
   </table>
-  <%= render(:partial => "shared/tablesorter_pager", :locals => {:pager_id => 'pager'})%>
+  <%#= render(:partial => "shared/tablesorter_pager", :locals => {:pager_id => 'pager'})%>
 
 <% end %>
 <%= link_to 'Back', project_selections_path %>
