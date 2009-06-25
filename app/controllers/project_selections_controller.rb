@@ -93,7 +93,12 @@ class ProjectSelectionsController < ApplicationController
   def find_student_and_project_selection
     @student = current_user.student
     if @student
-      @project_selection = @student.project_selection
+      if @student.project
+      	flash[:notice] = "you have been allocated with a project: this project must be de-allocated by a project coordinator before you can make a new selection."
+      	redirect_to project_allocations_path
+      else
+	    @project_selection = @student.project_selection
+      end
     else
       flash[:notice] = "You must be a student to make a project selection"
       redirect_to projects_path
