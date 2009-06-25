@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090624110933) do
+ActiveRecord::Schema.define(:version => 20090625090138) do
 
   create_table "allocation_round", :id => false, :force => true do |t|
     t.integer  "round",      :default => 0
@@ -42,7 +42,6 @@ ActiveRecord::Schema.define(:version => 20090624110933) do
   add_index "four_oh_fours", ["url"], :name => "index_four_oh_fours_on_url"
 
   create_table "project_allocations", :force => true do |t|
-    t.integer  "user_id",          :null => false
     t.integer  "student_id",       :null => false
     t.integer  "project_id",       :null => false
     t.integer  "supervisor_id",    :null => false
@@ -53,7 +52,6 @@ ActiveRecord::Schema.define(:version => 20090624110933) do
 
   add_index "project_allocations", ["allocation_round"], :name => "index_project_allocations_on_allocation_round"
   add_index "project_allocations", ["project_id"], :name => "index_project_allocations_on_project_id"
-  add_index "project_allocations", ["student_id", "project_id", "supervisor_id", "allocation_round"], :name => "index_project_allocations_on_student_id_and_project_id_and_supervisor_id_and_allocation_round", :unique => true
   add_index "project_allocations", ["student_id"], :name => "index_project_allocations_on_student_id"
   add_index "project_allocations", ["supervisor_id"], :name => "index_project_allocations_on_supervisor_id"
 
@@ -74,8 +72,6 @@ ActiveRecord::Schema.define(:version => 20090624110933) do
     t.boolean  "carbon_critical", :default => false
     t.boolean  "sure",            :default => false
     t.boolean  "allocated",       :default => false
-    t.integer  "round",           :default => 0
-    t.integer  "student_id"
     t.boolean  "available",       :default => true
   end
 
@@ -152,6 +148,7 @@ ActiveRecord::Schema.define(:version => 20090624110933) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "loading",            :default => 4
+    t.integer  "load",               :default => 0
   end
 
   add_index "supervisors", ["staff_id"], :name => "index_supervisors_on_staff_id", :unique => true

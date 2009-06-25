@@ -20,8 +20,10 @@
 
 <tr class="<%= cycle('even','odd') %>">
   <td><%= supervisor_index.staff_id  %></td>
-  <td><%= user.name.last %>, <%= user.name.title %> <%= user.name.first %></td>
-  <td><%= supervisor_index.rc_abbrev %></td>
+  <td><%= h(user.name.last) %>, <%= h(user.name.title) %> <%= h(user.name.first) %></td>
+  <td><%= h(supervisor_index.rc_abbrev) %></td>
+  <td><%= supervisor_index.load %></td>
+  <td><%= supervisor_index.loading %></td>
   <td><%= link_to 'Show', admin_supervisor_path(supervisor_index) %></td>
   <%#= link_to project.title, project %>
   <td><%= link_to 'Edit', edit_admin_supervisor_path(supervisor_index) %></td>

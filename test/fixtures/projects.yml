@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090624110933
+# Schema version: 20090624122252
 #
 # Table name: projects
 #
@@ -13,8 +13,6 @@
 #  carbon_critical :boolean
 #  sure            :boolean
 #  allocated       :boolean
-#  round           :integer         default(0)
-#  student_id      :integer
 #  available       :boolean         default(TRUE)
 #
 

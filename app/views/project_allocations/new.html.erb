@@ -1,12 +1,19 @@
-<h1>New project_allocation</h1>
+<% content_for :head do %>
+  <%= render(:partial => "shared/import_tablesorter") %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $("#projects")
+      .tablesorter({sortList: [[2, 0]], widthFixed: true, widgets: ['zebra']});
+      //.tablesorterPager({container: $("#pager"), positionFixed: false});
+    });
+  </script>
+<% end %>
+
+<% title "Allocate project" %>
 
 <% form_for(@project_allocation) do |f| %>
   <%= f.error_messages %>
 
-  <p>
-    <%= f.label :user_id %><br />
-    <%= f.text_field :user_id %>
-  </p>
   <p>
     <%= f.label :student_id %><br />
     <%= f.text_field :student_id %>
@@ -16,8 +23,12 @@
     <%= f.text_field :project_id %>
   </p>
   <p>
-    <%= f.label :allocation_round %><br />
-    <%= f.text_field :allocation_round %>
+    <%= f.label :supervisor_id %><br />
+    <%= f.text_field :supervisor_id %>
+  </p>
+  <p>
+    <%= f.label :allocation_round %> <%= @allocation_round %>
+    <%= f.hidden_field :allocation_round, :value => @allocation_round %>
   </p>
   <p>
     <%= f.submit 'Create' %>

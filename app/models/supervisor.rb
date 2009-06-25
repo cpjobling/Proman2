@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090624110933
+# Schema version: 20090624122252
 #
 # Table name: supervisors
 #
@@ -29,7 +29,7 @@
 class Supervisor < ActiveRecord::Base
   belongs_to :user
   belongs_to :research_centre
-#  has_many :projects, :through => :projects, :source => :user, :foreign_key => 'created_by'
+  has_many :students, :through => :project_allocations
 
   validates_presence_of :user_id, :staff_id, :research_centre_id
 
@@ -44,4 +44,21 @@ class Supervisor < ActiveRecord::Base
   def projects
     return self.user.projects
   end
+
+  def add_student
+    write_attribute('load', read_attribute('load') + 1)
+  end
+
+  def has_full_allocation?
+    return read_attribute('load') >= read_attribute('loading')
+  end
+
+  def load
+    return read_attribute('load')
+  end
+
+  def load=(load)
+    write_attribute('load', load)
+  end
+
 end

@@ -19,3 +19,6 @@
 <%= f.text_field :staff_id, :size => "7", :title=>"Staff number is the 6 digit number to be found on your staff card." %>
 <br />
 Assign staff member to a research centre: <%= f.select( :research_centre_id, research_centres_for_select, {:prompt => "Select research centre"} ) %>
+<br />
+<%= f.label :loading, "Approved supervision load" %>:
+<%= f.text_field :loading, :size => "2", :title=>"The maximum number of students this staff member can supervise this session." %>

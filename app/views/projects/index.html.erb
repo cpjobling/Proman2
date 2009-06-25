@@ -49,28 +49,17 @@ same point in the table.</p>
     <th title="Click to sort by project title: click again to reverse sort direction.">Title</th>
     <th title="Click to sort by project supervisor: click again to reverse sort direction.">Supervisor</th>
     <th title="Click to sort by research centre: click again to reverse sort direction.">Centre</th>
-    <%= add_selection_to_table_header_if(@project_selection) %>
+    <th title="Click to sort by availability: click again to reverse sort direction.">Available?</th>
   </thead>
-  <% if @project_selection %>
-    <% form_for (@project_selection) do |f| %>
-      <tfoot>
-        <tr><th colspan="3">&nbsp;</th><th colspan="2"><%= f.submit "Update selections"  %></th></tr>
-      </tfoot>
-      <tbody>
-        <tr><th>PS ID</th><td><%= @project_selection.id %></td></tr>
-        <%= render(:partial => "project_selection_index", :collection => @projects, :locals => {:f => f, :selection => @project_selection}) %>
-      </tbody>
-    <% end %>
-  <% else %>
     <tfoot>
       <th>Number</th>
       <th>Title</th>
       <th>Supervisor</th>
       <th>Centre</th>
+      <th>Available?</th>
     </tfoot>
     <tbody>
       <%= render(:partial => "project_index", :collection => @projects) %>
     </tbody>
-  <% end %>
 </table>
 <%= render(:partial => "shared/tablesorter_pager", :locals => {:pager_id => 'pager'})%>

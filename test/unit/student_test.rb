@@ -17,10 +17,10 @@ require 'test_helper'
 class StudentTest < ActiveSupport::TestCase
 
   fixtures :students, :project_selections, :selected_projects
-  
+
   should_belong_to :user, :discipline
-  should_have_one :project, :dependent => :nullify
   should_have_one :project_selection, :dependent => :destroy
+  should_have_one :project_allocation, :dependent => :destroy
 
   #  id            :integer         not null, primary key
   #  user_id       :integer
@@ -89,9 +89,12 @@ class StudentTest < ActiveSupport::TestCase
         assert_equal 5, @student.project_selection.selected_projects.count
         @student.allocate(@project1)
         assert_nil @student.project_selection
-        assert_equal @project1, @student.project
+        pa = ProjectAllocation.find_by_project_id(@project1.id)
+        assert_equal @project1.id, pa.project_id
+        assert_equal @student.id, pa.student_id
+        assert_equal @project1.supervisor.id, pa.supervisor_id
         assert ! @student.project.available?, "should not be available"
-        assert_equal 1, @student.project.round, "should have been allocated in round 1"
+        assert_equal 1, pa.allocation_round, "should have been allocated in round 1"
       end
 
       should "not allocate project that isn't in the student's selection" do
@@ -115,6 +118,7 @@ class StudentTest < ActiveSupport::TestCase
       end
     end
   end
+
 
   def setup
     @student = students(:student1)

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090624110933
+# Schema version: 20090624122252
 #
 # Table name: students
 #
@@ -32,7 +32,7 @@ class Student < ActiveRecord::Base
   belongs_to :discipline
   # Student can be allocated one project.
   # Project becomes de-allocated if student is deleted.
-  has_one :project, :dependent => :nullify
+  has_one :project_allocation, :dependent => :destroy
   # Student has a projects selection, which
   # if student is destroyed, is also destroyed
   has_one :project_selection, :dependent => :destroy
@@ -46,6 +46,7 @@ class Student < ActiveRecord::Base
 
   delegate :name, :email, :to => :user
   delegate :name, :long_name, :to => "discipline.nil? ? false : discipline", :prefix => :disc
+  delegate :project, :supervisor, :allocation_round, :to => "project_allocation.nil? ? false : project_allocation"
 
   # Allocate a project to this student if the project is in the students selected projects.
   def allocate(project)

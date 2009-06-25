@@ -13,16 +13,20 @@
     <li>View and edit your <%= link_to "project descriptions", user_projects_path -%>.</li>
     <!-- If any of your projects have been allocated to students -->
     <li>View your project students (coming soon)</li>
+    <li>View all the projects that have been allocated</li>
   <% end %>
   <% if @user.student?  %>
     <!-- If you are a student -->
-    <!-- If registration/or selection -->
-    <li>View the <%= link_to "available projects", projects_path -%>.</li>
-    <% if Proman::Config.can_select? %>
-    <li>Make <%= link_to 'project selection or view and rank the projects you have selected', project_selections_path %>.</li>
+    <% student = @user.student %>
+      <!-- If project has been allocated -->
+      <% if student.project %>
+      <li>View your allocated project: <%= link_to "#{student.project.title}", project_path(student.project) %>.</li>
+      <li>You can also <%= link_to 'view', project_allocations_path %> the other allocated projects.</li>
+    <% elsif Status.find(1).can_select? %>
+      <li>Make <%= link_to 'project selection or view and rank the projects you have selected', project_selections_path %>.</li>
+    <% else %>
+      <li>View the <%= link_to "available projects", projects_path -%>.</li>
     <% end %>
-    <!-- If project has been allocated -->
-    <!-- <li>Find the contact details of your supervisor and research centre coordinator (after allocation).</li> -->
   <% end %>
 </ul>
 

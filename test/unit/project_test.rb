@@ -24,6 +24,15 @@ class ProjectTest < ActiveSupport::TestCase
     @icct = disciplines(:icct)
   end
 
+  should_have_and_belong_to_many :disciplines
+  should_belong_to :user
+  should_have_many :selected_projects, :dependent => :delete_all
+  should_have_one :project_allocation, :dependent => :destroy
+
+  should_validate_presence_of :title, :description, :created_by
+  should_validate_uniqueness_of :title
+
+
   # Replace this with your real tests.
   def test_truth
     assert true
@@ -48,17 +57,17 @@ class ProjectTest < ActiveSupport::TestCase
   end
 
   def test_project_creator_is_valid
-      users = User.find(:all)
-      users.each do |user|
-      	if user.has_role?('staff')
-			projects = Project.find(:all,
-			   :conditions => ["created_by = ?", user.id])
-			projects.each do |project|
-				assert_equal project.created_by, user.id,
-				   "user #{user.id} didn't create project #{project.id}"
-			end
-      	end
-  	  end
+    users = User.find(:all)
+    users.each do |user|
+      if user.has_role?('staff')
+        projects = Project.find(:all,
+          :conditions => ["created_by = ?", user.id])
+        projects.each do |project|
+          assert_equal project.created_by, user.id,
+            "user #{user.id} didn't create project #{project.id}"
+        end
+      end
+    end
   end
 
   def test_project_can_be_carbon_critical
@@ -125,18 +134,18 @@ class ProjectTest < ActiveSupport::TestCase
   		@project.disciplines << discipline
   	end
     assert @project.suitable_for_all?,
-       "Project should suit all disciplines"
+      "Project should suit all disciplines"
   end
 
   def test_unnassigned_project_not_suitable_for_all
     assert ! @project.suitable_for_all?,
-       "Unaasigned project should not suit all disciplines"
+      "Unaasigned project should not suit all disciplines"
   end
 
   def test_singly_assigned_project_not_suitable_for_all
   	@project.disciplines << @icct
     assert ! @project.suitable_for_all?,
-       "Project assigned to one discipline should not suit all disciplines"
+      "Project assigned to one discipline should not suit all disciplines"
   end
 
   def test_project_assigned_to_all_but_one_discipline_not_suitable_for_all
@@ -147,7 +156,7 @@ class ProjectTest < ActiveSupport::TestCase
   	# Remove last discipline
   	@project.disciplines.delete(disciplines(:sports_materials))
     assert ! @project.suitable_for_all?,
-       "Project assigned to all but one discipline should not suit all disciplines"
+      "Project assigned to all but one discipline should not suit all disciplines"
   end
 
   def test_suitable_for_any
@@ -158,11 +167,11 @@ class ProjectTest < ActiveSupport::TestCase
 
   def test_suitable_for_discipline
   	assert ! @project.suitable_for_any?,
-  	    "Project should not be suitable for any discipine"
+      "Project should not be suitable for any discipine"
   	discipline = @icct
   	@project.suitable_for(discipline.name)
   	assert @project.suitable_for?(discipline.name),
-  	    "project should now be suitable for #{discipline.name}"
+      "project should now be suitable for #{discipline.name}"
   end
 
   def test_cant_add_unknown_discipline_to_project
@@ -201,33 +210,70 @@ class ProjectTest < ActiveSupport::TestCase
   	assert @project.suitable_for_none?, "Project is suitable for none"
   end
 
-  def test_available
-    project = projects(:project1)
-    assert project.available?, "project 2 should be available"
-    project.available = false
-    assert ! project.available?, "project 2 should not be available"
-  end
+  context "availability of a project" do
+    setup do
+      @project = projects(:project1)
+    end
 
-  def test_round
-    project = projects(:project1)
-    assert_equal 0, project.round
-    project.round =  1
-    assert_equal 1, project.round
+    should "honour availability flag" do
+      assert @project.available?, "project 1 should be available"
+      @project.available = false
+      assert ! @project.available?, "project 1 should not be available"
+    end
+
+    context "supervisor" do
+      setup do
+        @supervisor = @project.supervisor
+      end
+
+      should "be the correct supervisor" do
+        assert_equal supervisors(:staff), @supervisor
+      end
+
+      should "have the default loading" do
+        assert_equal 4, @supervisor.loading
+      end
+
+      should "not be available if staff loading is exceeded" do
+        @supervisor.load = 3
+        assert @project.available?, "should be available"
+        @supervisor.load += 1
+        assert ! @project.available?, "should not now be available"
+      end
+    end
+
+    context "after allocation to a student" do
+      setup do
+        @student = students(:student1)
+      end
+
+      should "not be available" do
+        @project.allocate(@student, 1)
+        assert ! @project.available?
+      end
+
+      should "be allocated" do
+        assert ! @project.allocated?
+        @project.allocate(@student, 1)
+        assert @project.allocated?
+      end
+    end
   end
 
   def test_allocate
     project = projects(:project3)
     assert project.available?, "project1 should be available"
-    assert_equal 0, project.round, "project1 should have default value for round"
     student = students(:student1)
     assert_not_nil student.project_selection, "student 1 has a project selection"
     assert_equal 10, SelectedProject.count, "there should be 10 selected projects"
     project.allocate(student, 1)
     student.reload
     assert ! project.available?, "project 3 should now be unavailable"
-    assert_equal 1, project.round, "project 3 should be allocated in round 1"
-    assert_equal student, project.student, "project 3 should be assigned to student"
-    assert_equal project, student.project, "student should be allocated with this project"
+    pa = ProjectAllocation.find_by_project_id(project.id)
+    assert_equal 1, pa.allocation_round, "allocation round wasn't 1"
+    assert_equal student.id, pa.student_id, "student so sbe allocated"
+    assert_equal project.id, pa.project_id, "project should be allocated"
+    assert_equal project.supervisor.id, pa.supervisor_id, "supervisor should be allocated"
     assert_nil student.project_selection, "student 3 has no project selection"
     assert_equal 4, SelectedProject.count, "project selections have not been dettached"
   end

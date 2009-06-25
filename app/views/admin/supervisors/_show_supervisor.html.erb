@@ -14,11 +14,40 @@
 #  limitations under the License.
 #  under the License.
 %>
-
 <p>
   <strong>Staff number</strong>: <%= staff.staff_id %> <br />
-  <strong>Research centre</strong>: <%= staff.research_centre.title %>  <br />
-  <% if staff.user.has_role?("coordinator") %>
-    <%= staff.user.name %> is the coordinator for <%= staff.research_centre.title %>.
+  <strong>Research centre</strong>: <%= h(staff.research_centre.title) %>  <br />
+  <strong>Approved loading</strong>: <%= h(staff.loading) %>
+</p>
+
+<h3>Unallocated projects</h3>
+<table border="0">
+  <thead><th>Number</th><th>Title</th></thead>
+  <tbody>
+    <%= render(:partial => "project", :collection => staff.projects.find(:all, :conditions => ['available = ?', true])) %>
+  </tbody>
+</table>
+
+<% if staff.load > 0 %>
+<h3>Allocated projects</h3>
+<table border="0">
+  <thead><th>Number</th><th>Title</th><th>Allocated to</th></thead>
+  <tbody>
+    <%= render(:partial => "allocated_project", :collection => staff.projects.find(:all, :conditions => ['allocated = ?', true])) %>
+  </tbody>
+</table>
+<%  end %>
+
+<h3>Additional notes</h3>
+<% if staff.user.has_role?("admin") %> %>
+  <%= h(staff.user.name) %> is an administrator.
+<% end %>
+<% if staff.user.has_role?("coordinator") %>
+  <%= h(staff.user.name) %> is the coordinator
+  <% if staff.user.has_role?("admin") %>
+    for all research centres.
+  <% else %>
+    for <%= h(staff.research_centre.title) %>.
   <% end %>
+<% end %>
 </p>

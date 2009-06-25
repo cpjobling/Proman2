@@ -17,6 +17,11 @@ class User::AccountsController < ApplicationController
   before_filter :login_required, :only =>  [ :show, :edit, :update ]
   before_filter :login_prohibited, :only => [:new, :create]
 
+  def index
+    @user = current_user
+    @status = Status.find(1)
+  end
+
   # This show action only allows users to view their own profile
   def show
     @user = current_user

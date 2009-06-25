@@ -1,10 +1,9 @@
 # == Schema Information
-# Schema version: 20090624110933
+# Schema version: 20090624122252
 #
 # Table name: project_allocations
 #
 #  id               :integer         not null, primary key
-#  user_id          :integer         not null
 #  student_id       :integer         not null
 #  project_id       :integer         not null
 #  supervisor_id    :integer         not null
@@ -30,4 +29,5 @@
 class ProjectAllocation < ActiveRecord::Base
   belongs_to :student
   belongs_to :project
+  belongs_to :supervisor
 end

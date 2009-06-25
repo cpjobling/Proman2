@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090624110933
+# Schema version: 20090624122252
 #
 # Table name: project_selections
 #

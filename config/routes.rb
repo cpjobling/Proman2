@@ -19,7 +19,7 @@ ActionController::Routing::Routes.draw do |map|
   # Restful routes
   map.resources :project_selections, :except => [:show, :create], :has_many => :selected_projects
 
-  map.resources :project_allocations
+  map.resources :project_allocations, :collection => { :selections => :get, :updates => :post }
 
   map.connect 'projects/by_supervisor',
     :conditions => { :method => :get },
@@ -93,6 +93,7 @@ ActionController::Routing::Routes.draw do |map|
   map.coordinate 'coordinate', :conditions => { :method => :get },
     :controller => 'coordinator', :action => 'index'
   
+
   map.namespace :user do |user|
     #user.resources :activations
     #user.resources :invitations
@@ -106,6 +107,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.my_account 'my_account', :conditions => { :method => :get },
     :controller => 'user', :action => 'index'
+
+
 
   map.about 'about', :conditions => { :method => :get}, :controller => 'about', :action => 'index'
 

@@ -1,10 +1,9 @@
 # == Schema Information
-# Schema version: 20090624110933
+# Schema version: 20090624122252
 #
 # Table name: project_allocations
 #
 #  id               :integer         not null, primary key
-#  user_id          :integer         not null
 #  student_id       :integer         not null
 #  project_id       :integer         not null
 #  supervisor_id    :integer         not null
@@ -15,14 +14,14 @@
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  user_id: 1
-  student_id: 1
-  project_id: 1
-  allocation_round: 1
-
-two:
-  user_id: 1
-  student_id: 1
-  project_id: 1
-  allocation_round: 1
+#one:
+#  user_id: 1
+#  student_id: 1
+#  project_id: 1
+#  allocation_round: 1
+#
+#two:
+#  user_id: 1
+#  student_id: 1
+#  project_id: 1
+#  allocation_round: 1

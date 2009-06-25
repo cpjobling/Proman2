@@ -37,10 +37,12 @@ limitations under the License.
     <th title="Click to sort by staff id: click again to reverse sort direction.">Staff id</th>
     <th title="Click to sort by name: click again to reverse sort direction.">Name</th>
     <th title="Click to sort by research centre: click again to reverse sort direction.">Centre</th>
+    <th title="Click to sort by supervisor load: click again to reverse sort direction.">Students</th>
+    <th title="Click to sort by approved loading: click again to reverse sort direction.">Loading</th>
     <th class="{sorter: false}">Show</th><th class="{sorter: false}">Edit</th><th class="{sorter: false}">Delete</th>
   </thead>
   <tfoot>
-  <th>Staff id</th><th>Name</th><th>Centre</th><th>Show</th><th>Edit</th><th>Delete</th></tfoot>
+  <th>Staff id</th><th>Name</th><th>Centre</th><th>Students</th><th>Loading</th><th>Show</th><th>Edit</th><th>Delete</th></tfoot>
   <tbody>
     <%= render(:partial => "supervisor_index", :collection => @supervisors) %>
   </tbody>

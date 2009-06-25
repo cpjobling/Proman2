@@ -1,16 +1,18 @@
-<p>
-  <b>User:</b>
-  <%=h @project_allocation.user_id %>
-</p>
+
 
 <p>
   <b>Student:</b>
-  <%=h @project_allocation.student_id %>
+  <%=h Student.find(@project_allocation.student_id).student_id %>
 </p>
 
 <p>
   <b>Project:</b>
-  <%=h @project_allocation.project_id %>
+  <%=h @project_allocation.project_id%> : <%=h Project.find(@project_allocation.project_id).title %>
+</p>
+
+<p>
+  <b>Supervisor:</b>
+  <%=h Supervisor.find(@project_allocation.supervisor_id).name %>
 </p>
 
 <p>

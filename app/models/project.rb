@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090624110933
+# Schema version: 20090624122252
 #
 # Table name: projects
 #
@@ -13,8 +13,6 @@
 #  carbon_critical :boolean
 #  sure            :boolean
 #  allocated       :boolean
-#  round           :integer         default(0)
-#  student_id      :integer
 #  available       :boolean         default(TRUE)
 #
 
@@ -36,13 +34,16 @@ class Project < ActiveRecord::Base
   has_and_belongs_to_many :disciplines
   belongs_to :user, :foreign_key => "created_by"
   has_many :selected_projects, :dependent => :delete_all
-  belongs_to :student # allocation
-  has_one :supervisor
+  has_one :project_allocation, :dependent => :destroy
 
   validates_presence_of :title
   validates_uniqueness_of :title
   validates_presence_of :description
   validates_presence_of :created_by
+
+  delegate :student, :allocation_round, :to => :project_allocation
+
+
   # TODO: validator should check that at least one discipline has been specified
 	  
   # Helper methods
@@ -122,16 +123,26 @@ class Project < ActiveRecord::Base
   end
 
   def allocate(student, round)
-    self.available = false
-    self.round = round
-    student.project = self
-    student.save
-    self.student = student
+    self.allocated = true
+    self.supervisor.add_student
+    self.supervisor.save
+    self.save
+    pa = ProjectAllocation.new(:allocation_round => round, :project_id => self.id, :student_id => student.id, :supervisor_id => self.creator.supervisor.id)
+    pa.save
     student.drop_selection
     SelectedProject.drop_from_all_selections(self)
-    self.save
   end
-  
+
+  def available?
+    return false if self.supervisor.has_full_allocation?
+    return false if read_attribute("allocated")
+    return read_attribute("available")
+  end
+
+  def allocated?
+    return read_attribute("allocated")
+  end
+
   private
 
   def name_discipline(discipline)

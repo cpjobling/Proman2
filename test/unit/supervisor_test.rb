@@ -31,7 +31,7 @@ class SupervisorTest < ActiveSupport::TestCase
   should_validate_numericality_of :staff_id, :research_centre_id, :user_id, :loading
   should_validate_uniqueness_of :staff_id
   
-  #  should_have_many :projects, :through => :user
+  #should_have_many :students, :through => :project_allocations, :class => 'project_allocation'
   should_belong_to :user, :research_centre
 
   
@@ -111,4 +111,31 @@ class SupervisorTest < ActiveSupport::TestCase
 
   end
 
+
+
+  context "a supervisor with a loading" do
+    setup do
+      @supervisor = supervisors(:mgedwards)
+    end
+
+    should "have default loading" do
+      assert_equal 4, @supervisor.loading
+    end
+
+    should "add a student" do
+      assert_equal 0, @supervisor.load
+    end
+
+    should "access load through accessors" do
+      @supervisor.load = 2
+      assert_equal 2, @supervisor.load
+    end
+
+    should "report availabilty via load" do
+      @supervisor.load = 3
+      assert ! @supervisor.has_full_allocation?
+      @supervisor.load = 4
+      assert @supervisor.has_full_allocation?
+    end
+  end
 end
