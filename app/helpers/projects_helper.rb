@@ -38,14 +38,22 @@ module ProjectsHelper
   end
 
   def add_selection_to_table_header_if(project)
-     if project
-       return "<th class=\"{sorter: false}\">Select</th>"
-     end
+    if project
+      return "<th class=\"{sorter: false}\">Select</th>"
+    end
   end
 
-    def add_selection_to_table_footer_if(project)
-     if project
-       return "<th>Select</th>"
-     end
+  def add_selection_to_table_footer_if(project)
+    if project
+      return "<th>Select</th>"
+    end
+  end
+
+  def availability(project)
+    if project.available?
+      return "available"
+    else
+      return "not available"
+    end
   end
 end

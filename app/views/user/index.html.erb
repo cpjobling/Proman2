@@ -8,25 +8,30 @@
 <p>Welcome to <em>your</em> personal account page, <%=  @user.name.informally -%>.</p>
 <p>This page is all about you! From here you can:</p>
 <ul><li>Access and amend your <%= link_to 'login details', user_account_path(@user), { :title => "Your account details account" } -%>.</li>
-  <% if @user.supervisor?  %>
+  <% if @user.administrator? %>
+    <li>Administer <%=  link_to "this application", admin_path %>.</li>
+  <% elsif @user.supervisor?  %>
     <!-- If you are staff -->
     <li>View and edit your <%= link_to "project descriptions", user_projects_path -%>.</li>
     <!-- If any of your projects have been allocated to students -->
     <li>View your project students (coming soon)</li>
-    <li>View all the projects that have been allocated</li>
-  <% end %>
-  <% if @user.student?  %>
-    <!-- If you are a student -->
+    <li>View <%= link_to "all the projects that have been allocated", project_allocations_path %></li>
+  <% if @user.coordinator? %>
+    <% if Status.find(1).can_allocate? %>
+      <li><%= link_to  "Allocate projects", project_allocations_path %>.</li>
+    <% end %>
+    <li>Coordinate the <%=  link_to "students and staff in your research centre", coordinate_path %>.</li>
+    <% end %>
+  <% elsif @user.student?  %>
     <% student = @user.student %>
-      <!-- If project has been allocated -->
-      <% if student.project %>
+    <!-- If project has been allocated -->
+    <% if student.project %>
       <li>View your allocated project: <%= link_to "#{student.project.title}", project_path(student.project) %>.</li>
       <li>You can also <%= link_to 'view', project_allocations_path %> the other allocated projects.</li>
     <% elsif Status.find(1).can_select? %>
       <li>Make <%= link_to 'project selection or view and rank the projects you have selected', project_selections_path %>.</li>
-    <% else %>
-      <li>View the <%= link_to "available projects", projects_path -%>.</li>
     <% end %>
   <% end %>
+    <li>View the <%= link_to "available projects", projects_path -%>.</li>
 </ul>
 

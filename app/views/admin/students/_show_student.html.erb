@@ -18,6 +18,25 @@
 <p>
   <strong>Student number</strong>: <%= student.student_id %> <br />
   <strong>Discipline</strong>: <%= student.discipline.long_name %><br />
-  <strong>Grade</strong>: <%= student.grade %>
+  <strong>Grade</strong>: <%= student.grade %><br />
   <strong>Board decision</strong>: <%= student.board_decision %>
 </p>
+
+<% if student.project %>
+<h3>Allocated Project</h3>
+<p><%= link_to "#{student.project.id}", project_path(student.project) %>: <%= h(student.project.title) %> supervised by <%= link_to "#{h(student.project.supervisor.name)}", admin_supervisor_path(student.project.supervisor) %>.</p>
+<% end %>
+
+<% if student.project_selection %>
+<h3>Selected projects</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Position</th><th>Number</th><th>Title</th><th>Supervisor</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render(:partial => "selected_project", :collection => student.project_selection.selected_projects) %>
+  </tbody>
+</table>
+<% end %>

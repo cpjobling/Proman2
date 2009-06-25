@@ -17,7 +17,6 @@
 
 <%= render(:partial => "projects/project_description", :locals => {:project => @project}) %>
 
-<p><strong>Suitable for</strong>:</p>
 <%= render( :partial => "shared/list_disciplines", :object => @project) %>
 
 <%= link_to 'New', new_admin_project_path %> |

@@ -16,17 +16,9 @@
 %>
 
 
-<% title "#{h(project.title)} (#{availability(project)})" %>
-
-<p><strong>Description</strong>: <%= textilize(project.description) %></p>
-
-<% if project.carbon_critical %>
-  <p>This project may be suitable for the Atkins Carbon Critical award.</p>
-<% end %>
-<% if project.sure %>
-  <p>This project is part of the Swansea University Racecar Engineering (SURE) project.</p>
-<% end %>
-
-<% if project.allocated? %>
-  <p>This project has been allocated to student with ID: <%= project.student.student_id %>.</p>
-<% end %>
+<tr class="<%= cycle 'even', 'odd' %>">
+  <td><%=selected_project.position  %></td>
+  <td><%= link_to "#{selected_project.project.id}", admin_project_path(selected_project.project.id) %></td>
+  <td><%= h(selected_project.project.title) %></td>
+  <td><%= h(selected_project.project.supervisor.name) %></td>
+</tr>
