@@ -127,10 +127,11 @@ class Project < ActiveRecord::Base
     self.supervisor.add_student
     self.supervisor.save
     self.save
-    pa = ProjectAllocation.new(:allocation_round => round, :project_id => self.id, :student_id => student.id, :supervisor_id => self.creator.supervisor.id)
-    pa.save
+    pa = ProjectAllocation.new(:allocation_round => round, :project_id => self.id, :student_id => student.id, :supervisor_id => self.supervisor.id)
+    pa.save!
     student.drop_selection
     SelectedProject.drop_from_all_selections(self)
+    return pa
   end
 
   def available?

@@ -16,8 +16,9 @@
 <table id="projects" class="tablesorter">
 <thead>
 <tr>
-  <th>Student</th>
+  <th>#</th>
   <th>Project</th>
+  <td>Student</th>
   <th>Supervisor</th>
   <th>Round</th>
   <% if current_user.has_role?("coordinator") %>
@@ -33,10 +34,11 @@
   supervisor = Supervisor.find(project_allocation.supervisor_id)
 %>
   <tr class="<%=  cycle('odd', 'even') %>">
-    <td><%=h student.student_id %></td>
-    <td><%= link_to "#{project.title}", projects_path(project) %></td>
-    <td><%=h supervisor.name %></td>
-    <td><%=h project_allocation.allocation_round %></td>
+    <td><%= project.id %></td>
+    <td><%= link_to "#{h(project.title)}", project_path(project.id) %></td>
+    <td><%= h(student.student_id) %></td>
+    <td><%=  h(supervisor.name) %></td>
+    <td><%=  h(project_allocation.allocation_round) %></td>
     <% if current_user.has_role?("coordinator") %>
       <td><%= link_to 'Show', project_allocation %></td>
       <td><%= link_to 'Edit', edit_project_allocation_path(project_allocation) %></td>
@@ -45,7 +47,7 @@
   </tr>
 <% end %>
 </table>
-<% render(:partial => "shared/tablesorter_pager", :locals => {:pager_id => 'pager'})%>
+<%= render(:partial => "shared/tablesorter_pager", :locals => {:pager_id => 'pager'})%>
 
 <p>
   <%  if current_user.has_role?("coordinator") %>

@@ -44,7 +44,7 @@ class Student < ActiveRecord::Base
   validates_presence_of :grade, :allow_nil => true, :allow_blank => :true
   validates_numericality_of :grade, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100
 
-  delegate :name, :email, :to => :user
+  delegate :name, :email, :to => "user.nil? ? false : user"
   delegate :name, :long_name, :to => "discipline.nil? ? false : discipline", :prefix => :disc
   delegate :project, :supervisor, :allocation_round, :to => "project_allocation.nil? ? false : project_allocation"
 

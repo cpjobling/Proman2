@@ -192,6 +192,6 @@ class Admin::SetupController < ApplicationController
       end
       flash[:notice] = "#{result}\nCSV Student Grades Import Successful,  #{n} new records added to data base."
     end
-    redirect_to admin_projects_path
+    redirect_to admin_students_path
   end
 end

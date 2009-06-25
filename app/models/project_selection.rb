@@ -40,4 +40,9 @@ class ProjectSelection < ActiveRecord::Base
   def projects
     return self.selected_projects.map { |sp| sp.project }
   end
+
+
+  def selected_project
+    # TODO: do something here
+  end
 end

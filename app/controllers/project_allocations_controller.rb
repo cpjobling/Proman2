@@ -66,16 +66,23 @@ class ProjectAllocationsController < ApplicationController
   # POST /project_allocations
   # POST /project_allocations.xml
   def create
-    @project_allocation = ProjectAllocation.new(params[:project_allocation])
-
+    #@project_allocation = ProjectAllocation.make(params[:project_allocation])
+    pa_data = params[:project_allocation]
+    sp_ids = pa_data[:selected_projects]
+    @project_allocations = []
+    sp_ids.each do |sp_id|
+      selected_project = SelectedProject.find(sp_id.to_s)
+      @project_allocations << selected_project.allocate_project
+    end
     respond_to do |format|
-      if @project_allocation.save
-        flash[:notice] = 'Project allocation was successfully created.'
-        format.html { redirect_to(@project_allocation) }
-        format.xml  { render :xml => @project_allocation, :status => :created, :location => @project_allocation }
+      if @project_allocations.size
+        flash[:notice] = "#{@project_allocations.size} project allocations were successfully created."
+        format.html { redirect_to new_project_allocation_path }
+        # This will not work!
+        #format.xml  { render :xml => @project_allocation, :status => :created, :location => @project_allocation }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @project_allocation.errors, :status => :unprocessable_entity }
+        # format.xml  { render :xml => @project_allocation.errors, :status => :unprocessable_entity }
       end
     end
   end

@@ -131,7 +131,7 @@ ActiveRecord::Schema.define(:version => 20090625090138) do
 
   create_table "students", :force => true do |t|
     t.integer  "user_id"
-    t.decimal  "grade"
+    t.decimal  "grade",          :precision => 10, :scale => 2
     t.integer  "discipline_id"
     t.string   "student_id"
     t.datetime "created_at"

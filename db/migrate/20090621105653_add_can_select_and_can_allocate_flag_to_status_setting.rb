@@ -1,4 +1,4 @@
-class AddCanSelectAmdCanAllocateFlagToStatusSetting < ActiveRecord::Migration
+class AddCanSelectAndCanAllocateFlagToStatusSetting < ActiveRecord::Migration
   def self.up
     add_column :status_settings, :can_select, :boolean, :default=>false
     add_column :status_settings, :can_allocate, :boolean, :default=>false

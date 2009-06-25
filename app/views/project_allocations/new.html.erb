@@ -3,8 +3,8 @@
   <script type="text/javascript">
     $(document).ready(function() {
       $("#project_selections")
-      .tablesorter({sortList: [[1, 0]], widthFixed: false, widgets: ['zebra']})
-      .tablesorterPager({container: $("#pager"), positionFixed: false});
+      .tablesorter({sortList: [[1, 1]], widthFixed: false, widgets: ['zebra']});
+      //.tablesorterPager({container: $("#pager"), positionFixed: false});
     });
   </script>
 <% end %>
@@ -29,16 +29,15 @@
       <th>Discipline</th>
       <th colspan="10">
         <%= f.hidden_field :allocation_round, :value => @allocation_round %>
-        <%= f.submit 'Allocate selected' %>
+        <%= f.submit 'Allocate selected' %> <%= link_to 'View allocations', project_allocations_path %>
       </th>
     </tfoot>
     <tbody>
       <%= render(:partial => "project_selection", :collection => @project_selections, :locals => {:f => f} ) %>
     </tbody>
   </table>
-  <% render(:partial => "shared/tablesorter_pager", :locals => {:pager_id => 'pager'})%>
+  <%#= render(:partial => "shared/tablesorter_pager", :locals => {:pager_id => 'pager'})%>
   <p>
 
   </p>
 <% end %>
-<%= link_to 'Back', project_allocations_path %>

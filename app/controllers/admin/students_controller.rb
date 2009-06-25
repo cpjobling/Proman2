@@ -80,7 +80,7 @@ class Admin::StudentsController < ApplicationController
     @student = Student.find(params[:id])
 
     respond_to do |format|
-      if @student.update_attributes(params[:user])
+      if @student.update_attributes(params[:student])
         flash[:notice] = 'Student was successfully updated.'
         format.html { redirect_to(admin_student_path(@student)) }
         format.xml  { head :ok }

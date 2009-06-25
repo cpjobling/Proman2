@@ -14,18 +14,23 @@
 #  limitations under the License.
 #  under the License.
 %>
+
 <% student = project_selection.student %>
+
 <% selected_projects = project_selection.selected_projects %>
+
 <tr>
-  <td><%= student.student_id %><%= f.hidden_field :student_id, :value=> student.student_id %></td>
+  <td><%= student.student_id || 'unknown' %></td>
   <td><%= student.grade %></td>
   <td><%= h(student.board_decision) %></td>
   <td><%= h(student.disc_name) %></td>
   <% for i in 0..9 %>
     <% if i < selected_projects.count %>
-      <td><%= link_to "#{selected_projects[i].project.id}", project_path(selected_projects[i].project.id),
-                      :title => "#{h(selected_projects[i].project.title)}" %>
-          <%= f.radio_button(:project_id, selected_projects[i].project.id) %></td>
+      <td>
+        <%= link_to "#{selected_projects[i].project.id}", project_path(selected_projects[i].project.id),
+                    :title => "#{h(selected_projects[i].project.title)}" %>
+        <input type="checkbox" name="project_allocation[selected_projects][]" value="<%= selected_projects[i].id %>" />
+      </td>
     <% else %>
       <td>&nbsp;</td>
     <% end %>

@@ -30,6 +30,15 @@ class SelectedProject < ActiveRecord::Base
   default_scope :order => :position
   belongs_to :project
 
+  delegate :student, :round, :to => "project_selection.nil? ? false : project_selection"
+
+  def allocate_project
+    student = self.student
+    project = self.project
+    round = self.round || 1
+    return project.allocate(student, round)
+  end
+
   # Drop project from all selected projects
   def SelectedProject.drop_from_all_selections(project)
     SelectedProject.destroy_all(["project_id = ?", project.id])
