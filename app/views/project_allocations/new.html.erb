@@ -2,37 +2,43 @@
   <%= render(:partial => "shared/import_tablesorter") %>
   <script type="text/javascript">
     $(document).ready(function() {
-      $("#projects")
-      .tablesorter({sortList: [[2, 0]], widthFixed: true, widgets: ['zebra']});
-      //.tablesorterPager({container: $("#pager"), positionFixed: false});
+      $("#project_selections")
+      .tablesorter({sortList: [[1, 0]], widthFixed: false, widgets: ['zebra']})
+      .tablesorterPager({container: $("#pager"), positionFixed: false});
     });
   </script>
 <% end %>
 
-<% title "Allocate project" %>
+<% headline "Project allocation worksheet (Round #{@allocation_round})" %>
 
 <% form_for(@project_allocation) do |f| %>
   <%= f.error_messages %>
 
+  <table id="project_selections" class="tablesorter">
+    <thead>
+      <th>Student</th>
+      <th>Grade</th>
+      <th>Board decision</th>
+      <th>Discipline</th>
+      <th colspan="10">Selections</th>
+    </thead>
+    <tfoot>
+      <th>Student</th>
+      <th>Grade</th>
+      <th>Board decision</th>
+      <th>Discipline</th>
+      <th colspan="10">
+        <%= f.hidden_field :allocation_round, :value => @allocation_round %>
+        <%= f.submit 'Allocate selected' %>
+      </th>
+    </tfoot>
+    <tbody>
+      <%= render(:partial => "project_selection", :collection => @project_selections, :locals => {:f => f} ) %>
+    </tbody>
+  </table>
+  <% render(:partial => "shared/tablesorter_pager", :locals => {:pager_id => 'pager'})%>
   <p>
-    <%= f.label :student_id %><br />
-    <%= f.text_field :student_id %>
-  </p>
-  <p>
-    <%= f.label :project_id %><br />
-    <%= f.text_field :project_id %>
-  </p>
-  <p>
-    <%= f.label :supervisor_id %><br />
-    <%= f.text_field :supervisor_id %>
-  </p>
-  <p>
-    <%= f.label :allocation_round %> <%= @allocation_round %>
-    <%= f.hidden_field :allocation_round, :value => @allocation_round %>
-  </p>
-  <p>
-    <%= f.submit 'Create' %>
+
   </p>
 <% end %>
-
 <%= link_to 'Back', project_allocations_path %>

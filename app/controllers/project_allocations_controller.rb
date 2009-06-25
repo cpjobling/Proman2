@@ -20,6 +20,7 @@ class ProjectAllocationsController < ApplicationController
   require_role "coordinator", :for_all_except => [:index, :show]
   before_filter :get_status
   before_filter :can_allocate_projects?, :except => [:index, :show]
+  
 
   # GET /project_allocations
   # GET /project_allocations.xml
@@ -49,8 +50,9 @@ class ProjectAllocationsController < ApplicationController
   def new
     @project_allocation = ProjectAllocation.new
     @allocation_round = @status.selection_round
+    @project_selections = ProjectSelection.all
     respond_to do |format|
-      format.html # new.html.erb
+      format.html { render :layout => "worksheet" }
       format.xml  { render :xml => @project_allocation }
     end
   end
@@ -104,30 +106,6 @@ class ProjectAllocationsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(project_allocations_url) }
       format.xml  { head :ok }
-    end
-  end
-
-  # GET /project_allocations/selections
-  def selections
-    @project_selections = ProjectSelection.all
-    @allocation_round = @status.selection_round
-  end
-
-  # POST /project_allocations/updates
-  # POST /project_allocations/updates
-  def updates
-    # TODO: process one or more project allocations
-    # like create ... but for a list of student/projects
-
-    respond_to do |format|
-      if @project_allocation.save
-        flash[:notice] = '[n] project allocation were successfully created.'
-        format.html { redirect_to(:action => "index") }
-        format.xml  { render :xml => @project_allocation, :status => :created, :location => @project_allocation }
-      else
-        format.html { render :action => "selections" }
-        format.xml  { render :xml => @project_allocation.errors, :status => :unprocessable_entity }
-      end
     end
   end
 

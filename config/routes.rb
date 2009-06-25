@@ -19,7 +19,7 @@ ActionController::Routing::Routes.draw do |map|
   # Restful routes
   map.resources :project_selections, :except => [:show, :create], :has_many => :selected_projects
 
-  map.resources :project_allocations, :collection => { :selections => :get, :updates => :post }
+  map.resources :project_allocations
 
   map.connect 'projects/by_supervisor',
     :conditions => { :method => :get },
