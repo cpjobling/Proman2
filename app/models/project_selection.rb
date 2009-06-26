@@ -29,7 +29,7 @@ class ProjectSelection < ActiveRecord::Base
   belongs_to :student
   validates_presence_of :student_id, :round
   validates_numericality_of :student_id, :round 
-  attr_readonly :student_id, :round
+  # attr_readonly :student_id, :round
 
   def deselect(project)
     sp = self.selected_projects.find_by_project_id(project)
