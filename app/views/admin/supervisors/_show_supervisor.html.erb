@@ -24,7 +24,7 @@
 <table border="0">
   <thead><th>Number</th><th>Title</th></thead>
   <tbody>
-    <%= render(:partial => "project", :collection => staff.projects.find(:all, :conditions => ['available = ?', true])) %>
+    <%= render(:partial => "admin/supervisors/project", :collection => staff.projects.find(:all, :conditions => ['available = ?', true])) %>
   </tbody>
 </table>
 
@@ -33,7 +33,7 @@
 <table border="0">
   <thead><th>Number</th><th>Title</th><th>Allocated to</th></thead>
   <tbody>
-    <%= render(:partial => "allocated_project", :collection => staff.projects.find(:all, :conditions => ['allocated = ?', true])) %>
+    <%= render(:partial => "admin/supervisors/allocated_project", :collection => staff.projects.find(:all, :conditions => ['allocated = ?', true])) %>
   </tbody>
 </table>
 <%  end %>

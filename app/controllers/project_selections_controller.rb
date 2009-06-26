@@ -129,7 +129,7 @@ class ProjectSelectionsController < ApplicationController
   def projects_suitable_for_student
     d = Discipline.find(@student.discipline)
     projects = d.projects.find(:all)
-    return projects.select{ |p| p.available }
+    return projects.select{ |p| p.available? }
   end
 
   def verify_ownership

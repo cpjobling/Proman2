@@ -136,7 +136,7 @@ class Project < ActiveRecord::Base
 
   def available?
     return false if self.supervisor.has_full_allocation?
-    return false if read_attribute("allocated")
+    return false if allocated?
     return read_attribute("available")
   end
 
