@@ -27,8 +27,9 @@
   <% for i in 0..9 %>
     <% if i < selected_projects.count %>
       <td>
-        <%= link_to "#{selected_projects[i].project.id}", project_path(selected_projects[i].project.id),
-                    :title => "#{h(selected_projects[i].project.title)}" %>
+        <% project = selected_projects[i].project %>
+        <%= link_to "#{project.id}", project_path(project.id),
+                    :title => title_string_for(project) %>
         <input type="checkbox" name="project_allocation[selected_projects][]" value="<%= selected_projects[i].id %>" />
       </td>
     <% else %>

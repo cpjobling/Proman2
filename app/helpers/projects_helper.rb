@@ -56,4 +56,11 @@ module ProjectsHelper
       return "not available"
     end
   end
+
+  # Produce a string for use in a link title.
+  # projct title: supervisor name (load/loading)
+  def title_string_for(project)
+    supervisor = project.supervisor
+    return h("#{project.title}: #{supervisor.name} (#{supervisor.load}/#{supervisor.loading})")
+  end
 end
