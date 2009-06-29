@@ -30,4 +30,9 @@ class ProjectAllocation < ActiveRecord::Base
   belongs_to :student
   belongs_to :project
   belongs_to :supervisor
+
+  def dellocate
+    p = Project.find(self.project_id)
+    p.deallocate
+  end
 end

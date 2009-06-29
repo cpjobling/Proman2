@@ -23,5 +23,7 @@ limitations under the License.
   </td>
   <td><%= link_to 'Show', user_project_path(project_index) %></td>
   <td><%= link_to 'Edit', edit_user_project_path(project_index) %></td>
+  <% unless can_allocate? || can_select? %>
   <td><%= link_to 'Destroy', user_project_path(project_index), :confirm => 'Are you sure?', :method => :delete %></td>
+  <% end %>
 </tr>

@@ -1,27 +1,51 @@
 <% title "Your round #{@status.selection_round} project selections" %>
 <p>Welcome <%= @student.name.informally %>.</p>
 
-<% if @project_selection.nil? %>
-    <p id="projects">You do not yet have a round <%=  @selection_round %> project selection.  You should <%= link_to "create a new project selection", new_project_selection_path   %> now!</p>
-  <% else %>
-  <% if  @project_selection.selected_projects.empty? %>
-    <p id="projects">Your round <%=  @selection_round %> project selection list is empty. Do you want to <%= link_to "add some projects", new_project_selection_path %>?</p>
-  <% else %>
-    <table id="projects" class="tablesorter">
-      <thead>
-        <th>Rank</th>
-        <th>Title</th>
-        <th>Supervisor</th>
-        <th>Centre</th>
-      </thead>
-      <tbody>
-        <%= render(:partial => "selected_project_index", :collection => @project_selection.selected_projects) %>
-      </tbody>
-    </table>
-    <p>
-      <%= link_to 'Rank your project selections', project_selection_selected_projects_path(@project_selection) %>|
-      <%= link_to "Add some more projects", edit_project_selection_path(@project_selection) %> |
-      <%= link_to "Start over", project_selection_path(@project_selection), :confirm => 'Are you sure?', :method => :delete %>.
+<% if @student.project %>
+
+  <p>Congratulations, you have been allocated with
+    Project number <%= @student.project.id  %>: <em><%=   h(@student.project.title) %></em>, which will
+    be supervised by <%= @student.project.supervisor.name %>
+    (<a href="mailto:<%= @student.project.supervisor.email %>"><%= @student.project.supervisor.email %></a>).
+  You can read more about this project <%= link_to "here", project_path(@student.project) %>.</p>
+<% elsif can_allocate? %>
+  <p>Projects are currently being allocated but we haven't considered your project selection yet. Here is your current selection. Please check back later for an update.</p>
+<% elsif can_select? %>
+  <p>From this page you can view and rank your project selections until the next alocation round begins.</p>
+<% end %>
+<% unless @student.project %>
+  <% if @project_selection.nil? %>
+    <p id="projects">You do not yet have a round <%=  @selection_round %> project selection.
+      <% if can_select? %>
+        You should <%= link_to "create a new project selection", new_project_selection_path   %> now!
+      <% end %>
     </p>
+  <% else %>
+    <% if  @project_selection.selected_projects.empty? %>
+      <p id="projects">Your round <%=  @selection_round %> project selection list is empty.
+        <% if can_select? %>
+          Do you want to <%= link_to "add some projects", new_project_selection_path %>?
+        <% end %>
+      </p>
+    <% else %>
+      <table id="projects" class="tablesorter">
+        <thead>
+          <th>Rank</th>
+          <th>Title</th>
+          <th>Supervisor</th>
+          <th>Centre</th>
+        </thead>
+        <tbody>
+          <%= render(:partial => "selected_project_index", :collection => @project_selection.selected_projects) %>
+        </tbody>
+      </table>
+      <% if can_select? %>
+        <p>
+          <%= link_to 'Rank your project selections', project_selection_selected_projects_path(@project_selection) %>|
+          <%= link_to "Add some more projects", edit_project_selection_path(@project_selection) %> |
+          <%= link_to "Start over", project_selection_path(@project_selection), :confirm => 'Are you sure?', :method => :delete %>.
+        </p>
+      <% end %>
+    <% end %>
   <% end %>
 <% end %>

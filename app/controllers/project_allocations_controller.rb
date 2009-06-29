@@ -108,7 +108,7 @@ class ProjectAllocationsController < ApplicationController
   # DELETE /project_allocations/1.xml
   def destroy
     @project_allocation = ProjectAllocation.find(params[:id])
-    @project_allocation.destroy
+    @project_allocation.deallocate
 
     respond_to do |format|
       format.html { redirect_to(project_allocations_url) }

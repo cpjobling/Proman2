@@ -134,6 +134,19 @@ class Project < ActiveRecord::Base
     return pa
   end
 
+
+
+  def deallocate
+    self.allocated = false
+    self.supervisor.remove_student
+    self.supervisor.save
+    self.save
+    pa = ProjectAllocation.find_by_project_id(self.id)
+    pa.destroy
+    return self
+  end
+
+
   def available?
     return false if self.supervisor.has_full_allocation?
     return false if allocated?

@@ -20,11 +20,12 @@
   <strong>Approved loading</strong>: <%= h(staff.loading) %>
 </p>
 
+
 <h3>Unallocated projects</h3>
 <table border="0">
   <thead><th>Number</th><th>Title</th></thead>
   <tbody>
-    <%= render(:partial => "admin/supervisors/project", :collection => staff.projects.find(:all).select { |p| p.available? }) %>
+    <%= render(:partial => "admin/supervisors/project", :collection => staff.projects.find(:all).select { |p| ! p.allocated? }) %>
   </tbody>
 </table>
 

@@ -18,7 +18,7 @@ class ProjectSelectionsController < ApplicationController
 
   require_role "student"
   before_filter :get_status
-  before_filter :can_select_projects?
+  before_filter :can_select_projects?, :except => [:index]
   before_filter :current_selection_round
   before_filter :find_student_and_project_selection
   before_filter :verify_ownership, :only => [:edit, :update, :destroy]
@@ -94,8 +94,8 @@ class ProjectSelectionsController < ApplicationController
     @student = current_user.student
     if @student
       if @student.project
-      	flash[:notice] = "you have been allocated with a project: this project must be de-allocated by a project coordinator before you can make a new selection."
-      	redirect_to project_allocations_path
+      	flash[:notice] = "Note:you have been allocated with a project: this project must be de-allocated by a project coordinator before you can make a new selection."
+      	#redirect_to :action => :index
       else
 	    @project_selection = @student.project_selection
       end

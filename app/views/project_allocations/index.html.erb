@@ -3,8 +3,8 @@
   <script type="text/javascript">
     $(document).ready(function() {
       $("#projects")
-      .tablesorter({sortList: [[0, 0]], widthFixed: true, widgets: ['zebra']})
-      .tablesorterPager({container: $("#pager"), positionFixed: false});
+      .tablesorter({sortList: [[0, 0]], widthFixed: true, widgets: ['zebra']});
+      //.tablesorterPager({container: $("#pager"), positionFixed: false});
     });
   </script>
 <% end %>
@@ -47,7 +47,7 @@
   </tr>
 <% end %>
 </table>
-<%= render(:partial => "shared/tablesorter_pager", :locals => {:pager_id => 'pager'})%>
+<%#= render(:partial => "shared/tablesorter_pager", :locals => {:pager_id => 'pager'})%>
 
 <p>
   <%  if current_user.has_role?("coordinator") %>

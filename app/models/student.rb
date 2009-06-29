@@ -53,6 +53,11 @@ class Student < ActiveRecord::Base
     return unless project_selection.selected_projects.find_by_project_id(project.id)
     project.allocate(self, project_selection.round)
   end
+
+  def deallocate
+    return unless self.project
+    return self.project.deallocate
+  end
   
   def deselect(project)
     project_selection.deselect(project)

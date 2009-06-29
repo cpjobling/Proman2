@@ -49,6 +49,10 @@ class Supervisor < ActiveRecord::Base
     write_attribute('load', read_attribute('load') + 1)
   end
 
+  def remove_student
+    write_attribute('load', read_attribute('load') - 1)
+  end
+
   def has_full_allocation?
     return read_attribute('load') >= read_attribute('loading')
   end
