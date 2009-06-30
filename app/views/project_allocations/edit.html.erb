@@ -5,19 +5,19 @@
 
   <p>
     <%= f.label :student_id %><br />
-    <%= f.text_field :student_id %>
+    <%= f.collection_select(:student_id, @students, :id, :name) %>
   </p>
   <p>
-    <%= f.label :project_id %><br />
-    <%= f.text_field :project_id %>
+    <%= f.label "Project:" %><br />
+    <%= f.hidden_field :project_id %><%= Project.find(@project_allocation.project_id).title %>
   </p>
   <p>
-    <%= f.label :supervisor_id %><br />
-    <%= f.text_field :supervisor_id %>
+    <%= f.label "Supervisor:" %><br />
+    <%= f.hidden_field :supervisor_id %><%= Supervisor.find(@project_allocation.supervisor_id).name %>
   </p>
   <p>
-    <%= f.label :allocation_round %> <%= @allocation_round %>
-    <%= f.hidden_field :allocation_round %>
+    <%= f.label "Allocation round:" %> <br/>
+    <%= f.hidden_field :allocation_round %> <%= @allocation_round %>
   </p>
   <p>
     <%= f.submit 'Update' %>

@@ -61,6 +61,7 @@ class ProjectAllocationsController < ApplicationController
   def edit
     @project_allocation = ProjectAllocation.find(params[:id])
     @allocation_round = @status.selection_round
+    @students = Student.find(:all, :joins => :user, :order => ['users.last_name, users.first_name'])
   end
 
   # POST /project_allocations
