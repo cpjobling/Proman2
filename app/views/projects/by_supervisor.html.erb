@@ -30,10 +30,10 @@ limitations under the License.
 <% end %>
 
 
-<p>Note that although each member of staff has been asked to provide four or five projects, staff loading
-  considerations may mean that not all advertised projects will actually be available.
+<p>This page shows all the projects that are currently available from each supervisor. Note that although each member of staff has been asked to provide four or five projects, staff loading
+  considerations may mean that their projects may be eliminated early.
   For example, some very popular projects/supervisors
-may be eliminated in the first allocation round once staff loading limits are reached.</p>
+may be eliminated in the first allocation round may not appear in later rounds.</p>
 
 <p>Click on the supervisor's name to see his or her projects.</p>
 
@@ -41,7 +41,7 @@ may be eliminated in the first allocation round once staff loading limits are re
   <p>No projects to display.</p>
 <%else%>
   <% @supervisors.each do |supervisor| %>
-    <%  projects = Project.find_all_by_created_by(supervisor) %>
+    <%  projects = Project.find_all_by_created_by(supervisor).select { |p| p.available? } %>
     <% unless projects.size == 0 %>
       <div class="accordian">
         <h3 class="head"
@@ -55,7 +55,7 @@ may be eliminated in the first allocation round once staff loading limits are re
           <table>
             <thead>
               <tr>
-                <th>Number</th><th>Title</th>
+                <th>Number</th><th>Title</th><th>Available?</th>
               </tr>
             </thead>
             <tbody>
@@ -66,6 +66,9 @@ may be eliminated in the first allocation round once staff loading limits are re
                   </td>
                   <td>
                     <%= link_to project.title, project %>
+                  </td>
+                  <td>
+                    <%= project.available? %>
                   </td>
                 </tr>
               <%  end %>
