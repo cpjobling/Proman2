@@ -90,7 +90,7 @@ class ProjectAllocationsController < ApplicationController
         # format.xml  { render :xml => @project_allocation.errors, :status => :unprocessable_entity }
       else 
         flash[:notice] = "#{@project_allocations.size} project allocations were successfully created."
-        flash[:notice] += "I allocated projects as follows:"
+        flash[:notice] += "I allocated projects as follows:<br />"
         @project_allocations.each do |pa|
           flash[:notice] += "Project #{pa.project_id} was allocated to student #{Student.find(pa.student_id).student_id}<br />"
         end
