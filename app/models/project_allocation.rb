@@ -31,7 +31,7 @@ class ProjectAllocation < ActiveRecord::Base
   belongs_to :project
   belongs_to :supervisor
 
-  def dellocate
+  def deallocate
     p = Project.find(self.project_id)
     p.deallocate
   end

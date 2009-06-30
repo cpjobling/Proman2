@@ -64,7 +64,7 @@ class StudentTest < ActiveSupport::TestCase
 
   context "a student with a project selection" do
     setup do
-      @student = students(:student1)
+      @student = students(:student2)
     end
 
     should "have a project selection" do
@@ -73,27 +73,27 @@ class StudentTest < ActiveSupport::TestCase
 
     context "deselection of a project" do
       setup do
-        @project1 = projects(:project1)
+        @project = projects(:project3)
       end
 
       should "have project in selection" do
-        assert @student.project_selection.selected_projects.find_by_project_id(@project1)
+        assert @student.project_selection.selected_projects.find_by_project_id(@project)
       end
 
       should "be able to remove project from selection" do
-        @student.deselect(@project1)
-        assert_nil @student.project_selection.selected_projects.find_by_project_id(@project1)
+        @student.deselect(@project)
+        assert_nil @student.project_selection.selected_projects.find_by_project_id(@project)
       end
 
       should "allocate project from the student's selection" do
         assert_equal 5, @student.project_selection.selected_projects.count
-        @student.allocate(@project1)
+        @student.allocate(@project)
         assert_nil @student.project_selection
-        pa = ProjectAllocation.find_by_project_id(@project1.id)
-        assert_equal @project1.id, pa.project_id
+        pa = ProjectAllocation.find_by_project_id(@project.id)
+        assert_equal @project.id, pa.project_id
         assert_equal @student.id, pa.student_id
-        assert_equal @project1.supervisor.id, pa.supervisor_id
-        assert ! @student.project.available?, "should not be available"
+        assert_equal @project.supervisor.id, pa.supervisor_id
+        assert ! @project.available?, "should not be available"
         assert_equal 1, pa.allocation_round, "should have been allocated in round 1"
       end
 

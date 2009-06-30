@@ -17,11 +17,11 @@
 class ProjectSelectionsController < ApplicationController
 
   require_role "student"
+  before_filter :get_student
   before_filter :get_status
   before_filter :can_select_projects?, :except => [:index]
-  before_filter :current_selection_round
-  before_filter :find_student_and_project_selection
-  before_filter :verify_ownership, :only => [:edit, :update, :destroy]
+  before_filter :get_project_selection
+  before_filter :verify_ownership, :except => [:index, :new]
   current_tab :project_selections
 
   # GET /project_selections
@@ -36,7 +36,7 @@ class ProjectSelectionsController < ApplicationController
   # GET /project_selections/new
   # GET /project_selections/new.xml
   def new
-    @project_selection = ProjectSelection.create(:student => @student, :round => current_selection_round)
+    @project_selection = ProjectSelection.create(:student => @student, :round => @selection_round)
     @projects = projects_suitable_for_student
     respond_to do |format|
       format.html # new.html.erb
@@ -90,18 +90,46 @@ class ProjectSelectionsController < ApplicationController
 
   private
 
-  def find_student_and_project_selection
+  # Filters
+  def get_student
     @student = current_user.student
-    if @student
-      if @student.project
-      	flash[:notice] = "Note:you have been allocated with a project: this project must be de-allocated by a project coordinator before you can make a new selection."
-      	#redirect_to :action => :index
-      else
-	    @project_selection = @student.project_selection
-      end
-    else
+    unless @student
       flash[:notice] = "You must be a student to make a project selection"
       redirect_to projects_path
+    end
+  end
+
+  def get_status
+    @status = Status.find(1)
+    @selection_round = @status.selection_round || 1
+  end
+
+  def can_select_projects?
+    unless @status.can_select?
+      flash[:notice] = "Project selection is not enabled at this time."
+      redirect_to projects_path
+      return
+    end
+    if @student.project
+      flash[:notice] = "You appear to have been allocated a project. " +
+        "You must have your currently alloacted project deallocated before you can make a new selection. "+
+        "Please contact a Project Coordinator."
+      redirect_to user_account_path(@student.user)
+    end
+  end
+
+  def get_project_selection
+    @project_selection = @student.project_selection
+  end
+
+
+  def verify_ownership
+    p = params[:id]
+    @ps = ProjectSelection.find(params[:id])
+    unless @student == @ps.student
+      flash[:notice] = "You are not permitted to access another student's project selection. This access attempt has been logged."
+      logger.error "Student #{@student.id} attempted to access project selection id #{@ps.id} at #{Time.now}"
+      redirect_to :action => 'index'
     end
   end
 
@@ -115,34 +143,10 @@ class ProjectSelectionsController < ApplicationController
     end
   end
 
-  def can_select_projects?
-    unless @status.can_select?
-      flash[:notice] = "Project selection is not enabled at this time."
-      redirect_to :controller => "projects", :action => "index"
-    end
-  end
-
-  def current_selection_round
-    @selection_round = @status.selection_round || 1
-  end
-
   def projects_suitable_for_student
     d = Discipline.find(@student.discipline)
     projects = d.projects.find(:all)
     return projects.select{ |p| p.available? }
-  end
-
-  def verify_ownership
-    @ps = ProjectSelection.find(params[:id])
-    unless @ps.student ==  @student
-      flash[:notice] = "You are not permitted to access another student's project selection. This access attempt has been logged."
-      logger.error "Student #{@student.id} attempted to access project selection id #{@ps.id} at #{Time.now}"
-      redirect_to :action => 'index'
-    end
-  end
-
-  def get_status
-    @status = Status.find(1)
   end
 
 end

@@ -46,11 +46,13 @@ class Supervisor < ActiveRecord::Base
   end
 
   def add_student
+    raise "supervisor.add_student; can't add student because supervisor's load (#{self.loading}) would be exceeded" if self.has_full_allocation?
     write_attribute('load', read_attribute('load') + 1)
   end
 
   def remove_student
-    write_attribute('load', read_attribute('load') - 1)
+    load = read_attribute('load')
+    write_attribute('load', load - 1) unless load == 0
   end
 
   def has_full_allocation?

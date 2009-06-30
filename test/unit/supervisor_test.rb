@@ -135,7 +135,32 @@ class SupervisorTest < ActiveSupport::TestCase
       @supervisor.load = 3
       assert ! @supervisor.has_full_allocation?
       @supervisor.load = 4
+    end
+    
+    should "fail to add a student when fully loaded" do
+      @supervisor.load = 4
       assert @supervisor.has_full_allocation?
+      assert_raise RuntimeError do
+        @supervisor.add_student
+      end
+    end
+
+    should "add one student" do
+      @supervisor.load = 1
+      @supervisor.add_student
+      assert_equal 2, @supervisor.load
+    end
+
+    should "remove one student" do
+      @supervisor.load = 1
+      @supervisor.remove_student
+      assert_equal 0, @supervisor.load
+    end
+
+    should "not be able to have a negative load" do
+      @supervisor.load = 0
+      @supervisor.remove_student
+      assert_equal 0, @supervisor.load
     end
   end
 end

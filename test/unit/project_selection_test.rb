@@ -22,7 +22,7 @@ class ProjectSelectionTest < ActiveSupport::TestCase
 
   should_validate_presence_of :student_id, :round
   should_validate_numericality_of :student_id, :round
-  should_have_readonly_attributes :student_id, :round
+  #should_have_readonly_attributes :student_id, :round
 
   # new one should have round set
   

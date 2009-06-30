@@ -68,21 +68,34 @@ class ProjectAllocationsController < ApplicationController
   def create
     #@project_allocation = ProjectAllocation.make(params[:project_allocation])
     pa_data = params[:project_allocation]
-    sp_ids = pa_data[:selected_projects]
-    @project_allocations = []
-    sp_ids.each do |sp_id|
-      selected_project = SelectedProject.find(sp_id.to_s)
-      @project_allocations << selected_project.allocate_project
+    @selected_projects = SelectedProject.find(pa_data[:selected_projects])
+    begin
+      @project_allocations = []
+      @selected_projects.each do |selected_project|
+        unless selected_project.nil? # An earlier allocation may have de-allocated this selection
+          @project_allocations << selected_project.allocate_project unless selected_project.nil?
+        end
+      end
+    rescue RuntimeError => e
+      message = "ProjectAllocation failed for #{selected_project.id} #{e.message}"
     end
     respond_to do |format|
-      if @project_allocations.size
+      if message
+        if @project_allocations.size > 0
+          flash[:notice] = "#{@project_allocations.size} project allocations were successfully created."
+        end
+        flash[:notice] += "But project #{selected_project.project_id} failed to allocate. Additional information: #{message}. Try again?"
+        format.html { render :action => "new" }
+        # format.xml  { render :xml => @project_allocation.errors, :status => :unprocessable_entity }
+      else 
         flash[:notice] = "#{@project_allocations.size} project allocations were successfully created."
+        flash[:notice] += "I allocated projects as follows:"
+        @project_allocations.each do |pa|
+          flash[:notice] += "Project #{pa.project_id} was allocated to student #{Student.find(pa.student_id).student_id}<br />"
+        end
         format.html { redirect_to new_project_allocation_path }
         # This will not work!
         #format.xml  { render :xml => @project_allocation, :status => :created, :location => @project_allocation }
-      else
-        format.html { render :action => "new" }
-        # format.xml  { render :xml => @project_allocation.errors, :status => :unprocessable_entity }
       end
     end
   end

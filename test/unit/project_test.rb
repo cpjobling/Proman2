@@ -260,21 +260,138 @@ class ProjectTest < ActiveSupport::TestCase
     end
   end
 
-  def test_allocate
-    project = projects(:project3)
-    assert project.available?, "project1 should be available"
-    student = students(:student1)
-    assert_not_nil student.project_selection, "student 1 has a project selection"
-    assert_equal 10, SelectedProject.count, "there should be 10 selected projects"
-    project.allocate(student, 1)
-    student.reload
-    assert ! project.available?, "project 3 should now be unavailable"
-    pa = ProjectAllocation.find_by_project_id(project.id)
-    assert_equal 1, pa.allocation_round, "allocation round wasn't 1"
-    assert_equal student.id, pa.student_id, "student so sbe allocated"
-    assert_equal project.id, pa.project_id, "project should be allocated"
-    assert_equal project.supervisor.id, pa.supervisor_id, "supervisor should be allocated"
-    assert_nil student.project_selection, "student 3 has no project selection"
-    assert_equal 4, SelectedProject.count, "project selections have not been dettached"
+  context "allocating a project" do
+    setup do
+      @project = projects(:project3)
+    end
+
+    should "be available" do
+      assert @project.available?, "project1 should be available"
+    end
+
+    context "with a student" do
+      setup do
+        @student = students(:student1)
+      end
+    
+      should "be a valid student" do
+        assert_not_nil @student, "there should be a student 1"
+      end
+      
+      should "have a valid project selection" do
+        assert_not_nil @student.project_selection, "student 1 has a project selection"
+      end
+      should "be 10 selected projects in total" do
+        assert_equal 10, SelectedProject.count, "there should be 10 selected projects"
+      end
+      context "allocate project to student1" do
+        setup do
+          @pa = @project.allocate(@student, 1)
+          @student.reload
+        end
+        should "be allocated" do
+          assert_not_nil @pa, "Project wasn't allocated"
+        end
+        should "no longer be available" do
+          assert ! @project.available?, "project 3 should now be unavailable"
+        end
+        should "return a valid project allocation record" do
+          assert_equal 1, @pa.allocation_round, "allocation round wasn't 1"
+          assert_equal @student.id, @pa.student_id, "student should be allocated"
+          assert_equal @project.id, @pa.project_id, "project should be allocated"
+          assert_equal @project.supervisor.id, @pa.supervisor_id, "supervisor should be allocated"
+        end
+        should "properly manage selections" do
+          assert_nil @student.project_selection, "student 3 has no project selection"
+          assert_equal 4, SelectedProject.count, "project selections have not been dettached"
+        end
+      end
+    end
+  end
+
+  context "allocating a project with errors" do
+    setup do
+      @project = projects(:project3)
+      @student = students(:student1)
+    end
+
+    context "fail to allocate if not available" do
+
+      context "project already allocated" do
+        setup do
+          @project.allocate(students(:student2), 10)
+        end
+
+        should "fail to allocate" do
+          assert_raise RuntimeError do
+            @project.allocate(@student, 1)
+          end
+        end
+      end
+
+      context "supervisor is at capacity" do
+        setup do
+          @project.supervisor.load = 4
+        end
+
+        should "fail to allocate" do
+          assert_raise RuntimeError do
+            @project.allocate(@student, 1)
+          end
+        end
+      end
+
+      context "not available flag is set" do
+        setup do
+          @project.available = false
+          @project.save
+        end
+
+        should "fail to allocate" do
+          assert_raise RuntimeError do
+            @project.allocate(@student, 1)
+          end
+        end
+      end
+    end
+
+    should "should fail due to argument errors" do
+      assert_raise RuntimeError do
+        @project.allocate(nil, 1)
+      end
+      pa = @project.allocate(@student)
+      assert_equal 1, pa.allocation_round,"Should assign default round if none given"
+    end
+
+    should "fail if project doesn't have a supervisor" do
+      # This should never happen!
+      @project.created_by = users(:no_role_user)
+      assert_raise RuntimeError do
+        @project.allocate(@student, 1)
+      end
+    end
+  end
+
+  context "deallocating a project" do
+    setup do
+      @project = projects(:project3)
+      @student = students(:student1)
+      @project.allocate(@student, 1)
+    end
+
+    should "have correct initial conditions" do
+      assert @project.allocated?
+      assert ! @project.available?
+      assert_equal 1, @project.supervisor.load
+      assert_not_nil @student.project
+    end
+
+
+    should "deallocate project" do
+      @project.deallocate
+      assert ! @project.allocated?
+      assert @project.available?
+      assert_equal 0, @project.supervisor.load
+    end
   end
 end

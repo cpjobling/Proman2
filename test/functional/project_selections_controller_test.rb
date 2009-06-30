@@ -30,7 +30,7 @@ class ProjectSelectionsControllerTest < ActionController::TestCase
       should_render_template :index
       should_not_set_the_flash
       should_respond_with :success
-    
+
       should "initially have no projects" do
         assert_select "p#projects", :text => /You do not yet have a round 1 project selection./
       end
@@ -53,7 +53,7 @@ class ProjectSelectionsControllerTest < ActionController::TestCase
       end
 
       should "initially have an empty project selection" do
-        assert_select "p#projects", :text => /.*empty.* add some projects/
+        assert_select "p#projects", :text => /empty/
       end
 
       should "page title and header contain the selection round" do
@@ -123,16 +123,16 @@ class ProjectSelectionsControllerTest < ActionController::TestCase
       should "find available projects" do
         assert_equal 3, @projects.size, "There should be 5 available projects"
         @projects.each do |p|
-          assert p.available, "Project #{p.id} should be available"
+          assert p.available?, "Project #{p.id} should be available"
           assert p.suitable_for?(@student2.discipline), "Project #{p.id} should be suitable for student 2"
         end
       end
-      
-      should "find not find unavailable projects" do
+
+      should "not find unavailable projects" do
         [2, 5].each do |p|
           assert available_project = Project.find(p), "Should find project #{p}"
           assert available_project.suitable_for?(@student2.discipline), "Project #{p} should be suitable for student 2"
-          assert ! available_project.available, "Project #{p} should be unavailable"
+          assert ! available_project.available?, "Project #{p} should be unavailable"
         end
       end
 
@@ -149,17 +149,16 @@ class ProjectSelectionsControllerTest < ActionController::TestCase
         should "contain the selection round" do
           assert_select "div.col1 h2", :text => /[R|r]ound 1/
         end
-        
+
         should_render_a_form
       end
-    
     end
-
   end
+
   context "In an allocation round" do
 
     setup do
-      login_as :student1
+      login_as :student2
       allocation_round_one
     end
 
@@ -167,16 +166,24 @@ class ProjectSelectionsControllerTest < ActionController::TestCase
       assert_equal 1, @status.selection_round
     end
 
-    context "request rejected by before_filter can_select_projects" do
+    context "allow get index" do
       setup { get :index }
-      should_assign_to :status
+      should_respond_with 200
+    end
+
+    context "request rejected by before_filter can_select_projects" do
+      setup { get :edit,  :id => project_selections(:two).to_param }
       should_respond_with 302
       should_set_the_flash_to "Project selection is not enabled at this time."
       should_redirect_to "projects_path"
     end
   end
 
-  context "the before filter find_student_and_project_selection" do
+  context "the before filter get_student and get_project_selection" do
+
+    setup do
+      selection_round_one
+    end
 
     context "not a student" do
       setup do
@@ -193,63 +200,68 @@ class ProjectSelectionsControllerTest < ActionController::TestCase
       end
 
       should  "assign to @student" do
-        assert_not_nil assigns('student'), "@student should be assigned"
+        assert_not_nil assigns(:student), "@student should be assigned"
         assert_equal @student5, assigns('student'), "Student 5 should be assigned to @student"
       end
 
       should "find a nil project_selection" do
-        @student = assigns['student']
+        @student = assigns(:student)
         assert_nil @student.project_selection
       end
 
       should "assign a nil @project_selection" do
-        assert_nil assigns('project_selection'), "@project_selection should be nil"
+        assert_nil assigns(:project_selection), "@project_selection should be nil"
       end
 
     end
 
     context "logged in as a student who has a project selection" do
       setup do
-        login_as :student1
+        login_as :student2
         get :index
       end
 
       should  "assign to @student" do
-        assert_not_nil assigns('student'), "@student should be assigned"
-        assert_equal @student1, assigns('student'), "Student should be assigned to @student"
+        assert_not_nil assigns(:student), "@student should be assigned"
+        assert_equal @student2, assigns(:student), "Student should be assigned to @student"
       end
 
       should "assign to @project_selection" do
-        assert assigns('project_selection'), "@project_selection should be assigned"
+        assert assigns(:project_selection), "@project_selection should be assigned"
       end
 
       should "return an existing project_selection" do
-        @student = assigns['student']
+        @student = assigns(:student)
         assert_not_nil @student.project_selection
-        assert_equal @student.project_selection.student, @student1
+        assert_equal @student.project_selection.student, @student2
         assert_equal @student.project_selection, assigns['project_selection']
       end
 
       should "call verify_ownership for owner and succeed" do
         ps = assigns['project_selection']
-        assert_equal @student1, ps.student
+        assert_equal @student2, ps.student
         assert_response :success
       end
     end
   end
 
-  context "before_filter verify_ownership for logged in student who but not the owner of the requested project selection" do
+  context "before_filter verify_ownership for logged in student who is not the owner of the requested project selection" do
     setup do
-      login_as :student2
-      get :edit, :id => project_selections(:one).to_param
+      login_as :student3
+      selection_round_one
+      get :edit, :id => project_selections(:two).to_param
     end
     should_assign_to :student
     should_assign_to :ps
+    should "not be nil" do
+      ps = assigns(:ps)
+      assert_not_nil ps, "PS was nil"
+    end
     should "invalidate the test conditions" do
       ps = assigns(:ps)
       student = assigns(:student)
-      assert_equal @student2, student, "logged in student wasn't student2"
-      assert_equal @student1, ps.student, "project selection wasn't owned by student1"
+      assert_equal @student3, student, "logged in student wasn't student3"
+      assert_equal @student2, ps.student, "project selection wasn't owned by student2"
       assert_not_equal student, ps.student, "should not be equal"
       assert_not_equal ps, student.project_selection, "project selections should be different"
     end
@@ -273,25 +285,60 @@ class ProjectSelectionsControllerTest < ActionController::TestCase
 
   context "student edits a project selection" do
     setup do
-      login_as :student1
+      login_as :student2
+      selection_round_one
     end
 
     should "get edit" do
-      get :edit, :id => project_selections(:one).to_param
+      get :edit, :id => project_selections(:two).to_param
       assert_response :success
     end
 
     should "update project_selection" do
-      put :update, :id => project_selections(:one).to_param, :project_selection => { }
+      put :update, :id => project_selections(:two).to_param, :project_selection => { }
       assert_redirected_to project_selection_selected_projects_path(assigns(:project_selection))
     end
 
     should "destroy project_selection" do
       assert_difference('ProjectSelection.count', -1) do
-        delete :destroy, :id => project_selections(:one).to_param
+        delete :destroy, :id => project_selections(:two).to_param
       end
 
       assert_redirected_to project_selections_path
+    end
+  end
+
+  context "student has an allocated project" do
+    setup do
+      login_as :student1
+      @student = users(:student1).student
+      selection_round_one
+    end
+
+    should "get index" do
+      get :index
+      assert_response :success
+      assert_select "p#allocated-project", :text => /Congratulations/
+    end
+
+    should "get edit" do
+      get :edit, :id => project_selections(:two).to_param
+      assert_redirected_to user_account_path(@student.user)
+      assert flash[:notice] =~ /You appear to have been allocated a project/
+    end
+
+    should "update project_selection" do
+      put :update, :id => project_selections(:two).to_param, :project_selection => { }
+      assert_redirected_to user_account_path(@student.user)
+      assert flash[:notice] =~ /You appear to have been allocated a project/
+    end
+
+    should "destroy project_selection" do
+      assert_difference('ProjectSelection.count', 0) do
+        delete :destroy, :id => project_selections(:two).to_param
+      end
+      assert flash[:notice] =~ /You appear to have been allocated a project/
+      assert_redirected_to user_account_path(@student.user)
     end
   end
 
@@ -312,4 +359,5 @@ class ProjectSelectionsControllerTest < ActionController::TestCase
   def allocate(project, student)
     project.allocate(student, 1)
   end
+
 end

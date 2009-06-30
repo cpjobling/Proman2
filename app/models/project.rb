@@ -122,16 +122,17 @@ class Project < ActiveRecord::Base
     return self.centre && self.centre.title || "undefined"
   end
 
-  def allocate(student, round)
+  def allocate(student, round = 1)
+    allocation_parameters(student, round)
     self.allocated = true
-    self.supervisor.add_student
-    self.supervisor.save
-    self.save
-    pa = ProjectAllocation.new(:allocation_round => round, :project_id => self.id, :student_id => student.id, :supervisor_id => self.supervisor.id)
-    pa.save!
-    student.drop_selection
+    @supervisor.add_student
+    @supervisor.save!
+    self.save!
+    @pa = ProjectAllocation.new(:allocation_round => round, :project_id => self.id, :student_id => @student.id, :supervisor_id => @supervisor.id)
+    @pa.save!
+    @student.drop_selection
     SelectedProject.drop_from_all_selections(self)
-    return pa
+    return @pa
   end
 
 
@@ -165,4 +166,16 @@ class Project < ActiveRecord::Base
     return discipline if discipline.class == String
     return discipline.to_s || "" # catch all
   end
+
+  def allocation_parameters(student, round)
+    raise "project.allocate called with nil student" if student.nil?
+    @student = student
+    raise "project not available" if self.allocated?
+    raise "project marked not available" unless read_attribute("available")
+    @allocation_round = round
+    @supervisor = self.supervisor
+    raise "project.allocate: error, project #{self.id} doesn't have a supervisor assigned!" if supervisor.nil?
+    raise "project cannot be allocated: supervisor load would be exceeded" if self.supervisor.has_full_allocation?
+  end
+
 end

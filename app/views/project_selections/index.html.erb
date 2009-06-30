@@ -3,7 +3,7 @@
 
 <% if @student.project %>
 
-  <p>Congratulations, you have been allocated with
+  <p id="allocated-project">Congratulations, you have been allocated with
     Project number <%= @student.project.id  %>: <em><%=   h(@student.project.title) %></em>, which will
     be supervised by <%= @student.project.supervisor.name %>
     (<a href="mailto:<%= @student.project.supervisor.email %>"><%= @student.project.supervisor.email %></a>).
