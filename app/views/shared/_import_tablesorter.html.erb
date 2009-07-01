@@ -1,6 +1,6 @@
-<%= stylesheet_link_tag 'themes/blue/style.css' %>
-<%= stylesheet_link_tag 'jquery.tablesorter.pager.css' %>
-<%= javascript_include_tag "jquery.metadata.js" %>
-<%= javascript_include_tag "jquery.dimensions.js" %>
-<%= javascript_include_tag "jquery.tablesorter.min.js" %>
-<%= javascript_include_tag "jquery.tablesorter.pager.js" %>
+<%= stylesheet_link_tag 'themes/blue/style.css', :cache => 'cache/blue-style' %>
+<%= stylesheet_link_tag 'jquery.tablesorter.pager.css', :cache => 'cache/jqtspager'%>
+<%= javascript_include_tag "jquery.metadata.js", :cache => 'cache/jqmetadata' %>
+<%= javascript_include_tag "jquery.dimensions.js", :cache => 'cache/jqdim' %>
+<%= javascript_include_tag "jquery.tablesorter.min.js", :cache => 'cache/jqtabsorter' %>
+<%= javascript_include_tag "jquery.tablesorter.pager.js", :cache => 'cache/jqtspager' %>
