@@ -1,4 +1,109 @@
-@import url("scaffold.css");
+#project_title {
+   width: 60%
+}
+
+#project_description {
+    vertical-align: top;
+    width: 92%;
+    padding: 2px;
+    margin: 1em;
+    height: 60ex;
+}
+
+#project_resources {
+    width: 96%;
+    padding: 2px;
+    margin: 1em;
+    height: 10ex;
+}
+.multiple_select {
+  vertical-align: top;
+  width: 92%;
+  border: 1px solid #aaa;
+  padding: 2px;
+  margin: 1em;
+  overflow: auto;
+}
+
+.multiple_select, .multiple_select ul {
+  list-style-type: none;
+}
+
+.multiple_select_checkbox {
+  background: #fff;
+}
+
+.alt {
+  background: #eef;
+}
+
+body { background-color: #fff; color: #333; }
+
+body, p, ol, ul, td {
+    font-family: verdana, arial, helvetica, sans-serif;
+    font-size:   13px;
+    line-height: 18px;
+}
+
+pre {
+    background-color: #eee;
+    padding: 10px;
+    font-size: 11px;
+}
+
+a { color: #000; }
+a:visited { color: #666; }
+a:hover { color: #fff; background-color:#000; }
+
+.fieldWithErrors {
+    padding: 2px;
+    background-color: red;
+    display: table;
+}
+
+#errorExplanation {
+    width: 400px;
+    border: 2px solid red;
+    padding: 7px;
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+    background-color: #f0f0f0;
+}
+
+#errorExplanation h2 {
+    text-align: left;
+    font-weight: bold;
+    padding: 5px 5px 5px 15px;
+    font-size: 12px;
+    margin: -7px;
+    background-color: #c00;
+    color: #fff;
+}
+
+#errorExplanation p {
+    color: #333;
+    margin-bottom: 0;
+    padding: 5px;
+}
+
+#errorExplanation ul li {
+    font-size: 12px;
+    list-style: square;
+}
+
+.odd {
+    background-color: #EEE;
+}
+
+.even {
+    background-color: #CCC;
+}
+
+.warning {
+    color: red;
+    font-weight: bold;
+}
+}
 
 /* Based on the Perfect 3 Column Liquid Layout by Matthew James Taylor.
 http://matthewjamestaylor.com/blog/perfect-multi-column-liquid-layouts
