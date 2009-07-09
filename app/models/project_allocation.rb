@@ -33,8 +33,8 @@ class ProjectAllocation < ActiveRecord::Base
   belongs_to :supervisor
 
   delegate :title, :sure, :carbon_critical, :to => :project
-  delegate :email, :name, :discipline, :to => :student, :prefix => 'student'
-  delegate :email, :name, :research_centre, :to => :supervisor, :prefix => 'supervisor'
+  delegate :email, :discipline, :to => :student, :prefix => 'student'
+  delegate :email, :research_centre, :to => :supervisor, :prefix => 'supervisor'
   def deallocate
     p = Project.find(self.project_id)
     p.deallocate
@@ -50,5 +50,13 @@ class ProjectAllocation < ActiveRecord::Base
 
   def research_centre
     return supervisor.research_centre.abbrev
+  end
+
+  def student_name
+    return student.name.last_first
+  end
+
+  def supervisor_name
+    return supervisor.name.last_first
   end
 end
