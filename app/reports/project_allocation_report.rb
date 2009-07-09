@@ -18,12 +18,28 @@ class ProjectAllocationReport < Ruport::Controller
 
   def setup
     self.data = ProjectAllocation.report_table(:all,
-      :only => [:project_id, :title, 
-                :sid, :student_name, :student_email,
-                :discipline,
-                :supervisor_name, :supervisor_email, :research_centre, :sure, :carbon_critical],
+      :only => [:project_id, :title, :allocation_round,
+        :sid, :student_name, :student_email,
+        :discipline,
+        :supervisor_name, :supervisor_email, :research_centre, :supervisor_loading, :sure, :carbon_critical],
       :except => ['student_id', 'created_at', 'updated_at', 'supervisor_id', 'id'],
-      :methods => [:student_name, :supervisor_name, :title, :sure, :carbon_critical, :sid, :student_email, :discipline, :student_name, :supervisor_name, :supervisor_email, :research_centre], :order => 'project_id')
+      :methods => [:student_name, :supervisor_name, :supervisor_loading, :title, :sure, :carbon_critical, :sid, :student_email, :discipline, :student_name, :supervisor_name, :supervisor_email, :research_centre], :order => 'project_id')
+    data.rename_columns(
+      "project_id" => '#',
+      "title" => "Project Title",
+      "allocation_round" => "Round",
+      "sid" => "Student No",
+      "student_name" => "Student",
+      "student_email" => "Email",
+      "discipline" => "Discipline",
+      "supervisor_name" => "Supervisor",
+      "supervisor_email" => "Sup. Email",
+      "research_centre" => "Centre",
+      "supervisor_loading" => "Max Load",
+      "sure" => "SURE?",
+      "carbon_critical" => "C2?"
+    )
+
   end
 
   formatter :html do

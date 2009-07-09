@@ -28,11 +28,15 @@ class ProjectAllocationsController < ApplicationController
     @project_allocations = ProjectAllocation.all
     @allocation_round = @status.selection_round
     @pa_as_csv = ProjectAllocationReport.render_csv
+    @n = Time.now
 
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @project_allocations }
-      format.csv  # index.csv.erb
+      format.csv  do
+        now = Time.now
+        send_data @pa_as_csv, :type=>'text/csv', :filename => "project_allocation_#{now.to_date}.csv"
+      end
     end
   end
 

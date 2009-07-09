@@ -34,7 +34,7 @@ class ProjectAllocation < ActiveRecord::Base
 
   delegate :title, :sure, :carbon_critical, :to => :project
   delegate :email, :discipline, :to => :student, :prefix => 'student'
-  delegate :email, :research_centre, :to => :supervisor, :prefix => 'supervisor'
+  delegate :email, :research_centre, :loading, :to => :supervisor, :prefix => 'supervisor'
   def deallocate
     p = Project.find(self.project_id)
     p.deallocate
