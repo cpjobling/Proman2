@@ -28,6 +28,7 @@
 #   limitations under the License.
 
 class Student < ActiveRecord::Base
+  acts_as_reportable
   belongs_to :user
   belongs_to :discipline
   # Student can be allocated one project.

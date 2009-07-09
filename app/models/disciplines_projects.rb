@@ -22,6 +22,7 @@
 #   limitations under the License.
 
 class DisciplinesProjects < ActiveRecord::Base
+    acts_as_reportable
     belongs_to :discipline
     belongs_to :project
 end

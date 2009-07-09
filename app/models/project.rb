@@ -31,6 +31,7 @@
 #   limitations under the License.
 
 class Project < ActiveRecord::Base
+  acts_as_reportable
   has_and_belongs_to_many :disciplines
   belongs_to :user, :foreign_key => "created_by"
   has_many :selected_projects, :dependent => :delete_all

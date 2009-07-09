@@ -26,6 +26,7 @@
 #   limitations under the License.
 
 class ResearchCentre < ActiveRecord::Base
+  acts_as_reportable
   has_many :supervisors, :dependent => :nullify # put supervisors in limbo when research group deleted
   belongs_to :coordinator, :class_name => 'User', :foreign_key => :coordinator
 

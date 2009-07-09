@@ -25,6 +25,7 @@
 #  under the License.
 
 class Status < ActiveRecord::Base
+  acts_as_reportable
   belongs_to :status_setting
 
   delegate :code, :title, :message, :permissions, :default_permissions, :octal_permissions,

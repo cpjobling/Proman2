@@ -27,12 +27,28 @@
 #   limitations under the License.
 
 class ProjectAllocation < ActiveRecord::Base
+  acts_as_reportable
   belongs_to :student
   belongs_to :project
   belongs_to :supervisor
 
+  delegate :title, :sure, :carbon_critical, :to => :project
+  delegate :email, :name, :discipline, :to => :student, :prefix => 'student'
+  delegate :email, :name, :research_centre, :to => :supervisor, :prefix => 'supervisor'
   def deallocate
     p = Project.find(self.project_id)
     p.deallocate
+  end
+
+  def sid
+    return self.student.student_id
+  end
+
+  def discipline
+    return student.discipline.name
+  end
+
+  def research_centre
+    return supervisor.research_centre.abbrev
   end
 end

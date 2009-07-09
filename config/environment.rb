@@ -12,7 +12,6 @@ Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
   # -- all .rb files in that directory are automatically loaded.
-
   # Add additional load paths for your own custom dirs
   # config.load_paths += %W( #{RAILS_ROOT}/extras )
 
@@ -23,6 +22,7 @@ Rails::Initializer.run do |config|
   # config.gem "aws-s3", :lib => "aws/s3"
   config.gem "RedCloth", :lib => "RedCloth"
   config.gem 'thoughtbot-shoulda', :lib => 'shoulda/rails', :source => "http://gems.github.com"
+  #config.gem 'murdoch', :lib=> "murdoch"
 
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
@@ -41,5 +41,9 @@ Rails::Initializer.run do |config|
 
   # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
   # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
+  config.load_paths += %W( #{RAILS_ROOT}/app/reports )
   # config.i18n.default_locale = :de
+  config.after_initialize do 
+    require "ruport"
+  end
 end

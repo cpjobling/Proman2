@@ -25,6 +25,7 @@
 #   limitations under the License.
 
 class ProjectSelection < ActiveRecord::Base
+  acts_as_reportable
   has_many :selected_projects, :order => :position, :dependent => :delete_all
   belongs_to :student
   validates_presence_of :student_id, :round

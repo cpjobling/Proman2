@@ -27,6 +27,7 @@
 #   limitations under the License.
 
 class Supervisor < ActiveRecord::Base
+  acts_as_reportable
   belongs_to :user
   belongs_to :research_centre
   has_many :students, :through => :project_allocations

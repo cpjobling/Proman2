@@ -22,6 +22,7 @@
 #   limitations under the License.
 
 class Role < ActiveRecord::Base
+  acts_as_reportable
   has_and_belongs_to_many :users
 
   # Recipe 61 "Look up constant data efficiently" in Adanced Rails Recipes

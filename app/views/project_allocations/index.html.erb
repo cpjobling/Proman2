@@ -13,6 +13,10 @@
 
 <p>As of selection/allocation round <%= @allocation_round %></p>
 
+<% if current_user.has_role?("coordinator") %>
+<p><%= link_to 'Download copy of project allocation as CSV', project_allocations_path(:format => :csv)  %></p>
+<% end %>
+
 <table id="projects" class="tablesorter">
 <thead>
 <tr>

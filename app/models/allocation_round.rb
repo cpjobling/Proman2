@@ -14,6 +14,7 @@
 #  under the License.
 
 class AllocationRound < ActiveRecord::Base
+  acts_as_reportable
   def set(round)
     self.round = round
   end
@@ -31,6 +32,6 @@ class AllocationRound < ActiveRecord::Base
   end
 
   def initial_round?
-    return self.round
+    return self.round == 1
   end
 end

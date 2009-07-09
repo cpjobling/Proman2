@@ -36,6 +36,7 @@
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
+  acts_as_reportable
 
   composed_of :name,
     :class_name => "Name",

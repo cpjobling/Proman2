@@ -31,6 +31,7 @@
 #  under the License.
 
 class StatusSetting < ActiveRecord::Base
+  acts_as_reportable
   has_one :status
 
   composed_of :default_permissions,

@@ -27,10 +27,12 @@ class ProjectAllocationsController < ApplicationController
   def index
     @project_allocations = ProjectAllocation.all
     @allocation_round = @status.selection_round
+    @pa_as_csv = ProjectAllocationReport.render_csv
 
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @project_allocations }
+      format.csv  # index.csv.erb
     end
   end
 
@@ -72,20 +74,21 @@ class ProjectAllocationsController < ApplicationController
     @selected_projects = SelectedProject.find(pa_data[:selected_projects])
     begin
       @project_allocations = []
-      @selected_projects.each do |selected_project|
-        unless selected_project.nil? # An earlier allocation may have de-allocated this selection
-          @project_allocations << selected_project.allocate_project unless selected_project.nil?
+      @selected_projects.each do |@selected_project|
+        unless @selected_project.nil? # An earlier allocation may have de-allocated this selection
+          @project_allocations << @selected_project.allocate_project unless @selected_project.nil?
         end
       end
     rescue RuntimeError => e
-      message = "ProjectAllocation failed for #{selected_project.id} #{e.message}"
+      @message = "ProjectAllocation failed for #{@selected_project.id}: #{e.message}"
     end
     respond_to do |format|
-      if message
+      if @message
+        flash[:notice] = ''
         if @project_allocations.size > 0
           flash[:notice] = "#{@project_allocations.size} project allocations were successfully created."
         end
-        flash[:notice] += "But project #{selected_project.project_id} failed to allocate. Additional information: #{message}. Try again?"
+        flash[:notice] += "Project #{@selected_project.project_id} failed to allocate. Additional information: #{@message}. Try again?"
         format.html { render :action => "new" }
         # format.xml  { render :xml => @project_allocation.errors, :status => :unprocessable_entity }
       else 
