@@ -10,5 +10,6 @@ db/*.sqlite3
 nbproject
 routes.txt
 db/csv/*
+.DS_Store
 
 

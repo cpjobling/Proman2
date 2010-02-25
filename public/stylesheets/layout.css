@@ -9,7 +9,6 @@
     margin: 1em;
     height: 60ex;
 }
-
 #project_resources {
     width: 96%;
     padding: 2px;
@@ -199,6 +198,15 @@ img {
     clear:both;
     background:#eee;
     border-top:4px solid #000;
+    margin:0;
+    padding:6px 15px !important;
+    text-align:right;
+}
+
+.menu1 {
+    clear:both;
+    background:#eee;
+    border-top:1px solid #000;
     margin:0;
     padding:6px 15px !important;
     text-align:right;
