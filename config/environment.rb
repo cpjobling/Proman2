@@ -22,7 +22,7 @@ Rails::Initializer.run do |config|
   # config.gem "aws-s3", :lib => "aws/s3"
   config.gem "haml"
   config.gem "RedCloth", :lib => "RedCloth"
-  config.gem "thoughtbot-shoulda", :lib => "shoulda", :source => "http://gems.github.com"
+  #config.gem "thoughtbot-shoulda", :lib => "shoulda", :source => "http://gems.github.com"
 
   #config.gem 'murdoch', :lib=> "murdoch"
 
