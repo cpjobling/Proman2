@@ -8,7 +8,7 @@ require 'rake/testtask'
 require 'rake/rdoctask'
 
 require 'tasks/rails'
-require "shoulda"
-require "shoulda/autoload_macros"
-require "shoulda/assertions"
-require "shoulda/rails"
+#require "shoulda"
+#require "shoulda/autoload_macros"
+#require "shoulda/assertions"
+#require "shoulda/rails"
