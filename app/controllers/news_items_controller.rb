@@ -1,6 +1,10 @@
 class NewsItemsController < ApplicationController
   # GET /news_items
   # GET /news_items.xml
+  require_role "admin", :for_all_except => [:index, :show]
+  #before_filter :get_status
+  #before_filter :can_allocate_projects?, :except => [:index, :show]
+
   def index
     @news_items = NewsItem.all
 

@@ -62,7 +62,7 @@ module TabHelper
   end
 
   def tab_order
-    [:home, :my_account, :admin, :coordinate, :projects, :project_allocations, :project_selections, :contact, :news_items, :about]
+    [:home, :my_account, :admin,:news_items, :coordinate, :projects, :project_allocations, :project_selections, :contact,  :about]
   end
 
   # Tabs accessible by visitors
@@ -89,7 +89,7 @@ module TabHelper
       :project_selections => [:project_selections, "Select your projects."],
       :project_allocations => [:project_allocations, "Allocate projects"],
       :my_account => [:my_account, "Go to your account page."],
-      :news_items => [:news, "News"]
+      :news_items => [:news_items, "News"]
 
     }
   end

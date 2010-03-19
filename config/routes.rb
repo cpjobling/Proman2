@@ -16,8 +16,6 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :news_items
 
-  map.resources :news_items
-
   map.resources :project_allocations
 
   # Restful routes
