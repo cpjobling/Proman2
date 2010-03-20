@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!--
- Copyright 2009 Swansea University
+ Copyright 2010 Swansea University
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -21,12 +21,13 @@
   </head>
   <body>
     <div id="header">
-      <h1><span class="logo"><%= proman %></span></h1>
-      <h2><%= yield(:headline) || "EG-353: Research Projects 2009-2010" %></h2>
+      <table width="100%"><tr><td>
+            <img width="100%" src="images/homepage_logo.jpg">
+      </td></tr>
+      </table>
       <%= yield(:tabs) || authorized_page_tabs %>
       <p class="menu">
       <%= render(:partial => "shared/logged_in") %> 
-      </p>
     </div>
 
     <div class="colmask threecol">
@@ -58,3 +59,4 @@
     </div>
   </body>
 </html>
+

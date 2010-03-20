@@ -1,4 +1,4 @@
-# Copyright 2009 Swansea University
+# Copyright 2009-2010 Swansea University
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -14,6 +14,8 @@
 
 
 ActionController::Routing::Routes.draw do |map|
+  map.resources :news_items
+
   map.resources :project_allocations
 
   # Restful routes

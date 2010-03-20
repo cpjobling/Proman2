@@ -1,4 +1,4 @@
-#  Copyright 2009 Swansea University.
+#  Copyright 2009-2010 Swansea University.
 # 
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -31,11 +31,11 @@ class TabHelperTest < ActionController::TestCase
     end
 
     should "have default tabs" do
-      assert_equal [:home, :projects, :contact, :about], public_tabs, "Default tabs was not #{[:home, :projects, :contact, :about]}."
+      assert_equal [:home, :projects, :news_items, :contact, :about], public_tabs, "Default tabs was not #{[:home, :projects, :news_items, :contact, :about]}."
     end
 
     should "have correct tab order" do
-      expected = [:home, :my_account, :admin, :coordinate, :projects, :project_allocations, :project_selections, :contact, :about]
+      expected = [:home, :my_account, :admin, :coordinate, :projects, :project_allocations, :project_selections, :news_items, :contact, :about]
       assert_equal expected, tab_order, "Tab order was not #{expected}"
     end
 
@@ -47,18 +47,18 @@ class TabHelperTest < ActionController::TestCase
     end
 
     should "have admintabs" do
-      expect = [:home, :admin, :projects, :contact, :about]
+      expect = [:home, :admin, :projects, :news_items, :contact, :about]
       assert_equal expect, order_tabs([:admin]), "When including :admin tabs should be #{expect}"
     end
 
     should "have coordinator tabs" do
-      expect = [:home, :coordinate, :projects, :contact, :about]
+      expect = [:home, :coordinate, :projects, :news_items, :contact, :about]
       assert_equal expect, order_tabs([:coordinate]), "When including :coordinate tabs should be #{expect}"
     end
 
 
     should "have my_account tabs order" do
-      expect = [:home, :my_account, :projects, :contact, :about]
+      expect = [:home, :my_account, :projects, :news_items, :contact, :about]
       assert_equal expect, order_tabs([:my_account]), "When including :my_account tabs should be #{expect}"
     end
 
@@ -74,17 +74,17 @@ class TabHelperTest < ActionController::TestCase
     end
 
     should "return coordinator tabs" do
-      expect = [:home, :my_account, :coordinate, :projects, :contact, :about]
+      expect = [:home, :my_account, :coordinate, :projects, :news_items, :contact, :about]
       assert_equal expect, tabs_for_role("coordinator"), "Expected coordinator's tabs"
     end
 
     should "return staff tabs" do
-      expect = [:home, :my_account, :projects, :contact, :about]
+      expect = [:home, :my_account, :projects, :news_items, :contact, :about]
       assert_equal expect, tabs_for_role("staff"), "Expected academic staff's tabs"
     end
 
     should "return student tabs" do
-      expect = [:home, :my_account, :projects, :contact, :about]
+      expect = [:home, :my_account, :projects, :news_items, :contact, :about]
       assert_equal expect, tabs_for_role("student"), "Expected student's tabs"
     end
 
@@ -100,7 +100,7 @@ class TabHelperTest < ActionController::TestCase
     end
 
     should "not have select projects tab" do
-      expect = [:home, :my_account, :projects, :contact, :about]
+      expect = [:home, :my_account, :projects, :news_items, :contact, :about]
       assert_equal expect, tabs_for_role("student"), "Expected student's tabs"
     end
   end
@@ -111,7 +111,7 @@ class TabHelperTest < ActionController::TestCase
     end
 
     should "not have allocate projects tab" do
-      expect = [:home, :my_account, :coordinate, :projects, :contact, :about]
+      expect = [:home, :my_account, :coordinate, :projects, :news_items, :contact, :about]
       assert_equal expect, tabs_for_role("coordinator"), "Expected coordinator's tabs"
     end
   end
@@ -123,7 +123,7 @@ class TabHelperTest < ActionController::TestCase
     end
 
     should "see project_selections tabs" do
-      expect = [:home, :my_account, :projects, :project_selections, :contact, :about]
+      expect = [:home, :my_account, :projects, :news_items, :project_selections, :news_items, :contact, :about]
       assert_equal expect, tabs_for_role("student"), "Expected student's tabs"
     end
   end
@@ -134,7 +134,7 @@ class TabHelperTest < ActionController::TestCase
       set_status(status_settings(:allocation1))
     end
     should "see project_allocations tabs" do
-      expect = [:home, :my_account, :coordinate, :projects, :project_allocations, :contact, :about]
+      expect = [:home, :my_account, :coordinate, :projects, :project_allocations, :news_items, :contact, :about]
       assert_equal expect, tabs_for_role("coordinator"), "Expected coordinator's tabs"
     end
 

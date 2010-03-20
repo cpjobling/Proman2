@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090626131103) do
+ActiveRecord::Schema.define(:version => 20100225121140) do
 
   create_table "allocation_round", :id => false, :force => true do |t|
     t.integer  "round",      :default => 0
@@ -40,6 +40,13 @@ ActiveRecord::Schema.define(:version => 20090626131103) do
 
   add_index "four_oh_fours", ["url", "referer"], :name => "index_four_oh_fours_on_url_and_referer", :unique => true
   add_index "four_oh_fours", ["url"], :name => "index_four_oh_fours_on_url"
+
+  create_table "news_items", :force => true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "project_allocations", :force => true do |t|
     t.integer  "student_id",       :null => false
@@ -131,7 +138,7 @@ ActiveRecord::Schema.define(:version => 20090626131103) do
 
   create_table "students", :force => true do |t|
     t.integer  "user_id"
-    t.decimal  "grade",          :precision => 10, :scale => 2
+    t.decimal  "grade"
     t.integer  "discipline_id"
     t.string   "student_id"
     t.datetime "created_at"

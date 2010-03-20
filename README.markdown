@@ -18,3 +18,10 @@ More detailed documentation will follow.
 
  - Some further development was done by Yapeng 'Tony' Goa (465858@swansea.ac.uk) in 2009-2010.
 
+## Dependencies
+
+  - ruport 1.6.3
+  - acts_as_reportable 
+
+
+
