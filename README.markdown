@@ -22,6 +22,7 @@ More detailed documentation will follow.
 
   - ruport 1.6.3
   - acts_as_reportable 
+  - mocha
 
 
 
